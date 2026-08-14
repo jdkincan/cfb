@@ -116,6 +116,7 @@ ENDPOINTS: Dict[str, Sequence[str]] = {
     "coaches": ("/coaches",),
     "recruiting_teams": ("/recruiting/teams",),
     "recruiting_players": ("/recruiting/players",),
+    "roster": ("/roster",),
     "ppa_teams": ("/ppa/teams", "/metrics/ppa/teams"),
     "advanced_stats": ("/stats/season/advanced",),
 }

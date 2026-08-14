@@ -21,6 +21,7 @@ tiebreaker on close games, not a driver.
 from __future__ import annotations
 
 import logging
+import math
 from dataclasses import dataclass, field
 from typing import Dict, Iterable, List, Optional, Tuple
 
@@ -35,6 +36,11 @@ RECENCY_DECAY = 0.75
 # Pseudo-seasons of "average coach" mixed in. 3 is heavy shrinkage on purpose.
 CAREER_SHRINK_SEASONS = 3.0
 FIRST_YEAR_PENALTY = 1.2
+# Residual (in SP+ points) that maps to ~76% of the cap. Residuals run from
+# about -6 to +14, so a hard clip at the cap would flatten the entire top of
+# the distribution to one value and throw the ordering away. Squashing through
+# tanh keeps the cap honest while preserving rank inside it.
+RESIDUAL_SCALE = 4.0
 
 
 @dataclass
@@ -82,6 +88,15 @@ class CoachModel:
     def coach_for(self, team: str) -> Optional[str]:
         return self.team_coach.get(normalize_team(team))
 
+    def squash(self, residual: float) -> float:
+        """Map an unbounded residual into the cap, preserving ordering.
+
+        A hard clip would give a coach 13 points above expectation and one 5
+        points above it the identical adjustment. tanh keeps them apart while
+        still guaranteeing the cap is never exceeded.
+        """
+        return self.cap * math.tanh(residual / RESIDUAL_SCALE)
+
     def team_score(self, team: str) -> float:
         """Coaching value for a team in points, capped and including year one."""
         coach = self.coach_for(team)
@@ -89,7 +104,7 @@ class CoachModel:
         if coach:
             prof = self.profiles.get(normalize_coach(coach))
             if prof:
-                score += prof.residual
+                score = self.squash(prof.residual)
         if self.first_year_teams.get(normalize_team(team)):
             score -= self.first_year_penalty
         return max(-self.cap, min(self.cap, score))

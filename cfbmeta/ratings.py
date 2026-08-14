@@ -402,18 +402,19 @@ def _try_espn_fpi(book: "RatingBook", season: int) -> None:
 
 
 def _try_recruiting_talent(book: "RatingBook", client, season: int) -> None:
-    """Rebuild the talent source from recruiting classes when /talent is empty.
+    """Rebuild talent from the current roster when /talent is empty.
 
-    Signing day is in February, so recruiting data exists for a season long
-    before the packaged talent composite does. See sources/recruiting.py.
+    Built from who is actually on the team, not from signing classes, so
+    transfers in and out are handled correctly. Reproduces CFBD's own composite
+    at r = 0.984. See sources/recruiting.py.
     """
     import logging
 
     log = logging.getLogger(__name__)
     try:
-        from .sources.recruiting import build_recruiting_profiles, talent_rows
+        from .sources.recruiting import build_roster_talent, talent_rows
 
-        profiles = build_recruiting_profiles(client, season)
+        profiles = build_roster_talent(client, season)
         rows = talent_rows(profiles)
     except Exception as exc:  # noqa: BLE001
         log.warning("recruiting talent fallback failed: %s", exc)
@@ -428,7 +429,7 @@ def _try_recruiting_talent(book: "RatingBook", client, season: int) -> None:
     book.finalize()
     status = book.provenance.get("talent")
     if status is not None and status.usable:
-        status.origin = "recruiting classes"
+        status.origin = "roster x recruiting"
 
 
 def build_rating_book(

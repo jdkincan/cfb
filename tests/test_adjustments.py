@@ -221,3 +221,35 @@ class TestSituational:
         model = SituationalModel()
         kickoff = dt.datetime(2025, 10, 11, 19, tzinfo=dt.timezone.utc)
         assert model.rest_adjustment("Nobody", "Nobody Else", kickoff)["total"] == 0.0
+
+
+class TestCoachSquashing:
+    """A hard clip flattened the whole top of the distribution to one value.
+
+    Measured against real data, residuals ran from about -6 to +14 while the cap
+    was 1.5, so a coach 14 points above expectation and one 5 points above it
+    received an identical adjustment. Squashing preserves the ordering.
+    """
+
+    @pytest.fixture
+    def model(self, client):
+        return build_coach_model(client, SEASON, lookback_years=4)
+
+    def test_ordering_survives_inside_the_cap(self, model):
+        big, small = model.squash(13.9), model.squash(5.2)
+        assert big > small, "large and moderate residuals must not collapse together"
+        assert big <= model.cap
+
+    def test_cap_is_never_exceeded(self, model):
+        for residual in (0, 5, 20, 100, -20, -100):
+            assert abs(model.squash(residual)) <= model.cap + 1e-9
+
+    def test_squash_is_antisymmetric(self, model):
+        assert model.squash(7.0) == pytest.approx(-model.squash(-7.0))
+
+    def test_zero_residual_is_neutral(self, model):
+        assert model.squash(0.0) == pytest.approx(0.0)
+
+    def test_small_residuals_are_nearly_linear(self, model):
+        # Near zero the squash shouldn't distort a modest signal much.
+        assert model.squash(1.0) == pytest.approx(model.cap / 4.0, rel=0.15)

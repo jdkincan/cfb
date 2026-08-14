@@ -1,8 +1,8 @@
 # cfb
 
 College football meta-forecast. Distills the public rating systems into one
-projected margin per game, grades it against the market, and emails the readout
-every Thursday at 7am.
+projected margin per game, grades it against the market, and produces the
+readout every Thursday at 7am. (Email delivery is held for now — see setup.)
 
 Same idea as running KenPom for basketball: don't build a rating from scratch,
 distill the good ones and be disciplined about the adjustments and the sizing.
@@ -36,6 +36,15 @@ rejected by SMTP; it has to be an app password.
 Optional repository *variables* (not secrets): `SMTP_HOST`, `SMTP_PORT` if
 you'd rather not use Gmail.
 
+Never paste a key into a commit, an issue, or a chat window. If one does leak,
+rotate it — CFBD keys are free to reissue and a Gmail app password can be
+revoked from your Google account without touching your real password.
+
+> **Email delivery is currently held.** The weekly workflow builds the full
+> slate and uploads it as a downloadable artifact, but sends nothing. To turn
+> sending on, add a repository **variable** named `SEND_EMAIL` set to `true`.
+> Nothing else needs to change.
+
 ### 4. Confirm the plumbing
 
 Run the **Checks** workflow manually with *"Also probe the live CFBD API"*
@@ -51,7 +60,9 @@ export CFBD_API_KEY=...
 python -m cfbmeta doctor
 ```
 
-That's it. The forecast then arrives every Thursday at 7am Eastern.
+That's it. Once `SEND_EMAIL` is switched on, the forecast arrives every
+Thursday at 7am Eastern. Until then it's waiting for you as a workflow
+artifact each week.
 
 ---
 
@@ -160,6 +171,9 @@ derived from them.
 ---
 
 ## The Thursday 7am schedule
+
+(Held for now — see the note in setup. The schedule still runs and still
+produces the readout; it just doesn't mail it.)
 
 GitHub Actions cron only speaks UTC, and 7am Eastern is 11:00 UTC in September
 but 12:00 UTC after the November clock change. The workflow fires at **both**

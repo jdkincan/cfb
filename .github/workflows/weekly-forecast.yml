@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Build and send the forecast
+      - name: Build the forecast
         env:
           CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
           SMTP_HOST: ${{ vars.SMTP_HOST || 'smtp.gmail.com' }}
@@ -62,15 +62,27 @@ jobs:
           set -euo pipefail
           args=(run --out forecast.html)
 
-          # Scheduled runs enforce the 7am-local gate. Manual runs never do:
-          # if you click the button you want it now, whatever time it is.
+          # Scheduled runs enforce the 7am-local gate so only one of the two
+          # cron hours does the work. Manual runs never do: if you click the
+          # button you want it now, whatever time it is.
           if [ "${{ github.event_name }}" = "schedule" ]; then
             args+=(--check-time)
           fi
 
+          # Email delivery is OFF until the repository variable SEND_EMAIL is
+          # set to 'true' (Settings -> Secrets and variables -> Actions ->
+          # Variables). Until then the run still builds the full slate and
+          # uploads it as an artifact, so the pipeline stays exercised and the
+          # output is reviewable without anything landing in an inbox.
+          if [ "${{ vars.SEND_EMAIL }}" = "true" ]; then
+            [ "${{ inputs.dry_run }}" = "true" ] && args+=(--dry-run)
+          else
+            echo "SEND_EMAIL is not 'true' — building the readout without sending."
+            args+=(--no-email)
+          fi
+
           [ -n "${{ inputs.week }}" ]   && args+=(--week "${{ inputs.week }}")
           [ -n "${{ inputs.season }}" ] && args+=(--season "${{ inputs.season }}")
-          [ "${{ inputs.dry_run }}" = "true" ] && args+=(--dry-run)
 
           python -m cfbmeta "${args[@]}"
 

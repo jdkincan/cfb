@@ -20,7 +20,7 @@ from zoneinfo import ZoneInfo
 from .adjustments import build_situational_model, parse_start
 from .backtest import collect_rows, evaluate, fit_edge_shrink, fit_key_numbers, fit_weights
 from .coaching import build_coach_model
-from .config import Config
+from .config import Config, load_dotenv
 from .hfa import build_hfa_model
 from .model import project_slate
 from .probability import KEY_NUMBERS_PATH
@@ -166,7 +166,9 @@ def cmd_run(args, config: Config) -> int:
     season = args.season or config.resolved_season(now.date())
     client = make_client(config)
 
-    week = args.week or resolve_week(client, config, season)
+    # `is not None`, not truthiness: week 0 is a real week and would otherwise
+    # be silently replaced by auto-detection.
+    week = args.week if args.week is not None else resolve_week(client, config, season)
     if week is None:
         log.info("no upcoming week found for %d — the season is likely over.", season)
         return 0
@@ -389,6 +391,8 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     args = build_parser().parse_args(argv)
     setup_logging(args.verbose)
+    # Pick up a local .env before anything reads credentials from the env.
+    load_dotenv()
     config = Config.load(args.config)
 
     try:

@@ -15,6 +15,36 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONFIG_PATH = REPO_ROOT / "config.yml"
+DEFAULT_ENV_PATH = REPO_ROOT / ".env"
+
+
+def load_dotenv(path: Path | str | None = None) -> int:
+    """Read KEY=VALUE lines from an untracked .env into the environment.
+
+    So `CFBD_API_KEY` can live in one local file instead of being exported in
+    every shell — without the key ever entering git. `.env` is gitignored, and
+    it must stay that way: a key committed to a repository is a key that has to
+    be reissued, and GitHub's secret scanning will often revoke it for you.
+
+    Real environment variables always win, so CI (which injects secrets
+    properly) is never overridden by a stray local file.
+    """
+    path = Path(path) if path else DEFAULT_ENV_PATH
+    if not path.exists():
+        return 0
+
+    loaded = 0
+    for raw in path.read_text().splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip().removeprefix("export ").strip()
+        value = value.strip().strip("'\"")
+        if key and key not in os.environ:
+            os.environ[key] = value
+            loaded += 1
+    return loaded
 
 
 @dataclass
@@ -165,7 +195,24 @@ class Config:
         return today.year if today.month >= 3 else today.year - 1
 
     def prior_weight(self, week: int) -> float:
-        return float(self.prior_weight_by_week.get(int(week), 0.0))
+        """How much weight to shift away from the in-season sources.
+
+        Weeks earlier than the first configured entry (notably week 0, the
+        handful of games played before the season proper) clamp to the earliest
+        configured value rather than falling through to zero. Falling through
+        would hand Elo and SRS their full weight in the very first games of the
+        year, which is precisely when those ratings are pure carryover and
+        carry no current-season signal at all.
+        """
+        week = int(week)
+        if not self.prior_weight_by_week:
+            return 0.0
+        if week in self.prior_weight_by_week:
+            return float(self.prior_weight_by_week[week])
+        earliest = min(self.prior_weight_by_week)
+        if week < earliest:
+            return float(self.prior_weight_by_week[earliest])
+        return 0.0
 
     def save(self, path: Path | str | None = None) -> None:
         path = Path(path) if path else DEFAULT_CONFIG_PATH

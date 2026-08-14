@@ -56,9 +56,13 @@ Locally, the same thing:
 
 ```bash
 pip install -r requirements.txt
-export CFBD_API_KEY=...
+echo 'CFBD_API_KEY=your-key-here' > .env   # untracked; never commit it
 python -m cfbmeta doctor
 ```
+
+`.env` is read automatically and is gitignored, so the key lives in one local
+file instead of being exported in every shell. Real environment variables
+always win, so CI secrets are never overridden by a stray local file.
 
 That's it. Once `SEND_EMAIL` is switched on, the forecast arrives every
 Thursday at 7am Eastern. Until then it's waiting for you as a workflow
@@ -70,6 +74,8 @@ artifact each week.
 
 ```bash
 python -m cfbmeta run --no-email        # print this week's slate
+python -m cfbmeta preview --week 0      # week 0 specifically
+python -m cfbmeta preview --week 1
 python -m cfbmeta preview --week 6      # render to preview.html
 python -m cfbmeta run --dry-run         # full run, stops short of sending
 python -m cfbmeta doctor                # verify credentials and endpoints

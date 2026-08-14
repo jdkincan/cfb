@@ -31,7 +31,10 @@ weights:
 
 # Fraction of each week's Elo/SRS weight shifted to the preseason-anchored
 # sources. Those two describe only results so far, which in September is noise.
+# Week 0 is listed explicitly, and anything earlier than the first entry
+# clamps to it, so the season's first games never hand Elo/SRS full weight.
 prior_weight_by_week:
+  0: 0.80
   1: 0.75
   2: 0.60
   3: 0.45

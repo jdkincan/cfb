@@ -5,6 +5,7 @@ week, build every model, render, and hand off to the mailer.
 """
 
 import datetime as dt
+import os
 from pathlib import Path
 from unittest import mock
 
@@ -162,3 +163,92 @@ class TestConfigLoading:
         config = Config.load(Path(__file__).resolve().parent.parent / "config.yml")
         assert sum(config.weights.normalized().values()) == pytest.approx(1.0)
         assert 0.0 <= config.edge_shrink <= 1.0
+
+
+class TestWeekZero:
+    """Week 0 is a real slate (Ireland, the early kickoffs) and an easy one to
+    break: it is falsy as an int and it sits before the first configured
+    early-season entry.
+    """
+
+    def test_week_zero_is_not_swallowed_by_auto_detection(self, patched, tmp_path, monkeypatch):
+        seen = {}
+        real = cli.build_projections
+
+        def spy(client, config, season, week):
+            seen["week"] = week
+            return real(client, config, season, week)
+
+        monkeypatch.setattr(cli, "build_projections", spy)
+        # If week 0 were treated as falsy, this would silently become week 6.
+        run(["preview", "--week", "0", "--out", str(tmp_path / "w0.html")], patched)
+        assert seen["week"] == 0
+
+    def test_week_zero_downweights_the_in_season_sources(self):
+        from cfbmeta.model import effective_weights
+
+        config = Config.load(Path(__file__).resolve().parent.parent / "config.yml")
+        week0 = effective_weights(config, 0)
+        week1 = effective_weights(config, 1)
+        late = effective_weights(config, 12)
+
+        # Week 0 has even less current-season signal than week 1.
+        assert week0["elo"] <= week1["elo"] < late["elo"]
+        assert week0["srs"] <= week1["srs"] < late["srs"]
+        assert week0["sp_plus"] >= week1["sp_plus"] > late["sp_plus"]
+
+    def test_weeks_before_the_first_entry_clamp_rather_than_fall_through(self):
+        config = Config()
+        config.prior_weight_by_week = {1: 0.75, 2: 0.60}
+        # Falling through to 0.0 would give Elo/SRS full weight in week 0.
+        assert config.prior_weight(0) == pytest.approx(0.75)
+        assert config.prior_weight(-1) == pytest.approx(0.75)
+        assert config.prior_weight(2) == pytest.approx(0.60)
+        assert config.prior_weight(9) == 0.0
+
+    def test_empty_schedule_map_is_safe(self):
+        config = Config()
+        config.prior_weight_by_week = {}
+        assert config.prior_weight(0) == 0.0
+
+
+class TestDotenv:
+    def test_reads_key_values(self, tmp_path, monkeypatch):
+        from cfbmeta.config import load_dotenv
+
+        env_file = tmp_path / ".env"
+        env_file.write_text(
+            "# a comment\n"
+            "CFBD_API_KEY=abc123\n"
+            "export SMTP_USER='me@example.com'\n"
+            'EMAIL_TO="you@example.com"\n'
+            "\n"
+            "MALFORMED\n"
+        )
+        monkeypatch.delenv("CFBD_API_KEY", raising=False)
+        monkeypatch.delenv("SMTP_USER", raising=False)
+        monkeypatch.delenv("EMAIL_TO", raising=False)
+
+        assert load_dotenv(env_file) == 3
+        assert os.environ["CFBD_API_KEY"] == "abc123"
+        assert os.environ["SMTP_USER"] == "me@example.com"
+        assert os.environ["EMAIL_TO"] == "you@example.com"
+
+    def test_real_environment_wins(self, tmp_path, monkeypatch):
+        from cfbmeta.config import load_dotenv
+
+        env_file = tmp_path / ".env"
+        env_file.write_text("CFBD_API_KEY=from-file\n")
+        monkeypatch.setenv("CFBD_API_KEY", "from-ci-secret")
+        load_dotenv(env_file)
+        # CI injects secrets properly; a stray local file must not override.
+        assert os.environ["CFBD_API_KEY"] == "from-ci-secret"
+
+    def test_missing_file_is_a_no_op(self, tmp_path):
+        from cfbmeta.config import load_dotenv
+
+        assert load_dotenv(tmp_path / "nope.env") == 0
+
+    def test_dotenv_is_gitignored(self):
+        ignored = (Path(__file__).resolve().parent.parent / ".gitignore").read_text()
+        assert ".env" in ignored, "a committed .env would leak the API key"

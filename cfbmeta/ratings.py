@@ -84,11 +84,16 @@ class SourceStatus:
     usable: bool = False
     dispersion: float = 0.0
     reason: str = ""
+    origin: str = "CFBD"
 
     def describe(self) -> str:
         label = SOURCE_DISPLAY.get(self.source, self.source)
         if self.usable:
-            return f"{label} {self.season}: {self.teams} teams (spread {self.dispersion:.1f})"
+            via = "" if self.origin == "CFBD" else f" via {self.origin}"
+            return (
+                f"{label} {self.season}: {self.teams} teams"
+                f" (spread {self.dispersion:.1f}){via}"
+            )
         return f"{label} {self.season}: unusable — {self.reason}"
 
 
@@ -350,7 +355,58 @@ def _stdev(values: List[float]) -> float:
     return math.sqrt(var)
 
 
-def build_rating_book(client, season: int, week: Optional[int] = None) -> RatingBook:
+def _try_espn_fpi(book: "RatingBook", season: int) -> None:
+    """Fill FPI from ESPN when CFBD has none, for teams already in the book.
+
+    Only known teams are filled. ESPN's naming differs in places ("Miami (FL)"),
+    and creating book entries from unmatched names would invent teams that no
+    game ever refers to.
+    """
+    import logging
+
+    log = logging.getLogger(__name__)
+    previous = book.provenance.get("fpi")
+    try:
+        from .sources.espn import fetch_fpi
+
+        rows = fetch_fpi(season)
+    except Exception as exc:  # noqa: BLE001
+        log.warning("ESPN FPI fallback failed: %s", exc)
+        return
+    if not rows:
+        return
+
+    matched = 0
+    for row in rows:
+        team = row.get("team")
+        value = row.get("fpi")
+        if team is None or value is None:
+            continue
+        # Only teams CFBD already gave us; never introduce new ones.
+        if normalize_team(team) in book.teams:
+            book.add(book.teams[normalize_team(team)].team, "fpi", float(value))
+            matched += 1
+
+    if not matched:
+        log.warning("ESPN FPI returned %d teams, none matched the book", len(rows))
+        return
+
+    log.info("ESPN FPI fallback filled %d of %d teams", matched, len(book))
+    book._prune_degenerate_sources()
+    status = book.provenance.get("fpi")
+    if status is not None and status.usable:
+        status.origin = "ESPN"
+    elif status is not None and previous is not None:
+        # Fallback didn't rescue it; keep whichever reason is more informative.
+        status.reason = f"{status.reason} (ESPN fallback matched {matched} teams)"
+
+
+def build_rating_book(
+    client,
+    season: int,
+    week: Optional[int] = None,
+    espn_fpi_fallback: bool = True,
+) -> RatingBook:
     """Pull every rating source for a season into one book.
 
     A source that errors is logged and skipped rather than killing the run: a
@@ -385,6 +441,13 @@ def build_rating_book(client, season: int, week: Optional[int] = None) -> Rating
                 )
 
     book.finalize()
+
+    # CFBD mirrors ESPN's FPI on its own schedule and can lag at the start of a
+    # season. If it came back unusable, try ESPN directly before giving up on
+    # the source entirely.
+    if espn_fpi_fallback and not book.provenance.get("fpi", SourceStatus("fpi", season)).usable:
+        _try_espn_fpi(book, season)
+
     for line in book.provenance_lines():
         log.info("  %s", line)
     if not book.usable_sources():

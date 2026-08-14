@@ -159,15 +159,33 @@ The season is inferred from the date (`season: 0`), so an August 2026 run
 requests **2026** everywhere — ratings, schedule, lines, coaches — and January
 bowls still resolve to the 2026 season rather than 2027.
 
-But requesting 2026 is not the same as getting it. In August:
+But requesting 2026 is not the same as getting it, and availability shifts
+year to year. **Don't trust a table for this — run `doctor`**, which reports
+exactly what each source returned for the season you asked for. As a rough
+guide: SP+ and the talent composite are usually out well before kickoff, FPI
+depends on when CFBD ingests ESPN's publication, and SRS and Elo cannot mean
+anything until games have been played.
 
-| Source | Preseason availability |
-| --- | --- |
-| SP+ | published in spring, available |
-| Talent composite | available once signing day closes |
-| FPI | ESPN posts it closer to week 1 |
-| SRS | derived from results — nothing until games are played |
-| Elo | preseason values are carryover, often flat |
+### FPI: CFBD first, ESPN as a fallback
+
+FPI comes through CFBD's `/ratings/fpi`, which mirrors ESPN on its own ingest
+schedule. Those can diverge early in a season — ESPN publishes the new year's
+FPI before CFBD picks it up — so if CFBD's FPI comes back unusable the run
+falls back to ESPN's public power-index endpoint directly.
+
+CFBD stays primary; ESPN is only consulted to fill a gap, and only for teams
+already in the book, so a name that doesn't join cleanly is skipped rather than
+inventing a team no game refers to. The audit line says which one supplied it:
+
+```
+FPI 2026: 134 teams (spread 14.0) via ESPN
+```
+
+That endpoint is undocumented and its shape has changed over the years, so the
+parser searches the payload for a team name and an FPI-labelled value wherever
+they sit, rather than assuming one path. If it finds nothing, FPI is simply
+marked unusable and the blend carries on without it. Disable the fallback by
+passing `espn_fpi_fallback=False` to `build_rating_book`.
 
 The dangerous case is not a missing source. It's a source that returns a row
 for **every team with identical values** — a preseason SRS where everyone sits

@@ -1,0 +1,698 @@
+<title>CFB Meta Forecast</title>
+<style>
+  /* Light palette is the base. Dark redefines tokens only, twice, so the
+     un-stamped system state and the explicit toggle both resolve. */
+  :root {
+    --paper:      #f2f5f3;
+    --surface:    #ffffff;
+    --surface-2:  #e9eeeb;
+    --ink:        #11181a;
+    --ink-soft:   #3d4a4c;
+    --muted:      #61716f;
+    --rule:       #d7e0dc;
+    --rule-soft:  #e6ecea;
+    --accent:     #0d6a55;
+    --accent-ink: #0a4f3f;
+    --accent-wash:#dcece6;
+    --warn:       #8a5a00;
+    --warn-wash:  #f7ecd5;
+    --danger:     #9b2226;
+    --danger-wash:#f6dedd;
+    --shadow:     0 1px 2px rgba(17,24,26,.06), 0 8px 24px rgba(17,24,26,.05);
+
+    --display: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    --body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+
+    --measure: 68ch;
+    --step--1: clamp(.78rem, .76rem + .1vw, .84rem);
+    --step-0:  clamp(1rem, .97rem + .15vw, 1.075rem);
+    --step-1:  clamp(1.2rem, 1.1rem + .4vw, 1.4rem);
+    --step-2:  clamp(1.5rem, 1.3rem + .8vw, 1.95rem);
+    --step-3:  clamp(2rem, 1.6rem + 1.7vw, 3rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #0c1214;
+      --surface:    #131c1e;
+      --surface-2:  #1a2528;
+      --ink:        #e7efec;
+      --ink-soft:   #c2d0cd;
+      --muted:      #8b9d9a;
+      --rule:       #24322f;
+      --rule-soft:  #1c2827;
+      --accent:     #4cbe9e;
+      --accent-ink: #7fd7bd;
+      --accent-wash:#12302a;
+      --warn:       #d7a44a;
+      --warn-wash:  #2e2515;
+      --danger:     #e8808a;
+      --danger-wash:#331a1d;
+      --shadow:     0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #0c1214;
+    --surface:    #131c1e;
+    --surface-2:  #1a2528;
+    --ink:        #e7efec;
+    --ink-soft:   #c2d0cd;
+    --muted:      #8b9d9a;
+    --rule:       #24322f;
+    --rule-soft:  #1c2827;
+    --accent:     #4cbe9e;
+    --accent-ink: #7fd7bd;
+    --accent-wash:#12302a;
+    --warn:       #d7a44a;
+    --warn-wash:  #2e2515;
+    --danger:     #e8808a;
+    --danger-wash:#331a1d;
+    --shadow:     0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1.5rem; }
+  .wide { max-width: 92ch; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ---- masthead ---- */
+  header.masthead {
+    border-bottom: 1px solid var(--rule);
+    background: var(--surface);
+    padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem);
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 .9rem;
+  }
+  h1 {
+    font-family: var(--display);
+    font-size: var(--step-3);
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    font-weight: 600;
+    margin: 0 0 .75rem;
+    text-wrap: balance;
+  }
+  .standfirst {
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin: 0 0 1.75rem;
+    text-wrap: pretty;
+  }
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    font-family: var(--mono); font-size: var(--step--1); color: var(--muted);
+    padding-top: 1.25rem; border-top: 1px solid var(--rule-soft);
+  }
+  .meta-row b { color: var(--ink); font-weight: 600; }
+
+  /* ---- structure ---- */
+  main { padding: clamp(2rem, 5vw, 3.5rem) 0 5rem; }
+  section { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  h2 {
+    font-family: var(--display);
+    font-size: var(--step-2); line-height: 1.15; letter-spacing: -.015em;
+    font-weight: 600; margin: 0 0 1rem; text-wrap: balance;
+  }
+  h3 {
+    font-size: var(--step-0); font-weight: 700; margin: 2rem 0 .5rem;
+    letter-spacing: -.005em;
+  }
+  p { margin: 0 0 1rem; text-wrap: pretty; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--mono); font-size: .89em;
+    background: var(--surface-2); padding: .12em .38em; border-radius: 3px;
+  }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+  li { margin-bottom: .4rem; }
+  li::marker { color: var(--muted); }
+
+  /* ---- callouts ---- */
+  .note {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-wash);
+    padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .note.warn { border-left-color: var(--warn); background: var(--warn-wash); }
+  .note.stop { border-left-color: var(--danger); background: var(--danger-wash); }
+  .note p:last-child { margin-bottom: 0; }
+  .note .label {
+    display: block; font-family: var(--mono); font-size: var(--step--1);
+    letter-spacing: .08em; text-transform: uppercase; margin-bottom: .4rem;
+    color: var(--accent-ink);
+  }
+  .note.warn .label { color: var(--warn); }
+  .note.stop .label { color: var(--danger); }
+
+  /* ---- pipeline: a real sequence, so it earns numbering ---- */
+  ol.pipeline { list-style: none; padding: 0; counter-reset: step; margin: 1.5rem 0; }
+  ol.pipeline > li {
+    counter-increment: step; position: relative;
+    padding: 0 0 1.4rem 3rem; margin: 0;
+    border-left: 1px solid var(--rule); margin-left: 1rem;
+  }
+  ol.pipeline > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  ol.pipeline > li::before {
+    content: counter(step);
+    position: absolute; left: -1rem; top: -.1rem;
+    width: 2rem; height: 2rem; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--rule);
+    color: var(--accent); font-family: var(--mono); font-size: .8rem; font-weight: 600;
+    display: grid; place-items: center;
+  }
+  ol.pipeline h3 { margin: 0 0 .3rem; }
+  ol.pipeline p { margin: 0; color: var(--ink-soft); }
+
+  /* ---- data ---- */
+  .scroll { overflow-x: auto; margin: 1.5rem 0; border-radius: 8px; border: 1px solid var(--rule); }
+  table { border-collapse: collapse; width: 100%; font-size: var(--step--1); background: var(--surface); }
+  th, td { text-align: left; padding: .6rem .85rem; border-bottom: 1px solid var(--rule-soft); }
+  th {
+    font-family: var(--mono); font-size: .74rem; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+    background: var(--surface-2); white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  td.key { font-family: var(--mono); white-space: nowrap; color: var(--ink); }
+
+  pre {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 8px; padding: 1rem 1.1rem; overflow-x: auto;
+    font-family: var(--mono); font-size: var(--step--1); line-height: 1.55;
+    margin: 1.5rem 0; color: var(--ink-soft);
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  .formula {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+    padding: 1rem 1.1rem; margin: 1.25rem 0; font-family: var(--mono);
+    font-size: var(--step--1); overflow-x: auto; color: var(--ink);
+  }
+  .formula .c { color: var(--muted); }
+
+  .pill {
+    display: inline-block; font-family: var(--mono); font-size: .72rem;
+    letter-spacing: .05em; text-transform: uppercase; padding: .15em .5em;
+    border-radius: 3px; font-weight: 600;
+  }
+  .pill.ok   { background: var(--accent-wash); color: var(--accent-ink); }
+  .pill.warn { background: var(--warn-wash);   color: var(--warn); }
+  .pill.bad  { background: var(--danger-wash); color: var(--danger); }
+
+  hr.div { border: none; border-top: 1px solid var(--rule); margin: 3rem 0; }
+  footer {
+    border-top: 1px solid var(--rule); background: var(--surface);
+    padding: 2rem 0 3rem; color: var(--muted); font-size: var(--step--1);
+  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Technical notes · cfbmeta 1.0</p>
+    <h1>CFB Meta Forecast</h1>
+    <p class="standfirst">
+      A weekly college football handicapping system that distills the public rating
+      systems into one projected margin per game, grades it against the market, and
+      reports how much of the disagreement is worth betting.
+    </p>
+    <div class="meta-row">
+      <span>Season <b>2026</b></span>
+      <span>Tests <b>239</b></span>
+      <span>Sources <b>5 + market</b></span>
+      <span>Status <b>not yet run live</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section>
+      <div class="note stop">
+        <span class="label">Read this first</span>
+        <p>
+          <strong>No live 2026 output exists yet.</strong> Every number in this
+          document is either a configuration value, a formula, or a worked example
+          built from synthetic fixtures. The system has never successfully reached
+          collegefootballdata.com, because the environment it was built in blocks
+          outbound traffic to every sports-data host at the network layer.
+        </p>
+        <p>
+          That is a property of the build environment, not of the code or the API
+          key. <code>python -m cfbmeta doctor</code> from anywhere with open egress
+          resolves it in about ten seconds, and is the first thing to run.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>What the system is for</h2>
+      <p>
+        The premise is that building another rating from scratch is not where the
+        edge is. Several good public ratings already exist, they disagree with each
+        other in informative ways, and none of them adjusts for the specific
+        circumstances of a given Saturday. The work is in the distillation, the
+        adjustments, and — most of all — in being honest about how much of the
+        resulting disagreement with the betting market is real.
+      </p>
+      <p>
+        Output is one email per week containing every game on the slate: the model's
+        number, the market's number, the gap between them, a probability, and a
+        stake in units. Underneath each game sits a full audit trail, so any point
+        of any projection can be traced to the thing that produced it.
+      </p>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>Data sources</h2>
+      <p>
+        Everything comes from <a href="https://collegefootballdata.com">CFBD</a> on a
+        free API key, with one fallback. Five rating sources feed the blend; the
+        remaining endpoints feed the adjustment layer.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Source</th><th>Native scale</th><th>Handling</th><th>Preseason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="key">SP+</td><td>points/game</td><td>used directly</td><td><span class="pill ok">usually ready</span></td></tr>
+            <tr><td class="key">FPI</td><td>points/game</td><td>used directly</td><td><span class="pill warn">depends on ingest</span></td></tr>
+            <tr><td class="key">SRS</td><td>points/game</td><td>used directly</td><td><span class="pill bad">needs games</span></td></tr>
+            <tr><td class="key">Elo</td><td>Elo points</td><td>z-scored to SP+ spread</td><td><span class="pill bad">flat carryover</span></td></tr>
+            <tr><td class="key">Talent</td><td>247 composite</td><td>z-scored to SP+ spread</td><td><span class="pill ok">usually ready</span></td></tr>
+            <tr><td class="key">Lines</td><td>spread / total</td><td>median across books</td><td><span class="pill ok">posted early</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        SP+, FPI and SRS are already published as net points per game against an
+        average opponent, so they need no conversion. Elo and the talent composite
+        are not, so they are z-scored across FBS and stretched to match the standard
+        deviation of that season's SP+ ratings. The conversion therefore recalibrates
+        itself every year instead of depending on a constant that slowly goes stale.
+      </p>
+
+      <h3>FPI has a second path</h3>
+      <p>
+        FPI reaches the model through CFBD's <code>/ratings/fpi</code>, which mirrors
+        ESPN on its own ingest schedule. Those diverge early in a season. If CFBD's
+        FPI comes back unusable the run falls back to ESPN's public power-index
+        endpoint directly, filling only teams already in the book so an unmatched
+        name never invents a team no game refers to. The audit line records which
+        provider supplied it.
+      </p>
+
+      <h3>A source with no opinion is not a weak opinion</h3>
+      <p>
+        The dangerous preseason failure is not a missing source — that degrades
+        cleanly. It is a source that returns a row for every team with all the
+        values identical, which is what an August SRS looks like. Blended, that
+        predicts a tie in every game and drags the whole slate toward pick'em while
+        the run looks perfectly healthy.
+      </p>
+      <p>
+        So any source with fewer than <strong>10 rated teams</strong> or under
+        <strong>0.5 points of spread</strong> between them is dropped outright and
+        the weights renormalize over what remains. Every source's status is recorded
+        and printed in <code>doctor</code>, in the run log, and in the footer of the
+        email itself:
+      </p>
+      <pre><code>OK    SP+ 2026: 136 teams (spread 14.2)
+OK    FPI 2026: 134 teams (spread 14.0) via ESPN
+OK    Talent 2026: 136 teams (spread 10.5)
+WARN  SRS 2026: unusable — all 136 teams within 0.00 pts — no games played yet
+WARN  Elo 2026: unusable — all 136 teams within 0.00 pts — no games played yet</code></pre>
+      <p>
+        If no source is usable the run fails loudly with that audit attached, rather
+        than emitting a slate of zeros.
+      </p>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>The pipeline</h2>
+      <ol class="pipeline">
+        <li>
+          <h3>Each source proposes a neutral-field margin</h3>
+          <p>Home rating minus away rating, in points. A source missing either team drops out and the weights renormalize over the rest.</p>
+        </li>
+        <li>
+          <h3>Blend by weight</h3>
+          <p>A weighted mean over whichever sources actually showed up, not over the full configured set.</p>
+        </li>
+        <li>
+          <h3>Add home field once</h3>
+          <p>On top of the blend, not per source — every source is quoted as a neutral-field rating, so adding it per component would multiply it.</p>
+        </li>
+        <li>
+          <h3>Apply situational adjustments</h3>
+          <p>Coaching, rest, travel. Each capped individually, then capped again in aggregate at ±4 points.</p>
+        </li>
+        <li>
+          <h3>Compare against the market</h3>
+          <p>The difference is the raw edge. What happens to it next is the most consequential decision in the system.</p>
+        </li>
+      </ol>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>Weighting</h2>
+      <p>
+        The shipped weights are priors, not measurements. <code>backtest --fit</code>
+        re-estimates them by least squares against completed games and writes them
+        back to <code>config.yml</code>.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Source</th><th class="num">Base</th><th class="num">Week 0</th><th class="num">Week 1</th><th class="num">Week 12</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="key">SP+</td><td class="num">0.400</td><td class="num">0.507</td><td class="num">0.500</td><td class="num">0.400</td></tr>
+            <tr><td class="key">FPI</td><td class="num">0.250</td><td class="num">0.317</td><td class="num">0.312</td><td class="num">0.250</td></tr>
+            <tr><td class="key">Talent</td><td class="num">0.100</td><td class="num">0.127</td><td class="num">0.125</td><td class="num">0.100</td></tr>
+            <tr><td class="key">Elo</td><td class="num">0.150</td><td class="num">0.030</td><td class="num">0.038</td><td class="num">0.150</td></tr>
+            <tr><td class="key">SRS</td><td class="num">0.100</td><td class="num">0.020</td><td class="num">0.025</td><td class="num">0.100</td></tr>
+            <tr><td class="key">Market</td><td class="num">0.000</td><td class="num">0.000</td><td class="num">0.000</td><td class="num">0.000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Elo and SRS describe only what has happened so far, which in week 2 is
+        almost nothing. Early in the season most of their weight is shifted to the
+        preseason-anchored sources and returned week by week, reaching the base
+        weights by week 8.
+      </p>
+      <div class="note">
+        <span class="label">Why market weight is zero</span>
+        <p>
+          The closing line is the benchmark the system is trying to beat. Folding it
+          into the forecast would launder away the very disagreement being measured —
+          the model would agree with the market by construction and report a small
+          edge that means nothing. It stays an input to the comparison, never to the
+          projection. Raise it only if a backtest shows the blend is genuinely worse
+          than the line.
+        </p>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>Home field, per venue</h2>
+      <p>
+        Every rating already bakes an average home field into itself, but home field
+        is not uniform. The estimator uses each team as its own control:
+      </p>
+      <div class="formula">
+raw_hfa(team) = (mean margin at home − mean margin away) / 2
+      </div>
+      <p>
+        Team quality cancels out of the difference, leaving mostly venue effect plus
+        noise. Because it is noisy, it is shrunk hard toward the league mean with a
+        60-game pseudo-count:
+      </p>
+      <div class="formula">
+hfa = (n · raw_hfa + 60 · league_mean) / (n + 60)   <span class="c">— clamped to [0, 5]</span>
+      </div>
+      <p>
+        The league mean itself is re-centred on what five seasons of results actually
+        show rather than left as a constant. Altitude is handled separately, as a
+        differential against where the visitor normally plays — Wyoming hosting
+        Florida is a real edge, Wyoming hosting Air Force is not.
+      </p>
+    </section>
+
+    <section>
+      <h2>Coaching, measured against talent</h2>
+      <p>
+        "Good coach" is easy to assert and hard to quantify. The measurable version:
+        fit how much SP+ rating a team's recruiting talent buys on average, then
+        credit the coach with the residual.
+      </p>
+      <div class="formula">
+expected_sp = slope · talent_z + intercept
+residual    = actual_sp − expected_sp
+score       = Σ(residual · 0.75^age) / Σ(0.75^age) · den/(den + 3)
+      </div>
+      <p>
+        Recent seasons count more, career length shrinks the result toward zero, and
+        a first-year hire takes a 1.2-point penalty for scheme turnover and roster
+        fit. The whole thing is capped at ±1.5 points. It is a tiebreaker on close
+        games, never a driver.
+      </p>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>Uncertainty</h2>
+      <p>
+        Margins are modelled with σ ≈ 16 points. But college football margins are
+        not smoothly normal — they pile up on 3 and 7, and to a lesser degree 10, 14,
+        17 and 21. A plain normal misprices any bet sitting on a key number, so the
+        distribution is discretized over integers and those are reweighted:
+      </p>
+      <div class="formula">
+P(margin = m) ∝ φ((m − μ)/σ) · key(|m|),   m ≠ 0
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Margin</th><th class="num">3</th><th class="num">7</th><th class="num">10</th><th class="num">14</th><th class="num">17</th><th class="num">21</th></tr></thead>
+          <tbody><tr><td class="key">Weight</td><td class="num">1.95</td><td class="num">1.55</td><td class="num">1.25</td><td class="num">1.20</td><td class="num">1.15</td><td class="num">1.15</td></tr></tbody>
+        </table>
+      </div>
+      <p>
+        Margins of zero are excluded — overtime settles ties. Defaults come from
+        published FBS margin frequencies and
+        <code>backtest --fit-key-numbers</code> re-derives them from actual results.
+      </p>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>Edge shrink</h2>
+      <p>
+        This is the most important idea in the system, and the one most handicapping
+        tools get wrong.
+      </p>
+      <p>
+        Taking a raw disagreement at face value assumes our number is correct and the
+        closing line is wrong by that full amount. It is not. The closing line is the
+        sharpest public estimate that exists, and when a model built from public
+        ratings disagrees with it by seven points, most of that gap is our error, not
+        theirs. So only a fraction of the disagreement is treated as signal:
+      </p>
+      <div class="formula">
+edge          = projected_margin − market_margin
+settled       = market_margin + edge · <b>0.35</b>
+cover, stake  <span class="c">computed from `settled`, never from `projected`</span>
+      </div>
+      <p>
+        The raw edge is still reported — that is the honest description of the
+        disagreement — but the money is sized off the shrunk one.
+        <code>backtest --fit</code> estimates the right fraction by regressing actual
+        margins on the market line and on our disagreement with it; the coefficient
+        on the disagreement <em>is</em> the shrink. Values near 0.2–0.4 are typical.
+        Anything approaching 1.0 should be read as a bug or as lookahead
+        contamination, not as an edge.
+      </p>
+      <div class="note warn">
+        <span class="label">What this changed</span>
+        <p>
+          The first working build had no shrink. Every play came out at the 3-unit
+          cap quoting 65% cover, because a 6.6-point disagreement looks enormous when
+          you assume you are right. With the shrink, the same slate produced stakes
+          ranging from 0.37u to 2.36u and cover probabilities between 53% and 55% —
+          which is what a real edge actually looks like.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Staking</h2>
+      <p>
+        Quarter-Kelly against a 100-unit bankroll, capped at 3 units, priced at −110.
+      </p>
+      <div class="formula">
+b     = 0.909                      <span class="c">— profit per unit at −110</span>
+EV    = p · b − (1 − p)
+kelly = (b · p − q) / b            <span class="c">— q renormalized over non-push outcomes</span>
+units = kelly · 0.25 · 100         <span class="c">— capped at 3.0</span>
+      </div>
+      <p>
+        A push returns the stake, so it is excluded from both sides rather than
+        counted as a loss. Nothing under 1.5 points of raw edge is called a play, and
+        nothing with non-positive EV is either.
+      </p>
+      <h3>A worked example</h3>
+      <p>
+        From a synthetic fixture, not live data — the arithmetic is what matters:
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Step</th><th class="num">Value</th></tr></thead>
+          <tbody>
+            <tr><td>Model margin</td><td class="num">+7.4</td></tr>
+            <tr><td>Market margin</td><td class="num">+14.0</td></tr>
+            <tr><td>Raw edge</td><td class="num">−6.6</td></tr>
+            <tr><td>After 0.35 shrink</td><td class="num">−2.31</td></tr>
+            <tr><td>Cover probability</td><td class="num">55.3%</td></tr>
+            <tr><td>EV at −110</td><td class="num">+5.6%</td></tr>
+            <tr><td>Stake</td><td class="num">2.36u</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Note how a 6.6-point disagreement — which sounds enormous — becomes a 55%
+        proposition. That gap between how a number feels and what it is worth is the
+        entire reason the shrink exists.
+      </p>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>Backtesting, and one caveat that matters</h2>
+      <p>
+        <code>backtest</code> measures MAE, RMSE, σ, bias, ATS record against the
+        closing line, and calibration by probability bucket. With <code>--fit</code>
+        it re-estimates the blend weights, σ, and the edge shrink from real results.
+      </p>
+      <div class="note stop">
+        <span class="label">Lookahead</span>
+        <p>
+          CFBD serves <strong>end-of-season</strong> SP+, FPI and SRS for a given
+          year. Using those to "predict" that same year's games is lookahead — the
+          ratings already know how the games turned out, which inflates accuracy and
+          makes σ look far too small.
+        </p>
+        <p>
+          So the default basis rates every game using the <strong>previous</strong>
+          season's final ratings, which genuinely existed before kickoff. It
+          understates in-season accuracy, but it never flatters the model.
+          <code>--basis same</code> exists for ranking the sources against each
+          other, since the contamination affects them similarly — its error figures
+          are labelled untrustworthy in the output, and <code>--write</code> refuses
+          to save anything derived from them.
+        </p>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>Scheduling</h2>
+      <p>
+        GitHub Actions cron speaks only UTC, and 7am Eastern is 11:00 UTC in
+        September but 12:00 UTC after the November clock change. The workflow fires
+        at <em>both</em> hours every Thursday and the run exits immediately unless
+        the local hour actually matches. Exactly one of the two does the work, all
+        season, with no schedule edit at the boundary — there is a test that walks 20
+        consecutive Thursdays across the change and asserts exactly one fire per week.
+      </p>
+      <p>
+        Out of season no upcoming week resolves and the run exits quietly. Email
+        delivery is currently held behind a <code>SEND_EMAIL</code> repository
+        variable; until it is set to <code>true</code> the workflow still builds the
+        full slate and uploads it as an artifact, but sends nothing.
+      </p>
+    </section>
+
+    <section>
+      <h2>Operating it</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Command</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td class="key">doctor</td><td>Probe every endpoint, print what each returned, audit source coverage, project a real slate end to end</td></tr>
+            <tr><td class="key">preview --week N</td><td>Render a week to HTML without sending</td></tr>
+            <tr><td class="key">run --no-email</td><td>Print the slate as text</td></tr>
+            <tr><td class="key">backtest --fit --write</td><td>Measure accuracy, refit weights, σ and shrink</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Credentials come from the environment, or from an untracked <code>.env</code>
+        at the repo root. Real environment variables always win, so injected CI
+        secrets are never shadowed by a stray local file.
+      </p>
+      <div class="note warn">
+        <span class="label">Credentials</span>
+        <p>
+          This repository is <strong>public</strong>. A key committed to it, or
+          passed as a workflow input where it lands in publicly readable logs, is
+          scraped by bots within minutes and will often be revoked automatically by
+          GitHub's secret scanning. Keys belong in repository secrets, which are
+          masked in logs, or in the gitignored <code>.env</code> locally.
+        </p>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <section>
+      <h2>What is verified, and what is not</h2>
+      <p>
+        The 239 tests cover the blend arithmetic, HFA shrinkage, coaching residuals,
+        the margin distribution and key numbers, EV and Kelly, the edge shrink
+        (including recovering a known signal fraction from synthetic data), report
+        rendering, the DST schedule gate, week 0 handling, preseason source pruning,
+        and four plausible shapes of the ESPN payload. None of them touch the network.
+      </p>
+      <p>What that leaves genuinely unverified:</p>
+      <ul>
+        <li><strong>CFBD response shapes.</strong> Field names and endpoint paths are handled tolerantly — both casings, several candidate paths — but never confirmed against the live API. <code>doctor</code> is what confirms them.</li>
+        <li><strong>ESPN's payload structure.</strong> The endpoint is undocumented. The parser searches for a team name and an FPI-labelled value wherever they sit rather than assuming a path, and marks FPI unusable if it finds nothing.</li>
+        <li><strong>Whether 2026 data exists yet</strong> for any given source. That is exactly what the source audit reports.</li>
+        <li><strong>Every default.</strong> Weights, σ, and the edge shrink are priors. Until <code>backtest --fit</code> has run against real seasons, they are reasonable guesses, not measurements.</li>
+      </ul>
+      <div class="note">
+        <span class="label">First three things to run</span>
+        <p>
+          <code>doctor</code> to confirm the API and see which sources have 2026 data.
+          Then <code>backtest --years 5 --fit --write</code> to replace the priors
+          with measurements — this also answers whether the blend beats the closing
+          line at all, which is the question worth settling before reading a single
+          weekly email. Then <code>preview --week 0</code>.
+        </p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    cfbmeta 1.0 · 239 tests · branch <code>claude/cfb-handicapping-system-pihqf5</code><br>
+    Ratings via collegefootballdata.com — SP+ (Bill Connelly), ESPN FPI, Elo, SRS,
+    247 talent composite.
+  </div>
+</footer>

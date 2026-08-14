@@ -397,8 +397,12 @@ def project_slate(
         away = pick(game, "awayTeam", "away_team", "away")
         if not home or not away:
             continue
-        if not config.include_non_fbs and (book.get(home) is None or book.get(away) is None):
-            # One side has no ratings at all - almost always an FCS opponent.
+        if not (book.has_ratings(home) and book.has_ratings(away)):
+            # One side carries no usable rating — normally an FCS opponent, but
+            # also every game in a season whose sources haven't published yet.
+            # Either way there is nothing to project, and emitting a 0.0 margin
+            # here would read as a pick'em rather than as missing data.
+            log.debug("skipping %s at %s: no usable ratings", away, home)
             continue
 
         gid = pick(game, "id", "gameId")

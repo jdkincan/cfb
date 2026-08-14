@@ -153,6 +153,50 @@ Stakes are quarter-Kelly against a 100-unit bankroll, capped at 3 units.
 
 ---
 
+## Preseason data, and what's actually available in August
+
+The season is inferred from the date (`season: 0`), so an August 2026 run
+requests **2026** everywhere — ratings, schedule, lines, coaches — and January
+bowls still resolve to the 2026 season rather than 2027.
+
+But requesting 2026 is not the same as getting it. In August:
+
+| Source | Preseason availability |
+| --- | --- |
+| SP+ | published in spring, available |
+| Talent composite | available once signing day closes |
+| FPI | ESPN posts it closer to week 1 |
+| SRS | derived from results — nothing until games are played |
+| Elo | preseason values are carryover, often flat |
+
+The dangerous case is not a missing source. It's a source that returns a row
+for **every team with identical values** — a preseason SRS where everyone sits
+at 0.0. That isn't a weak opinion, it's no opinion, and blending it silently
+drags every projection toward pick'em while the run looks perfectly healthy.
+
+So any source with fewer than 10 rated teams, or less than half a point of
+spread between them, is dropped outright and the weights renormalize over what
+remains. Every source's status is recorded and reported — in `doctor`, in the
+run log, and in the footer of the email itself:
+
+```
+OK    SP+ 2026: 136 teams (spread 14.2)
+OK    Talent 2026: 136 teams (spread 10.5)
+WARN  SRS 2026: unusable — all 136 teams within 0.00 pts — no games played yet
+WARN  FPI 2026: unusable — no data returned
+```
+
+A preseason forecast therefore leans on SP+ and talent, which is the honest
+answer for August, and the readout says so on its face rather than implying
+five sources agreed. If *no* source is usable the run fails loudly with the
+audit attached, instead of emitting a slate of 0.0 margins.
+
+This dovetails with the early-season weighting: week 0 and week 1 already shift
+80% and 75% of the Elo/SRS weight to the preseason-anchored sources, so losing
+them entirely costs less than it sounds.
+
+---
+
 ## Tuning it with real results
 
 ```bash

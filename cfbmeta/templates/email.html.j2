@@ -168,6 +168,10 @@
       A {{ '%.0f'|format(example_edge) }}-point edge is worth roughly
       {{ '%.1f'|format(example_cover * 100) }}% to cover &mdash; real but small. Size accordingly.<br>
       <strong style="color:#374151;">Sources.</strong> {{ sources_line }}<br>
+      {% if provenance %}
+      <strong style="color:#374151;">Data for the {{ season }} season.</strong>
+      {% for line in provenance %}<br>&nbsp;&nbsp;{{ line }}{% endfor %}<br>
+      {% endif %}
       <span style="color:#9ca3af;">Generated {{ generated_at }} &middot; {{ version }}</span>
     </div>
   </td></tr>

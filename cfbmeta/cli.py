@@ -115,9 +115,13 @@ def build_projections(client, config: Config, season: int, week: int):
     log.info("building week %d of the %d season", week, season)
 
     book = build_rating_book(client, season, week=week)
-    if not len(book):
-        raise CFBDError("no ratings loaded for any source; cannot project")
-    log.info("ratings loaded for %d teams", len(book))
+    usable = book.usable_sources()
+    if not usable:
+        raise CFBDError(
+            f"no usable rating source for {season}. Source audit:\n  "
+            + "\n  ".join(book.provenance_lines())
+        )
+    log.info("ratings for %d teams from %s (season %d)", len(book), ", ".join(usable), season)
 
     hfa_model = build_hfa_model(
         client,
@@ -144,14 +148,14 @@ def build_projections(client, config: Config, season: int, week: int):
     games = client.games(season, week=week, season_type=config.season_type)
     if not games:
         log.warning("no games scheduled for week %d", week)
-        return []
+        return [], book
 
     markets = load_markets(client, season, week, config.season_type)
     projections = project_slate(
         games, book, config, hfa_model, coach_model, situational, markets
     )
     log.info("projected %d games", len(projections))
-    return projections
+    return projections, book
 
 
 def cmd_run(args, config: Config) -> int:
@@ -173,12 +177,12 @@ def cmd_run(args, config: Config) -> int:
         log.info("no upcoming week found for %d — the season is likely over.", season)
         return 0
 
-    projections = build_projections(client, config, season, week)
+    projections, book = build_projections(client, config, season, week)
     if not projections:
         log.info("nothing to report for week %d", week)
         return 0
 
-    message = render(projections, config, week, season, generated_at=now)
+    message = render(projections, config, week, season, generated_at=now, book=book)
 
     if args.out:
         Path(args.out).write_text(message["html"])
@@ -263,10 +267,24 @@ def cmd_doctor(args, config: Config) -> int:
         print("A failure here usually means a tier restriction or a renamed path.")
         return 1
 
+    # Which rating sources actually have data for this season? In August the
+    # honest answer is "not all of them", and that must be visible.
+    print("-" * 62)
+    print(f"Rating source audit for season {season}:")
+    audit_book = build_rating_book(client, season)
+    for source in sorted(audit_book.provenance):
+        status = audit_book.provenance[source]
+        print(f"  {'OK  ' if status.usable else 'WARN'}  {status.describe()}")
+    if not audit_book.usable_sources():
+        print("  No usable source: the forecast cannot run for this season yet.")
+        return 1
+
     # End-to-end: can we actually produce a slate?
     try:
-        week = resolve_week(client, config, season) or 1
-        projections = build_projections(client, config, season, week)
+        week = resolve_week(client, config, season)
+        if week is None:
+            week = 1
+        projections, _ = build_projections(client, config, season, week)
         print(f"OK    end-to-end — projected {len(projections)} games for week {week}")
         for proj in projections[:3]:
             print(

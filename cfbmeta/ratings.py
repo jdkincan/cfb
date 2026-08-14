@@ -31,6 +31,14 @@ ALL_SOURCES = sorted(NATIVE_POINT_SOURCES | SCALED_SOURCES)
 # few SP+ rows to measure it (e.g. very early preseason).
 DEFAULT_POINTS_SD = 10.5
 
+# A source needs at least this many rated teams, and at least this much spread
+# between them, to be worth blending. In August, CFBD will happily return an
+# SRS or Elo row for every team with all of them identical, because no games
+# have been played. Such a source predicts a tie in every game, and blending it
+# drags every projection toward pick'em while looking perfectly healthy.
+MIN_SOURCE_TEAMS = 10
+MIN_SOURCE_DISPERSION = 0.5
+
 _SUFFIX_FIXES = {
     "st": "state",
     "st.": "state",
@@ -63,6 +71,37 @@ def normalize_team(name: str) -> str:
 
 
 @dataclass
+class SourceStatus:
+    """What actually arrived for one rating source, and whether it is usable.
+
+    Recorded for every source so a preseason run can be audited at a glance:
+    a missing FPI or a flat SRS should be visible, never silent.
+    """
+
+    source: str
+    season: int
+    teams: int = 0
+    usable: bool = False
+    dispersion: float = 0.0
+    reason: str = ""
+
+    def describe(self) -> str:
+        label = SOURCE_DISPLAY.get(self.source, self.source)
+        if self.usable:
+            return f"{label} {self.season}: {self.teams} teams (spread {self.dispersion:.1f})"
+        return f"{label} {self.season}: unusable — {self.reason}"
+
+
+SOURCE_DISPLAY = {
+    "sp_plus": "SP+",
+    "fpi": "FPI",
+    "elo": "Elo",
+    "srs": "SRS",
+    "talent": "Talent",
+}
+
+
+@dataclass
 class TeamRating:
     team: str
     conference: str = ""
@@ -86,6 +125,8 @@ class RatingBook:
         self._pending: Dict[str, Dict[str, float]] = {}
         self._pending_names: Dict[str, str] = {}
         self._pending_confs: Dict[str, str] = {}
+        # source -> SourceStatus, so a preseason run can be audited.
+        self.provenance: Dict[str, SourceStatus] = {}
 
     # -- construction --------------------------------------------------------
     def _entry(self, team: str, conference: str = "") -> TeamRating:
@@ -113,6 +154,16 @@ class RatingBook:
     def sources_for(self, team: str) -> List[str]:
         entry = self.get(team)
         return sorted(entry.values) if entry else []
+
+    def has_ratings(self, team: str) -> bool:
+        """True only if the team carries at least one usable rating.
+
+        A team can exist in the book on metadata alone — returning production
+        loaded, ratings did not — and such a team must not be projected. It
+        would otherwise come out as a 0.0 margin and read as a pick'em game.
+        """
+        entry = self.get(team)
+        return bool(entry and entry.values)
 
     def __len__(self) -> int:
         return len(self.teams)
@@ -207,7 +258,7 @@ class RatingBook:
         return count
 
     def finalize(self) -> None:
-        """Scale staged sources onto the points scale set by SP+ dispersion.
+        """Scale staged sources, then drop any source that carries no signal.
 
         Safe to call more than once; staged raws are kept so re-running after a
         late-arriving SP+ load simply rescales.
@@ -217,6 +268,49 @@ class RatingBook:
             for key, points in self._to_points(raw).items():
                 team = self._pending_names.get(key, key)
                 self.add(team, source, points, self._pending_confs.get(key, ""))
+        self._prune_degenerate_sources()
+
+    def _prune_degenerate_sources(self) -> None:
+        """Remove sources that are absent, too sparse, or completely flat.
+
+        The flat case is the one that matters in August: a preseason SRS where
+        every team sits at 0.0 is not a weak opinion, it is no opinion, and
+        blending it would pull every projection toward a tie.
+        """
+        for source in ALL_SOURCES:
+            values = [t.values[source] for t in self.teams.values() if source in t.values]
+            if not values:
+                self.provenance.setdefault(
+                    source,
+                    SourceStatus(source, self.season, 0, False, 0.0, "no data returned"),
+                )
+                continue
+
+            dispersion = _stdev(values)
+            if len(values) < MIN_SOURCE_TEAMS:
+                reason = f"only {len(values)} teams rated"
+            elif dispersion < MIN_SOURCE_DISPERSION:
+                reason = (
+                    f"all {len(values)} teams within {dispersion:.2f} pts "
+                    "— no games played yet"
+                )
+            else:
+                self.provenance[source] = SourceStatus(
+                    source, self.season, len(values), True, round(dispersion, 2)
+                )
+                continue
+
+            for entry in self.teams.values():
+                entry.values.pop(source, None)
+            self.provenance[source] = SourceStatus(
+                source, self.season, len(values), False, round(dispersion, 2), reason
+            )
+
+    def usable_sources(self) -> List[str]:
+        return sorted(s for s, p in self.provenance.items() if p.usable)
+
+    def provenance_lines(self) -> List[str]:
+        return [self.provenance[s].describe() for s in sorted(self.provenance)]
 
     def load_returning_production(self, rows: Iterable[dict]) -> int:
         count = 0
@@ -270,21 +364,29 @@ def build_rating_book(client, season: int, week: Optional[int] = None) -> Rating
     book = RatingBook(season)
 
     loaders = [
-        ("SP+", lambda: book.load_sp(client.sp_ratings(season))),
-        ("FPI", lambda: book.load_fpi(client.fpi_ratings(season))),
-        ("SRS", lambda: book.load_srs(client.srs_ratings(season))),
-        ("Elo", lambda: book.load_elo(client.elo_ratings(season, week=week))),
-        ("talent", lambda: book.load_talent(client.talent(season))),
-        ("returning production", lambda: book.load_returning_production(
+        ("SP+", "sp_plus", lambda: book.load_sp(client.sp_ratings(season))),
+        ("FPI", "fpi", lambda: book.load_fpi(client.fpi_ratings(season))),
+        ("SRS", "srs", lambda: book.load_srs(client.srs_ratings(season))),
+        ("Elo", "elo", lambda: book.load_elo(client.elo_ratings(season, week=week))),
+        ("talent", "talent", lambda: book.load_talent(client.talent(season))),
+        ("returning production", None, lambda: book.load_returning_production(
             client.returning_production(season))),
     ]
 
-    for label, loader in loaders:
+    for label, source, loader in loaders:
         try:
             n = loader()
-            log.info("loaded %s for %d teams", label, n)
+            log.info("loaded %s for %d teams (season %d)", label, n, season)
         except Exception as exc:  # noqa: BLE001 - degrade, don't die
-            log.warning("could not load %s: %s", label, exc)
+            log.warning("could not load %s for %d: %s", label, season, exc)
+            if source:
+                book.provenance[source] = SourceStatus(
+                    source, season, 0, False, 0.0, f"request failed: {exc}"
+                )
 
     book.finalize()
+    for line in book.provenance_lines():
+        log.info("  %s", line)
+    if not book.usable_sources():
+        log.error("no usable rating source for season %d", season)
     return book

@@ -137,7 +137,6 @@ class Config:
     max_units_per_play: float = 3.0
 
     # --- reporting -----------------------------------------------------------
-    include_non_fbs: bool = False
     email_subject_prefix: str = "CFB Meta Forecast"
 
     # --- data ----------------------------------------------------------------

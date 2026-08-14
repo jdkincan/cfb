@@ -153,6 +153,7 @@ def build_context(
     week: int,
     season: int,
     generated_at: Optional[dt.datetime] = None,
+    book=None,
 ) -> Dict[str, Any]:
     tz = ZoneInfo(config.timezone)
     generated_at = generated_at or dt.datetime.now(tz)
@@ -189,6 +190,10 @@ def build_context(
             "adjustments are added on top. The market is the benchmark, not an input."
         ),
         "sources_line": SOURCE_CREDITS,
+        # Which sources actually had data for this season, and which didn't.
+        # Preseason runs lean on fewer sources and the readout must say so.
+        "provenance": book.provenance_lines() if book is not None else [],
+        "usable_sources": book.usable_sources() if book is not None else [],
         "generated_at": generated_at.strftime("%Y-%m-%d %H:%M %Z"),
         "version": f"cfbmeta {__version__}",
         "week": week,
@@ -234,7 +239,12 @@ def render_text(context: Dict[str, Any]) -> str:
             f"{game['market_line_text'][:18]:>18}  {game['edge_text']:>5}"
         )
 
-    lines += ["", "-" * 60, context["method_line"], "", f"Sources: {context['sources_line']}",
+    lines += ["", "-" * 78, context["method_line"], ""]
+    if context.get("provenance"):
+        lines.append(f"DATA (season {context['season']})")
+        lines += [f"  {line}" for line in context["provenance"]]
+        lines.append("")
+    lines += [f"Sources: {context['sources_line']}",
               f"Generated {context['generated_at']} · {context['version']}"]
     return "\n".join(lines)
 
@@ -245,8 +255,9 @@ def render(
     week: int,
     season: int,
     generated_at: Optional[dt.datetime] = None,
+    book=None,
 ) -> Dict[str, str]:
-    context = build_context(projections, config, week, season, generated_at)
+    context = build_context(projections, config, week, season, generated_at, book)
     return {
         "subject": f"{config.email_subject_prefix} — Week {week} ({len(context['plays'])} plays)",
         "html": render_html(context),

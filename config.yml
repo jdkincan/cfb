@@ -93,7 +93,6 @@ max_units_per_play: 3.0
 # ---------------------------------------------------------------------------
 # Reporting and data
 # ---------------------------------------------------------------------------
-include_non_fbs: false
 email_subject_prefix: CFB Meta Forecast
 
 cfbd_base_url: https://api.collegefootballdata.com

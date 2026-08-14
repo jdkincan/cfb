@@ -227,3 +227,63 @@ class TestFallbackIntegration:
         )
         book = build_rating_book(PreseasonClient(), SEASON, week=0)
         assert "fpi" not in book.usable_sources()
+
+
+class TestEgressFailureIsFastAndClear:
+    """A proxy refusing CONNECT is a policy decision, not a transient blip.
+
+    Retrying it multiplied a 15s backoff across every endpoint and turned a
+    clear failure into a multi-minute hang with no explanation.
+    """
+
+    def _client(self, monkeypatch):
+        import requests
+
+        from cfbmeta.sources.cfbd import CFBDClient
+
+        client = CFBDClient(api_key="test-key", cache_dir=None, max_retries=4)
+
+        calls = []
+
+        def blocked(*a, **k):
+            calls.append(1)
+            raise requests.exceptions.ProxyError("Tunnel connection failed: 403 Forbidden")
+
+        monkeypatch.setattr(client.session, "get", blocked)
+        return client, calls
+
+    def test_does_not_retry(self, monkeypatch):
+        from cfbmeta.sources.cfbd import CFBDError
+
+        client, calls = self._client(monkeypatch)
+        with pytest.raises(CFBDError):
+            client.teams(2026)
+        assert len(calls) == 1, f"retried a policy denial {len(calls)} times"
+
+    def test_message_points_at_the_network_not_the_key(self, monkeypatch):
+        from cfbmeta.sources.cfbd import CFBDError
+
+        client, _ = self._client(monkeypatch)
+        with pytest.raises(CFBDError) as exc:
+            client.teams(2026)
+        message = str(exc.value)
+        assert "not an API-key problem" in message
+        assert "network" in message.lower()
+
+    def test_genuine_transient_errors_still_retry(self, monkeypatch):
+        import requests
+
+        from cfbmeta.sources.cfbd import CFBDClient, CFBDError
+
+        client = CFBDClient(api_key="k", cache_dir=None, max_retries=3)
+        calls = []
+
+        def flaky(*a, **k):
+            calls.append(1)
+            raise requests.ConnectionError("connection reset")
+
+        monkeypatch.setattr(client.session, "get", flaky)
+        monkeypatch.setattr(CFBDClient, "_sleep", staticmethod(lambda *a, **k: None))
+        with pytest.raises(CFBDError):
+            client.teams(2026)
+        assert len(calls) == 3

@@ -189,6 +189,17 @@ class CFBDClient:
         for attempt in range(self.max_retries):
             try:
                 resp = self.session.get(url, params=clean, timeout=self.timeout)
+            except requests.exceptions.ProxyError as exc:
+                # An egress proxy refusing CONNECT is a policy decision, not a
+                # blip. Retrying it just multiplies the backoff by every
+                # endpoint and turns a clear failure into a long hang.
+                raise CFBDError(
+                    f"blocked before reaching {self.base_url}: the network egress "
+                    f"proxy refused the connection ({exc.__class__.__name__}). This is "
+                    "not an API-key problem — no request reached CFBD. Allow "
+                    "api.collegefootballdata.com in the environment's network "
+                    "policy, or run from somewhere with open egress."
+                ) from exc
             except requests.RequestException as exc:
                 last_exc = exc
                 self._sleep(attempt)

@@ -369,6 +369,19 @@ def build_lines(year: int, week=None) -> List[Dict[str, Any]]:
     return out
 
 
+@pytest.fixture(autouse=True)
+def isolate_dotenv(monkeypatch, tmp_path):
+    """Never let a developer's real .env bleed into the tests.
+
+    load_dotenv() reads the repo root by default, so a local .env holding a
+    real CFBD_API_KEY would silently change what the credential tests observe.
+    Point it somewhere empty for every test.
+    """
+    monkeypatch.setattr(
+        "cfbmeta.config.DEFAULT_ENV_PATH", tmp_path / "absent.env", raising=False
+    )
+
+
 @pytest.fixture
 def client() -> FakeClient:
     return FakeClient()

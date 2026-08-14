@@ -54,7 +54,7 @@ sigma_total: 13.5
 # toward the league mean, so a couple of flukey home blowouts don't buy a team
 # a six-point home field.
 # ---------------------------------------------------------------------------
-league_hfa: 2.35
+league_hfa: 2.70          # measured from 4 seasons of rating-controlled home games
 hfa_shrink_games: 60.0
 hfa_max: 5.0
 hfa_min: 0.0

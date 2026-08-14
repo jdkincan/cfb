@@ -86,6 +86,12 @@ class Config:
     timezone: str = "America/New_York"
     send_hour_local: int = 7
     season_type: str = "regular"
+    # A CFBD "week" is not always one playing weekend. Week 1 of 2026 spans
+    # Aug 27 - Sep 7 and contains both the season openers and Labor Day
+    # weekend, so 124 teams appear twice in it. The slate is therefore also
+    # clipped to a date window anchored on the next kickoff, so a Thursday
+    # email covers this weekend rather than two of them.
+    slate_window_days: int = 6
 
     # --- blending ------------------------------------------------------------
     weights: Weights = field(default_factory=Weights)

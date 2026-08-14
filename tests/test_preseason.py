@@ -183,3 +183,52 @@ class TestPreseasonStillProduces:
         context = build_context([], Config(), week=0, season=NEXT_SEASON)
         assert context["provenance"] == []
         assert render_html(context)
+
+
+class TestWeekFilterIsEnforcedLocally:
+    """CFBD treats week=0 as "no filter" and returns the whole season.
+
+    Discovered against the live API: a week-0 request came back with 1,638
+    games spanning weeks 1-15, and every one of them was projected as though it
+    were the same Saturday. The filter is now re-applied client-side.
+    """
+
+    class SeasonDump:
+        """Stands in for the API ignoring the week parameter."""
+
+        def __init__(self):
+            self.rows = [
+                {"id": i, "week": w, "homeTeam": "A", "awayTeam": "B"}
+                for w in range(1, 16)
+                for i in range(3)
+            ]
+
+        def get(self, endpoint, use_cache=True, **params):
+            return list(self.rows)
+
+    def _client(self, monkeypatch):
+        from cfbmeta.sources.cfbd import CFBDClient
+
+        client = CFBDClient(api_key="k", cache_dir=None)
+        dump = self.SeasonDump()
+        monkeypatch.setattr(client, "get", dump.get)
+        return client
+
+    def test_ignored_filter_is_corrected(self, monkeypatch):
+        client = self._client(monkeypatch)
+        games = client.games(2026, week=3)
+        assert len(games) == 3
+        assert {g["week"] for g in games} == {3}
+
+    def test_week_zero_does_not_return_the_season(self, monkeypatch):
+        client = self._client(monkeypatch)
+        # The whole point: week 0 must not silently become "everything".
+        assert client.games(2026, week=0) == []
+
+    def test_no_week_means_no_filtering(self, monkeypatch):
+        client = self._client(monkeypatch)
+        assert len(client.games(2026)) == 45
+
+    def test_lines_are_filtered_too(self, monkeypatch):
+        client = self._client(monkeypatch)
+        assert {r["week"] for r in client.lines(2026, week=5)} == {5}

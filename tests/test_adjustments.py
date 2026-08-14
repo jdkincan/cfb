@@ -32,10 +32,8 @@ class TestHFA:
 
     def test_shrinkage_pulls_extreme_samples_toward_the_mean(self):
         model = HFAModel(league_hfa=2.5, shrink_games=60.0)
-        prof = VenueProfile(team="Fluke State")
-        # Six home games won by 30, six away games lost by 30: raw HFA of 30.
-        prof.home_games, prof.home_margin_sum = 6, 180.0
-        prof.away_games, prof.away_margin_sum = 6, -180.0
+        # Six home games, each beating the rating line by 30 points.
+        prof = VenueProfile(team="Fluke State", home_games=6, residual_sum=180.0)
         model.profiles["fluke state"] = prof
         assert prof.raw_hfa == pytest.approx(30.0)
         # Shrunk toward 2.5 and then clamped by hfa_max.
@@ -43,11 +41,37 @@ class TestHFA:
 
     def test_small_samples_are_ignored(self):
         model = HFAModel(league_hfa=2.5)
-        prof = VenueProfile(team="Tiny Sample", home_games=2, home_margin_sum=60.0,
-                            away_games=2, away_margin_sum=-60.0)
+        prof = VenueProfile(team="Tiny Sample", home_games=2, residual_sum=60.0)
         model.profiles["tiny sample"] = prof
         assert prof.raw_hfa is None
         assert model.team_hfa("Tiny Sample") == pytest.approx(2.5)
+
+    def test_opponent_strength_is_controlled_for(self):
+        """The bug this estimator exists to avoid.
+
+        A team that hosts only weak opponents and visits only strong ones has a
+        huge raw home margin and no home-field advantage at all. The residual
+        method must report ~0; the old margin-difference method reported ~20.
+        """
+        model = HFAModel(league_hfa=2.5)
+        ratings = {"strong": 20.0, "weak": -20.0, "host": 0.0}
+        games = [
+            # Hosts the weak team and wins by exactly the rating gap: no edge.
+            {"homeTeam": "Host", "awayTeam": "Weak", "homePoints": 20, "awayPoints": 0},
+            {"homeTeam": "Host", "awayTeam": "Weak", "homePoints": 30, "awayPoints": 10},
+            {"homeTeam": "Host", "awayTeam": "Weak", "homePoints": 20, "awayPoints": 0},
+            {"homeTeam": "Host", "awayTeam": "Weak", "homePoints": 27, "awayPoints": 7},
+            {"homeTeam": "Host", "awayTeam": "Weak", "homePoints": 21, "awayPoints": 1},
+            {"homeTeam": "Host", "awayTeam": "Weak", "homePoints": 24, "awayPoints": 4},
+        ]
+        assert ingest_games(model, games, ratings) == 6
+        assert model.profiles["host"].raw_hfa == pytest.approx(0.0, abs=0.01)
+
+    def test_games_without_ratings_are_skipped(self):
+        model = HFAModel()
+        games = [{"homeTeam": "A", "awayTeam": "B", "homePoints": 30, "awayPoints": 10}]
+        # No ratings supplied: the game cannot be opponent-controlled.
+        assert ingest_games(model, games, {}) == 0
 
     def test_altitude_helps_wyoming_against_a_sea_level_visitor(self, model):
         laramie = model.for_game("Wyoming", "Florida", neutral_site=False)
@@ -63,6 +87,7 @@ class TestHFA:
 
     def test_ingest_skips_neutral_and_unplayed_games(self):
         model = HFAModel()
+        ratings = {"a": 5.0, "b": 0.0}
         games = [
             {"homeTeam": "A", "awayTeam": "B", "homePoints": 30, "awayPoints": 10,
              "neutralSite": True},
@@ -71,7 +96,7 @@ class TestHFA:
             {"homeTeam": "A", "awayTeam": "B", "homePoints": 30, "awayPoints": 10,
              "neutralSite": False},
         ]
-        assert ingest_games(model, games) == 1
+        assert ingest_games(model, games, ratings) == 1
 
     def test_league_average_is_recentred_from_data(self, model):
         assert 0.0 < model.league_hfa < 6.0

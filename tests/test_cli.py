@@ -175,9 +175,9 @@ class TestWeekZero:
         seen = {}
         real = cli.build_projections
 
-        def spy(client, config, season, week):
+        def spy(client, config, season, week, **kwargs):
             seen["week"] = week
-            return real(client, config, season, week)
+            return real(client, config, season, week, **kwargs)
 
         monkeypatch.setattr(cli, "build_projections", spy)
         # If week 0 were treated as falsy, this would silently become week 6.

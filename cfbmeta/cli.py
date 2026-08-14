@@ -110,8 +110,13 @@ def make_client(config: Config) -> CFBDClient:
 
 
 # -- commands ----------------------------------------------------------------
-def build_projections(client, config: Config, season: int, week: int):
-    """Load every model input and project the slate."""
+def build_projections(client, config: Config, season: int, week: int, as_of=None):
+    """Load every model input and project the slate.
+
+    ``as_of`` anchors the slate window. It exists because a CFBD week can
+    contain two playing weekends, so 'which weekend' is a separate question
+    from 'which week' — and previewing the later one needs a way to say so.
+    """
     log.info("building week %d of the %d season", week, season)
 
     book = build_rating_book(client, season, week=week)
@@ -147,8 +152,12 @@ def build_projections(client, config: Config, season: int, week: int):
 
     games = client.games(season, week=week, season_type=config.season_type)
     if not games:
-        log.warning("no games scheduled for week %d", week)
+        log.warning("no games scheduled for week %d of %d", week, season)
         return [], book
+
+    from .model import clip_to_slate_window
+
+    games = clip_to_slate_window(games, config.slate_window_days, now=as_of)
 
     markets = load_markets(client, season, week, config.season_type)
     projections = project_slate(
@@ -172,12 +181,15 @@ def cmd_run(args, config: Config) -> int:
 
     # `is not None`, not truthiness: week 0 is a real week and would otherwise
     # be silently replaced by auto-detection.
-    week = args.week if args.week is not None else resolve_week(client, config, season)
+    as_of = parse_start(getattr(args, "as_of", None))
+    week = args.week if args.week is not None else resolve_week(
+        client, config, season, now=as_of
+    )
     if week is None:
         log.info("no upcoming week found for %d — the season is likely over.", season)
         return 0
 
-    projections, book = build_projections(client, config, season, week)
+    projections, book = build_projections(client, config, season, week, as_of=as_of)
     if not projections:
         log.info("nothing to report for week %d", week)
         return 0
@@ -367,6 +379,11 @@ def build_parser() -> argparse.ArgumentParser:
     run = sub.add_parser("run", help="build the slate and email it")
     run.add_argument("--week", type=int)
     run.add_argument("--season", type=int)
+    run.add_argument(
+        "--as-of", dest="as_of",
+        help="anchor the slate window at this date (YYYY-MM-DD) instead of today; "
+             "use it to preview a later weekend inside the same CFBD week",
+    )
     run.add_argument("--out", help="also write the HTML here")
     run.add_argument("--no-email", action="store_true", help="print instead of sending")
     run.add_argument("--dry-run", action="store_true", help="render and log, but don't send")
@@ -380,6 +397,11 @@ def build_parser() -> argparse.ArgumentParser:
     preview = sub.add_parser("preview", help="render to a file without sending")
     preview.add_argument("--week", type=int)
     preview.add_argument("--season", type=int)
+    preview.add_argument(
+        "--as-of", dest="as_of",
+        help="anchor the slate window at this date (YYYY-MM-DD) instead of today; "
+             "use it to preview a later weekend inside the same CFBD week",
+    )
     preview.add_argument("--out", help="output path (default preview.html)")
     preview.set_defaults(func=cmd_preview, dry_run=False)
 

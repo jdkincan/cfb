@@ -4,15 +4,27 @@ Every rating system already bakes an average HFA into its ratings, but home
 field is emphatically not uniform: Autzen and a 7,200-foot afternoon in Laramie
 are not worth what a half-empty Saturday in a dome is worth.
 
-The estimator uses each team as its own control. For team ``t``:
+The estimator is the mean *residual against a rating*: for every non-neutral
+game, how much did the home team beat the margin its rating implied?
 
-    raw_hfa(t) = (mean margin in home games - mean margin in away games) / 2
+    residual = actual_margin - (rating_home - rating_away)
+    raw_hfa(t) = mean residual across t's home games
 
-Team quality cancels out of the difference, so what's left is mostly venue
-effect plus noise. Because it *is* noisy, the raw figure is shrunk hard toward
-the league mean with a pseudo-count (``hfa_shrink_games``, default 60 games —
-roughly ten seasons), so a team with two flukey home blowouts doesn't get
-credited with a six-point home field.
+Controlling for opponent strength is not optional here. An earlier version of
+this used each team as its own control — mean home margin minus mean away
+margin, halved — on the theory that team quality cancels out. It does not.
+College teams do not face equal opposition home and away: they host the weaker
+non-conference games and travel for the harder ones. Measured across four
+seasons of FBS play that estimator returned **4.4 points**, against a true
+value near 2.6, and would have added nearly two phantom points to every home
+team on the slate.
+
+The residual method returns 2.70 on the same games, and conference-only games —
+where schedules are naturally balanced — independently agree at 2.58.
+
+Because per-team residuals are still noisy, the raw figure is shrunk hard
+toward the league mean with a pseudo-count (``hfa_shrink_games``, default 60
+games), so a team with two flukey home wins doesn't get a six-point home field.
 
 Elevation is handled separately, as a differential against where the visitor
 plays its own home games: Wyoming hosting Air Force is not the altitude edge
@@ -31,32 +43,27 @@ from .sources.cfbd import pick, pick_float
 log = logging.getLogger(__name__)
 
 
+# Below this many home games, a venue residual is noise; use the league mean.
+MIN_HOME_GAMES = 6
+
+
 @dataclass
 class VenueProfile:
     team: str
     home_games: int = 0
-    home_margin_sum: float = 0.0
-    away_games: int = 0
-    away_margin_sum: float = 0.0
+    residual_sum: float = 0.0
     elevation_ft: Optional[float] = None
 
     @property
-    def home_margin_avg(self) -> float:
-        return self.home_margin_sum / self.home_games if self.home_games else 0.0
-
-    @property
-    def away_margin_avg(self) -> float:
-        return self.away_margin_sum / self.away_games if self.away_games else 0.0
-
-    @property
     def raw_hfa(self) -> Optional[float]:
-        if self.home_games < 3 or self.away_games < 3:
+        """Mean points beaten by, above what the ratings implied, at home."""
+        if self.home_games < MIN_HOME_GAMES:
             return None
-        return (self.home_margin_avg - self.away_margin_avg) / 2.0
+        return self.residual_sum / self.home_games
 
     @property
     def sample_size(self) -> int:
-        return min(self.home_games, self.away_games)
+        return self.home_games
 
 
 @dataclass
@@ -130,31 +137,58 @@ def build_hfa_model(
         altitude_threshold_ft=altitude_threshold_ft,
     )
 
-    all_games: List[dict] = []
+    used = 0
     for season in seasons:
         try:
-            all_games.extend(client.games(season))
+            games = client.games(season)
         except Exception as exc:  # noqa: BLE001
             log.warning("could not load %d games for HFA: %s", season, exc)
-
-    ingest_games(model, all_games)
+            continue
+        try:
+            ratings = {
+                normalize_team(pick(r, "team", "school")): pick_float(r, "rating")
+                for r in client.sp_ratings(season)
+                if pick(r, "team", "school") and pick_float(r, "rating") is not None
+            }
+        except Exception as exc:  # noqa: BLE001
+            log.warning("no %d ratings for HFA control: %s", season, exc)
+            continue
+        used += ingest_games(model, games, ratings)
+    log.info("HFA estimated from %d rating-controlled home games", used)
 
     try:
         attach_elevations(model, client.venues(), client.teams())
     except Exception as exc:  # noqa: BLE001
         log.warning("could not attach venue elevations: %s", exc)
 
-    measured = [p.raw_hfa for p in model.profiles.values() if p.raw_hfa is not None]
-    if len(measured) >= 40:
-        # Re-center the league mean on what the data actually shows, so the
-        # shrinkage target isn't a stale constant.
-        model.league_hfa = round(sum(measured) / len(measured), 3)
-        log.info("league HFA measured at %.2f from %d teams", model.league_hfa, len(measured))
+    # Re-centre the league mean on the pooled residual across every game,
+    # which is a far better estimate than averaging per-team means (those give
+    # a team with 6 home games the same say as one with 30).
+    total_games = sum(p.home_games for p in model.profiles.values())
+    if total_games >= 400:
+        pooled = sum(p.residual_sum for p in model.profiles.values()) / total_games
+        model.league_hfa = round(pooled, 3)
+        log.info(
+            "league HFA measured at %.2f from %d games across %d venues",
+            model.league_hfa, total_games, len(model.profiles),
+        )
     return model
 
 
-def ingest_games(model: HFAModel, games: Iterable[dict]) -> int:
-    """Accumulate home/away margins per team from completed, non-neutral games."""
+def ingest_games(
+    model: HFAModel,
+    games: Iterable[dict],
+    ratings: Optional[Dict[str, float]] = None,
+) -> int:
+    """Accumulate rating-controlled home residuals from completed games.
+
+    ``ratings`` maps a normalized team name to a points-scale rating for the
+    season those games belong to. A game whose teams aren't both rated is
+    skipped: without a rating there is no way to separate home field from
+    having hosted a weaker opponent, and counting it anyway is exactly the bias
+    this estimator exists to avoid.
+    """
+    ratings = ratings or {}
     used = 0
     for game in games:
         if pick(game, "neutralSite", "neutral_site", default=False):
@@ -166,14 +200,15 @@ def ingest_games(model: HFAModel, games: Iterable[dict]) -> int:
         if not home or not away or hp is None or ap is None:
             continue
 
-        margin = hp - ap
         hkey, akey = normalize_team(home), normalize_team(away)
-        hprof = model.profiles.setdefault(hkey, VenueProfile(team=home))
-        aprof = model.profiles.setdefault(akey, VenueProfile(team=away))
-        hprof.home_games += 1
-        hprof.home_margin_sum += margin
-        aprof.away_games += 1
-        aprof.away_margin_sum += -margin
+        home_rating, away_rating = ratings.get(hkey), ratings.get(akey)
+        if home_rating is None or away_rating is None:
+            continue
+
+        residual = (hp - ap) - (home_rating - away_rating)
+        prof = model.profiles.setdefault(hkey, VenueProfile(team=home))
+        prof.home_games += 1
+        prof.residual_sum += residual
         used += 1
     return used
 

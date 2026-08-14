@@ -267,13 +267,34 @@ class CFBDClient:
     def games(
         self, year: int, week: Optional[int] = None, season_type: str = "regular"
     ) -> List[Dict[str, Any]]:
-        return self.get("games", year=year, week=week, seasonType=season_type)
+        """Games for a season, optionally one week.
+
+        The week filter is re-applied client-side, because the API does not
+        always honour it: ``week=0`` is treated server-side as "no filter" and
+        returns the entire season. Silently projecting 1,600 games as though
+        they were one Saturday is a far worse failure than returning nothing,
+        so never trust the filter to have been applied.
+        """
+        rows = self.get("games", year=year, week=week, seasonType=season_type)
+        if week is None:
+            return rows
+        filtered = [r for r in rows if _row_week(r) == int(week)]
+        if len(filtered) != len(rows):
+            log.debug(
+                "week=%s filter not honoured upstream (%d rows returned, %d match); "
+                "filtered locally", week, len(rows), len(filtered),
+            )
+        return filtered
 
     def lines(
         self, year: int, week: Optional[int] = None, season_type: str = "regular"
     ) -> List[Dict[str, Any]]:
-        # Lines move all week; keep this cache short.
-        return self.get("lines", year=year, week=week, seasonType=season_type, use_cache=False)
+        # Lines move all week, so this one is never cached. Same client-side
+        # week filter as games(), for the same reason.
+        rows = self.get("lines", year=year, week=week, seasonType=season_type, use_cache=False)
+        if week is None:
+            return rows
+        return [r for r in rows if _row_week(r) == int(week)]
 
     def teams(self, year: Optional[int] = None) -> List[Dict[str, Any]]:
         return self.get("teams", year=year)
@@ -304,6 +325,11 @@ class CFBDClient:
 
     def ppa_teams(self, year: int) -> List[Dict[str, Any]]:
         return self.get("ppa_teams", year=year)
+
+
+def _row_week(row: Any) -> Optional[int]:
+    value = pick_float(row, "week")
+    return None if value is None else int(value)
 
 
 def iter_rows(payload: Iterable[Any]) -> Iterable[Dict[str, Any]]:

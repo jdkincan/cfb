@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
 from .config import Config
@@ -376,6 +376,41 @@ def project_game(
     if missing:
         proj.notes.append(f"Missing source(s): {', '.join(missing)}.")
     return proj
+
+
+def clip_to_slate_window(
+    games: List[dict], window_days: int = 6, now: Optional[datetime] = None
+) -> List[dict]:
+    """Keep one playing weekend, anchored on the next kickoff.
+
+    CFBD weeks do not reliably correspond to a single weekend, so selecting a
+    week is not enough to select a slate. The window starts at the earliest
+    kickoff still ahead of ``now`` (falling back to the earliest kickoff at all,
+    so previewing a past week still works) and runs ``window_days`` forward.
+    """
+    from .adjustments import parse_start
+
+    now = now or datetime.now(timezone.utc)
+    dated = []
+    for game in games:
+        kickoff = parse_start(pick(game, "startDate", "start_date", "startTime"))
+        if kickoff is not None:
+            dated.append((kickoff, game))
+    if not dated:
+        return games
+
+    upcoming = [k for k, _ in dated if k >= now]
+    anchor = min(upcoming) if upcoming else min(k for k, _ in dated)
+    cutoff = anchor + timedelta(days=window_days)
+
+    clipped = [g for k, g in dated if anchor <= k < cutoff]
+    undated = [g for g in games if g not in [d[1] for d in dated]]
+    if len(clipped) < len(games):
+        log.info(
+            "slate clipped to %s .. %s: %d of %d games",
+            anchor.date(), cutoff.date(), len(clipped), len(games),
+        )
+    return clipped + undated
 
 
 def project_slate(

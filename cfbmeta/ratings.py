@@ -401,11 +401,42 @@ def _try_espn_fpi(book: "RatingBook", season: int) -> None:
         status.reason = f"{status.reason} (ESPN fallback matched {matched} teams)"
 
 
+def _try_recruiting_talent(book: "RatingBook", client, season: int) -> None:
+    """Rebuild the talent source from recruiting classes when /talent is empty.
+
+    Signing day is in February, so recruiting data exists for a season long
+    before the packaged talent composite does. See sources/recruiting.py.
+    """
+    import logging
+
+    log = logging.getLogger(__name__)
+    try:
+        from .sources.recruiting import build_recruiting_profiles, talent_rows
+
+        profiles = build_recruiting_profiles(client, season)
+        rows = talent_rows(profiles)
+    except Exception as exc:  # noqa: BLE001
+        log.warning("recruiting talent fallback failed: %s", exc)
+        return
+    if not rows:
+        return
+
+    book.load_talent(rows)
+    for key, prof in profiles.items():
+        if prof.blue_chip_ratio is not None and key in book.teams:
+            book.teams[key].meta["blue_chip_ratio"] = prof.blue_chip_ratio
+    book.finalize()
+    status = book.provenance.get("talent")
+    if status is not None and status.usable:
+        status.origin = "recruiting classes"
+
+
 def build_rating_book(
     client,
     season: int,
     week: Optional[int] = None,
     espn_fpi_fallback: bool = True,
+    recruiting_talent_fallback: bool = True,
 ) -> RatingBook:
     """Pull every rating source for a season into one book.
 
@@ -447,6 +478,12 @@ def build_rating_book(
     # the source entirely.
     if espn_fpi_fallback and not book.provenance.get("fpi", SourceStatus("fpi", season)).usable:
         _try_espn_fpi(book, season)
+
+    if (
+        recruiting_talent_fallback
+        and not book.provenance.get("talent", SourceStatus("talent", season)).usable
+    ):
+        _try_recruiting_talent(book, client, season)
 
     for line in book.provenance_lines():
         log.info("  %s", line)

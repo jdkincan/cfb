@@ -114,6 +114,8 @@ ENDPOINTS: Dict[str, Sequence[str]] = {
     "talent": ("/talent",),
     "returning": ("/player/returning", "/players/returning"),
     "coaches": ("/coaches",),
+    "recruiting_teams": ("/recruiting/teams",),
+    "recruiting_players": ("/recruiting/players",),
     "ppa_teams": ("/ppa/teams", "/metrics/ppa/teams"),
     "advanced_stats": ("/stats/season/advanced",),
 }
@@ -322,6 +324,9 @@ class CFBDClient:
 
     def coaches(self, year: Optional[int] = None) -> List[Dict[str, Any]]:
         return self.get("coaches", year=year)
+
+    def fbs_teams(self, year: Optional[int] = None) -> List[Dict[str, Any]]:
+        return self.get("teams", year=year)
 
     def ppa_teams(self, year: int) -> List[Dict[str, Any]]:
         return self.get("ppa_teams", year=year)

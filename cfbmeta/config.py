@@ -92,6 +92,9 @@ class Config:
     # clipped to a date window anchored on the next kickoff, so a Thursday
     # email covers this weekend rather than two of them.
     slate_window_days: int = 6
+    # FCS opponents carry ratings but no meaningful market and no coaching or
+    # venue history worth trusting. Skip them.
+    fbs_only: bool = True
 
     # --- blending ------------------------------------------------------------
     weights: Weights = field(default_factory=Weights)

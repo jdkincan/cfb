@@ -421,6 +421,7 @@ def project_slate(
     coach_model=None,
     situational=None,
     markets: Optional[Dict[Any, Dict[str, Any]]] = None,
+    fbs_teams: Optional[set] = None,
 ) -> List[GameProjection]:
     """Project every game on the slate, best edges first."""
     markets = markets or {}
@@ -432,6 +433,10 @@ def project_slate(
         away = pick(game, "awayTeam", "away_team", "away")
         if not home or not away:
             continue
+        if fbs_teams is not None and config.fbs_only:
+            if normalize_team(home) not in fbs_teams or normalize_team(away) not in fbs_teams:
+                log.debug("skipping non-FBS matchup: %s at %s", away, home)
+                continue
         if not (book.has_ratings(home) and book.has_ratings(away)):
             # One side carries no usable rating — normally an FCS opponent, but
             # also every game in a season whose sources haven't published yet.

@@ -110,7 +110,8 @@ def make_client(config: Config) -> CFBDClient:
 
 
 # -- commands ----------------------------------------------------------------
-def build_projections(client, config: Config, season: int, week: int, as_of=None):
+def build_projections(client, config: Config, season: int, week: int, as_of=None,
+                      window_days: Optional[int] = None):
     """Load every model input and project the slate.
 
     ``as_of`` anchors the slate window. It exists because a CFBD week can
@@ -157,11 +158,28 @@ def build_projections(client, config: Config, season: int, week: int, as_of=None
 
     from .model import clip_to_slate_window
 
-    games = clip_to_slate_window(games, config.slate_window_days, now=as_of)
+    window_days = config.slate_window_days if window_days is None else window_days
+
+    games = clip_to_slate_window(games, window_days, now=as_of)
+
+    fbs_teams = None
+    if config.fbs_only:
+        try:
+            from .ratings import normalize_team as _norm
+            from .sources.cfbd import pick as _pick
+
+            fbs_teams = {
+                _norm(_pick(t, "school", "team"))
+                for t in client.fbs_teams(season)
+                if _pick(t, "school", "team")
+            }
+            log.info("restricting slate to %d FBS teams", len(fbs_teams))
+        except Exception as exc:  # noqa: BLE001
+            log.warning("could not load the FBS team list: %s", exc)
 
     markets = load_markets(client, season, week, config.season_type)
     projections = project_slate(
-        games, book, config, hfa_model, coach_model, situational, markets
+        games, book, config, hfa_model, coach_model, situational, markets, fbs_teams
     )
     log.info("projected %d games", len(projections))
     return projections, book
@@ -189,7 +207,10 @@ def cmd_run(args, config: Config) -> int:
         log.info("no upcoming week found for %d — the season is likely over.", season)
         return 0
 
-    projections, book = build_projections(client, config, season, week, as_of=as_of)
+    projections, book = build_projections(
+        client, config, season, week, as_of=as_of,
+        window_days=getattr(args, 'window', None),
+    )
     if not projections:
         log.info("nothing to report for week %d", week)
         return 0
@@ -380,6 +401,11 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--week", type=int)
     run.add_argument("--season", type=int)
     run.add_argument(
+        "--window", type=int,
+        help="days of games to include from the anchor kickoff "
+             "(default 6 = one weekend; use 14 for a whole CFBD week)",
+    )
+    run.add_argument(
         "--as-of", dest="as_of",
         help="anchor the slate window at this date (YYYY-MM-DD) instead of today; "
              "use it to preview a later weekend inside the same CFBD week",
@@ -397,6 +423,11 @@ def build_parser() -> argparse.ArgumentParser:
     preview = sub.add_parser("preview", help="render to a file without sending")
     preview.add_argument("--week", type=int)
     preview.add_argument("--season", type=int)
+    preview.add_argument(
+        "--window", type=int,
+        help="days of games to include from the anchor kickoff "
+             "(default 6 = one weekend; use 14 for a whole CFBD week)",
+    )
     preview.add_argument(
         "--as-of", dest="as_of",
         help="anchor the slate window at this date (YYYY-MM-DD) instead of today; "

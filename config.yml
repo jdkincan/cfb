@@ -12,6 +12,8 @@ season: 0            # 0 = infer from today's date
 timezone: America/New_York
 send_hour_local: 7   # the workflow fires twice and only this hour sends
 season_type: regular
+slate_window_days: 6      # one playing weekend; a CFBD week can hold two
+fbs_only: true            # screen out FCS opponents
 
 # ---------------------------------------------------------------------------
 # Blend weights over the rating sources.

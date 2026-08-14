@@ -1,0 +1,100 @@
+# cfbmeta configuration
+#
+# Everything here has a working default. The values most worth revisiting are
+# `weights`, `sigma_margin` and `edge_shrink` — and rather than guessing at
+# them, run:
+#
+#     python -m cfbmeta backtest --years 5 --fit --write
+#
+# which measures all three against real results and writes them back here.
+
+season: 0            # 0 = infer from today's date
+timezone: America/New_York
+send_hour_local: 7   # the workflow fires twice and only this hour sends
+season_type: regular
+
+# ---------------------------------------------------------------------------
+# Blend weights over the rating sources.
+#
+# `market` stays at 0 on purpose. The closing line is the benchmark we are
+# trying to beat, so folding it into the forecast would launder away the very
+# disagreement we are looking for. Raise it only if a backtest shows the blend
+# is genuinely worse than the line.
+# ---------------------------------------------------------------------------
+weights:
+  sp_plus: 0.40      # Bill Connelly's SP+, the strongest single public rating
+  fpi: 0.25          # ESPN's Football Power Index
+  elo: 0.15
+  srs: 0.10
+  talent: 0.10       # 247 composite: a prior on roster quality, not on form
+  market: 0.00
+
+# Fraction of each week's Elo/SRS weight shifted to the preseason-anchored
+# sources. Those two describe only results so far, which in September is noise.
+prior_weight_by_week:
+  1: 0.75
+  2: 0.60
+  3: 0.45
+  4: 0.30
+  5: 0.18
+  6: 0.10
+  7: 0.05
+
+# ---------------------------------------------------------------------------
+# Uncertainty
+# ---------------------------------------------------------------------------
+sigma_margin: 16.0   # SD of (actual - projected) margin; ~16 is typical for CFB
+sigma_total: 13.5
+
+# ---------------------------------------------------------------------------
+# Home field. Estimated per venue from five seasons of results and shrunk hard
+# toward the league mean, so a couple of flukey home blowouts don't buy a team
+# a six-point home field.
+# ---------------------------------------------------------------------------
+league_hfa: 2.35
+hfa_shrink_games: 60.0
+hfa_max: 5.0
+hfa_min: 0.0
+altitude_bonus_per_1k_ft: 0.22
+altitude_threshold_ft: 3000.0
+
+# ---------------------------------------------------------------------------
+# Adjustment caps. Each knob is capped on its own and again in aggregate, so no
+# single soft factor can run away with a projection.
+# ---------------------------------------------------------------------------
+coach_adj_cap: 1.5
+rest_adj_cap: 2.0
+travel_adj_cap: 1.2
+total_adj_cap: 4.0
+
+bye_week_bonus: 1.0
+short_week_penalty: 0.8
+rest_day_value: 0.10
+travel_penalty_per_1k_mi: 0.35
+
+# ---------------------------------------------------------------------------
+# Betting
+# ---------------------------------------------------------------------------
+vig_price: -110
+# How much of our disagreement with the market to treat as real signal. At 1.0
+# we'd be claiming the closing line is wrong by the full amount every time we
+# differ from it, which is not a defensible starting position for a model built
+# from public ratings. Fit it with `backtest --fit`.
+edge_shrink: 0.35
+kelly_fraction: 0.25       # quarter Kelly
+bankroll_units: 100.0      # 1 unit = 1% of bankroll
+min_edge_points: 1.5       # below this, not a play
+strong_edge_points: 3.0    # highlighted in the email
+max_units_per_play: 3.0
+
+# ---------------------------------------------------------------------------
+# Reporting and data
+# ---------------------------------------------------------------------------
+include_non_fbs: false
+email_subject_prefix: CFB Meta Forecast
+
+cfbd_base_url: https://api.collegefootballdata.com
+request_timeout: 30
+max_retries: 4
+cache_dir: data/cache
+cache_ttl_minutes: 360

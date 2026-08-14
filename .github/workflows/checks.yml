@@ -1,0 +1,52 @@
+name: Checks
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run_doctor:
+        description: "Also probe the live CFBD API (needs CFBD_API_KEY)"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Offline tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run the test suite
+        # No network and no API key: everything here runs off fixtures.
+        run: python -m pytest tests/ -q
+
+  doctor:
+    name: Live API probe
+    # The forecast depends on a third-party API whose response shapes can
+    # change under us. This job is the early warning, and is the only place the
+    # real endpoints get exercised.
+    if: github.event_name == 'workflow_dispatch' && inputs.run_doctor
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Probe every endpoint
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: python -m cfbmeta doctor

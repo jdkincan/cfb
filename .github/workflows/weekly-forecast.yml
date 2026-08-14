@@ -1,0 +1,83 @@
+name: Weekly forecast
+
+# Cron in GitHub Actions is UTC only, and 7am Eastern is 11:00 UTC in the
+# summer but 12:00 UTC after the November clock change. So this fires at BOTH
+# hours every Thursday and `run --check-time` exits immediately unless the
+# local hour actually matches send_hour_local. Exactly one of the two runs
+# sends, all season, with no schedule edit at the DST boundary.
+#
+# Changing timezone: set CFB_TIMEZONE below and adjust the two cron hours to
+# bracket your local 7am.
+on:
+  schedule:
+    - cron: "0 11,12 * * 4"
+  workflow_dispatch:
+    inputs:
+      week:
+        description: "Week number (blank = auto-detect the upcoming week)"
+        required: false
+        type: string
+      season:
+        description: "Season year (blank = current)"
+        required: false
+        type: string
+      dry_run:
+        description: "Render but do not send"
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: weekly-forecast
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build and send the forecast
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+          SMTP_HOST: ${{ vars.SMTP_HOST || 'smtp.gmail.com' }}
+          SMTP_PORT: ${{ vars.SMTP_PORT || '587' }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          CFB_TIMEZONE: America/New_York
+        run: |
+          set -euo pipefail
+          args=(run --out forecast.html)
+
+          # Scheduled runs enforce the 7am-local gate. Manual runs never do:
+          # if you click the button you want it now, whatever time it is.
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            args+=(--check-time)
+          fi
+
+          [ -n "${{ inputs.week }}" ]   && args+=(--week "${{ inputs.week }}")
+          [ -n "${{ inputs.season }}" ] && args+=(--season "${{ inputs.season }}")
+          [ "${{ inputs.dry_run }}" = "true" ] && args+=(--dry-run)
+
+          python -m cfbmeta "${args[@]}"
+
+      - name: Upload the rendered readout
+        if: always() && hashFiles('forecast.html') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: forecast-html
+          path: forecast.html
+          retention-days: 30

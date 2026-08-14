@@ -1,0 +1,178 @@
+{# Inline styles throughout: Gmail and Outlook strip or mangle style blocks.
+   Jinja comment, not an HTML one, so this note never ships to the reader. #}
+<div style="margin:0;padding:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#14181f;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f5f7;padding:16px 8px;">
+<tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:680px;background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.12);">
+
+  <!-- header -->
+  <tr><td style="background:#111827;padding:20px 24px;">
+    <div style="font-size:19px;font-weight:700;color:#ffffff;letter-spacing:-0.2px;">
+      {{ title }}
+    </div>
+    <div style="font-size:13px;color:#9ca3af;margin-top:5px;">
+      {{ subtitle }}
+    </div>
+  </td></tr>
+
+  <!-- summary strip -->
+  <tr><td style="padding:14px 24px;background:#f9fafb;border-bottom:1px solid #e5e7eb;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+      {% for label, value in summary_tiles %}
+      <td align="center" style="padding:4px;">
+        <div style="font-size:20px;font-weight:700;color:#111827;">{{ value }}</div>
+        <div style="font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.6px;margin-top:2px;">{{ label }}</div>
+      </td>
+      {% endfor %}
+    </tr></table>
+  </td></tr>
+
+  <!-- best bets -->
+  {% if plays %}
+  <tr><td style="padding:20px 24px 6px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin-bottom:10px;">
+      Best bets &mdash; {{ plays|length }} play{{ '' if plays|length == 1 else 's' }} over {{ '%.1f'|format(min_edge) }} pts of edge
+    </div>
+    {% for p in plays %}
+    {% set bet = p.spread_bet %}
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+           style="margin-bottom:10px;border:1px solid #e5e7eb;border-left:4px solid {{ '#059669' if bet.edge_points|abs >= strong_edge else '#0284c7' }};border-radius:6px;">
+      <tr><td style="padding:12px 14px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:15px;font-weight:700;color:#111827;">
+            {{ bet.side_team }} {{ '%+.1f'|format(bet.line) }}
+          </td>
+          <td align="right" style="font-size:15px;font-weight:700;color:#059669;">
+            {{ '%.2f'|format(bet.units) }}u
+          </td>
+        </tr></table>
+        <div style="font-size:12px;color:#6b7280;margin-top:4px;">
+          {{ p.matchup }}{% if p.kickoff_local %} &middot; {{ p.kickoff_local }}{% endif %}
+        </div>
+        <div style="font-size:12px;color:#374151;margin-top:8px;line-height:1.6;">
+          Model <strong>{{ p.projected_line }}</strong> vs market
+          <strong>{{ p.market_line_text }}</strong>
+          &rarr; <strong style="color:#059669;">{{ '%+.1f'|format(bet.edge_points) }} pts</strong>
+          &middot; cover {{ '%.1f'|format(bet.cover_probability * 100) }}%
+          &middot; EV {{ '%+.1f'|format(bet.expected_value * 100) }}%
+          {%- if bet.push_probability > 0.01 %} &middot; push {{ '%.1f'|format(bet.push_probability * 100) }}%{% endif %}
+        </div>
+      </td></tr>
+    </table>
+    {% endfor %}
+  </td></tr>
+  {% else %}
+  <tr><td style="padding:20px 24px;">
+    <div style="padding:14px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;font-size:13px;color:#78350f;">
+      No game cleared the {{ '%.1f'|format(min_edge) }}-point edge threshold this week. The full slate is below.
+    </div>
+  </td></tr>
+  {% endif %}
+
+  <!-- full slate -->
+  <tr><td style="padding:14px 24px 6px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin-bottom:8px;">
+      Full slate &mdash; {{ games|length }} games
+    </div>
+    <div style="overflow-x:auto;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:12px;border-collapse:collapse;">
+      <tr style="background:#f9fafb;">
+        <th align="left"   style="padding:7px 6px;color:#6b7280;font-weight:600;border-bottom:1px solid #e5e7eb;">Game</th>
+        <th align="right"  style="padding:7px 6px;color:#6b7280;font-weight:600;border-bottom:1px solid #e5e7eb;">Model</th>
+        <th align="right"  style="padding:7px 6px;color:#6b7280;font-weight:600;border-bottom:1px solid #e5e7eb;">Market</th>
+        <th align="right"  style="padding:7px 6px;color:#6b7280;font-weight:600;border-bottom:1px solid #e5e7eb;">Edge</th>
+        <th align="right"  style="padding:7px 6px;color:#6b7280;font-weight:600;border-bottom:1px solid #e5e7eb;">Win%</th>
+      </tr>
+      {% for p in games %}
+      <tr style="background:{{ '#ffffff' if loop.index0 % 2 == 0 else '#fcfcfd' }};">
+        <td style="padding:7px 6px;border-bottom:1px solid #f3f4f6;color:#111827;">
+          {{ p.matchup }}
+          {%- if p.neutral_site %} <span style="color:#9ca3af;">(N)</span>{% endif %}
+        </td>
+        <td align="right" style="padding:7px 6px;border-bottom:1px solid #f3f4f6;white-space:nowrap;">{{ p.projected_line }}</td>
+        <td align="right" style="padding:7px 6px;border-bottom:1px solid #f3f4f6;white-space:nowrap;color:#6b7280;">{{ p.market_line_text }}</td>
+        <td align="right" style="padding:7px 6px;border-bottom:1px solid #f3f4f6;font-weight:{{ '700' if p.is_play else '400' }};color:{{ '#059669' if p.is_play else '#9ca3af' }};">
+          {{ p.edge_text }}
+        </td>
+        <td align="right" style="padding:7px 6px;border-bottom:1px solid #f3f4f6;color:#6b7280;">
+          {{ '%.0f'|format(p.home_win_probability * 100) }}%
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    </div>
+  </td></tr>
+
+  <!-- per-game detail -->
+  <tr><td style="padding:20px 24px 6px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin-bottom:10px;">
+      How each number was built
+    </div>
+    {% for p in detail_games %}
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+           style="margin-bottom:12px;border:1px solid #e5e7eb;border-radius:6px;">
+      <tr><td style="padding:12px 14px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:14px;font-weight:700;color:#111827;">{{ p.matchup }}</td>
+          <td align="right" style="font-size:13px;font-weight:700;color:#111827;">{{ p.projected_line }}</td>
+        </tr></table>
+        {% if p.venue %}<div style="font-size:11px;color:#9ca3af;margin-top:2px;">{{ p.venue }}{% if p.kickoff_local %} &middot; {{ p.kickoff_local }}{% endif %}</div>{% endif %}
+
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:10px;font-size:11px;">
+          {% for c in p.components %}
+          <tr>
+            <td style="padding:3px 0;color:#6b7280;width:70px;">{{ c.label }}</td>
+            <td style="padding:3px 0;color:#374151;width:56px;">{{ '%+.1f'|format(c.margin) }}</td>
+            <td style="padding:3px 0;">
+              <div style="background:#e5e7eb;height:5px;border-radius:3px;width:100%;">
+                <div style="background:#94a3b8;height:5px;border-radius:3px;width:{{ (c.weight * 100)|round|int }}%;"></div>
+              </div>
+            </td>
+            <td align="right" style="padding:3px 0 3px 8px;color:#9ca3af;width:40px;">{{ '%.0f'|format(c.weight * 100) }}%</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+               style="margin-top:10px;padding-top:8px;border-top:1px solid #f3f4f6;font-size:11px;color:#6b7280;">
+          {% for label, value in p.ledger %}
+          <tr>
+            <td style="padding:2px 0;">{{ label }}</td>
+            <td align="right" style="padding:2px 0;color:#374151;">{{ value }}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td style="padding:5px 0 0;font-weight:700;color:#111827;border-top:1px solid #f3f4f6;">Projected margin</td>
+            <td align="right" style="padding:5px 0 0;font-weight:700;color:#111827;border-top:1px solid #f3f4f6;">
+              {{ '%+.1f'|format(p.projected_margin) }} ({{ p.home_team }})
+            </td>
+          </tr>
+        </table>
+
+        {% if p.notes %}
+        <div style="margin-top:8px;font-size:11px;color:#b45309;">
+          {% for note in p.notes %}{{ note }} {% endfor %}
+        </div>
+        {% endif %}
+      </td></tr>
+    </table>
+    {% endfor %}
+  </td></tr>
+
+  <!-- footer -->
+  <tr><td style="padding:16px 24px 22px;border-top:1px solid #e5e7eb;background:#f9fafb;">
+    <div style="font-size:11px;color:#6b7280;line-height:1.7;">
+      <strong style="color:#374151;">Method.</strong> {{ method_line }}<br>
+      <strong style="color:#374151;">Uncertainty.</strong> Margins assume &sigma; = {{ '%.1f'|format(sigma) }} points,
+      with key numbers (3, 7, 10, 14) weighted from the empirical margin distribution.
+      A {{ '%.0f'|format(example_edge) }}-point edge is worth roughly
+      {{ '%.1f'|format(example_cover * 100) }}% to cover &mdash; real but small. Size accordingly.<br>
+      <strong style="color:#374151;">Sources.</strong> {{ sources_line }}<br>
+      <span style="color:#9ca3af;">Generated {{ generated_at }} &middot; {{ version }}</span>
+    </div>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</div>

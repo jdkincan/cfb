@@ -27,6 +27,7 @@ from __future__ import annotations
 import logging
 import math
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 from .config import Config
@@ -61,6 +62,9 @@ class BacktestRow:
         if den <= 0:
             return self.hfa + self.adjustments
         return num / den + self.hfa + self.adjustments
+
+
+BACKTEST_PATH = Path(__file__).resolve().parent.parent / "calibration" / "backtest.json"
 
 
 @dataclass
@@ -437,3 +441,70 @@ def run_backtest(
             log.info("fitted weights: %s", fitted)
 
     return evaluate(rows, weights, basis=basis)
+
+
+def save_result(
+    result: BacktestResult,
+    seasons: Sequence[int],
+    edge_shrink: Optional[float],
+    path: Optional[Path] = None,
+) -> None:
+    """Record what was measured, on what basis, and when.
+
+    The basis is the load-bearing field. A fit on prior-season ratings answers
+    "could last year's numbers beat the close?", which is not the question the
+    live system asks, so anything reading these values back has to know which
+    one it is looking at.
+    """
+    import datetime as dt
+    import json
+
+    path = path or BACKTEST_PATH
+    payload = {
+        "run_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "basis": result.basis,
+        "seasons": list(seasons),
+        "games": result.n,
+        "mae": result.mae,
+        "market_mae": result.market_mae,
+        "rmse": result.rmse,
+        "sigma": result.sigma,
+        "bias": result.bias,
+        "ats": [result.ats_wins, result.ats_losses, result.ats_pushes],
+        "ats_pct": result.ats_pct,
+        "weights": result.weights,
+        "edge_shrink": edge_shrink,
+        "beats_market": (
+            result.market_mae is not None and result.mae < result.market_mae
+        ),
+    }
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, indent=2, sort_keys=True))
+    except OSError as exc:  # noqa: BLE001
+        log.warning("could not write backtest record: %s", exc)
+
+
+def load_result(path: Optional[Path] = None) -> Optional[dict]:
+    import json
+
+    path = path or BACKTEST_PATH
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def is_validated(record: Optional[dict] = None) -> bool:
+    """True only when the model has beaten the market on a fair basis.
+
+    Fair means point-in-time ratings — what was actually knowable before
+    kickoff. Until weekly snapshots accumulate, no such basis exists, and the
+    honest answer to "is this model validated?" is no.
+    """
+    record = record if record is not None else load_result()
+    if not record:
+        return False
+    return record.get("basis") == "snapshot" and bool(record.get("beats_market"))

@@ -147,6 +147,68 @@ def _view(proj: GameProjection, tz: ZoneInfo) -> Dict[str, Any]:
     return view
 
 
+def _validation_banner() -> Dict[str, Any]:
+    """State plainly whether the model has ever beaten the market fairly."""
+    from .backtest import is_validated, load_result
+
+    record = load_result()
+    if is_validated(record):
+        return {"validated": True, "text": ""}
+
+    if not record:
+        detail = "no backtest has been run yet."
+    else:
+        basis = record.get("basis", "?")
+        mae, market = record.get("mae"), record.get("market_mae")
+        ats = record.get("ats_pct")
+        parts = [f"the only backtest so far used a '{basis}' basis"]
+        if mae is not None and market is not None:
+            parts.append(f"MAE {mae:.2f} vs the closing line's {market:.2f}")
+        if ats is not None:
+            parts.append(f"ATS {ats:.1%} against a 52.4% break-even")
+        detail = "; ".join(parts) + "."
+    return {
+        "validated": False,
+        "text": (
+            "This model has not been shown to beat the closing line: " + detail +
+            " A fair test needs point-in-time ratings, which only accumulate as "
+            "weekly snapshots are archived. Treat the stakes below as a record of "
+            "what the model thinks, not as advice to bet."
+        ),
+    }
+
+
+def _spotlight_view(spot, tz) -> Optional[Dict[str, Any]]:
+    if spot is None:
+        return None
+    proj = spot.projection
+
+    def side(detail, is_home):
+        return {
+            "team": detail.team,
+            "role": "home" if is_home else "away",
+            "coach": detail.coach,
+            "coach_score": detail.coach_score,
+            "talent": round(detail.talent, 2) if detail.talent is not None else None,
+            "blue_chip": (
+                f"{detail.blue_chip_ratio:.0%}" if detail.blue_chip_ratio is not None else "—"
+            ),
+            "players": [
+                {"name": p.name, "position": p.position, "class_year": p.class_year,
+                 "stars": p.stars_label, "rating": f"{p.rating:.4f}" if p.rating else "—"}
+                for p in detail.players
+            ],
+            "momentum": detail.momentum,
+            "momentum_delta": detail.momentum_delta,
+            "momentum_recent": detail.momentum_recent,
+        }
+
+    view = _view(proj, tz)
+    view["sides"] = [side(spot.away, False), side(spot.home, True)]
+    view["note"] = spot.note
+    return view
+
+
 def build_context(
     projections: Sequence[GameProjection],
     config: Config,
@@ -154,6 +216,7 @@ def build_context(
     season: int,
     generated_at: Optional[dt.datetime] = None,
     book=None,
+    extras: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     tz = ZoneInfo(config.timezone)
     generated_at = generated_at or dt.datetime.now(tz)
@@ -166,7 +229,19 @@ def build_context(
     example_edge = 3.0
     example_cover = MarginDistribution(example_edge, config.sigma_margin).p_home_cover(0.0)
 
+    extras = extras or {}
+    validation = _validation_banner()
+    spplus = extras.get("spplus_check")
+
     return {
+        "validation": validation,
+        "spplus_check": (
+            {"ok": spplus.ok, "text": spplus.describe(),
+             "url": config.spplus_article_url,
+             "mismatched": spplus.mismatched}
+            if spplus is not None else None
+        ),
+        "spotlight": _spotlight_view(extras.get("spotlight"), tz),
         "title": f"{config.email_subject_prefix} — Week {week}",
         "subtitle": generated_at.strftime("%A, %B %-d, %Y").replace(" 0", " ")
         + f" · {season} season",
@@ -209,6 +284,32 @@ def render_text(context: Dict[str, Any]) -> str:
     """Plain-text alternative for clients that won't render HTML."""
     lines = [context["title"], context["subtitle"], ""]
 
+    banner = context.get("validation") or {}
+    if not banner.get("validated") and banner.get("text"):
+        lines += ["!" * 78, "UNVALIDATED — " + banner["text"], "!" * 78, ""]
+
+    spot = context.get("spotlight")
+    if spot:
+        lines.append(f"SPOTLIGHT — {spot['matchup']}")
+        lines.append("-" * 78)
+        lines.append(f"  model {spot['projected_line']}   market {spot['market_line_text']}"
+                     f"   edge {spot['edge_text']}")
+        for s_ in spot["sides"]:
+            head = f"  {s_['team']} ({s_['role']})"
+            if s_["coach"]:
+                head += f" — {s_['coach']} {s_['coach_score']:+.2f}"
+            lines.append(head)
+            lines.append(f"     talent {s_['talent']}  blue-chip {s_['blue_chip']}")
+            for p in s_["players"]:
+                lines.append(f"     {p['stars']} {p['name']:<24}{p['position']:<4}"
+                             f"{p['class_year']:<4}{p['rating']}")
+            if s_["momentum_delta"] is not None:
+                lines.append(f"     SP+ momentum: {s_['momentum_delta']:+.2f} since week "
+                             f"{s_['momentum'][0][0]}, {s_['momentum_recent']:+.2f} last week")
+        if spot.get("note"):
+            lines.append(f"  {spot['note']}")
+        lines.append("")
+
     if context["plays"]:
         lines.append(f"BEST BETS ({len(context['plays'])})")
         lines.append("-" * 60)
@@ -244,6 +345,11 @@ def render_text(context: Dict[str, Any]) -> str:
         lines.append(f"DATA (season {context['season']})")
         lines += [f"  {line}" for line in context["provenance"]]
         lines.append("")
+    check = context.get("spplus_check")
+    if check:
+        lines.append(("OK   " if check["ok"] else "WARN ") + check["text"])
+        lines.append(f"  vs {check['url']}")
+        lines.append("")
     lines += [f"Sources: {context['sources_line']}",
               f"Generated {context['generated_at']} · {context['version']}"]
     return "\n".join(lines)
@@ -256,8 +362,9 @@ def render(
     season: int,
     generated_at: Optional[dt.datetime] = None,
     book=None,
+    extras: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, str]:
-    context = build_context(projections, config, week, season, generated_at, book)
+    context = build_context(projections, config, week, season, generated_at, book, extras)
     return {
         "subject": f"{config.email_subject_prefix} — Week {week} ({len(context['plays'])} plays)",
         "html": render_html(context),

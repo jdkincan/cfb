@@ -168,3 +168,37 @@ class TestTotalEvaluation:
     def test_missing_inputs_are_safe(self):
         assert evaluate_total_bet(None, 52.0, 13.5).side == "none"
         assert evaluate_total_bet(52.0, None, 13.5).side == "none"
+
+
+class TestFittedKeyNumbers:
+    """The calibration file, when present, must override the defaults."""
+
+    def test_defaults_are_used_when_no_file_exists(self, tmp_path):
+        from cfbmeta.probability import DEFAULT_KEY_NUMBER_WEIGHTS, load_key_number_weights
+
+        assert load_key_number_weights(tmp_path / "nope.json") == DEFAULT_KEY_NUMBER_WEIGHTS
+
+    def test_a_fitted_file_is_loaded(self, tmp_path):
+        import json
+
+        from cfbmeta.probability import load_key_number_weights
+
+        path = tmp_path / "keys.json"
+        path.write_text(json.dumps({"3": 2.67, "7": 2.40}))
+        loaded = load_key_number_weights(path)
+        assert loaded[3] == pytest.approx(2.67)
+        assert loaded[7] == pytest.approx(2.40)
+
+    def test_a_corrupt_file_falls_back_to_defaults(self, tmp_path):
+        from cfbmeta.probability import DEFAULT_KEY_NUMBER_WEIGHTS, load_key_number_weights
+
+        path = tmp_path / "keys.json"
+        path.write_text("{not json")
+        assert load_key_number_weights(path) == DEFAULT_KEY_NUMBER_WEIGHTS
+
+    def test_sharper_key_numbers_move_probability_off_the_number(self):
+        """A bigger spike on 3 means less mass strictly above a 3-point line."""
+        soft = MarginDistribution(3.0, 16.0, key_weights={3: 1.0})
+        sharp = MarginDistribution(3.0, 16.0, key_weights={3: 2.7})
+        assert sharp.p_push(3.0) > soft.p_push(3.0)
+        assert sharp.p_home_cover(3.0) < soft.p_home_cover(3.0)

@@ -7,9 +7,10 @@ environment variables (env wins, so CI can tweak a run without a commit).
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional
 
 import yaml
 
@@ -147,6 +148,23 @@ class Config:
 
     # --- reporting -----------------------------------------------------------
     email_subject_prefix: str = "CFB Meta Forecast"
+    # A team whose game is pinned to the top of every readout with expanded
+    # detail. Empty disables the section.
+    spotlight_team: str = "Arkansas"
+    spotlight_player_count: int = 5
+
+    # --- verification --------------------------------------------------------
+    # ESPN article of record for SP+. Its prose carries year-over-year deltas
+    # that CFBD's numbers must reproduce; see sources/spplus_check.py.
+    spplus_article_id: str = "49593338"
+    spplus_article_url: str = (
+        "https://www.espn.com/college-football/story/_/id/49593338/"
+        "final-preseason-college-football-sp+-rankings-takeaways-2026"
+    )
+    verify_spplus: bool = True
+    # Write a snapshot of every run to archive/. CFBD keeps no history, so this
+    # is the only way a fair in-season backtest ever becomes possible.
+    archive_runs: bool = True
 
     # --- data ----------------------------------------------------------------
     cfbd_base_url: str = "https://api.collegefootballdata.com"
@@ -223,7 +241,53 @@ class Config:
         return 0.0
 
     def save(self, path: Path | str | None = None) -> None:
+        """Full dump. Loses comments — prefer :func:`update_in_place`."""
         path = Path(path) if path else DEFAULT_CONFIG_PATH
         data = asdict(self)
         data["weights"] = asdict(self.weights)
         path.write_text(yaml.safe_dump(data, sort_keys=False))
+
+
+def update_in_place(
+    updates: Dict[str, Any],
+    path: Path | str | None = None,
+    weights: Optional[Dict[str, float]] = None,
+) -> List[str]:
+    """Rewrite specific config values, keeping every comment intact.
+
+    A full YAML dump erases the commentary that explains what each knob means
+    and why it is set where it is — which is most of the value of the file.
+    This edits the individual lines instead and returns what changed.
+    """
+    path = Path(path) if path else DEFAULT_CONFIG_PATH
+    lines = path.read_text().splitlines()
+    changed: List[str] = []
+    in_weights = False
+
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith("weights:"):
+            in_weights = True
+            continue
+        if in_weights and stripped and not line.startswith((" ", "\t")):
+            in_weights = False
+
+        match = re.match(r"^(\s*)([a-z_]+):(\s*)([^#]*?)(\s*)(#.*)?$", line)
+        if not match:
+            continue
+        indent, key, _, old, _, comment = match.groups()
+
+        target = None
+        if in_weights and weights and key in weights:
+            target = weights[key]
+        elif not in_weights and key in updates:
+            target = updates[key]
+        if target is None:
+            continue
+
+        suffix = f"  {comment}" if comment else ""
+        lines[i] = f"{indent}{key}: {target}{suffix}"
+        changed.append(f"{key}: {old.strip()} -> {target}")
+
+    path.write_text("\n".join(lines) + "\n")
+    return changed

@@ -370,6 +370,31 @@ def build_lines(year: int, week=None) -> List[Dict[str, Any]]:
 
 
 @pytest.fixture(autouse=True)
+def isolate_calibration(monkeypatch, tmp_path):
+    """Pin key numbers to the shipped defaults for every test.
+
+    calibration/key_numbers.json is refit from real results, so leaving it live
+    would make probability assertions change underneath the suite whenever
+    someone runs a backtest. Behaviour is tested against a fixed distribution;
+    the loading path itself is tested explicitly in test_probability.
+    """
+    monkeypatch.setattr(
+        "cfbmeta.probability.KEY_NUMBERS_PATH", tmp_path / "absent.json", raising=False
+    )
+    monkeypatch.setattr(
+        "cfbmeta.backtest.BACKTEST_PATH", tmp_path / "backtest.json", raising=False
+    )
+    monkeypatch.setattr(
+        "cfbmeta.freshness.STATE_PATH", tmp_path / "source_state.json", raising=False
+    )
+    # Tests must never write into the real archive: those snapshots are the
+    # historical record the model will eventually be validated against.
+    monkeypatch.setattr(
+        "cfbmeta.archive.ARCHIVE_ROOT", tmp_path / "archive", raising=False
+    )
+
+
+@pytest.fixture(autouse=True)
 def isolate_dotenv(monkeypatch, tmp_path):
     """Never let a developer's real .env bleed into the tests.
 

@@ -23,12 +23,17 @@ fbs_only: true            # screen out FCS opponents
 # disagreement we are looking for. Raise it only if a backtest shows the blend
 # is genuinely worse than the line.
 # ---------------------------------------------------------------------------
+# NOTE: these were fitted on a 'prior' basis (last season's final ratings),
+# which is the only fair basis available until snapshots accumulate. That basis
+# favours whichever source is most forward-looking, which is why talent lands
+# so high — with current-season SP+ available the balance would differ. Treat
+# them as measured-but-provisional. See calibration/backtest.json.
 weights:
-  sp_plus: 0.40      # Bill Connelly's SP+, the strongest single public rating
-  fpi: 0.25          # ESPN's Football Power Index
-  elo: 0.15
-  srs: 0.10
-  talent: 0.10       # 247 composite: a prior on roster quality, not on form
+  sp_plus: 0.4398  # Bill Connelly's SP+, the strongest single public rating
+  fpi: 0.2395  # ESPN's Football Power Index
+  elo: 0.0018
+  srs: 0.0
+  talent: 0.3189  # 247 composite: a prior on roster quality, not on form
   market: 0.00
 
 # Fraction of each week's Elo/SRS weight shifted to the preseason-anchored
@@ -48,7 +53,7 @@ prior_weight_by_week:
 # ---------------------------------------------------------------------------
 # Uncertainty
 # ---------------------------------------------------------------------------
-sigma_margin: 16.0   # SD of (actual - projected) margin; ~16 is typical for CFB
+sigma_margin: 19.32  # SD of (actual - projected) margin; ~16 is typical for CFB
 sigma_total: 13.5
 
 # ---------------------------------------------------------------------------

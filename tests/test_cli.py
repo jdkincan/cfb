@@ -175,9 +175,9 @@ class TestWeekZero:
         seen = {}
         real = cli.build_projections
 
-        def spy(client, config, season, week, **kwargs):
+        def spy(client, config, season, week, *args, **kwargs):
             seen["week"] = week
-            return real(client, config, season, week, **kwargs)
+            return real(client, config, season, week, *args, **kwargs)
 
         monkeypatch.setattr(cli, "build_projections", spy)
         # If week 0 were treated as falsy, this would silently become week 6.
@@ -192,9 +192,13 @@ class TestWeekZero:
         week1 = effective_weights(config, 1)
         late = effective_weights(config, 12)
 
-        # Week 0 has even less current-season signal than week 1.
-        assert week0["elo"] <= week1["elo"] < late["elo"]
-        assert week0["srs"] <= week1["srs"] < late["srs"]
+        # Week 0 has even less current-season signal than week 1. A source the
+        # backtest zeroed out stays at zero everywhere, so only assert the
+        # ordering for sources that actually carry weight.
+        for source in ("elo", "srs"):
+            assert week0[source] <= week1[source] <= late[source]
+            if late[source] > 0:
+                assert week1[source] < late[source], source
         assert week0["sp_plus"] >= week1["sp_plus"] > late["sp_plus"]
 
     def test_weeks_before_the_first_entry_clamp_rather_than_fall_through(self):

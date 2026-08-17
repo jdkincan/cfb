@@ -15,6 +15,72 @@
     </div>
   </td></tr>
 
+  {% if validation and not validation.validated %}
+  <tr><td style="padding:14px 24px;background:#fdf2f2;border-bottom:1px solid #f5c6c6;">
+    <div style="font-family:monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#9b2226;font-weight:700;margin-bottom:5px;">
+      Unvalidated
+    </div>
+    <div style="font-size:12px;color:#7a1c20;line-height:1.6;">{{ validation.text }}</div>
+  </td></tr>
+  {% endif %}
+
+  {% if spotlight %}
+  <tr><td style="padding:20px 24px 6px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin-bottom:10px;">
+      Spotlight
+    </div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+           style="border:1px solid #e5e7eb;border-left:4px solid #111827;border-radius:6px;">
+      <tr><td style="padding:14px 16px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:16px;font-weight:700;color:#111827;">{{ spotlight.matchup }}</td>
+          <td align="right" style="font-size:13px;color:#6b7280;">{{ spotlight.kickoff_local }}</td>
+        </tr></table>
+        <div style="font-size:12px;color:#374151;margin-top:6px;">
+          Model <strong>{{ spotlight.projected_line }}</strong> &middot;
+          market <strong>{{ spotlight.market_line_text }}</strong> &middot;
+          edge <strong>{{ spotlight.edge_text }}</strong> &middot;
+          home win {{ '%.0f'|format(spotlight.home_win_probability * 100) }}%
+        </div>
+
+        {% for side in spotlight.sides %}
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+               style="margin-top:12px;border-top:1px solid #f3f4f6;">
+          <tr><td style="padding-top:9px;">
+            <div style="font-size:13px;font-weight:700;color:#111827;">
+              {{ side.team }}
+              <span style="font-weight:400;color:#9ca3af;font-size:11px;">({{ side.role }})</span>
+            </div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px;">
+              {% if side.coach %}{{ side.coach }} {{ '%+.2f'|format(side.coach_score) }} &middot; {% endif %}
+              talent {{ side.talent if side.talent is not none else '—' }} &middot;
+              blue-chip {{ side.blue_chip }}
+              {%- if side.momentum_delta is not none %} &middot;
+              SP+ {{ '%+.2f'|format(side.momentum_delta) }} since wk {{ side.momentum[0][0] }}
+              {%- endif %}
+            </div>
+            <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:7px;font-size:11px;">
+              {% for p in side.players %}
+              <tr>
+                <td style="padding:2px 10px 2px 0;color:#6b7280;width:26px;">{{ p.stars }}</td>
+                <td style="padding:2px 10px 2px 0;color:#111827;">{{ p.name }}</td>
+                <td style="padding:2px 10px 2px 0;color:#6b7280;">{{ p.position }}</td>
+                <td style="padding:2px 10px 2px 0;color:#9ca3af;">{{ p.class_year }}</td>
+                <td style="padding:2px 0;color:#9ca3af;font-family:monospace;">{{ p.rating }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </td></tr>
+        </table>
+        {% endfor %}
+        {% if spotlight.note %}
+        <div style="font-size:11px;color:#9ca3af;margin-top:10px;">{{ spotlight.note }}</div>
+        {% endif %}
+      </td></tr>
+    </table>
+  </td></tr>
+  {% endif %}
+
   <!-- summary strip -->
   <tr><td style="padding:14px 24px;background:#f9fafb;border-bottom:1px solid #e5e7eb;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
@@ -168,6 +234,12 @@
       A {{ '%.0f'|format(example_edge) }}-point edge is worth roughly
       {{ '%.1f'|format(example_cover * 100) }}% to cover &mdash; real but small. Size accordingly.<br>
       <strong style="color:#374151;">Sources.</strong> {{ sources_line }}<br>
+      {% if spplus_check %}
+      <strong style="color:{{ '#0f6b57' if spplus_check.ok else '#9b2226' }};">
+        {{ 'SP+ verified.' if spplus_check.ok else 'SP+ MISMATCH.' }}</strong>
+      {{ spplus_check.text }}
+      <a href="{{ spplus_check.url }}" style="color:#6b7280;">source</a><br>
+      {% endif %}
       {% if provenance %}
       <strong style="color:#374151;">Data for the {{ season }} season.</strong>
       {% for line in provenance %}<br>&nbsp;&nbsp;{{ line }}{% endfor %}<br>

@@ -18,15 +18,18 @@ from typing import List, Optional, Sequence
 from zoneinfo import ZoneInfo
 
 from .adjustments import build_situational_model, parse_start
-from .backtest import collect_rows, evaluate, fit_edge_shrink, fit_key_numbers, fit_weights
+from .backtest import (
+    collect_rows, evaluate, fit_edge_shrink, fit_key_numbers, fit_weights, save_result,
+)
 from .coaching import build_coach_model
-from .config import Config, load_dotenv
+from .config import Config, load_dotenv, update_in_place
 from .hfa import build_hfa_model
 from .model import project_slate
 from .probability import KEY_NUMBERS_PATH
 from .ratings import build_rating_book
 from .report import render
 from .sources.cfbd import CFBDClient, CFBDAuthError, CFBDError, ENDPOINTS
+from .sources.cfbd import pick as pick_any
 from .sources.market import load_markets
 
 log = logging.getLogger("cfbmeta")
@@ -160,7 +163,7 @@ def build_projections(client, config: Config, season: int, week: int, as_of=None
     games = client.games(season, week=week, season_type=config.season_type)
     if not games:
         log.warning("no games scheduled for week %d of %d", week, season)
-        return [], book
+        return [], book, {}
 
     from .model import clip_to_slate_window
 
@@ -188,7 +191,66 @@ def build_projections(client, config: Config, season: int, week: int, as_of=None
         games, book, config, hfa_model, coach_model, situational, markets, fbs_teams
     )
     log.info("projected %d games", len(projections))
-    return projections, book
+
+    extras = {"markets": markets, "coach_model": coach_model}
+
+    if config.verify_spplus:
+        extras["spplus_check"] = _verify_spplus(client, config, season)
+
+    if config.spotlight_team:
+        from .spotlight import build_spotlight
+
+        try:
+            from .model import detect_defense_sign, project_game
+
+            defense_sign = detect_defense_sign(book)
+
+            def project_one(game):
+                gid = pick_any(game, "id", "gameId")
+                return project_game(
+                    game, book, config, hfa_model, coach_model, situational,
+                    markets.get(gid), defense_sign,
+                )
+
+            extras["spotlight"] = build_spotlight(
+                projections, config.spotlight_team, client=client, season=season,
+                book=book, coach_model=coach_model,
+                player_limit=config.spotlight_player_count,
+                all_games=games, project_one=project_one,
+            )
+        except Exception as exc:  # noqa: BLE001 - never break a run over a bonus section
+            log.warning("could not build the %s spotlight: %s", config.spotlight_team, exc)
+
+    if config.archive_runs:
+        from .archive import snapshot
+
+        try:
+            snapshot(season, week, book=book, projections=projections,
+                     markets=markets, config=config)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("could not archive this run: %s", exc)
+
+    return projections, book, extras
+
+
+def _verify_spplus(client, config: Config, season: int):
+    """Check CFBD's SP+ against the ESPN article of record."""
+    from .ratings import normalize_team
+    from .sources.cfbd import pick, pick_float
+    from .sources.spplus_check import check
+
+    try:
+        def grab(year):
+            return {
+                normalize_team(pick(r, "team")): pick_float(r, "rating")
+                for r in client.sp_ratings(year)
+                if pick(r, "team") and pick_float(r, "rating") is not None
+            }
+
+        return check(config.spplus_article_id, grab(season), grab(season - 1))
+    except Exception as exc:  # noqa: BLE001
+        log.warning("SP+ publication check failed: %s", exc)
+        return None
 
 
 def cmd_run(args, config: Config) -> int:
@@ -213,7 +275,7 @@ def cmd_run(args, config: Config) -> int:
         log.info("no upcoming week found for %d — the season is likely over.", season)
         return 0
 
-    projections, book = build_projections(
+    projections, book, extras = build_projections(
         client, config, season, week, as_of=as_of,
         window_days=getattr(args, 'window', None),
     )
@@ -221,7 +283,8 @@ def cmd_run(args, config: Config) -> int:
         log.info("nothing to report for week %d", week)
         return 0
 
-    message = render(projections, config, week, season, generated_at=now, book=book)
+    message = render(projections, config, week, season, generated_at=now,
+                     book=book, extras=extras)
 
     if args.out:
         Path(args.out).write_text(message["html"])
@@ -323,7 +386,7 @@ def cmd_doctor(args, config: Config) -> int:
         week = resolve_week(client, config, season)
         if week is None:
             week = 1
-        projections, _ = build_projections(client, config, season, week)
+        projections, _, _ = build_projections(client, config, season, week)
         print(f"OK    end-to-end — projected {len(projections)} games for week {week}")
         for proj in projections[:3]:
             print(
@@ -364,6 +427,7 @@ def cmd_backtest(args, config: Config) -> int:
         fitted_shrink = fit_edge_shrink(rows, weights)
 
     result = evaluate(rows, weights, basis=args.basis)
+    save_result(result, seasons, fitted_shrink)
     print()
     print(result.summary())
     if fitted_shrink is not None:
@@ -377,15 +441,26 @@ def cmd_backtest(args, config: Config) -> int:
             print("\nRefusing to write config from a lookahead-contaminated backtest. "
                   "Re-run with --basis prior.")
             return 1
-        for source, value in weights.items():
-            if hasattr(config.weights, source):
-                setattr(config.weights, source, round(value, 4))
-        config.sigma_margin = round(result.sigma, 2)
-        if fitted_shrink is not None:
-            config.edge_shrink = fitted_shrink
-        config.save()
-        print(f"\nWrote fitted weights, sigma={config.sigma_margin} and "
-              f"edge_shrink={config.edge_shrink} to config.yml")
+        updates = {"sigma_margin": round(result.sigma, 2)}
+        # An edge-shrink fitted on prior-season ratings measures what stale
+        # numbers are worth against the close, not what the live model is
+        # worth. Adopting it would silently set the operating value from the
+        # wrong experiment — in either direction — so it is recorded and not
+        # written. Only a point-in-time (snapshot) basis can settle it.
+        if args.basis == "snapshot" and fitted_shrink is not None:
+            updates["edge_shrink"] = fitted_shrink
+        elif fitted_shrink is not None:
+            print(
+                f"\nNot writing edge_shrink={fitted_shrink}: a '{args.basis}' basis "
+                "measures stale ratings against the closing line, which is not the "
+                "quantity the live model uses. Recorded in calibration/backtest.json."
+            )
+        changed = update_in_place(
+            updates, weights={k: round(v, 4) for k, v in weights.items()}
+        )
+        print("\nUpdated config.yml (comments preserved):")
+        for line in changed:
+            print(f"  {line}")
 
     if args.fit_key_numbers:
         key_weights = fit_key_numbers(rows, sigma=result.sigma or config.sigma_margin)
@@ -460,7 +535,7 @@ def build_parser() -> argparse.ArgumentParser:
     back.add_argument("--seasons", type=int, nargs="+")
     back.add_argument(
         "--basis",
-        choices=("prior", "same"),
+        choices=("prior", "same", "snapshot"),
         default="prior",
         help="'prior' uses last season's ratings (no lookahead); 'same' is "
              "contaminated and only useful for ranking sources against each other",

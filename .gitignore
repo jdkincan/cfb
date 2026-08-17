@@ -213,3 +213,6 @@ __marimo__/
 # cfbmeta local output
 preview.html
 forecast.html
+
+# Snapshot archive is committed on purpose (it is the historical record);
+# only the API response cache under data/ is ignored.

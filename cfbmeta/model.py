@@ -113,7 +113,13 @@ class GameProjection:
 
     @property
     def projected_line(self) -> str:
-        """Our number expressed the way a book would quote it."""
+        """Our number expressed the way a book would quote it.
+
+        With no rated component there is no projection — say so rather than
+        quoting a confident-looking 0.0.
+        """
+        if not self.components:
+            return "no projection"
         margin = abs(self.projected_margin)
         return f"{self.favorite} -{margin:.1f}"
 

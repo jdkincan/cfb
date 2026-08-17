@@ -99,12 +99,18 @@ def resolve_week(client, config: Config, season: int, now: Optional[dt.datetime]
     return None
 
 
-def make_client(config: Config) -> CFBDClient:
+def make_client(config: Config, refresh: bool = False) -> CFBDClient:
+    """Build the API client. ``refresh`` disables the local disk cache.
+
+    The cache is a local-development convenience only: it lives under data/,
+    which is gitignored, so a scheduled run in CI starts with none and always
+    fetches live.
+    """
     return CFBDClient(
         base_url=config.cfbd_base_url,
         timeout=config.request_timeout,
         max_retries=config.max_retries,
-        cache_dir=config.cache_dir or None,
+        cache_dir=None if refresh else (config.cache_dir or None),
         cache_ttl_minutes=config.cache_ttl_minutes,
     )
 
@@ -195,7 +201,7 @@ def cmd_run(args, config: Config) -> int:
         return 0
 
     season = args.season or config.resolved_season(now.date())
-    client = make_client(config)
+    client = make_client(config, refresh=getattr(args, 'refresh', False))
 
     # `is not None`, not truthiness: week 0 is a real week and would otherwise
     # be silently replaced by auto-detection.
@@ -253,7 +259,7 @@ def cmd_doctor(args, config: Config) -> int:
     print(f"cfbmeta doctor — season {season}\n" + "=" * 62)
 
     try:
-        client = make_client(config)
+        client = make_client(config, refresh=True)
     except CFBDAuthError as exc:
         print(f"FAIL  credentials: {exc}")
         return 1
@@ -401,6 +407,10 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--week", type=int)
     run.add_argument("--season", type=int)
     run.add_argument(
+        "--refresh", action="store_true",
+        help="bypass the local cache and refetch everything",
+    )
+    run.add_argument(
         "--window", type=int,
         help="days of games to include from the anchor kickoff "
              "(default 6 = one weekend; use 14 for a whole CFBD week)",
@@ -423,6 +433,10 @@ def build_parser() -> argparse.ArgumentParser:
     preview = sub.add_parser("preview", help="render to a file without sending")
     preview.add_argument("--week", type=int)
     preview.add_argument("--season", type=int)
+    preview.add_argument(
+        "--refresh", action="store_true",
+        help="bypass the local cache and refetch everything",
+    )
     preview.add_argument(
         "--window", type=int,
         help="days of games to include from the anchor kickoff "

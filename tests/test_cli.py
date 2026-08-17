@@ -20,7 +20,7 @@ from conftest import SEASON, FakeClient
 @pytest.fixture
 def patched(monkeypatch, tmp_path):
     """Point the CLI at fixtures and a scratch config."""
-    monkeypatch.setattr(cli, "make_client", lambda config: FakeClient())
+    monkeypatch.setattr(cli, "make_client", lambda config, **kwargs: FakeClient())
 
     config_path = tmp_path / "config.yml"
     config_path.write_text(

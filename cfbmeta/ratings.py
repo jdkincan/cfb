@@ -85,16 +85,37 @@ class SourceStatus:
     dispersion: float = 0.0
     reason: str = ""
     origin: str = "CFBD"
+    # Content hash and when these exact values were first seen, so a source
+    # that is real but has stopped updating can be told apart from a fresh one.
+    fingerprint: str = ""
+    unchanged_since: str = ""
+    unchanged_days: float = 0.0
+
+    @property
+    def stale(self) -> bool:
+        """Real values that have not moved in over a week.
+
+        A missing source and a flat source are both visible already. This is the
+        third failure: a source serving genuine, well-dispersed, *old* numbers.
+        In season every rating should move weekly, so standing still is a
+        signal, not a comfort.
+        """
+        return self.usable and self.unchanged_days > 7.0
 
     def describe(self) -> str:
         label = SOURCE_DISPLAY.get(self.source, self.source)
-        if self.usable:
-            via = "" if self.origin == "CFBD" else f" via {self.origin}"
-            return (
-                f"{label} {self.season}: {self.teams} teams"
-                f" (spread {self.dispersion:.1f}){via}"
-            )
-        return f"{label} {self.season}: unusable — {self.reason}"
+        if not self.usable:
+            return f"{label} {self.season}: unusable — {self.reason}"
+        via = "" if self.origin == "CFBD" else f" via {self.origin}"
+        age = ""
+        if self.unchanged_days >= 1:
+            age = f", unchanged {self.unchanged_days:.0f}d"
+            if self.stale:
+                age += " — STALE?"
+        return (
+            f"{label} {self.season}: {self.teams} teams"
+            f" (spread {self.dispersion:.1f}){via}{age}"
+        )
 
 
 SOURCE_DISPLAY = {
@@ -432,6 +453,39 @@ def _try_recruiting_talent(book: "RatingBook", client, season: int) -> None:
         status.origin = "roster x recruiting"
 
 
+def _record_freshness(book: "RatingBook") -> None:
+    """Note whether each source's values have moved since the last run."""
+    import logging
+
+    log = logging.getLogger(__name__)
+    try:
+        from .freshness import fingerprint, load_state, record, save_state
+    except Exception:  # noqa: BLE001
+        return
+
+    state = load_state()
+    for source, status in book.provenance.items():
+        if not status.usable:
+            continue
+        values = {
+            team: entry.values[source]
+            for team, entry in book.teams.items()
+            if source in entry.values
+        }
+        if not values:
+            continue
+        digest = fingerprint(values)
+        days = record(f"{book.season}:{source}", digest, state)
+        status.fingerprint = digest
+        status.unchanged_days = round(days, 1)
+        if status.stale:
+            log.warning(
+                "%s has served identical values for %.0f days — check upstream",
+                source, days,
+            )
+    save_state(state)
+
+
 def build_rating_book(
     client,
     season: int,
@@ -486,6 +540,7 @@ def build_rating_book(
     ):
         _try_recruiting_talent(book, client, season)
 
+    _record_freshness(book)
     for line in book.provenance_lines():
         log.info("  %s", line)
     if not book.usable_sources():

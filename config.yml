@@ -96,6 +96,9 @@ bankroll_units: 100.0      # 1 unit = 1% of bankroll
 min_edge_points: 1.5       # below this, not a play
 strong_edge_points: 3.0    # highlighted in the email
 max_units_per_play: 3.0
+max_weekly_units: 10.0        # total units at risk in one week, after correlation
+within_group_correlation: 0.4 # assumed correlation between same-day, same-conf bets
+use_best_line: true           # size against the best number available, not the median
 
 # ---------------------------------------------------------------------------
 # Reporting and data

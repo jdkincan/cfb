@@ -94,7 +94,7 @@ class BacktestResult:
 
     @property
     def trustworthy(self) -> bool:
-        return self.basis == "prior"
+        return self.basis in ("prior", "reconstructed", "snapshot")
 
     def summary(self) -> str:
         lines = [
@@ -144,6 +144,91 @@ class BacktestResult:
         return "\n".join(lines)
 
 
+def collect_reconstructed_rows(
+    client,
+    config: Config,
+    seasons: Sequence[int],
+    hfa_model=None,
+    coach_model=None,
+) -> List[BacktestRow]:
+    """Rows rated with point-in-time ratings refit from prior results only.
+
+    The fair basis. For each week, ratings come from a ridge fit over games
+    completed strictly before that week, anchored on the previous season's
+    final SP+ as a preseason prior. Nothing from the target week is visible.
+    """
+    from .inseason import weekly_ratings
+
+    rows: List[BacktestRow] = []
+    for season in seasons:
+        try:
+            games = client.games(season)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("no games for %d: %s", season, exc)
+            continue
+
+        prior: Dict[str, float] = {}
+        try:
+            prior = {
+                normalize_team(pick(r, "team", "school")): pick_float(r, "rating")
+                for r in client.sp_ratings(season - 1)
+                if pick(r, "team", "school") and pick_float(r, "rating") is not None
+            }
+        except Exception as exc:  # noqa: BLE001
+            log.warning("no %d prior for reconstruction: %s", season - 1, exc)
+
+        eligible = set(prior) or None
+        weeks = sorted({int(pick_float(g, "week", default=0) or 0) for g in games})
+        weeks = [w for w in weeks if w >= 1]
+        by_week = weekly_ratings(
+            games, weeks, prior=prior, hfa=config.league_hfa, eligible=eligible
+        )
+
+        markets: Dict = {}
+        try:
+            markets = build_market_map(client.lines(season))
+        except Exception as exc:  # noqa: BLE001
+            log.debug("no lines for %d: %s", season, exc)
+
+        for game in games:
+            home = pick(game, "homeTeam", "home_team")
+            away = pick(game, "awayTeam", "away_team")
+            hp = pick_float(game, "homePoints", "home_points")
+            ap = pick_float(game, "awayPoints", "away_points")
+            week = pick_float(game, "week")
+            if not home or not away or hp is None or ap is None or week is None:
+                continue
+            ratings = by_week.get(int(week)) or {}
+            hkey, akey = normalize_team(home), normalize_team(away)
+            if hkey not in ratings or akey not in ratings:
+                continue
+
+            neutral = bool(pick(game, "neutralSite", "neutral_site", default=False))
+            hfa = 0.0
+            if not neutral:
+                hfa = (
+                    hfa_model.for_game(home, away, neutral)["total"]
+                    if hfa_model else config.league_hfa
+                )
+            adjustments = 0.0
+            if coach_model is not None:
+                adjustments += float(coach_model.for_game(home, away).get("total", 0.0))
+
+            market = markets.get(pick(game, "id")) or markets.get((hkey, akey))
+            market_margin = (
+                -float(market["spread"])
+                if market and market.get("spread") is not None else None
+            )
+
+            rows.append(BacktestRow(
+                season=season, week=int(week), home_team=home, away_team=away,
+                actual_margin=hp - ap,
+                component_margins={"inseason": ratings[hkey] - ratings[akey]},
+                hfa=hfa, adjustments=adjustments, market_margin=market_margin,
+            ))
+    return rows
+
+
 def collect_rows(
     client,
     config: Config,
@@ -154,6 +239,9 @@ def collect_rows(
     situational=None,
 ) -> List[BacktestRow]:
     """Build one row per completed game with each source's neutral margin."""
+    if basis == "reconstructed":
+        return collect_reconstructed_rows(client, config, seasons, hfa_model, coach_model)
+
     rows: List[BacktestRow] = []
 
     for season in seasons:
@@ -434,7 +522,7 @@ def run_backtest(
 
     weights = config.weights.normalized()
     weights.pop("market", None)
-    if fit:
+    if fit and basis != "reconstructed":
         fitted = fit_weights(rows)
         if fitted:
             weights = fitted

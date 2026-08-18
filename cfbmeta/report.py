@@ -81,6 +81,14 @@ def _ledger(proj: GameProjection) -> List[tuple]:
             )
         )
 
+    avail = proj.availability or {}
+    if abs(float(avail.get("total", 0) or 0)) > 0.05:
+        reasons = " / ".join(
+            r for r in (avail.get("home_reason"), avail.get("away_reason")) if r
+        )
+        rows.append((f"Availability{' — ' + reasons if reasons else ''}",
+                     f"{avail['total']:+.1f}"))
+
     sit = proj.situational or {}
     rest = sit.get("rest") or {}
     if abs(float(rest.get("total", 0) or 0)) > 0.05:
@@ -95,6 +103,15 @@ def _ledger(proj: GameProjection) -> List[tuple]:
         rows.append(
             (f"Travel ({abs(travel.get('miles', 0)):,.0f} mi)", f"{travel['total']:+.1f}")
         )
+
+    if proj.market_movement is not None and abs(proj.market_movement) >= 0.5:
+        direction = "toward home" if proj.market_movement > 0 else "toward away"
+        rows.append(
+            ("Line movement since open",
+             f"{proj.market_movement:+.1f} ({direction}, open {proj.market_open:+.1f})")
+        )
+    if proj.best_line is not None and proj.best_book:
+        rows.append(("Best number", f"{proj.best_line:+.1f} at {proj.best_book}"))
 
     if proj.projected_total is not None:
         rows.append(

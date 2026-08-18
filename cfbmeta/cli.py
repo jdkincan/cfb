@@ -186,13 +186,34 @@ def build_projections(client, config: Config, season: int, week: int, as_of=None
         except Exception as exc:  # noqa: BLE001
             log.warning("could not load the FBS team list: %s", exc)
 
+    from .availability import load as load_availability
+
+    availability = load_availability(season, week)
+
     markets = load_markets(client, season, week, config.season_type)
     projections = project_slate(
-        games, book, config, hfa_model, coach_model, situational, markets, fbs_teams
+        games, book, config, hfa_model, coach_model, situational, markets,
+        fbs_teams, availability,
     )
     log.info("projected %d games", len(projections))
 
-    extras = {"markets": markets, "coach_model": coach_model}
+    # Kelly sized each bet alone; scale the card for correlation and exposure.
+    from .portfolio import apply as apply_portfolio, positions_from_projections
+
+    positions = positions_from_projections(projections)
+    portfolio = apply_portfolio(
+        positions,
+        max_weekly_units=config.max_weekly_units,
+        within_group_rho=config.within_group_correlation,
+        max_units_per_play=config.max_units_per_play,
+    )
+    scaled = {p.key: p.units for p in portfolio.positions}
+    for proj in projections:
+        if proj.spread_bet and str(proj.game_id) in scaled:
+            proj.spread_bet.units = scaled[str(proj.game_id)]
+
+    extras = {"markets": markets, "coach_model": coach_model,
+              "portfolio": portfolio, "availability": availability}
 
     if config.verify_spplus:
         extras["spplus_check"] = _verify_spplus(client, config, season)
@@ -419,6 +440,9 @@ def cmd_backtest(args, config: Config) -> int:
 
     weights = config.weights.normalized()
     weights.pop("market", None)
+    if args.basis == "reconstructed":
+        # One reconstructed rating, so there is nothing to blend.
+        weights = {"inseason": 1.0}
     fitted_shrink = None
     if args.fit:
         fitted = fit_weights(rows)
@@ -447,7 +471,7 @@ def cmd_backtest(args, config: Config) -> int:
         # worth. Adopting it would silently set the operating value from the
         # wrong experiment — in either direction — so it is recorded and not
         # written. Only a point-in-time (snapshot) basis can settle it.
-        if args.basis == "snapshot" and fitted_shrink is not None:
+        if args.basis in ("snapshot", "reconstructed") and fitted_shrink is not None:
             updates["edge_shrink"] = fitted_shrink
         elif fitted_shrink is not None:
             print(
@@ -468,6 +492,95 @@ def cmd_backtest(args, config: Config) -> int:
         KEY_NUMBERS_PATH.write_text(json.dumps(key_weights, indent=2, sort_keys=True))
         print(f"Wrote {len(key_weights)} key-number weights to {KEY_NUMBERS_PATH}")
 
+    return 0
+
+
+def cmd_ledger(args, config: Config) -> int:
+    """Show the bet ledger, or settle open bets from final scores."""
+    from .ledger import summarize, settle
+    from .sources.cfbd import pick, pick_float
+
+    if args.settle:
+        season = args.season or config.resolved_season()
+        client = make_client(config)
+        results, closing = {}, {}
+        for week in range(1, 20):
+            try:
+                games = client.games(season, week=week)
+            except Exception:  # noqa: BLE001
+                break
+            for game in games:
+                hp = pick_float(game, "homePoints", "home_points")
+                ap = pick_float(game, "awayPoints", "away_points")
+                gid = pick(game, "id")
+                if gid is not None and hp is not None and ap is not None:
+                    results[str(gid)] = hp - ap
+            try:
+                for row in client.lines(season, week=week):
+                    gid = pick(row, "id")
+                    from .sources.market import consensus_line
+
+                    line = consensus_line(row)
+                    if gid is not None and line and line.get("spread") is not None:
+                        closing[str(gid)] = line["spread"]
+            except Exception:  # noqa: BLE001
+                pass
+        settled = settle(results, closing)
+        print(f"Settled {settled} bet(s).\n")
+
+    print(summarize().describe())
+    return 0
+
+
+def cmd_resize(args, config: Config) -> int:
+    """Re-size a card down to the plays you actually intend to bet."""
+    import csv as _csv
+
+    from .archive import week_dir
+    from .portfolio import Position, resize
+
+    season = args.season or config.resolved_season()
+    path = week_dir(season, args.week) / "projections.csv"
+    if not path.exists():
+        print(f"No archived slate at {path}. Run the week first.")
+        return 1
+
+    with path.open() as handle:
+        rows = [r for r in _csv.DictReader(handle) if (r.get("bet_side") or "none") != "none"]
+
+    positions = []
+    for row in rows:
+        try:
+            units = float(row.get("units") or 0)
+        except ValueError:
+            continue
+        if units <= 0:
+            continue
+        side_team = row["home_team"] if row["bet_side"] == "home" else row["away_team"]
+        positions.append(Position(
+            key=str(row["game_id"]),
+            label=f"{side_team} {float(row['bet_line']):+.1f}",
+            units=units,
+            kickoff_bucket=(row.get("kickoff") or "")[:10],
+            edge=float(row.get("edge") or 0),
+        ))
+
+    if not args.keep:
+        print(f"Plays archived for week {args.week}:\n")
+        for p in sorted(positions, key=lambda p: -abs(p.edge)):
+            print(f"  {p.key:<12}{p.label:<28}{p.units:5.2f}u   edge {p.edge:+.1f}")
+        print("\nRe-run with --keep <game_id> ... to size a chosen subset.")
+        return 0
+
+    result = resize(
+        positions, args.keep,
+        max_weekly_units=config.max_weekly_units,
+        max_units_per_play=config.max_units_per_play,
+        within_group_rho=config.within_group_correlation,
+    )
+    print(result.describe() + "\n")
+    for p in result.positions:
+        print(f"  {p.label:<28}{p.units:5.2f}u")
     return 0
 
 
@@ -535,7 +648,7 @@ def build_parser() -> argparse.ArgumentParser:
     back.add_argument("--seasons", type=int, nargs="+")
     back.add_argument(
         "--basis",
-        choices=("prior", "same", "snapshot"),
+        choices=("prior", "same", "reconstructed", "snapshot"),
         default="prior",
         help="'prior' uses last season's ratings (no lookahead); 'same' is "
              "contaminated and only useful for ranking sources against each other",
@@ -544,6 +657,19 @@ def build_parser() -> argparse.ArgumentParser:
     back.add_argument("--write", action="store_true", help="save fitted weights to config.yml")
     back.add_argument("--fit-key-numbers", action="store_true")
     back.set_defaults(func=cmd_backtest)
+
+    led = sub.add_parser("ledger", help="show or settle the bet ledger")
+    led.add_argument("--settle", action="store_true",
+                     help="grade open bets from final scores and record CLV")
+    led.add_argument("--season", type=int)
+    led.set_defaults(func=cmd_ledger)
+
+    res = sub.add_parser("resize", help="re-size a card down to chosen plays")
+    res.add_argument("--week", type=int, required=True)
+    res.add_argument("--season", type=int)
+    res.add_argument("--keep", nargs="*", default=[],
+                     help="game ids to keep; omit to list what is available")
+    res.set_defaults(func=cmd_resize)
 
     return parser
 

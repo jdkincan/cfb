@@ -145,6 +145,12 @@ class Config:
     min_edge_points: float = 1.5  # below this, don't call it a play
     strong_edge_points: float = 3.0
     max_units_per_play: float = 3.0
+    # Slate-level risk. Kelly sizes each bet as if the next one were
+    # independent; a card of correlated bets on one model is not. See
+    # cfbmeta/portfolio.py.
+    max_weekly_units: float = 10.0
+    within_group_correlation: float = 0.40
+    use_best_line: bool = True
 
     # --- reporting -----------------------------------------------------------
     email_subject_prefix: str = "CFB Meta Forecast"

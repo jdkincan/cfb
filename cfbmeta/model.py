@@ -76,6 +76,7 @@ class GameProjection:
     neutral_margin: float = 0.0
     hfa: Dict[str, float] = field(default_factory=dict)
     coaching: Dict[str, Any] = field(default_factory=dict)
+    availability: Dict[str, Any] = field(default_factory=dict)
     situational: Dict[str, Any] = field(default_factory=dict)
     adjustment_total: float = 0.0
 
@@ -87,6 +88,10 @@ class GameProjection:
     market_spread: Optional[float] = None
     market_total: Optional[float] = None
     market_provider: str = ""
+    market_open: Optional[float] = None
+    market_movement: Optional[float] = None
+    best_line: Optional[float] = None
+    best_book: str = ""
 
     home_win_probability: float = 0.5
     spread_bet: Optional[BetEvaluation] = None
@@ -270,6 +275,7 @@ def project_game(
     situational=None,
     market: Optional[Dict[str, Any]] = None,
     defense_sign: float = -1.0,
+    availability=None,
 ) -> GameProjection:
     """Produce the full projection for a single game."""
     from .adjustments import parse_start
@@ -296,6 +302,8 @@ def project_game(
     proj.market_spread = market.get("spread")
     proj.market_total = market.get("total")
     proj.market_provider = market.get("provider", "")
+    proj.market_open = market.get("spread_open")
+    proj.market_movement = market.get("movement")
 
     weights = effective_weights(config, week)
     proj.components = component_margins(
@@ -319,6 +327,9 @@ def project_game(
     if coach_model is not None:
         proj.coaching = coach_model.for_game(home_team, away_team)
         adjustments += float(proj.coaching.get("total", 0.0))
+    if availability is not None:
+        proj.availability = availability.for_game(home_team, away_team)
+        adjustments += float(proj.availability.get("total", 0.0))
     if situational is not None:
         proj.situational = situational.for_game(
             home_team,
@@ -350,9 +361,20 @@ def project_game(
     dist = MarginDistribution(proj.projected_margin, config.sigma_margin)
     proj.home_win_probability = round(dist.p_home_win(), 4)
 
+    # Bet the best number available, not the median. The consensus stays the
+    # benchmark for measuring edge; the price you can actually get is what the
+    # stake is sized against.
+    best_home = (market.get("best_home") or {})
+    best_away = (market.get("best_away") or {})
+    lean_home = proj.market_margin is None or proj.projected_margin >= proj.market_margin
+    chosen = best_home if lean_home else best_away
+    if chosen.get("spread") is not None:
+        proj.best_line = chosen["spread"]
+        proj.best_book = chosen.get("provider", "")
+
     proj.spread_bet = evaluate_spread_bet(
         proj.projected_margin,
-        proj.market_spread,
+        proj.best_line if proj.best_line is not None else proj.market_spread,
         config.sigma_margin,
         price=config.vig_price,
         kelly_multiplier=config.kelly_fraction,
@@ -428,6 +450,7 @@ def project_slate(
     situational=None,
     markets: Optional[Dict[Any, Dict[str, Any]]] = None,
     fbs_teams: Optional[set] = None,
+    availability=None,
 ) -> List[GameProjection]:
     """Project every game on the slate, best edges first."""
     markets = markets or {}
@@ -458,7 +481,8 @@ def project_slate(
         try:
             projections.append(
                 project_game(
-                    game, book, config, hfa_model, coach_model, situational, market, defense_sign
+                    game, book, config, hfa_model, coach_model, situational, market,
+                    defense_sign, availability,
                 )
             )
         except Exception as exc:  # noqa: BLE001 - one bad game shouldn't kill the slate

@@ -1,0 +1,23 @@
+# Manual injury and availability adjustments, in points, applied to a team.
+#
+# There is no free injury feed — CFBD has no injury endpoint, and ESPN's is
+# blocked — so anything the model should know about availability goes here by
+# hand. Entries are week-scoped and ignored once the week moves on, so a stale
+# file cannot quietly keep penalising a healthy team.
+#
+# Rules of thumb (see cfbmeta/availability.py):
+#   quarterback, elite starter -> backup      -8.0
+#   quarterback, average starter -> backup    -3.5
+#   skill-position starter                    -1.0
+#   offensive line starter                    -0.75
+#   anything above 10 points is capped
+#
+# The realistic use is standing down from a bet the model likes for a reason it
+# cannot see, rather than trying to beat the market to the news.
+#
+# 2026:
+#   week: 3
+#   adjustments:
+#     - team: Arkansas
+#       points: -6.5
+#       reason: "starting QB out, true freshman backup"

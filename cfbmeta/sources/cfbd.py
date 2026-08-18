@@ -120,6 +120,7 @@ ENDPOINTS: Dict[str, Sequence[str]] = {
     "weather": ("/games/weather",),
     "ppa_teams": ("/ppa/teams", "/metrics/ppa/teams"),
     "advanced_stats": ("/stats/season/advanced",),
+    "advanced_game_stats": ("/stats/game/advanced",),
 }
 
 
@@ -332,6 +333,20 @@ class CFBDClient:
 
     def ppa_teams(self, year: int) -> List[Dict[str, Any]]:
         return self.get("ppa_teams", year=year)
+
+    def advanced_game_stats(
+        self, year: int, week: Optional[int] = None, season_type: str = "regular"
+    ) -> List[Dict[str, Any]]:
+        """Per-team, per-game advanced stats.
+
+        A whole season arrives in one call, and every row is stamped with its
+        week, which is what makes a weekly rating reconstructible for seasons
+        that ended long before this code existed. See sources/efficiency.py.
+        """
+        rows = self.get("advanced_game_stats", year=year, week=week, seasonType=season_type)
+        if week is None:
+            return rows
+        return [r for r in rows if _row_week(r) == int(week)]
 
 
 def _row_week(row: Any) -> Optional[int]:

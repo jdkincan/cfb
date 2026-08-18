@@ -37,6 +37,26 @@ rejected by SMTP; it has to be an app password.
 Optional repository *variables* (not secrets): `SMTP_HOST`, `SMTP_PORT` if
 you'd rather not use Gmail.
 
+#### A note on weekly ratings
+
+SP+, FPI and SRS from CFBD are **season-final numbers**. They accept a `week`
+parameter and silently ignore it — week 1 and week 15 of 2025 return identical
+ratings — so there is no weekly SP+ history to fetch and none that can be
+backfilled.
+
+Instead an SP+-shaped rating is rebuilt here from `/stats/game/advanced`
+(per-game PPA, success rate, explosiveness), refit from exactly the games
+completed before each week. That works for any season, including ones that
+finished long ago:
+
+```bash
+python -m cfbmeta trend --season 2025 --team Arkansas   # one team's arc
+python -m cfbmeta trend --top 25 --write                # rankings + save series
+```
+
+`--write` saves the whole series to `archive/<season>/efficiency-weekly.csv`,
+one row per team per week, ready for pandas.
+
 #### The optional odds key
 
 CFBD's line feed carries three retail books: DraftKings, ESPN Bet, Bovada.

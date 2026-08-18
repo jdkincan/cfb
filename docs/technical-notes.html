@@ -236,6 +236,12 @@
               <td><span class="pill warn">a floor</span></td>
             </tr>
             <tr>
+              <td class="key">reconstructed</td>
+              <td>Ridge margin and efficiency ratings refit from only the games
+                  finished before each week — no SP+/FPI, but genuinely fair</td>
+              <td><span class="pill ok">available now</span></td>
+            </tr>
+            <tr>
               <td class="key">snapshot</td>
               <td>What the ratings actually were that Thursday</td>
               <td><span class="pill ok">the real test</span></td>
@@ -320,6 +326,7 @@
             <tr><td class="key">Talent</td><td>roster × recruiting, z-scored</td><td><span class="pill ok">rebuilt</span></td></tr>
             <tr><td class="key">SRS</td><td>native points</td><td><span class="pill bad">no 2026 rows</span></td></tr>
             <tr><td class="key">Elo</td><td>z-scored to SP+ spread</td><td><span class="pill bad">no 2026 rows</span></td></tr>
+            <tr><td class="key">Efficiency</td><td>built here, weekly, native points</td><td><span class="pill warn">from week 4</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -360,6 +367,95 @@
         <strong>15 of 15 deltas match exactly</strong>. This runs weekly and
         reports in the footer.
       </p>
+
+      <h3>SP+ has no weekly history, so the weekly rating is built here</h3>
+      <p>
+        SP+, FPI and SRS all accept a <span class="key">week</span> parameter
+        and <strong>silently ignore it</strong>. Asking CFBD for week 1 and week
+        15 of 2025 returns byte-identical ratings: they are season-final
+        numbers. There is no weekly SP+ history to fetch and none that can be
+        backfilled — CFBD keeps no history, and Bill Connelly's weekly ESPN
+        articles have no author-filterable index to scrape.
+      </p>
+      <p>
+        Elo is the one genuine weekly series CFBD carries. That is not enough by
+        itself, and Elo is results-only: it knows a team won by 3, not that it
+        out-gained the opponent by 200 yards and lost two fumbles getting there.
+      </p>
+      <p>
+        What <em>is</em> available is <span class="key">/stats/game/advanced</span>
+        — one row per team per game carrying the raw material SP+ is built from:
+        PPA, success rate, explosiveness, line yards, havoc, standard and
+        passing downs. A whole season is one API call, and every row is stamped
+        with its week. So the rating is rebuilt here, from exactly the games
+        completed before any given week:
+      </p>
+      <div class="formula">efficiency(team vs opp) = mu + off[team] − def[opp] + hfa × is_home</div>
+      <p>
+        solved as one ridge-regularised least-squares system, with
+        <span class="key">off</span> and <span class="key">def</span> mean-centred
+        so a rating reads as quality above average. Quality then calibrates to
+        points by regressing actual scoring margins onto rating differences,
+        which puts it on the same scale SP+ reports rather than an abstract
+        index.
+      </p>
+      <p>
+        Two details that are easy to get wrong. FCS teams have to be
+        <em>in</em> the fit — they are a third of September's schedule — but
+        centring on all 310 teams makes the average team far worse than an
+        average FBS team and inflates every FBS rating by about a third. So the
+        fit includes them and the centring does not: ratings are quoted against
+        the FBS mean, and ranks against the FBS pool. And the home/away flag has
+        to be joined back in from the schedule, because the advanced-stats rows
+        do not carry it and home field would otherwise be absorbed as team
+        quality.
+      </p>
+
+      <h3>What the weekly rating is worth</h3>
+      <p>
+        Refit before each week and scored on that week's games, strictly out of
+        sample, over 2023–25 (2,210 games):
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Rating</th><th class="num">MAE</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>Efficiency alone</td><td class="num">13.86</td><td>worse than margin ratings</td></tr>
+            <tr><td>Margin ridge ratings alone</td><td class="num">13.32</td><td>the previous best</td></tr>
+            <tr><td><strong>Blend, fit at 0.395 / 0.605</strong></td><td class="num"><strong>12.78</strong></td><td>beats either alone</td></tr>
+            <tr><td>Closing line</td><td class="num">12.03</td><td>the benchmark</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The row that matters is the third. Efficiency alone is <em>worse</em>
+        than plain margin ratings — it is a noisier signal — but blending the
+        two beats either, which is what independent information looks like.
+        Efficiency knows how a team played; margin knows what the scoreboard
+        said. They disagree usefully.
+      </p>
+      <p>
+        The blend weight was fit on 2025 alone at 0.40 and then independently
+        re-fit across 2023–25 at 0.395, which is the kind of agreement that
+        suggests a real parameter rather than a fitted one. Correlation with
+        published season-final SP+ is r = 0.95 across 136 teams — a sanity check
+        on the construction, not a target, since SP+ is not ground truth here
+        and actual margins are.
+      </p>
+      <div class="note warn">
+        <span class="label">It closed the accuracy gap. It did not create an edge.</span>
+        <p>
+          The gap to the closing line narrowed from 1.30 points of MAE to 0.75,
+          the largest single improvement this model has made. Against the spread
+          it moved from 49.4% to 50.4%, and break-even is 52.4%. The fitted
+          edge-shrink is 0.096 — under a tenth of our disagreement with the
+          market reads as real signal.
+        </p>
+        <p>
+          Being closer to right is not the same as being right where the market
+          is wrong. This is a better model and still not a profitable one.
+        </p>
+      </div>
 
       <h3>The market is a data source too, and the choice of book matters</h3>
       <p>
@@ -591,11 +687,16 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
         <p>
           Everything in the "built" column improves the machinery around the
           forecast. None of it has been shown to make the forecast beat a closing
-          line, because on the only fair test available the model does not. Fair
-          reconstruction closed the accuracy gap against the market from 3.16
-          points of MAE to 1.30 and the against-the-spread record did not move
-          off 49.4%. Being closer to right is not the same as being right where
-          the market is wrong.
+          line, because on the only fair test available the model does not.
+        </p>
+        <p>
+          The accuracy gap against the market has closed steadily — 3.16 points
+          of MAE on stale ratings, 1.30 once ratings were reconstructed fairly,
+          0.75 once the weekly efficiency rating was added. Against the spread
+          that whole journey bought 49.8% → 49.4% → 50.4%, against a break-even
+          of 52.4%. Being closer to right is not the same as being right where
+          the market is wrong, and three separate improvements to accuracy have
+          now demonstrated exactly that.
         </p>
         <p>
           That is why the readout carries an unvalidated banner it cannot be
@@ -620,6 +721,8 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
             <tr><td class="key">preview --week N --window 14</td><td>Render a week; window widens beyond one weekend</td></tr>
             <tr><td class="key">preview --as-of DATE</td><td>Preview a later weekend inside the same CFBD week</td></tr>
             <tr><td class="key">backtest --fit --write</td><td>Measure accuracy, refit weights, sigma and key numbers</td></tr>
+            <tr><td class="key">trend --team X</td><td>One team's weekly efficiency rating across a season</td></tr>
+            <tr><td class="key">trend --top 25 --write</td><td>Current rankings; --write saves the full weekly series</td></tr>
             <tr><td class="key">--refresh</td><td>Bypass the local cache and refetch everything</td></tr>
             <tr><td class="key">ledger --settle</td><td>Grade open bets and record closing line value</td></tr>
           </tbody>
@@ -655,7 +758,7 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
 
 <footer>
   <div class="wrap">
-    cfbmeta 1.1 · 394 tests · branch <code>claude/cfb-handicapping-system-pihqf5</code><br>
+    cfbmeta 1.1 · 424 tests · branch <code>claude/cfb-handicapping-system-pihqf5</code><br>
     Ratings via collegefootballdata.com — SP+ (Bill Connelly), ESPN FPI, Elo,
     SRS, 247 composite. SP+ verified against ESPN's published preseason article.
   </div>

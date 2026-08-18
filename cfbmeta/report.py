@@ -18,7 +18,8 @@ TEMPLATE_DIR = Path(__file__).resolve().parent / "templates"
 
 SOURCE_CREDITS = (
     "SP+ (Bill Connelly), ESPN FPI, Elo, SRS and the 247 talent composite, "
-    "all via collegefootballdata.com"
+    "all via collegefootballdata.com, plus an in-season opponent-adjusted "
+    "efficiency rating built here from per-game advanced stats"
 )
 
 

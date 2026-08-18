@@ -1,11 +1,12 @@
 {
-  "captured_at": "2026-08-18T18:42:29.336272+00:00",
+  "captured_at": "2026-08-18T19:09:29.743408+00:00",
   "config": {
     "edge_shrink": 0.35,
     "league_hfa": 2.7,
     "min_edge_points": 1.5,
     "sigma_margin": 19.32,
     "weights": {
+      "efficiency": 0.18,
       "elo": 0.0018,
       "fpi": 0.2395,
       "market": 0.0,
@@ -21,6 +22,18 @@
   },
   "season": 2026,
   "sources": {
+    "efficiency": {
+      "dispersion": 0.0,
+      "fingerprint": "",
+      "origin": "CFBD",
+      "reason": "no data returned",
+      "season": 2026,
+      "source": "efficiency",
+      "teams": 0,
+      "unchanged_days": 0.0,
+      "unchanged_since": "",
+      "usable": false
+    },
     "elo": {
       "dispersion": 0.0,
       "fingerprint": "",

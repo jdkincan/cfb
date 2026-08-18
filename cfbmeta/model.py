@@ -41,12 +41,16 @@ SOURCE_LABELS = {
     "elo": "Elo",
     "srs": "SRS",
     "talent": "Talent",
+    "efficiency": "Efficiency",
     "market": "Market",
 }
 
 # Sources that only reflect results so far this season, so they carry very
-# little signal in September and get downweighted early.
-IN_SEASON_SOURCES = ("elo", "srs")
+# little signal in September and get downweighted early. "efficiency" belongs
+# here for the same reason and more sharply: it does not exist at all until
+# there are completed games to fit it on, and its first few weeks are mostly
+# ridge prior.
+IN_SEASON_SOURCES = ("elo", "srs", "efficiency")
 DEFAULT_POINTS_PER_TEAM = 27.5
 # Below this many rated teams, a "league average" is not worth computing.
 MIN_TEAMS_FOR_LEAGUE_STATS = 10
@@ -406,7 +410,7 @@ def project_game(
     if proj.market_spread is None:
         proj.notes.append("No market line yet; edge cannot be graded.")
     missing = [
-        SOURCE_LABELS[s]
+        SOURCE_LABELS.get(s, s)
         for s in ALL_SOURCES
         if weights.get(s, 0) > 0 and s not in {c.source for c in proj.components}
     ]

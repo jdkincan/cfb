@@ -65,6 +65,11 @@ class Weights:
     elo: float = 0.15
     srs: float = 0.10
     talent: float = 0.10
+    # The in-season opponent-adjusted efficiency rating. Zero before there are
+    # games to fit it on; project_game renormalizes over whichever sources
+    # actually turned up, so an absent source costs nothing. Measured on 2025,
+    # blending it with margin-based ratings beat either alone.
+    efficiency: float = 0.00
     market: float = 0.00
 
     def normalized(self) -> Dict[str, float]:

@@ -34,6 +34,13 @@ weights:
   elo: 0.0018
   srs: 0.0
   talent: 0.3189  # 247 composite: a prior on roster quality, not on form
+  # In-season opponent-adjusted efficiency, rebuilt weekly from per-game
+  # advanced stats. Reconstructed backtest over 2023-25 fit it at 0.395 against
+  # ridge margin ratings and cut MAE from 13.32 to 12.78; against the preseason
+  # sources it earns less, and it is ramped in by prior_weight_by_week because
+  # in September it is fitting three games. Absent early in the year, which
+  # costs nothing: the remaining weights renormalize.
+  efficiency: 0.18
   market: 0.00
 
 # Fraction of each week's Elo/SRS weight shifted to the preseason-anchored

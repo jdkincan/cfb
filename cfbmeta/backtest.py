@@ -184,6 +184,13 @@ def collect_reconstructed_rows(
             games, weeks, prior=prior, hfa=config.league_hfa, eligible=eligible
         )
 
+        # The efficiency rating is reconstructible week by week from exactly the
+        # same games, so the reconstructed basis can carry two components
+        # instead of one. They measure different things — margin knows what the
+        # scoreboard said, efficiency knows how the team played — and on 2025
+        # the blend beat either alone.
+        eff_by_week = _reconstructed_efficiency(client, season, weeks, games, eligible)
+
         markets: Dict = {}
         try:
             markets = build_market_map(client.lines(season))
@@ -220,13 +227,40 @@ def collect_reconstructed_rows(
                 if market and market.get("spread") is not None else None
             )
 
+            components = {"inseason": ratings[hkey] - ratings[akey]}
+            eff = eff_by_week.get(int(week))
+            if eff is not None:
+                home_eff = eff.points.get(hkey)
+                away_eff = eff.points.get(akey)
+                if home_eff is not None and away_eff is not None:
+                    components["efficiency"] = home_eff - away_eff
+
             rows.append(BacktestRow(
                 season=season, week=int(week), home_team=home, away_team=away,
-                actual_margin=hp - ap,
-                component_margins={"inseason": ratings[hkey] - ratings[akey]},
+                actual_margin=hp - ap, component_margins=components,
                 hfa=hfa, adjustments=adjustments, market_margin=market_margin,
             ))
     return rows
+
+
+def _reconstructed_efficiency(client, season, weeks, games, eligible):
+    """Weekly efficiency ratings for the backtest, or an empty map.
+
+    Never fatal: a season without per-game advanced stats simply falls back to
+    the single margin component it always had.
+    """
+    from .sources.efficiency import load as load_efficiency, weekly_series
+
+    try:
+        rows = load_efficiency(client, season)
+        if not rows:
+            return {}
+        return weekly_series(
+            rows, games, weeks, season=season, center_on=eligible
+        )
+    except Exception as exc:  # noqa: BLE001
+        log.warning("no reconstructed efficiency for %d: %s", season, exc)
+        return {}
 
 
 def collect_rows(
@@ -320,6 +354,24 @@ def collect_rows(
     return rows
 
 
+def present_sources(rows: Sequence[BacktestRow], coverage: float = 0.8) -> List[str]:
+    """Which components these rows actually carry.
+
+    Defaulting to ALL_SOURCES is wrong for the reconstructed basis, whose
+    components are "inseason" and "efficiency" — names that appear in no
+    rating book. Asking for a source no row has silently yields zero complete
+    rows and the fit gives up, so ask the rows instead.
+    """
+    if not rows:
+        return []
+    counts: Dict[str, int] = {}
+    for row in rows:
+        for source in row.component_margins:
+            counts[source] = counts.get(source, 0) + 1
+    threshold = coverage * len(rows)
+    return sorted(s for s, n in counts.items() if n >= threshold)
+
+
 def fit_weights(rows: List[BacktestRow], sources: Optional[Sequence[str]] = None) -> Dict[str, float]:
     """Least-squares blend weights, constrained to be non-negative and sum to 1.
 
@@ -330,8 +382,8 @@ def fit_weights(rows: List[BacktestRow], sources: Optional[Sequence[str]] = None
     """
     import numpy as np
 
-    sources = list(sources or ALL_SOURCES)
-    usable = [r for r in rows if all(s in r.component_margins for s in sources)]
+    sources = list(sources or present_sources(rows))
+    usable = [r for r in rows if sources and all(s in r.component_margins for s in sources)]
     if len(usable) < 50:
         log.warning("only %d complete rows; keeping prior weights", len(usable))
         return {}
@@ -410,8 +462,10 @@ def evaluate(
     if market_errors:
         result.market_mae = round(sum(abs(e) for e in market_errors) / len(market_errors), 3)
 
-    # Standalone accuracy per source, for the report.
-    for source in ALL_SOURCES:
+    # Standalone accuracy per source, for the report. Driven by what the rows
+    # carry rather than ALL_SOURCES, so the reconstructed basis reports its own
+    # components instead of nothing.
+    for source in present_sources(rows, coverage=0.0):
         subset = [r for r in rows if source in r.component_margins]
         if len(subset) < 50:
             continue

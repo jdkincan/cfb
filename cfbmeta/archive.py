@@ -286,3 +286,38 @@ def _grade_bet(row: Dict[str, Any], margin: float) -> str:
     if side == "away":
         return "loss" if home_covered else "win"
     return ""
+
+
+def write_efficiency_series(season: int, series: Dict[int, Any],
+                            root: Optional[Path] = None) -> Path:
+    """Persist the weekly efficiency ratings as one long CSV.
+
+    Long rather than wide (one row per team per week) because the number of
+    weeks is not known ahead of time and a wide file has to be rewritten
+    whenever the season grows. This loads straight into pandas for plotting a
+    team's arc across the year.
+    """
+    root = Path(root) if root else ARCHIVE_ROOT
+    directory = root / str(season)
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / "efficiency-weekly.csv"
+
+    with path.open("w", newline="") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(
+            ["season", "through_week", "team", "rating", "rank", "offense",
+             "defense", "points_per_unit", "observations"]
+        )
+        for week in sorted(series):
+            ratings = series[week]
+            ranked = ratings.ranked()
+            for rank, (team, value) in enumerate(ranked, 1):
+                writer.writerow([
+                    season, week - 1, team, round(value, 3), rank,
+                    round(ratings.offense.get(team, 0.0), 4),
+                    round(ratings.defense.get(team, 0.0), 4),
+                    round(ratings.points_per_unit, 2),
+                    ratings.observations,
+                ])
+    log.info("wrote efficiency series to %s", path)
+    return path

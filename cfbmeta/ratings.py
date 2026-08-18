@@ -21,8 +21,10 @@ from typing import Dict, Iterable, List, Optional
 
 from .sources.cfbd import pick, pick_float
 
-# Sources already denominated in points per game.
-NATIVE_POINT_SOURCES = {"sp_plus", "fpi", "srs"}
+# Sources already denominated in points per game. "efficiency" belongs here
+# because sources/efficiency.py calibrates it to points against actual scoring
+# margins before it ever reaches the book.
+NATIVE_POINT_SOURCES = {"sp_plus", "fpi", "srs", "efficiency"}
 # Sources that need z-scoring onto the common scale.
 SCALED_SOURCES = {"elo", "talent"}
 ALL_SOURCES = sorted(NATIVE_POINT_SOURCES | SCALED_SOURCES)
@@ -124,6 +126,7 @@ SOURCE_DISPLAY = {
     "elo": "Elo",
     "srs": "SRS",
     "talent": "Talent",
+    "efficiency": "Efficiency (in-season)",
 }
 
 
@@ -243,6 +246,22 @@ class RatingBook:
             if not team or rating is None:
                 continue
             self.add(team, "srs", rating, pick(row, "conference", default="") or "")
+            count += 1
+        return count
+
+    def load_efficiency(self, ratings) -> int:
+        """Load the weekly opponent-adjusted efficiency rating.
+
+        Already calibrated to points above an average FBS team, so it goes in
+        alongside SP+ and FPI without z-scoring. Unlike every other source in
+        this book it reflects only the current season, refit from the games
+        completed before this week — see sources/efficiency.py.
+        """
+        if ratings is None or not getattr(ratings, "points", None):
+            return 0
+        count = 0
+        for key, points in ratings.points.items():
+            self.add(key, "efficiency", float(points))
             count += 1
         return count
 
@@ -486,12 +505,54 @@ def _record_freshness(book: "RatingBook") -> None:
     save_state(state)
 
 
+def _load_efficiency(book: "RatingBook", client, season: int, week: int) -> None:
+    """Fit this week's efficiency rating and add it to the book.
+
+    Silent no-op before there are enough games to fit — in weeks 1-3 the
+    opponent adjustment is mostly ridge prior and the rating would be noise
+    wearing a points scale.
+    """
+    import logging
+
+    log = logging.getLogger(__name__)
+    from .sources.efficiency import fit_efficiency, load
+
+    try:
+        rows = load(client, season)
+        if not rows:
+            return
+        games = client.games(season)
+        fbs = None
+        try:
+            fbs = {
+                normalize_team(pick(t, "school", "team"))
+                for t in client.fbs_teams(season)
+                if pick(t, "school", "team")
+            }
+        except Exception as exc:  # noqa: BLE001
+            log.debug("no FBS list for efficiency centring: %s", exc)
+        ratings = fit_efficiency(
+            rows, games, before_week=week, season=season, center_on=fbs
+        )
+        if ratings is None:
+            log.info("efficiency: too few completed games before week %d", week)
+            return
+        n = book.load_efficiency(ratings)
+        log.info(
+            "loaded efficiency for %d teams (week %d, %d team-games, "
+            "%.0f pts/unit)", n, week, ratings.observations, ratings.points_per_unit,
+        )
+    except Exception as exc:  # noqa: BLE001 - degrade, don't die
+        log.warning("could not build in-season efficiency ratings: %s", exc)
+
+
 def build_rating_book(
     client,
     season: int,
     week: Optional[int] = None,
     espn_fpi_fallback: bool = True,
     recruiting_talent_fallback: bool = True,
+    in_season_efficiency: bool = True,
 ) -> RatingBook:
     """Pull every rating source for a season into one book.
 
@@ -525,6 +586,12 @@ def build_rating_book(
                 book.provenance[source] = SourceStatus(
                     source, season, 0, False, 0.0, f"request failed: {exc}"
                 )
+
+    # The only source in this book that reflects what has happened this
+    # season. SP+, FPI and SRS are season-final numbers that ignore the week
+    # parameter entirely; Elo updates weekly but knows only the scoreboard.
+    if in_season_efficiency and week:
+        _load_efficiency(book, client, season, week)
 
     book.finalize()
 

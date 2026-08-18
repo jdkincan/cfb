@@ -103,6 +103,10 @@ def consensus_line(row: dict) -> Optional[Dict[str, Any]]:
         "total": round(statistics.median(totals), 2) if totals else None,
         "provider": f"median of {len(spreads)}" if len(spreads) > 1 else (providers[0] if providers else ""),
         "book_count": len(spreads),
+        # Which books, not just how many. A second odds source has to be able
+        # to tell "DraftKings again" from "a book CFBD does not carry", or the
+        # book count inflates every time the feeds overlap.
+        "books": sorted({p for p in providers if p}),
         "spread_range": (round(min(spreads), 2), round(max(spreads), 2)) if spreads else None,
         "spread_open": opening,
         # Positive means the number has moved toward the home side since open.

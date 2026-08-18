@@ -32,9 +32,29 @@ rejected by SMTP; it has to be an app password.
 | `SMTP_USER` | your Gmail address |
 | `SMTP_PASSWORD` | the app password from step 2 |
 | `EMAIL_TO` | where the readout goes (comma-separated for several) |
+| `ODDS_API_KEY` | *optional* — the-odds-api.com key, see below |
 
 Optional repository *variables* (not secrets): `SMTP_HOST`, `SMTP_PORT` if
 you'd rather not use Gmail.
+
+#### The optional odds key
+
+CFBD's line feed carries three retail books: DraftKings, ESPN Bet, Bovada.
+That is enough for a median and not much else. A free key from
+<https://the-odds-api.com> (500 credits a month; a weekly pull costs one)
+buys two things that matter more than any rating source:
+
+* **More books to shop.** You bet a number at a book, not a median. Across ten
+  books the best available number is routinely half a point better, and on a
+  key number half a point is worth more than most of what the model claims to
+  know. This is a mechanical edge requiring no forecasting skill.
+* **Pinnacle as the benchmark.** Measuring edge against a median of slow
+  retail books cannot distinguish "the model is right" from "those books have
+  not moved yet". Pinnacle takes large limits and moves on sharp money, so its
+  number is the closest thing to a fair price available. Pinnacle is on the
+  $30/month tier; the free tier still widens the shopping set.
+
+Without the key nothing changes and CFBD's lines are used as-is.
 
 Never paste a key into a commit, an issue, or a chat window. If one does leak,
 rotate it — CFBD keys are free to reissue and a Gmail app password can be

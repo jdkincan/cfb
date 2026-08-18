@@ -52,6 +52,8 @@ jobs:
       - name: Build the forecast
         env:
           CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+          # Optional. Absent, the odds feed no-ops and CFBD lines are used.
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           SMTP_HOST: ${{ vars.SMTP_HOST || 'smtp.gmail.com' }}
           SMTP_PORT: ${{ vars.SMTP_PORT || '587' }}
           SMTP_USER: ${{ secrets.SMTP_USER }}

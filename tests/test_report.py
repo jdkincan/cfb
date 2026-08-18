@@ -8,7 +8,12 @@ from cfbmeta.adjustments import build_situational_model
 from cfbmeta.cli import resolve_week, should_run_now
 from cfbmeta.coaching import build_coach_model
 from cfbmeta.config import Config
-from cfbmeta.email_send import EmailConfigError, SMTPSettings, build_message
+from cfbmeta.email_send import (
+    EmailConfigError,
+    SMTPSettings,
+    build_message,
+    send_email,
+)
 from cfbmeta.hfa import build_hfa_model
 from cfbmeta.model import project_slate
 from cfbmeta.report import build_context, format_spread, render, render_html, render_text
@@ -240,6 +245,16 @@ class TestEmailSettings:
         env = {"SMTP_USER": "me@x.com", "SMTP_PASSWORD": "x", "SMTP_PORT": "465"}
         with mock.patch.dict(os.environ, env, clear=True):
             assert SMTPSettings.from_env().use_tls is False
+
+    def test_dry_run_survives_missing_credentials(self):
+        """A dry run must render without SMTP configured — that is its point."""
+        with mock.patch.dict(os.environ, {}, clear=True):
+            assert send_email("subj", "<p>x</p>", "x", dry_run=True) is False
+
+    def test_a_real_send_still_demands_credentials(self):
+        with mock.patch.dict(os.environ, {}, clear=True):
+            with pytest.raises(EmailConfigError):
+                send_email("subj", "<p>x</p>", "x")
 
     def test_message_is_multipart_with_text_first(self, projections, config):
         message_parts = render(projections, config, week=6, season=SEASON)

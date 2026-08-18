@@ -100,7 +100,17 @@ def send_email(
     settings: Optional[SMTPSettings] = None,
     dry_run: bool = False,
 ) -> bool:
-    settings = settings or SMTPSettings.from_env()
+    if settings is None:
+        try:
+            settings = SMTPSettings.from_env()
+        except EmailConfigError:
+            # A dry run's whole point is to exercise the pipeline without
+            # sending, so missing SMTP credentials are not a failure — the
+            # readout still has to come out the other end.
+            if not dry_run:
+                raise
+            log.info("dry run: SMTP is not configured, so nothing would be sent")
+            return False
     message = build_message(subject, html, text, settings)
 
     if dry_run:

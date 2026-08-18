@@ -119,6 +119,11 @@ def _ledger(proj: GameProjection) -> List[tuple]:
         )
     if proj.best_line is not None and proj.best_book:
         rows.append(("Best number", f"{proj.best_line:+.1f} at {proj.best_book}"))
+    # Which price the edge was measured against. A sharp book's number is a
+    # fair price; a median of retail books is a guess about a fair price, and
+    # beating it can just mean those books have not moved yet.
+    if proj.market_provider:
+        rows.append(("Benchmark", proj.market_provider))
 
     if proj.projected_total is not None:
         rows.append(

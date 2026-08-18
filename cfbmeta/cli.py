@@ -12,6 +12,7 @@ import argparse
 import datetime as dt
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 from typing import List, Optional, Sequence
@@ -195,6 +196,25 @@ def build_projections(client, config: Config, season: int, week: int, as_of=None
         log.info("%s", weather.reason)
 
     markets = load_markets(client, season, week, config.season_type)
+
+    # A second odds feed, if one is configured. This widens line shopping well
+    # past CFBD's three retail books and, where Pinnacle quoted the game,
+    # swaps the grading benchmark to a price that actually moves on sharp
+    # money. No key, no change.
+    from .sources import oddsapi
+
+    try:
+        enriched = oddsapi.enrich(
+            markets,
+            regions=config.odds_api_regions,
+            prefer_sharp_benchmark=config.prefer_sharp_benchmark,
+            timeout=config.request_timeout,
+        )
+        if enriched:
+            log.info("odds api widened the book set for %d game(s)", enriched)
+    except Exception as exc:  # noqa: BLE001 - a second feed must never break a run
+        log.warning("odds api enrichment skipped: %s", exc)
+
     projections = project_slate(
         games, book, config, hfa_model, coach_model, situational, markets,
         fbs_teams, availability, weather,
@@ -394,6 +414,31 @@ def cmd_doctor(args, config: Config) -> int:
         print(f"{len(failures)} endpoint(s) failed: {', '.join(failures)}")
         print("A failure here usually means a tier restriction or a renamed path.")
         return 1
+
+    # The second odds feed is optional, so its absence is not a failure — but
+    # running without it silently would hide that edge is being measured
+    # against three retail books.
+    print("-" * 62)
+    if os.getenv("ODDS_API_KEY"):
+        from .sources import oddsapi
+
+        try:
+            odds = oddsapi.fetch_odds(regions=config.odds_api_regions,
+                                      timeout=config.request_timeout)
+        except Exception as exc:  # noqa: BLE001
+            print(f"WARN  odds api    fetch failed: {type(exc).__name__}: {exc}")
+        else:
+            if not odds:
+                print("WARN  odds api    key set but no games returned")
+            else:
+                books = sorted({q.book for g in odds for q in g.quotes})
+                sharp = [g for g in odds if g.sharp_spread() is not None]
+                print(f"OK    odds api    {len(odds)} games, {len(books)} books: "
+                      f"{', '.join(books[:10])}")
+                print(f"      sharp benchmark available for {len(sharp)}/{len(odds)} games")
+    else:
+        print("SKIP  odds api    ODDS_API_KEY not set — edge is graded against "
+              "CFBD's retail books")
 
     # Which rating sources actually have data for this season? In August the
     # honest answer is "not all of them", and that must be visible.

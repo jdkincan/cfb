@@ -100,6 +100,17 @@ max_weekly_units: 10.0        # total units at risk in one week, after correlati
 within_group_correlation: 0.4 # assumed correlation between same-day, same-conf bets
 use_best_line: true           # size against the best number available, not the median
 
+# --- odds feed ---------------------------------------------------------------
+# Set ODDS_API_KEY in .env to pull spreads from the-odds-api.com. That widens
+# line shopping past CFBD's DraftKings/ESPN Bet/Bovada and, more importantly,
+# brings in Pinnacle as a sharp reference price. Without the key these do
+# nothing and CFBD's lines are used unchanged.
+odds_api_regions: us,us2
+# Measure edge against the sharpest book that quoted the game instead of a
+# median of retail books. A median of slow books cannot tell "the model is
+# right" apart from "those books have not moved yet".
+prefer_sharp_benchmark: true
+
 # ---------------------------------------------------------------------------
 # Reporting and data
 # ---------------------------------------------------------------------------

@@ -152,6 +152,15 @@ class Config:
     within_group_correlation: float = 0.40
     use_best_line: bool = True
 
+    # --- odds feed -----------------------------------------------------------
+    # the-odds-api.com widens the book set well past CFBD's three retail books
+    # and, more importantly, carries Pinnacle. Enabled by setting ODDS_API_KEY;
+    # without it these are inert. See sources/oddsapi.py.
+    odds_api_regions: str = "us,us2"
+    # Grade edge against the sharpest book that quoted the game rather than a
+    # median of soft books. Turn this off only to compare the two benchmarks.
+    prefer_sharp_benchmark: bool = True
+
     # --- reporting -----------------------------------------------------------
     email_subject_prefix: str = "CFB Meta Forecast"
     # A team whose game is pinned to the top of every readout with expanded

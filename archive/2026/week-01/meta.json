@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-08-18T18:30:05.314360+00:00",
+  "captured_at": "2026-08-18T18:42:29.336272+00:00",
   "config": {
     "edge_shrink": 0.35,
     "league_hfa": 2.7,
@@ -16,7 +16,7 @@
   },
   "counts": {
     "lines": 51,
-    "projections": 51,
+    "projections": 8,
     "ratings": 1237
   },
   "season": 2026,

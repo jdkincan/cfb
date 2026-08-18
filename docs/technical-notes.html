@@ -136,7 +136,7 @@
   }
   tr:last-child td { border-bottom: none; }
   td.num, th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
-  td.key { font-family: var(--mono); white-space: nowrap; }
+  td.key, span.key { font-family: var(--mono); white-space: nowrap; }
 
   pre, .formula {
     background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
@@ -360,6 +360,53 @@
         <strong>15 of 15 deltas match exactly</strong>. This runs weekly and
         reports in the footer.
       </p>
+
+      <h3>The market is a data source too, and the choice of book matters</h3>
+      <p>
+        CFBD's line feed carries three retail books — DraftKings, ESPN Bet,
+        Bovada. Two separate problems follow from that, and they need different
+        fixes.
+      </p>
+      <p>
+        The first is that <strong>you do not bet a median</strong>. You bet a
+        specific number at a specific book. Across ten books the best available
+        number is routinely half a point better than the median, and near a key
+        number half a point is worth more than most of what this model claims to
+        know. That is a mechanical edge requiring no forecasting skill, which
+        makes it the most reliable one on offer.
+      </p>
+      <p>
+        The second is subtler and matters more. Measuring edge against a median
+        of soft retail books <strong>conflates two different things</strong>: the
+        model being right, and those books being slow. A number that looks
+        beatable at Bovada on Thursday morning may simply be a number that has
+        not moved yet. Pinnacle takes large limits and moves on sharp money, so
+        its price is the closest available approximation of a fair price —
+        benchmark against it and a measured edge is real edge.
+      </p>
+      <p>
+        So a second feed (<span class="key">the-odds-api.com</span>, enabled by
+        setting <span class="key">ODDS_API_KEY</span>) is folded into the market
+        map: books are unioned rather than summed, so an overlapping DraftKings
+        quote is not counted twice; the best number per side is taken across the
+        wider set; and where a sharp book quoted the game, <em>its</em> number
+        becomes the grading benchmark. Neutral-site games where the two feeds
+        disagree about which team is home are matched in the flipped orientation
+        with every spread negated. Absent the key the whole thing no-ops and
+        CFBD's lines are used unchanged.
+      </p>
+      <div class="note">
+        <span class="label">Why a better ratings feed was not the answer</span>
+        <p>
+          The instinct when a model does not beat the market is to buy better
+          inputs. That is the wrong diagnosis here. SP+ and FPI are public, and
+          the market has already read them — a marginally better public rating
+          cannot produce an edge over a price that already contains it. The
+          binding constraints are the price you can actually get and the price
+          you measure yourself against, which is why the upgrade is a book feed
+          and not a rating feed.
+        </p>
+      </div>
     </section>
 
     <hr class="div">
@@ -459,76 +506,103 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
     <section>
       <h2>What still stands between this and a legitimate model</h2>
       <p>
-        In rough order of how much each one costs.
+        This list was written when most of it was unbuilt. Enough has since been
+        built that the honest thing is to say which is which — a gap that has
+        been closed and a gap that has not are very different facts, and blurring
+        them is how a system talks itself into confidence it has not earned.
       </p>
-      <ol>
-        <li>
-          <strong>It has never beaten the market on a fair test.</strong>
-          Everything else is secondary. The snapshot archive is the fix, and it
-          takes a season.
-        </li>
-        <li>
-          <strong>Injuries and availability are entirely unmodelled.</strong> The
-          single largest source of week-to-week variance in the sport, and a
-          starting quarterback is worth more points than every adjustment in this
-          system combined. No injury feed is wired in at all.
-        </li>
-        <li>
-          <strong>Quarterback play is not separated from team rating.</strong>
-          Related but distinct: a returning starter versus a first-time starter
-          is a several-point swing that team-level ratings absorb slowly and
-          preseason ratings guess at.
-        </li>
-        <li>
-          <strong>No closing line value tracking.</strong> The system sees one
-          line snapshot on Thursday. Whether our number moved toward or away from
-          the close is the fastest available read on whether the edge is real —
-          far faster than waiting on win/loss results — and it is not captured.
-        </li>
-        <li>
-          <strong>No bet ledger.</strong> Recommendations are archived, but
-          actual stakes, prices obtained, and results are not. Without the price
-          you actually got, realised performance cannot be reconciled against
-          modelled performance.
-        </li>
-        <li>
-          <strong>Weather is ignored.</strong> Wind above roughly 15 mph is the
-          single biggest weather effect on totals, and matters for spreads in
-          extreme cases. CFBD exposes game weather.
-        </li>
-        <li>
-          <strong>Bets are sized independently.</strong> Kelly assumes
-          independence, but a slate is correlated — same conference, same
-          weather, same market-wide mispricing. Ten "independent" quarter-Kelly
-          bets is not quarter-Kelly risk.
-        </li>
-        <li>
-          <strong>The market is one median, not a book.</strong> You bet a
-          specific number at a specific book. A median across books can show an
-          edge that does not exist at the price available to you, and ignores
-          that the sharpest book's number is more informative than the softest.
-        </li>
-        <li>
-          <strong>Situational spots are crude.</strong> Rest and travel are in;
-          lookahead, letdown, rivalry, and coaching-staff changes below head
-          coach are not.
-        </li>
-        <li>
-          <strong>Sample size will remain brutal.</strong> Even a genuine 2-point
-          edge needs hundreds of bets to distinguish from noise. One season will
-          not settle it, and the temptation to conclude otherwise after a hot
-          month is the main way models like this get people hurt.
-        </li>
-      </ol>
-      <div class="note">
-        <span class="label">The order to attack them</span>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Gap</th><th>Status</th><th>Where</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Never beaten the market on a fair test</td>
+              <td><span class="pill bad">open</span></td>
+              <td>the whole question; see below</td>
+            </tr>
+            <tr>
+              <td>Injuries and availability unmodelled</td>
+              <td><span class="pill warn">manual</span></td>
+              <td><span class="key">availability.yml</span></td>
+            </tr>
+            <tr>
+              <td>Quarterback play not separated from team rating</td>
+              <td><span class="pill warn">manual</span></td>
+              <td><span class="key">availability.py</span></td>
+            </tr>
+            <tr>
+              <td>No closing line value tracking</td>
+              <td><span class="pill ok">built</span></td>
+              <td><span class="key">ledger.py</span></td>
+            </tr>
+            <tr>
+              <td>No bet ledger</td>
+              <td><span class="pill ok">built</span></td>
+              <td><span class="key">archive/bets.csv</span></td>
+            </tr>
+            <tr>
+              <td>Weather ignored</td>
+              <td><span class="pill ok">built</span></td>
+              <td><span class="key">weather.py</span>, needs CFBD Tier 1</td>
+            </tr>
+            <tr>
+              <td>Bets sized independently</td>
+              <td><span class="pill ok">built</span></td>
+              <td><span class="key">portfolio.py</span></td>
+            </tr>
+            <tr>
+              <td>Market is one median, not a book</td>
+              <td><span class="pill ok">built</span></td>
+              <td><span class="key">sources/oddsapi.py</span></td>
+            </tr>
+            <tr>
+              <td>Situational spots are crude</td>
+              <td><span class="pill bad">open</span></td>
+              <td>no lookahead, letdown or rivalry terms</td>
+            </tr>
+            <tr>
+              <td>Sample size</td>
+              <td><span class="pill bad">structural</span></td>
+              <td>unfixable by code</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The two that are marked manual</h3>
+      <p>
+        Injuries and quarterback status are the largest unmodelled effects in the
+        sport, and there is no free feed worth trusting: availability reporting
+        in college football is deliberately vague and the useful information is
+        beat-writer chatter, not a structured API. So they are handled the way
+        the people who do this for a living handle them — by hand, in a file, in
+        points. Entries are week-scoped and expire, so a stale override cannot
+        quietly follow the model into November. A quarterback downgrade from
+        elite to backup is −8; average to backup is −3.5; a skill starter is −1;
+        a line starter −0.75; the per-team total is capped at 10.
+      </p>
+      <p>
+        Calling this "built" would be dishonest. It is a place to put a judgement
+        call, and the judgement is still yours.
+      </p>
+
+      <div class="note stop">
+        <span class="label">The one that matters is still open</span>
         <p>
-          Closing line value first: it is cheap to add, uses data already being
-          fetched, and gives a read on edge within weeks rather than seasons.
-          Then injuries and quarterback status, which are the largest unmodelled
-          effects. Then the bet ledger, so realised and modelled results can be
-          reconciled. Correlation-aware sizing only matters once there is an edge
-          worth sizing.
+          Everything in the "built" column improves the machinery around the
+          forecast. None of it has been shown to make the forecast beat a closing
+          line, because on the only fair test available the model does not. Fair
+          reconstruction closed the accuracy gap against the market from 3.16
+          points of MAE to 1.30 and the against-the-spread record did not move
+          off 49.4%. Being closer to right is not the same as being right where
+          the market is wrong.
+        </p>
+        <p>
+          That is why the readout carries an unvalidated banner it cannot be
+          talked out of, and why <span class="key">--write</span> refuses to
+          adopt an <span class="key">edge_shrink</span> fitted from anything but
+          real snapshots. The system is instrumented to find out. It has not
+          found out yet.
         </p>
       </div>
     </section>
@@ -547,12 +621,18 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
             <tr><td class="key">preview --as-of DATE</td><td>Preview a later weekend inside the same CFBD week</td></tr>
             <tr><td class="key">backtest --fit --write</td><td>Measure accuracy, refit weights, sigma and key numbers</td></tr>
             <tr><td class="key">--refresh</td><td>Bypass the local cache and refetch everything</td></tr>
+            <tr><td class="key">ledger --settle</td><td>Grade open bets and record closing line value</td></tr>
           </tbody>
         </table>
       </div>
       <p>
         Credentials come from the environment or an untracked <code>.env</code>;
         real environment variables always win, so CI secrets are never shadowed.
+        <code>CFBD_API_KEY</code> is required. <code>ODDS_API_KEY</code> is
+        optional and, when present, widens the book set and moves the grading
+        benchmark to a sharp book — <code>doctor</code> prints which books came
+        back and how many games got a sharp price, and says plainly when the key
+        is absent rather than leaving it to be discovered.
         Email delivery is held behind a <code>SEND_EMAIL</code> repository
         variable — until it is set, the weekly workflow still builds the slate
         and uploads it as an artifact.
@@ -575,7 +655,7 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
 
 <footer>
   <div class="wrap">
-    cfbmeta 1.1 · 319 tests · branch <code>claude/cfb-handicapping-system-pihqf5</code><br>
+    cfbmeta 1.1 · 394 tests · branch <code>claude/cfb-handicapping-system-pihqf5</code><br>
     Ratings via collegefootballdata.com — SP+ (Bill Connelly), ESPN FPI, Elo,
     SRS, 247 composite. SP+ verified against ESPN's published preseason article.
   </div>

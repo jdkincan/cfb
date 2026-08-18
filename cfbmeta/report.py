@@ -104,6 +104,13 @@ def _ledger(proj: GameProjection) -> List[tuple]:
             (f"Travel ({abs(travel.get('miles', 0)):,.0f} mi)", f"{travel['total']:+.1f}")
         )
 
+    wx = proj.weather or {}
+    if wx.get("available") and (abs(wx.get("spread", 0)) > 0.05 or abs(wx.get("total", 0)) > 0.5):
+        rows.append(
+            (f"Weather ({wx.get('summary', '')})",
+             f"{wx.get('spread', 0):+.1f} spread, {wx.get('total', 0):+.1f} total")
+        )
+
     if proj.market_movement is not None and abs(proj.market_movement) >= 0.5:
         direction = "toward home" if proj.market_movement > 0 else "toward away"
         rows.append(

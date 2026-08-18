@@ -227,3 +227,74 @@ class TestLedger:
 
     def test_empty_ledger_summarizes_cleanly(self, tmp_path):
         assert summarize(tmp_path / "none.csv").bets == 0
+
+
+class TestWeather:
+    from cfbmeta.weather import GameWeather, WeatherModel
+
+    def test_wind_takes_points_off_the_total(self):
+        from cfbmeta.weather import GameWeather
+
+        calm = GameWeather("1", wind_speed=5)
+        windy = GameWeather("1", wind_speed=28)
+        assert calm.total_effect() == 0.0
+        assert windy.total_effect() < -5.0
+
+    def test_precipitation_adds_to_the_penalty(self):
+        from cfbmeta.weather import GameWeather
+
+        dry = GameWeather("1", wind_speed=20)
+        wet = GameWeather("1", wind_speed=20, precipitation=0.3)
+        assert wet.total_effect() < dry.total_effect()
+
+    def test_total_effect_is_capped(self):
+        from cfbmeta.weather import GameWeather, MAX_TOTAL_EFFECT
+
+        gale = GameWeather("1", wind_speed=90, precipitation=2.0)
+        assert gale.total_effect() >= -MAX_TOTAL_EFFECT
+
+    def test_a_dome_has_no_weather(self):
+        from cfbmeta.weather import GameWeather, WeatherModel
+
+        model = WeatherModel(games={"1": GameWeather("1", wind_speed=40, dome=True)})
+        result = model.for_game("1", "A", "B", True)
+        assert result["total"] == 0.0 and result["spread"] == 0.0
+
+    def test_wind_compresses_toward_the_underdog(self):
+        from cfbmeta.weather import GameWeather, WeatherModel
+
+        model = WeatherModel(games={"1": GameWeather("1", wind_speed=30)})
+        home_fav = model.for_game("1", "A", "B", favorite_is_home=True)
+        away_fav = model.for_game("1", "A", "B", favorite_is_home=False)
+        # Helping the dog means against the home side when home is favoured.
+        assert home_fav["spread"] < 0 < away_fav["spread"]
+
+    def test_cold_is_relative_not_absolute(self):
+        """A northern team is not penalised for its own weather."""
+        from cfbmeta.weather import GameWeather, WeatherModel
+
+        cold = GameWeather("1", temperature=15, wind_speed=0)
+        model = WeatherModel(
+            games={"1": cold},
+            latitudes={"wisconsin": 43.0, "miami": 25.8, "minnesota": 45.0},
+        )
+        visiting_from_warm = model.for_game("1", "Wisconsin", "Miami", True)
+        both_northern = model.for_game("1", "Wisconsin", "Minnesota", True)
+        assert visiting_from_warm["spread"] > both_northern["spread"]
+
+    def test_missing_game_is_neutral(self):
+        from cfbmeta.weather import WeatherModel
+
+        assert WeatherModel().for_game("nope", "A", "B", True)["available"] is False
+
+    def test_tier_gate_is_reported_not_raised(self):
+        from cfbmeta.weather import build_weather_model
+
+        class Gated:
+            def get(self, *a, **k):
+                raise RuntimeError("401 Unauthorized. This endpoint requires a "
+                                   "Patreon subscription at Tier 1 or higher.")
+
+        model = build_weather_model(Gated(), 2026, 1)
+        assert model.available is False
+        assert "Tier 1" in model.reason

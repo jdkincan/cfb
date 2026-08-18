@@ -78,6 +78,7 @@ class GameProjection:
     coaching: Dict[str, Any] = field(default_factory=dict)
     availability: Dict[str, Any] = field(default_factory=dict)
     situational: Dict[str, Any] = field(default_factory=dict)
+    weather: Dict[str, Any] = field(default_factory=dict)
     adjustment_total: float = 0.0
 
     projected_margin: float = 0.0
@@ -276,6 +277,7 @@ def project_game(
     market: Optional[Dict[str, Any]] = None,
     defense_sign: float = -1.0,
     availability=None,
+    weather=None,
 ) -> GameProjection:
     """Produce the full projection for a single game."""
     from .adjustments import parse_start
@@ -340,6 +342,13 @@ def project_game(
         )
         adjustments += float(proj.situational.get("total", 0.0))
 
+    if weather is not None:
+        favorite_is_home = (proj.neutral_margin + proj.hfa.get("total", 0.0)) >= 0
+        proj.weather = weather.for_game(
+            proj.game_id, home_team, away_team, favorite_is_home
+        )
+        adjustments += float(proj.weather.get("spread", 0.0))
+
     proj.adjustment_total = round(
         max(-config.total_adj_cap, min(config.total_adj_cap, adjustments)), 3
     )
@@ -352,7 +361,7 @@ def project_game(
     if points:
         # Re-center the score split on the margin we actually projected, so the
         # total and the spread can never disagree with each other.
-        total = points["total"]
+        total = points["total"] + float((proj.weather or {}).get("total", 0.0))
         proj.projected_total = round(total, 1)
         proj.projected_home_points = round((total + proj.projected_margin) / 2.0, 1)
         proj.projected_away_points = round((total - proj.projected_margin) / 2.0, 1)
@@ -451,6 +460,7 @@ def project_slate(
     markets: Optional[Dict[Any, Dict[str, Any]]] = None,
     fbs_teams: Optional[set] = None,
     availability=None,
+    weather=None,
 ) -> List[GameProjection]:
     """Project every game on the slate, best edges first."""
     markets = markets or {}
@@ -482,7 +492,7 @@ def project_slate(
             projections.append(
                 project_game(
                     game, book, config, hfa_model, coach_model, situational, market,
-                    defense_sign, availability,
+                    defense_sign, availability, weather,
                 )
             )
         except Exception as exc:  # noqa: BLE001 - one bad game shouldn't kill the slate

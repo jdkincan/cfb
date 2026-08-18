@@ -187,13 +187,17 @@ def build_projections(client, config: Config, season: int, week: int, as_of=None
             log.warning("could not load the FBS team list: %s", exc)
 
     from .availability import load as load_availability
+    from .weather import build_weather_model
 
     availability = load_availability(season, week)
+    weather = build_weather_model(client, season, week)
+    if not weather.available and weather.reason:
+        log.info("%s", weather.reason)
 
     markets = load_markets(client, season, week, config.season_type)
     projections = project_slate(
         games, book, config, hfa_model, coach_model, situational, markets,
-        fbs_teams, availability,
+        fbs_teams, availability, weather,
     )
     log.info("projected %d games", len(projections))
 
@@ -213,7 +217,8 @@ def build_projections(client, config: Config, season: int, week: int, as_of=None
             proj.spread_bet.units = scaled[str(proj.game_id)]
 
     extras = {"markets": markets, "coach_model": coach_model,
-              "portfolio": portfolio, "availability": availability}
+              "portfolio": portfolio, "availability": availability,
+              "weather": weather}
 
     if config.verify_spplus:
         extras["spplus_check"] = _verify_spplus(client, config, season)

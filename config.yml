@@ -68,6 +68,16 @@ sigma_total: 13.5
 # toward the league mean, so a couple of flukey home blowouts don't buy a team
 # a six-point home field.
 # ---------------------------------------------------------------------------
+# --- season simulation -------------------------------------------------------
+# Per-team season-long strength error for `cfbmeta simulate`. A preseason rating
+# is an estimate: if a team is really 2 points better than we think, that error
+# applies to all twelve of its games the same way, and per-game noise does not
+# average it out. Fit at 6.0 by interval coverage over 2023-25: it puts the 80%,
+# 50% and 95% intervals at 78.7%, 54.3% and 94.0%. At 0 the claimed 80%
+# interval covers only 71%.
+sigma_team: 6.0
+simulation_runs: 20000
+
 league_hfa: 2.70          # measured from 4 seasons of rating-controlled home games
 hfa_shrink_games: 60.0
 hfa_max: 5.0

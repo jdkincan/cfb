@@ -117,6 +117,14 @@ class Config:
     sigma_margin: float = 16.0
     sigma_total: float = 13.5
 
+    # --- season simulation ---------------------------------------------------
+    # Per-team season-long strength error used by `cfbmeta simulate`. Fit by
+    # requiring the simulator's prediction intervals to actually cover; see
+    # cfbmeta/simulate.py. Setting it to 0 treats ratings as known and makes
+    # every win-total interval far too narrow.
+    sigma_team: float = 6.0
+    simulation_runs: int = 20000
+
     # --- home field ----------------------------------------------------------
     league_hfa: float = 2.35
     hfa_shrink_games: float = 60.0  # pseudo-count for shrinking venue HFA to league mean

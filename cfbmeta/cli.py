@@ -438,6 +438,189 @@ def cmd_trend(args, config: Config) -> int:
     return 0
 
 
+def cmd_simulate(args, config: Config) -> int:
+    """Monte Carlo the season from the same numbers the weekly readout uses.
+
+    Base margins come from project_game, so the simulation and the Thursday
+    email cannot disagree about how good a team is.
+    """
+    from .coaching import build_coach_model
+    from .hfa import build_hfa_model
+    from .model import detect_defense_sign, project_game
+    from .simulate import actual_win_totals, coverage_report, simulate
+    from .adjustments import build_situational_model
+    from .sources.cfbd import pick
+
+    season = args.season or config.resolved_season()
+    client = make_client(config, refresh=args.refresh)
+
+    games = client.games(season, season_type=config.season_type)
+    if not games:
+        print(f"no schedule for {season}.")
+        return 1
+
+    finished = sum(
+        1 for g in games
+        if pick(g, "homePoints", "home_points") is not None
+    )
+    rating_season = args.rating_season or season
+    if args.preseason and finished and rating_season == season:
+        # Replaying a finished season from its own final ratings is lookahead:
+        # those ratings already know how every game turned out. Fall back to
+        # what a real August forecast would have had.
+        rating_season = season - 1
+        log.info(
+            "preseason replay of a completed season: using %d ratings, not %d, "
+            "to avoid lookahead", rating_season, season,
+        )
+
+    book = build_rating_book(client, rating_season, week=args.through)
+    if not book.usable_sources():
+        print(f"no usable rating source for {rating_season}; cannot simulate.")
+        return 1
+
+    hfa_model = build_hfa_model(
+        client, seasons=range(rating_season - 4, rating_season + 1),
+        league_hfa=config.league_hfa, shrink_games=config.hfa_shrink_games,
+        hfa_min=config.hfa_min, hfa_max=config.hfa_max,
+        altitude_bonus_per_1k_ft=config.altitude_bonus_per_1k_ft,
+        altitude_threshold_ft=config.altitude_threshold_ft,
+    )
+    coach_model = build_coach_model(client, rating_season, cap=config.coach_adj_cap)
+    situational = build_situational_model(
+        client, season, rest_day_value=config.rest_day_value,
+        bye_week_bonus=config.bye_week_bonus,
+        short_week_penalty=config.short_week_penalty,
+        travel_penalty_per_1k_mi=config.travel_penalty_per_1k_mi,
+        rest_cap=config.rest_adj_cap, travel_cap=config.travel_adj_cap,
+    )
+
+    fbs = None
+    if config.fbs_only:
+        try:
+            fbs = {
+                normalize_team(pick(t, "school", "team"))
+                for t in client.fbs_teams(season)
+                if pick(t, "school", "team")
+            }
+        except Exception as exc:  # noqa: BLE001
+            log.warning("could not load the FBS list: %s", exc)
+
+    defense_sign = detect_defense_sign(book)
+
+    def base_margin(game):
+        proj = project_game(
+            game, book, config, hfa_model, coach_model, situational,
+            None, defense_sign,
+        )
+        # projected_margin defaults to 0.0, and project_game returns early
+        # without setting it when no source rates both teams. Passing that 0.0
+        # through would turn "we cannot rate this FCS opponent" into "pick'em",
+        # which is how a 95% win becomes a coin flip.
+        if proj is None or not proj.components:
+            return None
+        return proj.projected_margin
+
+    blind = games
+    if args.preseason:
+        # Hide results so the whole season is projected, not just what is left.
+        # This is how the simulator is validated, and how a "what did we think
+        # in August" run is produced after the fact.
+        drop = ("homePoints", "awayPoints", "home_points", "away_points")
+        blind = [{k: v for k, v in g.items() if k not in drop} for g in games]
+
+    sim = simulate(
+        blind, base_margin, season=season, sims=args.sims,
+        sigma_game=config.sigma_margin, sigma_team=config.sigma_team,
+        eligible=fbs, seed=args.seed,
+    )
+    if not sim.teams:
+        print("nothing simulable: no game could be projected.")
+        return 1
+
+    print(f"{season} regular season — {sim.sims:,} simulations")
+    detail = f"  {sim.games_simulated} games projected, {sim.games_locked} already final"
+    if sim.games_base_rate:
+        detail += (f" ({sim.games_base_rate} vs unrated opponents at the "
+                   f"FBS-vs-FCS base rate)")
+    print(detail)
+    if rating_season != season:
+        print(f"  rated from {rating_season} final ratings (no lookahead)")
+    print(f"  sigma: {sim.sigma_game:.1f} per game, {sim.sigma_team:.1f} per team-season")
+
+    truth = actual_win_totals(games, eligible=fbs)
+    if truth and sim.games_simulated > 0.5 * (sim.games_simulated + sim.games_locked):
+        report = coverage_report(sim, truth, 0.80)
+        if report["n"]:
+            print(f"  vs what actually happened: mean-win MAE {report['mae']:.2f}, "
+                  f"80% interval covered {report['coverage']:.1%} of {report['n']} teams")
+
+    if args.team:
+        key = normalize_team(args.team)
+        outcome = sim.teams.get(key)
+        if outcome is None:
+            print(f"\n{args.team!r} is not in the simulated field.")
+            return 1
+        low, high = outcome.interval(0.80)
+        conf = outcome.conference or "Independent"
+        print(f"\n{outcome.display} ({conf}) — {outcome.scheduled} games")
+        print(f"  projected {outcome.mean_wins:.1f} wins   80% interval {low}-{high}")
+        if outcome.played:
+            print(f"  {outcome.actual_wins}-{outcome.played - outcome.actual_wins} so far")
+        if outcome.conference_title is not None:
+            print(f"  conference title {outcome.conference_title:.1%}")
+        print(f"\n  {'wins':>5}  {'chance':>7}  {'at least':>9}")
+        for wins in sorted(outcome.win_counts):
+            share = outcome.win_counts[wins]
+            if share < 0.001:
+                continue
+            bar = "#" * max(1, round(share * 60))
+            print(f"  {wins:>5}  {share:>6.1%}  {outcome.probability_of_at_least(wins):>8.1%}  {bar}")
+        return 0
+
+    if args.conference:
+        rows = sim.conference(args.conference)
+        if not rows:
+            print(f"\nno teams found in conference {args.conference!r}.")
+            return 1
+        print(f"\n{args.conference}")
+        print(f"  {'team':<22} {'wins':>5} {'80% int':>9} {'conf':>5} {'title':>7}")
+        for outcome in rows:
+            low, high = outcome.interval(0.80)
+            title = ("     -" if outcome.conference_title is None
+                     else f"{outcome.conference_title:>6.1%}")
+            print(f"  {outcome.display:<22} {outcome.mean_wins:>5.1f} "
+                  f"{f'{low}-{high}':>9} {outcome.mean_conference_wins:>5.1f} "
+                  f"{title}")
+        return 0
+
+    print(f"\n  {'#':>3} {'team':<22} {'wins':>5} {'80% int':>9} {'conf':<18} {'title':>7}")
+    for i, outcome in enumerate(sim.ranked(limit=args.top), 1):
+        low, high = outcome.interval(0.80)
+        title = ("     -" if outcome.conference_title is None
+                 else f"{outcome.conference_title:>6.1%}")
+        conf = outcome.conference or "Independent"
+        print(f"  {i:>3} {outcome.display:<22} {outcome.mean_wins:>5.1f} "
+              f"{f'{low}-{high}':>9} {conf[:18]:<18} {title}")
+
+    titles = sorted(
+        (t for t in sim.teams.values() if t.conference_title is not None),
+        key=lambda t: -t.conference_title,
+    )
+    if titles:
+        print(f"\n  conference favourites")
+        seen = set()
+        for outcome in titles:
+            if outcome.conference in seen:
+                continue
+            seen.add(outcome.conference)
+            print(f"    {outcome.conference:<24} {outcome.display:<20} "
+                  f"{outcome.conference_title:>6.1%}")
+        print("    (most conference wins, random tiebreak — no championship "
+              "games or head-to-head rules)")
+    return 0
+
+
 def cmd_doctor(args, config: Config) -> int:
     """Verify credentials and probe every endpoint the forecast depends on.
 
@@ -808,6 +991,24 @@ def build_parser() -> argparse.ArgumentParser:
     tr.add_argument("--write", action="store_true",
                     help="also save the full series to archive/<season>/")
     tr.set_defaults(func=cmd_trend)
+
+    simu = sub.add_parser("simulate", help="Monte Carlo the season: win totals and races")
+    simu.add_argument("--season", type=int)
+    simu.add_argument("--sims", type=int, default=20000)
+    simu.add_argument("--team", help="full win distribution for one team")
+    simu.add_argument("--conference", help="standings for one conference")
+    simu.add_argument("--top", type=int, default=25)
+    simu.add_argument("--rating-season", type=int, default=None,
+                      help="which season's ratings to use (default: the target "
+                           "season; a preseason replay drops to the prior one)")
+    simu.add_argument("--through", type=int, default=None,
+                      help="rate teams as of this week (default: current ratings)")
+    simu.add_argument("--preseason", action="store_true",
+                      help="hide results and project the whole season from scratch")
+    simu.add_argument("--seed", type=int, default=0)
+    simu.add_argument("--refresh", action="store_true",
+                      help="bypass the local cache and refetch everything")
+    simu.set_defaults(func=cmd_simulate)
 
     res = sub.add_parser("resize", help="re-size a card down to chosen plays")
     res.add_argument("--week", type=int, required=True)

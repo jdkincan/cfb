@@ -711,6 +711,93 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
     <hr class="div">
 
     <section>
+      <h2>Simulating the season</h2>
+      <p>
+        <span class="key">cfbmeta simulate</span> Monte Carlos the regular
+        season from the same projected margins the Thursday readout uses, so
+        the two cannot drift apart. It reports win-total distributions,
+        conference races, and — where it matters most — how uncertain it is.
+      </p>
+
+      <h3>Per-game noise alone makes a season sim useless</h3>
+      <p>
+        The naive build draws <span class="key">margin = projection + N(0, σ)</span>
+        for each game independently and counts wins. Its win-total intervals
+        are far too narrow, for a specific reason: it treats each team's rating
+        as <em>known</em>. A preseason rating is an estimate, and if a team is
+        really two points better than we think, that error applies to all
+        twelve of its games in the same direction. Independent game noise
+        averages out over a season; a wrong rating does not.
+      </p>
+      <p>
+        So each simulated season draws a per-team strength offset once and
+        holds it across that team's whole schedule:
+      </p>
+      <div class="formula">margin = base_margin + offset[home] − offset[away] + N(0, σ<span class="c">game</span>)</div>
+
+      <h3>σ<sub>team</sub> is fit, not guessed</h3>
+      <p>
+        It is set by requiring the simulator's intervals to have the coverage
+        they claim, over 2023–25, under preseason conditions — every game rated
+        from the prior season's final ratings, all results hidden:
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th class="num">σ<sub>team</sub></th><th class="num">80% covers</th><th class="num">50% covers</th><th class="num">95% covers</th></tr></thead>
+          <tbody>
+            <tr><td class="num">0</td><td class="num">70.6%</td><td class="num">46.4%</td><td class="num">—</td></tr>
+            <tr><td class="num">4</td><td class="num">73.5%</td><td class="num">49.9%</td><td class="num">90.3%</td></tr>
+            <tr><td class="num"><strong>6</strong></td><td class="num"><strong>79.2%</strong></td><td class="num"><strong>54.9%</strong></td><td class="num"><strong>93.6%</strong></td></tr>
+            <tr><td class="num">8</td><td class="num">83.2%</td><td class="num">58.3%</td><td class="num">96.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        At zero the claimed 80% interval covers 71% — over-confident, which is
+        the failure mode that makes a season sim feel authoritative and be
+        wrong. Six lands closest to nominal at all three levels at once.
+        Mean-win MAE is 1.88 regardless, since the offset widens the
+        distribution without moving its centre. This is conservative for a live
+        run: it was fit from last season's final ratings, while a real
+        preseason forecast also has SP+ and FPI.
+      </p>
+
+      <h3>Two things that quietly cost a win each</h3>
+      <ul>
+        <li>
+          <strong>FCS opponents.</strong> Screening the slate to FBS drops
+          those games entirely, costing every team most of a win on a 12-game
+          season. They are now simulated at the measured base rate instead:
+          FBS teams went <strong>463–22 (95.5%)</strong> against FCS from
+          2022–25, by a mean of 31 points.
+        </li>
+        <li>
+          <strong>A pick'em that isn't.</strong>
+          <span class="key">projected_margin</span> defaults to 0.0 and
+          <span class="key">project_game</span> returns early without setting
+          it when no source rates both teams. Passing that through turned "we
+          cannot rate this FCS opponent" into "even game" — a 95% win became a
+          coin flip.
+        </li>
+      </ul>
+
+      <div class="note warn">
+        <span class="label">What it deliberately does not report</span>
+        <p>
+          No playoff odds. A 12-team field with committee seeding, automatic
+          bids and tiebreakers cannot be modelled honestly here, and an invented
+          number would be worse than none. Conference titles are approximated as
+          "most conference wins, ties broken at random" — no championship games,
+          no head-to-head rules — so they are reported and should not be bet.
+          Conferences whose members play no conference games get no title
+          number at all rather than a coin flip.
+        </p>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <section>
       <h2>Operating it</h2>
       <div class="scroll">
         <table>
@@ -721,6 +808,9 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
             <tr><td class="key">preview --week N --window 14</td><td>Render a week; window widens beyond one weekend</td></tr>
             <tr><td class="key">preview --as-of DATE</td><td>Preview a later weekend inside the same CFBD week</td></tr>
             <tr><td class="key">backtest --fit --write</td><td>Measure accuracy, refit weights, sigma and key numbers</td></tr>
+            <tr><td class="key">simulate --team X</td><td>Win-total distribution for one team</td></tr>
+            <tr><td class="key">simulate --conference SEC</td><td>Projected standings and title odds</td></tr>
+            <tr><td class="key">simulate --preseason</td><td>Replay a finished season from prior-year ratings</td></tr>
             <tr><td class="key">trend --team X</td><td>One team's weekly efficiency rating across a season</td></tr>
             <tr><td class="key">trend --top 25 --write</td><td>Current rankings; --write saves the full weekly series</td></tr>
             <tr><td class="key">--refresh</td><td>Bypass the local cache and refetch everything</td></tr>
@@ -758,7 +848,7 @@ kelly    = (0.909 · p − q) / 0.909          <span class="c">q renormalized ov
 
 <footer>
   <div class="wrap">
-    cfbmeta 1.1 · 424 tests · branch <code>claude/cfb-handicapping-system-pihqf5</code><br>
+    cfbmeta 1.1 · 444 tests · branch <code>claude/cfb-handicapping-system-pihqf5</code><br>
     Ratings via collegefootballdata.com — SP+ (Bill Connelly), ESPN FPI, Elo,
     SRS, 247 composite. SP+ verified against ESPN's published preseason article.
   </div>

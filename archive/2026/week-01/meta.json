@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-08-18T19:09:29.743408+00:00",
+  "captured_at": "2026-08-19T19:37:21.699382+00:00",
   "config": {
     "edge_shrink": 0.35,
     "league_hfa": 2.7,
@@ -54,7 +54,7 @@
       "season": 2026,
       "source": "fpi",
       "teams": 138,
-      "unchanged_days": 1.1,
+      "unchanged_days": 2.1,
       "unchanged_since": "",
       "usable": true
     },
@@ -66,7 +66,7 @@
       "season": 2026,
       "source": "sp_plus",
       "teams": 138,
-      "unchanged_days": 1.1,
+      "unchanged_days": 2.1,
       "unchanged_since": "",
       "usable": true
     },
@@ -90,7 +90,7 @@
       "season": 2026,
       "source": "talent",
       "teams": 138,
-      "unchanged_days": 1.1,
+      "unchanged_days": 2.1,
       "unchanged_since": "",
       "usable": true
     }

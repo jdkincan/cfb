@@ -37,6 +37,25 @@ rejected by SMTP; it has to be an app password.
 Optional repository *variables* (not secrets): `SMTP_HOST`, `SMTP_PORT` if
 you'd rather not use Gmail.
 
+#### Simulating the season
+
+```bash
+python -m cfbmeta simulate --season 2026 --top 25       # projected records
+python -m cfbmeta simulate --team Arkansas              # win-total distribution
+python -m cfbmeta simulate --conference SEC             # standings + title odds
+python -m cfbmeta simulate --season 2025 --preseason    # replay a finished season
+```
+
+Mid-season it locks in games already played and projects only the rest.
+`--preseason` hides results and projects the whole year; on a finished season
+it automatically drops to the prior year's ratings so the replay has no
+lookahead.
+
+Interval width is governed by `sigma_team`, fit by checking that the intervals
+actually cover (an 80% interval should contain the truth ~80% of the time). At
+0 it covers 71% — a season sim without per-team uncertainty is badly
+over-confident.
+
 #### A note on weekly ratings
 
 SP+, FPI and SRS from CFBD are **season-final numbers**. They accept a `week`

@@ -45,7 +45,9 @@ def save_state(state: Dict[str, dict], path: Optional[Path] = None) -> None:
     path = path or STATE_PATH
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(state, indent=2, sort_keys=True))
+        # Trailing newline so every rewrite is a clean one-line diff
+        # rather than one that also reports "no newline at end of file".
+        path.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n")
     except OSError as exc:  # best effort; never fatal
         log.debug("could not write source state: %s", exc)
 

@@ -181,6 +181,31 @@ def effective_weights(config: Config, week: int) -> Dict[str, float]:
     return weights
 
 
+def blended_rating(
+    book: RatingBook, team: str, weights: Dict[str, float]
+) -> Optional[float]:
+    """One team's rating in points above average, blended across sources.
+
+    :func:`component_margins` only ever produces *differences* between two
+    teams on a scheduled game. A playoff bracket needs to rate matchups that
+    are not on anyone's schedule, so it needs the per-team number the
+    differences are made of. Weights renormalize over whichever sources rate
+    this team, exactly as they do for a game.
+    """
+    total = 0.0
+    used = 0.0
+    for source in ALL_SOURCES:
+        weight = weights.get(source, 0.0)
+        if weight <= 0:
+            continue
+        value = book.rating(team, source)
+        if value is None:
+            continue
+        total += weight * value
+        used += weight
+    return total / used if used > 0 else None
+
+
 def component_margins(
     book: RatingBook,
     home_team: str,

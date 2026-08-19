@@ -1,0 +1,232 @@
+<title>Playoff Odds 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap">
+<style>
+:root{
+ --paper:#edeff5; --surface:#fff; --surface-2:#e0e4ee; --raise:#f6f7fb;
+ --ink:#151931; --ink-2:#3b4260; --muted:#6d7590;
+ --rule:#d2d7e4; --rule-2:#e6e9f1;
+ --accent:#3a4694; --accent-2:#2b3577; --wash:#e2e5f5;
+ --gold:#8f6a10; --bad:#a3413c;
+ --f1:#c3c9e6; --f2:#98a2d4; --f3:#6c79bf; --f4:#4a56a4; --f5:#8f6a10;
+ --display:'Archivo',system-ui,-apple-system,sans-serif;
+ --body:'Newsreader',Georgia,'Times New Roman',serif;
+ --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+ --s0:clamp(1rem,.97rem+.14vw,1.08rem); --sm:clamp(.76rem,.74rem+.08vw,.82rem);
+ --s1:clamp(1.16rem,1.06rem+.36vw,1.36rem);
+ --s2:clamp(1.5rem,1.28rem+.8vw,2rem); --s3:clamp(2.1rem,1.6rem+2vw,3.4rem);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --paper:#0e1020; --surface:#171b2f; --surface-2:#20263e; --raise:#1c2136;
+ --ink:#e6e9f5; --ink-2:#bfc6de; --muted:#8b93b0;
+ --rule:#2a3150; --rule-2:#202741;
+ --accent:#8792e6; --accent-2:#a3acef; --wash:#1d2344;
+ --gold:#d3a442; --bad:#d9776f;
+ --f1:#2d3556; --f2:#414c80; --f3:#5a67a8; --f4:#8792e6; --f5:#d3a442;
+}}
+:root[data-theme="dark"]{
+ --paper:#0e1020; --surface:#171b2f; --surface-2:#20263e; --raise:#1c2136;
+ --ink:#e6e9f5; --ink-2:#bfc6de; --muted:#8b93b0;
+ --rule:#2a3150; --rule-2:#202741;
+ --accent:#8792e6; --accent-2:#a3acef; --wash:#1d2344;
+ --gold:#d3a442; --bad:#d9776f;
+ --f1:#2d3556; --f2:#414c80; --f3:#5a67a8; --f4:#8792e6; --f5:#d3a442;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+ font-size:var(--s0);line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:80rem;margin:0 auto;padding:0 1.5rem}
+.prose{max-width:38rem}
+header.top{background:var(--surface);border-bottom:1px solid var(--rule);
+ padding:clamp(2.5rem,6vw,4.25rem) 0 clamp(1.75rem,3vw,2.5rem)}
+.eyebrow{font-family:var(--mono);font-size:var(--sm);letter-spacing:.16em;
+ text-transform:uppercase;color:var(--accent);margin:0 0 .85rem}
+h1{font-family:var(--display);font-weight:700;font-size:var(--s3);line-height:1.02;
+ letter-spacing:-.025em;margin:0 0 .9rem;text-wrap:balance}
+.standfirst{font-size:var(--s1);color:var(--ink-2);margin:0;text-wrap:pretty;
+ line-height:1.45}
+h2{font-family:var(--display);font-weight:700;font-size:var(--s2);line-height:1.12;
+ letter-spacing:-.02em;margin:0 0 .8rem;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:var(--s1);margin:0 0 .5rem}
+p{margin:0 0 .9rem;text-wrap:pretty}
+main{padding:clamp(2rem,4vw,3rem) 0 4rem}
+section.block{margin-bottom:clamp(2.5rem,5vw,3.75rem)}
+.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:9px;
+ background:var(--surface);margin:1.4rem 0}
+table{border-collapse:collapse;width:100%;font-size:var(--sm);font-family:var(--body)}
+th,td{padding:.44rem .7rem;border-bottom:1px solid var(--rule-2);text-align:left;
+ white-space:nowrap}
+thead th{background:var(--surface-2);font-family:var(--mono);font-weight:500;
+ font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--raise)}
+.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.big{font-weight:500;color:var(--ink);font-size:.9rem}
+.dim{color:var(--muted)}
+.rk{width:2rem;text-align:right;font-family:var(--mono);font-size:.7rem;
+ color:var(--muted)}
+.tm{font-weight:600;min-width:9.5rem;font-family:var(--display);font-size:.85rem}
+.cf{color:var(--muted);font-size:.76rem;min-width:6.5rem}
+.fun{width:15rem;min-width:12rem}
+.funnel{position:relative;display:block;height:11px;width:100%;
+ background:var(--surface-2);border-radius:3px;overflow:hidden}
+.funnel i{position:absolute;left:0;top:0;height:11px;display:block}
+.s-field{background:var(--f1)} .s-qf{background:var(--f2)}
+.s-sf{background:var(--f3)} .s-fi{background:var(--f4)} .s-ti{background:var(--f5)}
+.key{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;font-family:var(--mono);
+ font-size:.7rem;color:var(--muted);margin:.5rem 0 0;align-items:center}
+.key b{display:inline-block;width:.75rem;height:.75rem;border-radius:2px;
+ margin-right:.35rem;vertical-align:-1px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
+ gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:9px;
+ overflow:hidden;margin:1.4rem 0}
+.stat{background:var(--surface);padding:1rem 1.15rem}
+.stat .v{font-family:var(--mono);font-size:1.6rem;font-weight:500;line-height:1.1;
+ font-variant-numeric:tabular-nums}
+.stat .k{font-size:var(--sm);color:var(--muted);margin-top:.3rem;line-height:1.4}
+.note{background:var(--wash);border-left:3px solid var(--accent);
+ padding:.95rem 1.2rem;border-radius:0 7px 7px 0;margin:1.5rem 0;color:var(--ink-2)}
+.note b{color:var(--ink)} .note p:last-child{margin-bottom:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(20rem,1fr));
+ gap:1.75rem;align-items:start}
+dl.terms{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1rem;margin:1rem 0 0}
+dl.terms dt{font-family:var(--mono);font-size:var(--sm);color:var(--accent);
+ white-space:nowrap}
+dl.terms dd{margin:0;color:var(--ink-2)}
+code{font-family:var(--mono);font-size:.86em;background:var(--surface-2);
+ padding:.1em .35em;border-radius:3px}
+footer{border-top:1px solid var(--rule);background:var(--surface);
+ padding:1.75rem 0 3rem;color:var(--muted);font-size:var(--sm)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">20,000 simulated seasons &amp; brackets</p>
+  <h1>Playoff Odds 2026</h1>
+  <p class="standfirst prose">Twelve teams, five conference champions, four
+  byes. Who gets in, where they get seeded, and how often they finish it &mdash;
+  with a committee model fit to twelve years of real selection decisions.</p>
+</div></header>
+
+<main><div class="wrap">
+
+<section class="block">
+  <div class="stats">
+    <div class="stat"><div class="v">Ohio State</div>
+      <div class="k">most likely champion, at 18.1%</div></div>
+    <div class="stat"><div class="v">4.5</div>
+      <div class="k">SEC bids expected, of 12</div></div>
+    <div class="stat"><div class="v">10<span class="dim">/12</span></div>
+      <div class="k">of the real 2025 field the model picks</div></div>
+    <div class="stat"><div class="v">56</div>
+      <div class="k">teams with a realistic shot</div></div>
+  </div>
+</section>
+
+<section class="block">
+  <h2>The field</h2>
+  <p class="prose">Every team that makes the bracket in at least 1% of seasons,
+  ordered by title odds. The bar is a survival funnel: how far the team gets,
+  narrowing left to right.</p>
+  <div class="key">
+    <span><b class="s-field"></b>made the field</span>
+    <span><b class="s-qf"></b>quarterfinal</span>
+    <span><b class="s-sf"></b>semifinal</span>
+    <span><b class="s-fi"></b>title game</span>
+    <span><b class="s-ti"></b>champion</span>
+  </div>
+  <div class="scroll"><table>
+    <thead><tr><th class="rk"></th><th>Team</th><th>Conference</th>
+    <th class="num">Wins</th><th class="num">Conf</th><th class="num">Field</th>
+    <th class="num">Bye</th><th class="num">Seed</th>
+    <th>How far they get</th><th class="num">Title</th></tr></thead>
+    <tbody><tr><td class="rk">1</td><td class="tm">Ohio State</td><td class="cf">Big Ten</td><td class="num">9.6</td><td class="num dim">40%</td><td class="num">82%</td><td class="num">52%</td><td class="num dim">3.9</td><td class="fun"><span class="funnel" role="img" aria-label="82% make the field, 18.1% win it"><i class="s-field" style="width:81.600%"></i><i class="s-qf" style="width:73.690%"></i><i class="s-sf" style="width:48.460%"></i><i class="s-fi" style="width:30.090%"></i><i class="s-ti" style="width:18.150%"></i></span></td><td class="num big">18.1%</td></tr><tr><td class="rk">2</td><td class="tm">Georgia</td><td class="cf">SEC</td><td class="num">9.4</td><td class="num dim">29%</td><td class="num">78%</td><td class="num">47%</td><td class="num dim">4.1</td><td class="fun"><span class="funnel" role="img" aria-label="78% make the field, 13.5% win it"><i class="s-field" style="width:78.300%"></i><i class="s-qf" style="width:69.050%"></i><i class="s-sf" style="width:41.970%"></i><i class="s-fi" style="width:24.100%"></i><i class="s-ti" style="width:13.490%"></i></span></td><td class="num big">13.5%</td></tr><tr><td class="rk">3</td><td class="tm">Notre Dame</td><td class="cf">Independents</td><td class="num">10.4</td><td class="num dim">&mdash;</td><td class="num">79%</td><td class="num">45%</td><td class="num dim">4.6</td><td class="fun"><span class="funnel" role="img" aria-label="79% make the field, 11.0% win it"><i class="s-field" style="width:78.800%"></i><i class="s-qf" style="width:68.020%"></i><i class="s-sf" style="width:39.100%"></i><i class="s-fi" style="width:21.140%"></i><i class="s-ti" style="width:10.970%"></i></span></td><td class="num big">11.0%</td></tr><tr><td class="rk">4</td><td class="tm">Oregon</td><td class="cf">Big Ten</td><td class="num">9.3</td><td class="num dim">25%</td><td class="num">72%</td><td class="num">37%</td><td class="num dim">4.8</td><td class="fun"><span class="funnel" role="img" aria-label="72% make the field, 10.0% win it"><i class="s-field" style="width:72.100%"></i><i class="s-qf" style="width:61.220%"></i><i class="s-sf" style="width:34.970%"></i><i class="s-fi" style="width:18.790%"></i><i class="s-ti" style="width:10.040%"></i></span></td><td class="num big">10.0%</td></tr><tr><td class="rk">5</td><td class="tm">Texas</td><td class="cf">SEC</td><td class="num">8.5</td><td class="num dim">20%</td><td class="num">69%</td><td class="num">36%</td><td class="num dim">4.7</td><td class="fun"><span class="funnel" role="img" aria-label="69% make the field, 9.5% win it"><i class="s-field" style="width:68.900%"></i><i class="s-qf" style="width:58.270%"></i><i class="s-sf" style="width:34.340%"></i><i class="s-fi" style="width:18.480%"></i><i class="s-ti" style="width:9.470%"></i></span></td><td class="num big">9.5%</td></tr><tr><td class="rk">6</td><td class="tm">Alabama</td><td class="cf">SEC</td><td class="num">8.3</td><td class="num dim">12%</td><td class="num">55%</td><td class="num">24%</td><td class="num dim">5.3</td><td class="fun"><span class="funnel" role="img" aria-label="55% make the field, 5.2% win it"><i class="s-field" style="width:55.000%"></i><i class="s-qf" style="width:43.500%"></i><i class="s-sf" style="width:22.230%"></i><i class="s-fi" style="width:11.010%"></i><i class="s-ti" style="width:5.150%"></i></span></td><td class="num big">5.2%</td></tr><tr><td class="rk">7</td><td class="tm">Miami</td><td class="cf">ACC</td><td class="num">9.3</td><td class="num dim">45%</td><td class="num">58%</td><td class="num">23%</td><td class="num dim">5.9</td><td class="fun"><span class="funnel" role="img" aria-label="58% make the field, 4.8% win it"><i class="s-field" style="width:58.500%"></i><i class="s-qf" style="width:44.290%"></i><i class="s-sf" style="width:21.840%"></i><i class="s-fi" style="width:10.190%"></i><i class="s-ti" style="width:4.830%"></i></span></td><td class="num big">4.8%</td></tr><tr><td class="rk">8</td><td class="tm">Texas A&amp;M</td><td class="cf">SEC</td><td class="num">8.1</td><td class="num dim">9%</td><td class="num">47%</td><td class="num">18%</td><td class="num dim">5.6</td><td class="fun"><span class="funnel" role="img" aria-label="47% make the field, 4.5% win it"><i class="s-field" style="width:46.600%"></i><i class="s-qf" style="width:36.190%"></i><i class="s-sf" style="width:18.540%"></i><i class="s-fi" style="width:9.120%"></i><i class="s-ti" style="width:4.460%"></i></span></td><td class="num big">4.5%</td></tr><tr><td class="rk">9</td><td class="tm">LSU</td><td class="cf">SEC</td><td class="num">8.1</td><td class="num dim">10%</td><td class="num">48%</td><td class="num">19%</td><td class="num dim">5.6</td><td class="fun"><span class="funnel" role="img" aria-label="48% make the field, 4.3% win it"><i class="s-field" style="width:48.400%"></i><i class="s-qf" style="width:37.440%"></i><i class="s-sf" style="width:19.180%"></i><i class="s-fi" style="width:9.320%"></i><i class="s-ti" style="width:4.260%"></i></span></td><td class="num big">4.3%</td></tr><tr><td class="rk">10</td><td class="tm">Indiana</td><td class="cf">Big Ten</td><td class="num">8.8</td><td class="num dim">11%</td><td class="num">45%</td><td class="num">13%</td><td class="num dim">6.3</td><td class="fun"><span class="funnel" role="img" aria-label="45% make the field, 2.7% win it"><i class="s-field" style="width:44.900%"></i><i class="s-qf" style="width:31.520%"></i><i class="s-sf" style="width:14.310%"></i><i class="s-fi" style="width:6.310%"></i><i class="s-ti" style="width:2.670%"></i></span></td><td class="num big">2.7%</td></tr><tr><td class="rk">11</td><td class="tm">USC</td><td class="cf">Big Ten</td><td class="num">8.2</td><td class="num dim">8%</td><td class="num">34%</td><td class="num">9%</td><td class="num dim">6.6</td><td class="fun"><span class="funnel" role="img" aria-label="34% make the field, 2.0% win it"><i class="s-field" style="width:34.000%"></i><i class="s-qf" style="width:22.950%"></i><i class="s-sf" style="width:10.210%"></i><i class="s-fi" style="width:4.570%"></i><i class="s-ti" style="width:2.050%"></i></span></td><td class="num big">2.0%</td></tr><tr><td class="rk">12</td><td class="tm">Texas Tech</td><td class="cf">Big 12</td><td class="num">9.5</td><td class="num dim">40%</td><td class="num">49%</td><td class="num">13%</td><td class="num dim">7.0</td><td class="fun"><span class="funnel" role="img" aria-label="49% make the field, 2.0% win it"><i class="s-field" style="width:48.700%"></i><i class="s-qf" style="width:30.760%"></i><i class="s-sf" style="width:12.720%"></i><i class="s-fi" style="width:5.150%"></i><i class="s-ti" style="width:1.960%"></i></span></td><td class="num big">2.0%</td></tr><tr><td class="rk">13</td><td class="tm">Tennessee</td><td class="cf">SEC</td><td class="num">7.7</td><td class="num dim">5%</td><td class="num">32%</td><td class="num">9%</td><td class="num dim">6.2</td><td class="fun"><span class="funnel" role="img" aria-label="32% make the field, 1.8% win it"><i class="s-field" style="width:32.100%"></i><i class="s-qf" style="width:21.990%"></i><i class="s-sf" style="width:9.780%"></i><i class="s-fi" style="width:4.370%"></i><i class="s-ti" style="width:1.780%"></i></span></td><td class="num big">1.8%</td></tr><tr><td class="rk">14</td><td class="tm">Oklahoma</td><td class="cf">SEC</td><td class="num">7.2</td><td class="num dim">4%</td><td class="num">27%</td><td class="num">9%</td><td class="num dim">6.1</td><td class="fun"><span class="funnel" role="img" aria-label="27% make the field, 1.8% win it"><i class="s-field" style="width:27.400%"></i><i class="s-qf" style="width:19.410%"></i><i class="s-sf" style="width:8.630%"></i><i class="s-fi" style="width:4.040%"></i><i class="s-ti" style="width:1.760%"></i></span></td><td class="num big">1.8%</td></tr><tr><td class="rk">15</td><td class="tm">Michigan</td><td class="cf">Big Ten</td><td class="num">7.6</td><td class="num dim">6%</td><td class="num">26%</td><td class="num">6%</td><td class="num dim">7.0</td><td class="fun"><span class="funnel" role="img" aria-label="26% make the field, 1.3% win it"><i class="s-field" style="width:25.500%"></i><i class="s-qf" style="width:16.500%"></i><i class="s-sf" style="width:7.220%"></i><i class="s-fi" style="width:3.120%"></i><i class="s-ti" style="width:1.290%"></i></span></td><td class="num big">1.3%</td></tr><tr><td class="rk">16</td><td class="tm">Ole Miss</td><td class="cf">SEC</td><td class="num">7.0</td><td class="num dim">3%</td><td class="num">22%</td><td class="num">5%</td><td class="num dim">6.5</td><td class="fun"><span class="funnel" role="img" aria-label="22% make the field, 1.3% win it"><i class="s-field" style="width:21.800%"></i><i class="s-qf" style="width:14.900%"></i><i class="s-sf" style="width:6.350%"></i><i class="s-fi" style="width:2.860%"></i><i class="s-ti" style="width:1.260%"></i></span></td><td class="num big">1.3%</td></tr><tr><td class="rk">17</td><td class="tm">Clemson</td><td class="cf">ACC</td><td class="num">7.7</td><td class="num dim">10%</td><td class="num">21%</td><td class="num">5%</td><td class="num dim">6.9</td><td class="fun"><span class="funnel" role="img" aria-label="21% make the field, 0.9% win it"><i class="s-field" style="width:20.800%"></i><i class="s-qf" style="width:13.220%"></i><i class="s-sf" style="width:5.460%"></i><i class="s-fi" style="width:2.100%"></i><i class="s-ti" style="width:0.950%"></i></span></td><td class="num big">0.9%</td></tr><tr><td class="rk">18</td><td class="tm">Florida</td><td class="cf">SEC</td><td class="num">6.8</td><td class="num dim">2%</td><td class="num">19%</td><td class="num">4%</td><td class="num dim">6.8</td><td class="fun"><span class="funnel" role="img" aria-label="19% make the field, 0.9% win it"><i class="s-field" style="width:19.200%"></i><i class="s-qf" style="width:12.260%"></i><i class="s-sf" style="width:4.990%"></i><i class="s-fi" style="width:2.030%"></i><i class="s-ti" style="width:0.940%"></i></span></td><td class="num big">0.9%</td></tr><tr><td class="rk">19</td><td class="tm">Missouri</td><td class="cf">SEC</td><td class="num">6.8</td><td class="num dim">2%</td><td class="num">17%</td><td class="num">4%</td><td class="num dim">6.9</td><td class="fun"><span class="funnel" role="img" aria-label="17% make the field, 0.6% win it"><i class="s-field" style="width:17.000%"></i><i class="s-qf" style="width:10.490%"></i><i class="s-sf" style="width:4.100%"></i><i class="s-fi" style="width:1.540%"></i><i class="s-ti" style="width:0.550%"></i></span></td><td class="num big">0.6%</td></tr><tr><td class="rk">20</td><td class="tm">South Carolina</td><td class="cf">SEC</td><td class="num">6.6</td><td class="num dim">2%</td><td class="num">14%</td><td class="num">3%</td><td class="num dim">7.0</td><td class="fun"><span class="funnel" role="img" aria-label="14% make the field, 0.5% win it"><i class="s-field" style="width:14.100%"></i><i class="s-qf" style="width:8.830%"></i><i class="s-sf" style="width:3.400%"></i><i class="s-fi" style="width:1.350%"></i><i class="s-ti" style="width:0.510%"></i></span></td><td class="num big">0.5%</td></tr><tr><td class="rk">21</td><td class="tm">Penn State</td><td class="cf">Big Ten</td><td class="num">8.0</td><td class="num dim">3%</td><td class="num">15%</td><td class="num">2%</td><td class="num dim">7.7</td><td class="fun"><span class="funnel" role="img" aria-label="15% make the field, 0.5% win it"><i class="s-field" style="width:14.700%"></i><i class="s-qf" style="width:8.290%"></i><i class="s-sf" style="width:3.080%"></i><i class="s-fi" style="width:1.160%"></i><i class="s-ti" style="width:0.460%"></i></span></td><td class="num big">0.5%</td></tr><tr><td class="rk">22</td><td class="tm">Auburn</td><td class="cf">SEC</td><td class="num">6.3</td><td class="num dim">1%</td><td class="num">10%</td><td class="num">2%</td><td class="num dim">7.3</td><td class="fun"><span class="funnel" role="img" aria-label="10% make the field, 0.4% win it"><i class="s-field" style="width:9.600%"></i><i class="s-qf" style="width:5.660%"></i><i class="s-sf" style="width:2.200%"></i><i class="s-fi" style="width:0.800%"></i><i class="s-ti" style="width:0.360%"></i></span></td><td class="num big">0.4%</td></tr><tr><td class="rk">23</td><td class="tm">Washington</td><td class="cf">Big Ten</td><td class="num">7.3</td><td class="num dim">2%</td><td class="num">11%</td><td class="num">2%</td><td class="num dim">7.4</td><td class="fun"><span class="funnel" role="img" aria-label="11% make the field, 0.3% win it"><i class="s-field" style="width:11.400%"></i><i class="s-qf" style="width:6.330%"></i><i class="s-sf" style="width:2.330%"></i><i class="s-fi" style="width:0.980%"></i><i class="s-ti" style="width:0.330%"></i></span></td><td class="num big">0.3%</td></tr><tr><td class="rk">24</td><td class="tm">Iowa</td><td class="cf">Big Ten</td><td class="num">7.3</td><td class="num dim">2%</td><td class="num">9%</td><td class="num">1%</td><td class="num dim">7.7</td><td class="fun"><span class="funnel" role="img" aria-label="9% make the field, 0.3% win it"><i class="s-field" style="width:9.000%"></i><i class="s-qf" style="width:4.470%"></i><i class="s-sf" style="width:1.650%"></i><i class="s-fi" style="width:0.550%"></i><i class="s-ti" style="width:0.260%"></i></span></td><td class="num big">0.3%</td></tr><tr><td class="rk">25</td><td class="tm">SMU</td><td class="cf">ACC</td><td class="num">7.8</td><td class="num dim">10%</td><td class="num">13%</td><td class="num">2%</td><td class="num dim">8.3</td><td class="fun"><span class="funnel" role="img" aria-label="13% make the field, 0.2% win it"><i class="s-field" style="width:13.400%"></i><i class="s-qf" style="width:6.590%"></i><i class="s-sf" style="width:2.210%"></i><i class="s-fi" style="width:0.780%"></i><i class="s-ti" style="width:0.240%"></i></span></td><td class="num big">0.2%</td></tr><tr><td class="rk">26</td><td class="tm">Louisville</td><td class="cf">ACC</td><td class="num">7.4</td><td class="num dim">9%</td><td class="num">12%</td><td class="num">2%</td><td class="num dim">8.3</td><td class="fun"><span class="funnel" role="img" aria-label="12% make the field, 0.2% win it"><i class="s-field" style="width:12.300%"></i><i class="s-qf" style="width:5.600%"></i><i class="s-sf" style="width:1.650%"></i><i class="s-fi" style="width:0.570%"></i><i class="s-ti" style="width:0.180%"></i></span></td><td class="num big">0.2%</td></tr><tr><td class="rk">27</td><td class="tm">Florida State</td><td class="cf">ACC</td><td class="num">6.7</td><td class="num dim">3%</td><td class="num">6%</td><td class="num">1%</td><td class="num dim">7.8</td><td class="fun"><span class="funnel" role="img" aria-label="6% make the field, 0.1% win it"><i class="s-field" style="width:6.200%"></i><i class="s-qf" style="width:3.200%"></i><i class="s-sf" style="width:1.170%"></i><i class="s-fi" style="width:0.400%"></i><i class="s-ti" style="width:0.150%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">28</td><td class="tm">Nebraska</td><td class="cf">Big Ten</td><td class="num">6.8</td><td class="num dim">1%</td><td class="num">5%</td><td class="num">1%</td><td class="num dim">7.7</td><td class="fun"><span class="funnel" role="img" aria-label="5% make the field, 0.1% win it"><i class="s-field" style="width:5.400%"></i><i class="s-qf" style="width:2.730%"></i><i class="s-sf" style="width:0.900%"></i><i class="s-fi" style="width:0.340%"></i><i class="s-ti" style="width:0.120%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">29</td><td class="tm">TCU</td><td class="cf">Big 12</td><td class="num">7.2</td><td class="num dim">8%</td><td class="num">9%</td><td class="num">1%</td><td class="num dim">8.7</td><td class="fun"><span class="funnel" role="img" aria-label="9% make the field, 0.1% win it"><i class="s-field" style="width:9.300%"></i><i class="s-qf" style="width:3.770%"></i><i class="s-sf" style="width:1.160%"></i><i class="s-fi" style="width:0.360%"></i><i class="s-ti" style="width:0.110%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">30</td><td class="tm">Arizona</td><td class="cf">Big 12</td><td class="num">7.3</td><td class="num dim">7%</td><td class="num">8%</td><td class="num">1%</td><td class="num dim">8.9</td><td class="fun"><span class="funnel" role="img" aria-label="8% make the field, 0.1% win it"><i class="s-field" style="width:7.700%"></i><i class="s-qf" style="width:3.040%"></i><i class="s-sf" style="width:0.910%"></i><i class="s-fi" style="width:0.260%"></i><i class="s-ti" style="width:0.110%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">31</td><td class="tm">Vanderbilt</td><td class="cf">SEC</td><td class="num">6.0</td><td class="num dim">0%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">7.8</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.1% win it"><i class="s-field" style="width:4.300%"></i><i class="s-qf" style="width:2.150%"></i><i class="s-sf" style="width:0.790%"></i><i class="s-fi" style="width:0.290%"></i><i class="s-ti" style="width:0.100%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">32</td><td class="tm">Virginia Tech</td><td class="cf">ACC</td><td class="num">7.0</td><td class="num dim">5%</td><td class="num">7%</td><td class="num">1%</td><td class="num dim">8.4</td><td class="fun"><span class="funnel" role="img" aria-label="7% make the field, 0.1% win it"><i class="s-field" style="width:6.700%"></i><i class="s-qf" style="width:3.000%"></i><i class="s-sf" style="width:1.000%"></i><i class="s-fi" style="width:0.310%"></i><i class="s-ti" style="width:0.100%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">33</td><td class="tm">BYU</td><td class="cf">Big 12</td><td class="num">7.1</td><td class="num dim">7%</td><td class="num">8%</td><td class="num">1%</td><td class="num dim">9.2</td><td class="fun"><span class="funnel" role="img" aria-label="8% make the field, 0.1% win it"><i class="s-field" style="width:8.500%"></i><i class="s-qf" style="width:3.190%"></i><i class="s-sf" style="width:0.920%"></i><i class="s-fi" style="width:0.270%"></i><i class="s-ti" style="width:0.100%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">34</td><td class="tm">Utah</td><td class="cf">Big 12</td><td class="num">7.2</td><td class="num dim">6%</td><td class="num">8%</td><td class="num">0%</td><td class="num dim">9.1</td><td class="fun"><span class="funnel" role="img" aria-label="8% make the field, 0.1% win it"><i class="s-field" style="width:7.500%"></i><i class="s-qf" style="width:2.990%"></i><i class="s-sf" style="width:0.970%"></i><i class="s-fi" style="width:0.270%"></i><i class="s-ti" style="width:0.080%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">35</td><td class="tm">Kansas State</td><td class="cf">Big 12</td><td class="num">7.1</td><td class="num dim">5%</td><td class="num">6%</td><td class="num">0%</td><td class="num dim">9.2</td><td class="fun"><span class="funnel" role="img" aria-label="6% make the field, 0.1% win it"><i class="s-field" style="width:6.200%"></i><i class="s-qf" style="width:2.390%"></i><i class="s-sf" style="width:0.670%"></i><i class="s-fi" style="width:0.200%"></i><i class="s-ti" style="width:0.070%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">36</td><td class="tm">NC State</td><td class="cf">ACC</td><td class="num">7.1</td><td class="num dim">4%</td><td class="num">5%</td><td class="num">0%</td><td class="num dim">8.9</td><td class="fun"><span class="funnel" role="img" aria-label="5% make the field, 0.1% win it"><i class="s-field" style="width:5.300%"></i><i class="s-qf" style="width:1.990%"></i><i class="s-sf" style="width:0.540%"></i><i class="s-fi" style="width:0.150%"></i><i class="s-ti" style="width:0.060%"></i></span></td><td class="num big">0.1%</td></tr><tr><td class="rk">37</td><td class="tm">Illinois</td><td class="cf">Big Ten</td><td class="num">6.6</td><td class="num dim">1%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">8.3</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:3.700%"></i><i class="s-qf" style="width:1.600%"></i><i class="s-sf" style="width:0.520%"></i><i class="s-fi" style="width:0.120%"></i><i class="s-ti" style="width:0.030%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">38</td><td class="tm">Houston</td><td class="cf">Big 12</td><td class="num">7.1</td><td class="num dim">4%</td><td class="num">5%</td><td class="num">0%</td><td class="num dim">9.2</td><td class="fun"><span class="funnel" role="img" aria-label="5% make the field, 0.0% win it"><i class="s-field" style="width:5.200%"></i><i class="s-qf" style="width:2.040%"></i><i class="s-sf" style="width:0.580%"></i><i class="s-fi" style="width:0.180%"></i><i class="s-ti" style="width:0.030%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">39</td><td class="tm">Virginia</td><td class="cf">ACC</td><td class="num">6.9</td><td class="num dim">3%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">8.9</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:3.900%"></i><i class="s-qf" style="width:1.600%"></i><i class="s-sf" style="width:0.490%"></i><i class="s-fi" style="width:0.140%"></i><i class="s-ti" style="width:0.020%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">40</td><td class="tm">UNLV</td><td class="cf">Mountain West</td><td class="num">8.4</td><td class="num dim">38%</td><td class="num">12%</td><td class="num">0%</td><td class="num dim">11.6</td><td class="fun"><span class="funnel" role="img" aria-label="12% make the field, 0.0% win it"><i class="s-field" style="width:11.700%"></i><i class="s-qf" style="width:2.190%"></i><i class="s-sf" style="width:0.450%"></i><i class="s-fi" style="width:0.100%"></i><i class="s-ti" style="width:0.020%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">41</td><td class="tm">Colorado</td><td class="cf">Big 12</td><td class="num">6.0</td><td class="num dim">3%</td><td class="num">3%</td><td class="num">0%</td><td class="num dim">9.8</td><td class="fun"><span class="funnel" role="img" aria-label="3% make the field, 0.0% win it"><i class="s-field" style="width:3.400%"></i><i class="s-qf" style="width:1.020%"></i><i class="s-sf" style="width:0.250%"></i><i class="s-fi" style="width:0.070%"></i><i class="s-ti" style="width:0.020%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">42</td><td class="tm">Baylor</td><td class="cf">Big 12</td><td class="num">6.3</td><td class="num dim">3%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">9.6</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:3.500%"></i><i class="s-qf" style="width:1.180%"></i><i class="s-sf" style="width:0.340%"></i><i class="s-fi" style="width:0.070%"></i><i class="s-ti" style="width:0.020%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">43</td><td class="tm">Boise State</td><td class="cf">Pac-12</td><td class="num">7.1</td><td class="num dim">35%</td><td class="num">13%</td><td class="num">0%</td><td class="num dim">11.6</td><td class="fun"><span class="funnel" role="img" aria-label="13% make the field, 0.0% win it"><i class="s-field" style="width:13.300%"></i><i class="s-qf" style="width:2.580%"></i><i class="s-sf" style="width:0.570%"></i><i class="s-fi" style="width:0.130%"></i><i class="s-ti" style="width:0.020%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">44</td><td class="tm">Arizona State</td><td class="cf">Big 12</td><td class="num">6.1</td><td class="num dim">4%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">9.7</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:3.800%"></i><i class="s-qf" style="width:1.290%"></i><i class="s-sf" style="width:0.340%"></i><i class="s-fi" style="width:0.110%"></i><i class="s-ti" style="width:0.020%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">45</td><td class="tm">Memphis</td><td class="cf">American Athletic</td><td class="num">7.3</td><td class="num dim">16%</td><td class="num">6%</td><td class="num">0%</td><td class="num dim">11.7</td><td class="fun"><span class="funnel" role="img" aria-label="6% make the field, 0.0% win it"><i class="s-field" style="width:5.600%"></i><i class="s-qf" style="width:0.970%"></i><i class="s-sf" style="width:0.160%"></i><i class="s-fi" style="width:0.030%"></i><i class="s-ti" style="width:0.010%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">46</td><td class="tm">East Carolina</td><td class="cf">American Athletic</td><td class="num">7.5</td><td class="num dim">16%</td><td class="num">5%</td><td class="num">0%</td><td class="num dim">11.8</td><td class="fun"><span class="funnel" role="img" aria-label="5% make the field, 0.0% win it"><i class="s-field" style="width:4.800%"></i><i class="s-qf" style="width:0.830%"></i><i class="s-sf" style="width:0.150%"></i><i class="s-fi" style="width:0.030%"></i><i class="s-ti" style="width:0.010%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">47</td><td class="tm">James Madison</td><td class="cf">Sun Belt</td><td class="num">7.7</td><td class="num dim">22%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">11.8</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:4.200%"></i><i class="s-qf" style="width:0.650%"></i><i class="s-sf" style="width:0.130%"></i><i class="s-fi" style="width:0.030%"></i><i class="s-ti" style="width:0.010%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">48</td><td class="tm">Pittsburgh</td><td class="cf">ACC</td><td class="num">6.5</td><td class="num dim">2%</td><td class="num">3%</td><td class="num">0%</td><td class="num dim">9.0</td><td class="fun"><span class="funnel" role="img" aria-label="3% make the field, 0.0% win it"><i class="s-field" style="width:3.100%"></i><i class="s-qf" style="width:1.160%"></i><i class="s-sf" style="width:0.320%"></i><i class="s-fi" style="width:0.080%"></i><i class="s-ti" style="width:0.010%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">49</td><td class="tm">Texas State</td><td class="cf">Pac-12</td><td class="num">6.0</td><td class="num dim">14%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">11.8</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:4.000%"></i><i class="s-qf" style="width:0.640%"></i><i class="s-sf" style="width:0.110%"></i><i class="s-fi" style="width:0.010%"></i><i class="s-ti" style="width:0.010%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">50</td><td class="tm">Oklahoma State</td><td class="cf">Big 12</td><td class="num">6.1</td><td class="num dim">3%</td><td class="num">3%</td><td class="num">0%</td><td class="num dim">9.6</td><td class="fun"><span class="funnel" role="img" aria-label="3% make the field, 0.0% win it"><i class="s-field" style="width:3.300%"></i><i class="s-qf" style="width:1.100%"></i><i class="s-sf" style="width:0.320%"></i><i class="s-fi" style="width:0.090%"></i><i class="s-ti" style="width:0.010%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">51</td><td class="tm">South Florida</td><td class="cf">American Athletic</td><td class="num">8.0</td><td class="num dim">16%</td><td class="num">8%</td><td class="num">0%</td><td class="num dim">11.6</td><td class="fun"><span class="funnel" role="img" aria-label="8% make the field, 0.0% win it"><i class="s-field" style="width:7.900%"></i><i class="s-qf" style="width:1.390%"></i><i class="s-sf" style="width:0.260%"></i><i class="s-fi" style="width:0.040%"></i><i class="s-ti" style="width:0.010%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">52</td><td class="tm">Liberty</td><td class="cf">Conference USA</td><td class="num">8.2</td><td class="num dim">29%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">11.9</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:3.500%"></i><i class="s-qf" style="width:0.320%"></i><i class="s-sf" style="width:0.040%"></i><i class="s-fi" style="width:0.000%"></i><i class="s-ti" style="width:0.000%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">53</td><td class="tm">Tulane</td><td class="cf">American Athletic</td><td class="num">7.0</td><td class="num dim">13%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">11.8</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:3.700%"></i><i class="s-qf" style="width:0.700%"></i><i class="s-sf" style="width:0.140%"></i><i class="s-fi" style="width:0.010%"></i><i class="s-ti" style="width:0.000%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">54</td><td class="tm">UTSA</td><td class="cf">American Athletic</td><td class="num">7.1</td><td class="num dim">14%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">11.8</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:4.400%"></i><i class="s-qf" style="width:0.560%"></i><i class="s-sf" style="width:0.110%"></i><i class="s-fi" style="width:0.020%"></i><i class="s-ti" style="width:0.000%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">55</td><td class="tm">San Diego State</td><td class="cf">Pac-12</td><td class="num">6.3</td><td class="num dim">16%</td><td class="num">5%</td><td class="num">0%</td><td class="num dim">11.7</td><td class="fun"><span class="funnel" role="img" aria-label="5% make the field, 0.0% win it"><i class="s-field" style="width:5.200%"></i><i class="s-qf" style="width:0.780%"></i><i class="s-sf" style="width:0.130%"></i><i class="s-fi" style="width:0.020%"></i><i class="s-ti" style="width:0.000%"></i></span></td><td class="num big">0.0%</td></tr><tr><td class="rk">56</td><td class="tm">New Mexico</td><td class="cf">Mountain West</td><td class="num">7.6</td><td class="num dim">20%</td><td class="num">4%</td><td class="num">0%</td><td class="num dim">11.8</td><td class="fun"><span class="funnel" role="img" aria-label="4% make the field, 0.0% win it"><i class="s-field" style="width:3.700%"></i><i class="s-qf" style="width:0.400%"></i><i class="s-sf" style="width:0.080%"></i><i class="s-fi" style="width:0.010%"></i><i class="s-ti" style="width:0.000%"></i></span></td><td class="num big">0.0%</td></tr></tbody></table></div>
+  <p class="prose dim" style="font-size:var(--sm)">82 further teams reach the
+  field in under 3% of simulations. <b>Conf</b> is the chance of winning the
+  conference; <b>Seed</b> is the average seed in seasons where they qualify.</p>
+</section>
+
+<section class="block">
+  <div class="grid2">
+    <div>
+      <h2>Bids by conference</h2>
+      <p>How the twelve spots divide up on average.</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Conference</th><th class="num">Bids</th>
+        <th class="num">Byes</th><th class="num">Title</th></tr></thead>
+        <tbody><tr><td class="tm">SEC</td><td class="num">4.48</td><td class="num">1.80</td><td class="num big">44%</td></tr><tr><td class="tm">Big Ten</td><td class="num">3.12</td><td class="num">1.23</td><td class="num big">36%</td></tr><tr><td class="tm">ACC</td><td class="num">1.43</td><td class="num">0.35</td><td class="num big">7%</td></tr><tr><td class="tm">Big 12</td><td class="num">1.16</td><td class="num">0.17</td><td class="num big">3%</td></tr><tr><td class="tm">Independents</td><td class="num">0.79</td><td class="num">0.45</td><td class="num big">11%</td></tr><tr><td class="tm">American Athletic</td><td class="num">0.31</td><td class="num">0.00</td><td class="num big">0%</td></tr><tr><td class="tm">Pac-12</td><td class="num">0.29</td><td class="num">0.00</td><td class="num big">0%</td></tr><tr><td class="tm">Mountain West</td><td class="num">0.19</td><td class="num">0.00</td><td class="num big">0%</td></tr><tr><td class="tm">Sun Belt</td><td class="num">0.10</td><td class="num">0.00</td><td class="num big">0%</td></tr><tr><td class="tm">Conference USA</td><td class="num">0.07</td><td class="num">0.00</td><td class="num big">0%</td></tr><tr><td class="tm">Mid-American</td><td class="num">0.07</td><td class="num">0.00</td><td class="num big">0%</td></tr></tbody></table></div>
+    </div>
+    <div>
+      <h2>How the field is chosen</h2>
+      <p>Each simulated season runs to the end, then conference championship
+      games are played between the top two in each league. That settles who the
+      champions are.</p>
+      <p>A model of the selection committee then ranks everyone. The five
+      highest-ranked champions take automatic bids; the next seven teams of any
+      kind fill the field. The twelve are seeded strictly by that ranking, so
+      the four byes go to the four best teams &mdash; champion or not.</p>
+      <p>First round is 5v12, 6v11, 7v10, 8v9 at the higher seed's home field.
+      Everything after that is neutral-site.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <h2>The committee is the hard part</h2>
+  <div class="prose">
+    <p>Everything above is mechanical once you know the ranking &mdash; and the
+    ranking is a room full of people, not a formula. Rather than invent
+    weights, the model is fit to twelve seasons of final CFP rankings
+    (2014&ndash;2025, 300 ranked teams), learning how record, quality and
+    schedule strength actually translate into a ranking.</p>
+    <p>Translated into rating points so it can be argued with:</p>
+    <dl class="terms">
+      <dt>one win</dt><dd>worth <b>+4.7</b> rating points</dd>
+      <dt>one loss</dt><dd>worth <b>&minus;13.1</b> rating points</dd>
+      <dt>schedule</dt><dd><b>+2.5</b> points per point of opponent quality</dd>
+    </dl>
+    <p style="margin-top:1rem">That a loss costs about three times what a win
+    pays is the most important fact about how this committee behaves, and it is
+    not something a hand-tuned formula would have guessed.</p>
+    <div class="note">
+      <p><b>Held out one season at a time</b>, the model reproduces the real
+      committee ranking at 0.89 Spearman, placing 10.8 of the actual top twelve
+      and 3.4 of the actual top four in the right group.</p>
+    </div>
+    <h3>Where it broke in 2025</h3>
+    <p>Given real 2025 records and real champions, the model picks 10 of the
+    12 teams that actually made it, and 3 of the 4 byes. It took
+    <b>BYU (11&ndash;2)</b> and <b>Notre Dame (10&ndash;2)</b>; the committee
+    took <b>Alabama (10&ndash;3)</b> and <b>Miami (10&ndash;2)</b>.</p>
+    <p>That is the model's blind spot in one line. It counts losses; the
+    committee also weighs who you are. A three-loss Alabama got in over a
+    two-loss BYU, and no model built from records and ratings is going to
+    predict that. Expect these numbers to understate blue bloods on the bubble
+    and overstate everyone else.</p>
+  </div>
+</section>
+
+<section class="block">
+  <h2>What not to do with this</h2>
+  <div class="prose">
+    <p>These odds inherit every weakness of the ratings underneath them. That
+    model is about two wins off per team on a season-long projection, and it
+    has never been shown to beat a betting market on a single game.</p>
+    <p>So: a team at 45% and a team at 55% are not meaningfully different. A
+    team at 5% and a team at 50% are. Read the big gaps, ignore the small ones,
+    and treat anything on the bubble as genuinely uncertain rather than as a
+    number with a decimal point.</p>
+  </div>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+  20,000 simulated seasons, each carrying its conference championship games
+  and full bracket. Committee model fit on final CFP rankings 2014&ndash;2025.
+  Ratings via SP+, ESPN FPI and a roster talent composite from
+  collegefootballdata.com. Conference championship participants are the top two
+  by conference record, which glosses over real tiebreakers.
+</div></footer>

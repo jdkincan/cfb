@@ -42,8 +42,9 @@ the bubble as genuinely uncertain rather than as 46.3% likely.
 from __future__ import annotations
 
 import logging
+from collections import Counter
 from dataclasses import dataclass, field
-from typing import Callable, Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Callable, Dict, FrozenSet, Iterable, List, Optional, Sequence, Tuple
 
 from .ratings import normalize_team
 from .simulate import CHUNK, DEFAULT_SIGMA_TEAM, FCS_WIN_PROBABILITY, build_schedule
@@ -103,6 +104,82 @@ class PlayoffSimulation:
     teams: Dict[str, PlayoffOdds] = field(default_factory=dict)
     games_simulated: int = 0
     games_locked: int = 0
+    # How often each exact seeded field came up, and each unordered field.
+    bracket_counts: Counter = field(default_factory=Counter)
+    field_counts: Counter = field(default_factory=Counter)
+
+    def modal_bracket(self) -> Tuple[List[str], float]:
+        """The single most common seeded field, and how often it happened.
+
+        Worth knowing that this probability is tiny — there are more plausible
+        brackets than simulations — so it is a curiosity, not a forecast. For
+        something to actually look at, use :meth:`chalk_bracket`.
+        """
+        if not self.bracket_counts:
+            return [], 0.0
+        seeded, count = self.bracket_counts.most_common(1)[0]
+        return list(seeded), count / self.sims
+
+    def modal_field(self) -> Tuple[FrozenSet[str], float]:
+        """The most common set of twelve, ignoring how they were seeded."""
+        if not self.field_counts:
+            return frozenset(), 0.0
+        members, count = self.field_counts.most_common(1)[0]
+        return members, count / self.sims
+
+    def chalk_bracket(self) -> List[Tuple[int, str, float]]:
+        """The likeliest occupant of each seed line, one team per line.
+
+        Taking the argmax of each seed independently would put the same team on
+        several lines, so this solves the assignment instead: pick the set of
+        twelve team-to-seed pairings that maximises total probability. Filling
+        greedily from seed 1 down is not the same thing — it can strand a line
+        with a leftover after better candidates are spent — so the greedy pass
+        is followed by pairwise swaps until no swap improves the total.
+
+        Returns (seed, team, probability that team lands on exactly that seed).
+        """
+        candidates = [k for k, o in self.teams.items() if o.seed_counts]
+        if not candidates:
+            return []
+
+        def p(team: str, seed: int) -> float:
+            return self.teams[team].seed_counts.get(seed, 0.0)
+
+        seeds = list(range(1, FIELD_SIZE + 1))
+        placed: set = set()
+        assign: Dict[int, str] = {}
+        for seed in seeds:
+            pool = [k for k in candidates if k not in placed]
+            if not pool:
+                break
+            best = max(pool, key=lambda k: p(k, seed))
+            assign[seed] = best
+            placed.add(best)
+
+        # Swap improvement: both between two assigned lines, and between an
+        # assigned line and an unused team.
+        improved = True
+        while improved:
+            improved = False
+            for i in assign:
+                for j in assign:
+                    if i >= j:
+                        continue
+                    a, b = assign[i], assign[j]
+                    if p(a, i) + p(b, j) < p(b, i) + p(a, j) - 1e-12:
+                        assign[i], assign[j] = b, a
+                        improved = True
+            bench = [k for k in candidates if k not in set(assign.values())]
+            for seed in assign:
+                current = assign[seed]
+                for other in bench:
+                    if p(other, seed) > p(current, seed) + 1e-12:
+                        assign[seed] = other
+                        current = other
+                        improved = True
+        return [(seed, assign[seed], p(assign[seed], seed))
+                for seed in sorted(assign)]
 
     def ranked(self, by: str = "make_field", limit: Optional[int] = None) -> List[PlayoffOdds]:
         key = (lambda t: -t.title()) if by == "title" else (lambda t: -getattr(t, by))
@@ -249,6 +326,8 @@ def simulate_playoff(
     static = COMMITTEE_CONST + COMMITTEE_RATING * ratings + COMMITTEE_SOS * sos
     eligible_idx = np.where(rated)[0]
 
+    bracket_counts: Counter = Counter()
+    field_counts: Counter = Counter()
     title_ct = np.zeros(n)
     auto_ct = np.zeros(n)
     large_ct = np.zeros(n)
@@ -334,6 +413,9 @@ def simulate_playoff(
             # Straight seeding: reorder the twelve by committee rank.
             field_idx.sort(key=lambda i: -score[i])
 
+            seeded_keys = tuple(names[i] for i in field_idx)
+            bracket_counts[seeded_keys] += 1
+            field_counts[frozenset(seeded_keys)] += 1
             for pos, i in enumerate(field_idx, 1):
                 seed_ct[i, pos] += 1
                 if pos <= BYES:
@@ -376,6 +458,7 @@ def simulate_playoff(
     result = PlayoffSimulation(
         season=season, sims=sims,
         games_simulated=len(unplayed) + len(fcs), games_locked=len(played),
+        bracket_counts=bracket_counts, field_counts=field_counts,
     )
     for i, key in enumerate(names):
         if not rated[i]:

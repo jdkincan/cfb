@@ -245,3 +245,57 @@ def test_strength_of_schedule_survives_a_team_with_no_games():
 def test_odds_expose_a_title_shortcut():
     odds = PlayoffOdds(team="x", reach={"champion": 0.25})
     assert odds.title() == 0.25
+
+
+# -- reading a bracket out of the simulation ---------------------------------
+def test_chalk_bracket_fills_every_seed_exactly_once(sim):
+    chalk = sim.chalk_bracket()
+    assert [s for s, _, _ in chalk] == list(range(1, FIELD_SIZE + 1))
+    assert len({t for _, t, _ in chalk}) == FIELD_SIZE
+
+
+def test_chalk_bracket_beats_a_naive_greedy_fill(sim):
+    """The swap pass has to be worth having, or it should not be there."""
+    def greedy():
+        placed, total = set(), 0.0
+        for seed in range(1, FIELD_SIZE + 1):
+            pool = [k for k, o in sim.teams.items()
+                    if k not in placed and o.seed_counts]
+            best = max(pool, key=lambda k: sim.teams[k].seed_counts.get(seed, 0.0))
+            placed.add(best)
+            total += sim.teams[best].seed_counts.get(seed, 0.0)
+        return total
+    solved = sum(p for _, _, p in sim.chalk_bracket())
+    assert solved >= greedy() - 1e-12
+
+
+def test_chalk_bracket_picks_plausible_teams(sim):
+    """Every seeded team must be one that actually reaches the field."""
+    for _, team, _ in sim.chalk_bracket():
+        assert sim.teams[team].make_field > 0.0
+
+
+def test_modal_bracket_is_a_seeded_twelve(sim):
+    seeded, prob = sim.modal_bracket()
+    assert len(seeded) == FIELD_SIZE
+    assert len(set(seeded)) == FIELD_SIZE
+    assert 0.0 < prob <= 1.0
+
+
+def test_modal_field_is_at_least_as_likely_as_the_modal_bracket(sim):
+    """Ignoring the seeding can only merge outcomes, never split them."""
+    _, bracket_p = sim.modal_bracket()
+    members, field_p = sim.modal_field()
+    assert len(members) == FIELD_SIZE
+    assert field_p >= bracket_p - 1e-12
+
+
+def test_bracket_counts_total_the_simulation_count(sim):
+    assert sum(sim.bracket_counts.values()) == sim.sims
+    assert sum(sim.field_counts.values()) == sim.sims
+
+
+def test_an_empty_simulation_reports_no_bracket():
+    empty = simulate_playoff([], lambda g: 0.0, {"a": 1.0}, season=2026, sims=10)
+    assert empty.modal_bracket() == ([], 0.0)
+    assert empty.chalk_bracket() == []

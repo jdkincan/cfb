@@ -1,0 +1,173 @@
+<title>Chalk Bracket 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap">
+<style>
+:root{
+ --paper:#edeff5; --surface:#fff; --surface-2:#e0e4ee; --raise:#f6f7fb;
+ --ink:#151931; --ink-2:#3b4260; --muted:#6d7590;
+ --rule:#d2d7e4; --rule-2:#e6e9f1;
+ --accent:#3a4694; --wash:#e2e5f5; --gold:#8f6a10; --goldwash:#f6eeda;
+ --display:'Archivo',system-ui,-apple-system,sans-serif;
+ --body:'Newsreader',Georgia,'Times New Roman',serif;
+ --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+ --s0:clamp(1rem,.97rem+.14vw,1.08rem); --sm:clamp(.76rem,.74rem+.08vw,.82rem);
+ --s1:clamp(1.16rem,1.06rem+.36vw,1.36rem);
+ --s2:clamp(1.5rem,1.28rem+.8vw,2rem); --s3:clamp(2.1rem,1.6rem+2vw,3.4rem);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --paper:#0e1020; --surface:#171b2f; --surface-2:#20263e; --raise:#1c2136;
+ --ink:#e6e9f5; --ink-2:#bfc6de; --muted:#8b93b0;
+ --rule:#2a3150; --rule-2:#202741;
+ --accent:#8792e6; --wash:#1d2344; --gold:#d3a442; --goldwash:#2c2413;
+}}
+:root[data-theme="dark"]{
+ --paper:#0e1020; --surface:#171b2f; --surface-2:#20263e; --raise:#1c2136;
+ --ink:#e6e9f5; --ink-2:#bfc6de; --muted:#8b93b0;
+ --rule:#2a3150; --rule-2:#202741;
+ --accent:#8792e6; --wash:#1d2344; --gold:#d3a442; --goldwash:#2c2413;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+ font-size:var(--s0);line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:78rem;margin:0 auto;padding:0 1.5rem}
+.prose{max-width:38rem}
+header.top{background:var(--surface);border-bottom:1px solid var(--rule);
+ padding:clamp(2.5rem,6vw,4rem) 0 clamp(1.6rem,3vw,2.25rem)}
+.eyebrow{font-family:var(--mono);font-size:var(--sm);letter-spacing:.16em;
+ text-transform:uppercase;color:var(--accent);margin:0 0 .85rem}
+h1{font-family:var(--display);font-weight:700;font-size:var(--s3);line-height:1.02;
+ letter-spacing:-.025em;margin:0 0 .9rem;text-wrap:balance}
+.standfirst{font-size:var(--s1);color:var(--ink-2);margin:0;text-wrap:pretty;line-height:1.45}
+h2{font-family:var(--display);font-weight:700;font-size:var(--s2);line-height:1.12;
+ letter-spacing:-.02em;margin:0 0 .7rem;text-wrap:balance}
+p{margin:0 0 .9rem;text-wrap:pretty}
+main{padding:clamp(2rem,4vw,3rem) 0 4rem}
+section.block{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
+.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:9px;
+ background:var(--surface);margin:1.4rem 0}
+.bracketwrap{overflow-x:auto;padding:1.25rem;border:1px solid var(--rule);
+ border-radius:10px;background:var(--surface);margin:1.4rem 0}
+.roundhead{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+ min-width:52rem;margin-bottom:.6rem}
+.roundhead span{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;
+ text-transform:uppercase;color:var(--muted)}
+.bracket{display:grid;grid-template-columns:repeat(4,1fr);
+ grid-template-rows:repeat(8,auto);gap:.6rem 1rem;min-width:52rem}
+.tie{align-self:center;border:1px solid var(--rule);border-radius:7px;
+ background:var(--raise);overflow:hidden;position:relative}
+.side{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;
+ font-family:var(--display);font-size:.82rem;font-weight:600;color:var(--muted)}
+.side+.side{border-top:1px solid var(--rule-2)}
+.side.win{color:var(--ink);background:var(--wash)}
+.side .sd{font-family:var(--mono);font-size:.64rem;color:var(--muted);
+ background:var(--surface-2);border-radius:3px;padding:.05rem .3rem;min-width:1.3rem;
+ text-align:center;flex:none}
+.side.win .sd{background:var(--accent);color:var(--surface)}
+.side .nm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.side b{font-family:var(--mono);font-size:.7rem;font-weight:500;color:var(--accent);
+ flex:none}
+.venue{display:block;font-family:var(--mono);font-size:.58rem;color:var(--muted);
+ padding:.15rem .6rem .3rem;letter-spacing:.04em}
+.tie.champ{border-color:var(--gold);background:var(--goldwash)}
+.crown{display:block;text-align:center;font-family:var(--display);font-weight:700;
+ font-size:1.05rem;padding:.5rem;color:var(--ink);border-top:1px solid var(--rule-2)}
+.crown small{display:block;font-family:var(--mono);font-size:.62rem;
+ font-weight:400;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;
+ margin-bottom:.1rem}
+table{border-collapse:collapse;width:100%;font-size:var(--sm)}
+th,td{padding:.44rem .7rem;border-bottom:1px solid var(--rule-2);text-align:left;
+ white-space:nowrap}
+thead th{background:var(--surface-2);font-family:var(--mono);font-weight:500;
+ font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+tbody tr:last-child td{border-bottom:none}
+.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.big{font-weight:500;font-size:.9rem} .dim{color:var(--muted)}
+.sdc{font-family:var(--mono);font-size:.7rem;color:var(--surface);
+ background:var(--accent);width:1.6rem;text-align:center;border-radius:3px}
+.tm{font-weight:600;font-family:var(--display);font-size:.85rem;min-width:9rem}
+.cf{color:var(--muted);font-size:.76rem}
+.note{background:var(--wash);border-left:3px solid var(--accent);padding:.95rem 1.2rem;
+ border-radius:0 7px 7px 0;margin:1.5rem 0;color:var(--ink-2)}
+.note.gold{background:var(--goldwash);border-left-color:var(--gold)}
+.note b{color:var(--ink)} .note p:last-child{margin-bottom:0}
+footer{border-top:1px solid var(--rule);background:var(--surface);padding:1.75rem 0 3rem;
+ color:var(--muted);font-size:var(--sm)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">Most likely seeding &middot; 20,000 simulations</p>
+  <h1>Chalk Bracket 2026</h1>
+  <p class="standfirst prose">Each seed line filled by the team that lands there
+  most often, then played out with the favourite advancing every time. The
+  percentage on each winner is that single game's win probability.</p>
+</div></header>
+
+<main><div class="wrap">
+
+<section class="block">
+  <div class="bracketwrap">
+    <div class="roundhead"><span>First round &middot; higher seed hosts</span>
+      <span>Quarterfinals &middot; neutral</span><span>Semifinals</span>
+      <span>National championship</span></div>
+    <div class="bracket"><div class="tie" style="grid-column:1;grid-row:1/span 2"><div class="side win"><span class="sd">8</span><span class="nm">Texas A&amp;M</span><b>60%</b></div><div class="side"><span class="sd">9</span><span class="nm">Indiana</span></div><span class="venue">Texas A&amp;M home</span></div><div class="tie" style="grid-column:1;grid-row:3/span 2"><div class="side win"><span class="sd">5</span><span class="nm">Texas</span><b>89%</b></div><div class="side"><span class="sd">12</span><span class="nm">Boise State</span></div><span class="venue">Texas home</span></div><div class="tie" style="grid-column:1;grid-row:5/span 2"><div class="side win"><span class="sd">7</span><span class="nm">LSU</span><b>55%</b></div><div class="side"><span class="sd">10</span><span class="nm">Miami</span></div><span class="venue">LSU home</span></div><div class="tie" style="grid-column:1;grid-row:7/span 2"><div class="side win"><span class="sd">6</span><span class="nm">Alabama</span><b>64%</b></div><div class="side"><span class="sd">11</span><span class="nm">Texas Tech</span></div><span class="venue">Alabama home</span></div><div class="tie" style="grid-column:2;grid-row:1/span 2"><div class="side win"><span class="sd">1</span><span class="nm">Georgia</span><b>60%</b></div><div class="side"><span class="sd">8</span><span class="nm">Texas A&amp;M</span></div><span class="venue">neutral</span></div><div class="tie" style="grid-column:2;grid-row:3/span 2"><div class="side"><span class="sd">4</span><span class="nm">Oregon</span></div><div class="side win"><span class="sd">5</span><span class="nm">Texas</span><b>50%</b></div><span class="venue">neutral</span></div><div class="tie" style="grid-column:2;grid-row:5/span 2"><div class="side win"><span class="sd">2</span><span class="nm">Ohio State</span><b>66%</b></div><div class="side"><span class="sd">7</span><span class="nm">LSU</span></div><span class="venue">neutral</span></div><div class="tie" style="grid-column:2;grid-row:7/span 2"><div class="side win"><span class="sd">3</span><span class="nm">Notre Dame</span><b>58%</b></div><div class="side"><span class="sd">6</span><span class="nm">Alabama</span></div><span class="venue">neutral</span></div><div class="tie" style="grid-column:3;grid-row:1/span 4"><div class="side win"><span class="sd">1</span><span class="nm">Georgia</span><b>53%</b></div><div class="side"><span class="sd">5</span><span class="nm">Texas</span></div><span class="venue">neutral</span></div><div class="tie" style="grid-column:3;grid-row:5/span 4"><div class="side win"><span class="sd">2</span><span class="nm">Ohio State</span><b>57%</b></div><div class="side"><span class="sd">3</span><span class="nm">Notre Dame</span></div><span class="venue">neutral</span></div><div class="tie champ" style="grid-column:4;grid-row:1/span 8"><div class="side"><span class="sd">1</span><span class="nm">Georgia</span></div><div class="side win"><span class="sd">2</span><span class="nm">Ohio State</span><b>55%</b></div><span class="venue">neutral</span><span class="crown"><small>Champion</small>Ohio State</span></div></div>
+  </div>
+  <div class="note gold">
+    <p><b>Chalk champion: Ohio State.</b> Which is not the same as
+    saying they will win it &mdash; their actual title odds across all 20,000
+    simulations are 18.1%, from the 2 seed.
+    Winning four straight games as a favourite is the single most likely path,
+    and it is still an unlikely thing to happen.</p>
+  </div>
+</section>
+
+<section class="block">
+  <h2>The seeding</h2>
+  <p class="prose">Each line shows the team that occupies it most often, and how
+  often. Those percentages are low by design &mdash; twelve teams from a
+  hundred-odd, five months out.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Seed</th><th>Team</th><th>Conference</th><th class="num">Wins</th>
+    <th class="num">On this line</th><th class="num">In the field</th>
+    <th class="num">Title</th></tr></thead>
+    <tbody><tr><td class="sdc">1</td><td class="tm">Georgia</td><td class="cf">SEC</td><td class="num">9.4</td><td class="num dim">20.2%</td><td class="num">78%</td><td class="num big">13.5%</td></tr><tr><td class="sdc">2</td><td class="tm">Ohio State</td><td class="cf">Big Ten</td><td class="num">9.6</td><td class="num dim">15.2%</td><td class="num">82%</td><td class="num big">18.1%</td></tr><tr><td class="sdc">3</td><td class="tm">Notre Dame</td><td class="cf">Independents</td><td class="num">10.4</td><td class="num dim">13.6%</td><td class="num">79%</td><td class="num big">11.0%</td></tr><tr><td class="sdc">4</td><td class="tm">Oregon</td><td class="cf">Big Ten</td><td class="num">9.3</td><td class="num dim">8.2%</td><td class="num">72%</td><td class="num big">10.0%</td></tr><tr><td class="sdc">5</td><td class="tm">Texas</td><td class="cf">SEC</td><td class="num">8.5</td><td class="num dim">7.4%</td><td class="num">69%</td><td class="num big">9.5%</td></tr><tr><td class="sdc">6</td><td class="tm">Alabama</td><td class="cf">SEC</td><td class="num">8.3</td><td class="num dim">6.4%</td><td class="num">55%</td><td class="num big">5.1%</td></tr><tr><td class="sdc">7</td><td class="tm">LSU</td><td class="cf">SEC</td><td class="num">8.1</td><td class="num dim">5.6%</td><td class="num">48%</td><td class="num big">4.3%</td></tr><tr><td class="sdc">8</td><td class="tm">Texas A&amp;M</td><td class="cf">SEC</td><td class="num">8.1</td><td class="num dim">4.7%</td><td class="num">47%</td><td class="num big">4.5%</td></tr><tr><td class="sdc">9</td><td class="tm">Indiana</td><td class="cf">Big Ten</td><td class="num">8.8</td><td class="num dim">4.7%</td><td class="num">45%</td><td class="num big">2.7%</td></tr><tr><td class="sdc">10</td><td class="tm">Miami</td><td class="cf">ACC</td><td class="num">9.3</td><td class="num dim">5.9%</td><td class="num">58%</td><td class="num big">4.8%</td></tr><tr><td class="sdc">11</td><td class="tm">Texas Tech</td><td class="cf">Big 12</td><td class="num">9.5</td><td class="num dim">7.7%</td><td class="num">49%</td><td class="num big">2.0%</td></tr><tr><td class="sdc">12</td><td class="tm">Boise State</td><td class="cf">Pac-12</td><td class="num">7.1</td><td class="num dim">10.4%</td><td class="num">13%</td><td class="num big">0.0%</td></tr></tbody></table></div>
+</section>
+
+<section class="block">
+  <h2>Read this the right way</h2>
+  <div class="prose">
+    <p>This is a <em>construction</em>, not a prediction. The most common exact
+    seeded bracket across 20,000 simulations turned up
+    <b>0.005%</b> of the time &mdash; once. Even ignoring seeding
+    entirely, the most common set of twelve appeared in
+    <b>0.01%</b> of seasons. There are more plausible
+    brackets than there are simulations to hold them.</p>
+    <p>So the bracket above is not the future. It is the centre of a very wide
+    distribution, and its value is in the shape: who is on the bye line, who is
+    fighting for the last spots, and which quarterfinal is a coin flip.</p>
+    <div class="note">
+      <p><b>Two things the model is probably wrong about.</b> It has Texas Tech
+      at 11 despite a 9.5-win Big 12 title, because the committee model docks
+      Big 12 schedule strength hard &mdash; the real committee had Texas Tech
+      4th in 2025 while this model had them 7th. And it will understate
+      blue bloods on the bubble generally: it counts losses, while the
+      committee also weighs who you are.</p>
+    </div>
+    <p>The genuinely informative bits: Notre Dame projects the most wins in the
+    country (10.4) on a soft schedule but has no conference, so it can only ever
+    be an at-large. Oregon versus Texas in the quarterfinal is a literal coin
+    flip at 50%. And the 8&ndash;9 and 7&ndash;10 games are close enough that
+    home field is doing most of the work.</p>
+  </div>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+  Game probabilities from the rating gap plus home field, with the model's own
+  per-team uncertainty folded in. Seeds from the most frequent occupant of each
+  line, solved as an assignment so no team holds two lines. Committee model fit
+  on final CFP rankings 2014&ndash;2025.
+</div></footer>

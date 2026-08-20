@@ -68,20 +68,47 @@ DEFAULT_SHRINK = 0.35
 # clear of zero — see the module docstring on thresholds.
 DEFAULT_MIN_EDGE_WINS = 0.75
 
+# Teams the model is measurably wrong about, excluded from betting rather than
+# corrected. Across 2023-25 it projected the service academies 1.62 wins too
+# LOW on average (Navy +3.33, Army +5.5 in 2024 alone) against no detectable
+# bias anywhere else — every conference's error interval contains zero. The
+# mechanism is understood: option offenses post low play counts and almost no
+# explosiveness, which the efficiency composite reads as bad football, and
+# academy rosters carry recruiting ratings that miss their retention and
+# experience edge entirely.
+#
+# Nine team-seasons is enough to know the model is wrong and nowhere near
+# enough to fit a correction, so these are passed. The first card built here
+# wanted unders on all three, which is betting straight into the bias.
+DEFAULT_EXCLUSIONS = ("army", "navy", "air force")
+
 
 @dataclass
 class WinTotalLine:
-    """A posted season win total for one team."""
+    """A posted season win total for one team.
+
+    The over and the under can sit at *different numbers*, because books
+    disagree — 30 of 139 teams are posted a full win apart somewhere. An over
+    bettor wants the lowest number on the board and an under bettor the
+    highest, so each side carries its own total and its own price.
+    """
 
     team: str
-    total: float
+    total: float                       # the number for the over
     over_price: int = -110
     under_price: int = -110
+    under_total: Optional[float] = None  # None means the same number
     book: str = ""
+    under_book: str = ""
+    under_price_estimated: bool = False
 
     @property
     def key(self) -> str:
         return normalize_team(self.team)
+
+    @property
+    def under_number(self) -> float:
+        return self.total if self.under_total is None else self.under_total
 
 
 @dataclass
@@ -173,25 +200,43 @@ def evaluate(
         bet.notes.append("No simulated distribution for this team.")
         return bet
 
-    # Shrink toward the posted number rather than betting the raw disagreement.
-    raw_edge = outcome.mean_wins - line.total
-    bet.blended_wins = line.total + shrink * raw_edge
-    bet.edge_wins = bet.blended_wins - line.total
-    shift = bet.blended_wins - outcome.mean_wins
+    # Each side is priced against its own number, since they can differ.
+    def side_for(total: float, price: int, want_over: bool):
+        raw = outcome.mean_wins - total
+        blended = total + shrink * raw
+        shift = blended - outcome.mean_wins
+        p_over, p_under, p_push = outcome_probabilities(
+            outcome.win_counts, total, shift
+        )
+        p = p_over if want_over else p_under
+        return {
+            "total": total, "price": price, "p": p, "p_push": p_push,
+            "p_over": p_over, "p_under": p_under,
+            "blended": blended, "edge": blended - total,
+            "ev": expected_value(p, price, p_push),
+        }
 
-    bet.p_over, bet.p_under, bet.p_push = outcome_probabilities(
-        outcome.win_counts, line.total, shift
+    over = side_for(line.total, line.over_price, True)
+    under = side_for(line.under_number, line.under_price, False)
+    chosen = over if over["ev"] >= under["ev"] else under
+    side = "over" if chosen is over else "under"
+
+    bet.total = chosen["total"]
+    bet.blended_wins = chosen["blended"]
+    bet.edge_wins = chosen["edge"]
+    bet.p_over, bet.p_under, bet.p_push = (
+        chosen["p_over"], chosen["p_under"], chosen["p_push"]
     )
-
-    over_ev = expected_value(bet.p_over, line.over_price, bet.p_push)
-    under_ev = expected_value(bet.p_under, line.under_price, bet.p_push)
-    if over_ev >= under_ev:
-        side, ev, price, p = "over", over_ev, line.over_price, bet.p_over
-    else:
-        side, ev, price, p = "under", under_ev, line.under_price, bet.p_under
-
-    bet.expected_value = ev
-    bet.price = price
+    bet.expected_value = ev = chosen["ev"]
+    bet.price = price = chosen["price"]
+    p = chosen["p"]
+    if side == "under":
+        bet.book = line.under_book or line.book
+        if line.under_price_estimated:
+            bet.notes.append(
+                "Under price is ESTIMATED from the over and an assumed hold — "
+                "check the real number before betting."
+            )
     if abs(bet.edge_wins) < min_edge_wins:
         bet.notes.append(
             f"Edge {abs(bet.edge_wins):.2f} wins is under the {min_edge_wins:.2f} threshold."
@@ -243,6 +288,8 @@ def load_lines(path: Optional[Path] = None) -> List[WinTotalLine]:
             total=float(value["total"]),
             over_price=int(value.get("over", -110)),
             under_price=int(value.get("under", -110)),
+            under_total=(float(value["under_total"])
+                         if value.get("under_total") is not None else None),
             book=str(value.get("book", raw.get("book", "")) or ""),
         ))
     log.info("loaded %d posted win totals from %s", len(lines), path.name)
@@ -258,6 +305,7 @@ def build_card(
     bankroll_units: float = 100.0,
     max_units: float = 3.0,
     max_total_units: Optional[float] = None,
+    exclude: Optional[Iterable[str]] = DEFAULT_EXCLUSIONS,
 ) -> List[WinTotalBet]:
     """Price every posted total, best plays first.
 
@@ -266,11 +314,23 @@ def build_card(
     badly across the whole card at once. ``max_total_units`` scales the card
     down proportionally rather than pretending otherwise.
     """
+    excluded = {normalize_team(t) for t in (exclude or ())}
     bets: List[WinTotalBet] = []
     for line in lines:
         outcome = simulation.teams.get(line.key)
         if outcome is None:
             log.debug("no simulated team for posted total %r", line.team)
+            continue
+        if line.key in excluded:
+            skipped = WinTotalBet(
+                team=line.key, display=getattr(outcome, "display", line.team),
+                conference=getattr(outcome, "conference", ""),
+                total=line.total, model_wins=outcome.mean_wins,
+            )
+            skipped.notes.append(
+                "Excluded: the model has a measured bias on this team."
+            )
+            bets.append(skipped)
             continue
         bets.append(evaluate(
             outcome, line, shrink=shrink, min_edge_wins=min_edge_wins,

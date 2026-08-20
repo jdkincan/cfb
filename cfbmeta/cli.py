@@ -672,8 +672,26 @@ def cmd_wintotals(args, config: Config) -> int:
 
     season = args.season or config.resolved_season()
     lines = load_lines(args.lines)
+    manual = {l.key for l in lines}
+
+    if args.scrape:
+        from .sources.wintotal_scrape import load as scrape_totals
+
+        client_for_names = make_client(config, refresh=args.refresh)
+        from .sources.cfbd import pick as _pick
+
+        known = {normalize_team(_pick(t, "school", "team"))
+                 for t in client_for_names.fbs_teams(season)
+                 if _pick(t, "school", "team")}
+        scraped = scrape_totals(known_teams=known)
+        # Anything typed by hand wins: a real quote beats a scraped one.
+        added = [l for l in scraped if l.key not in manual]
+        lines = list(lines) + added
+        print(f"scraped {len(scraped)} posted totals, kept {len(added)} "
+              f"({len(manual)} overridden by win-totals.yml)")
+
     if not lines:
-        print("No posted totals found. Add them to win-totals.yml:\n\n"
+        print("No posted totals found. Try --scrape, or add them to win-totals.yml:\n\n"
               "  totals:\n    Arkansas: 4.5\n    Georgia:\n      total: 10.5\n"
               "      over: -140\n      under: 115\n")
         return 1
@@ -687,6 +705,7 @@ def cmd_wintotals(args, config: Config) -> int:
         bankroll_units=config.bankroll_units,
         max_units=config.wintotal_max_units,
         max_total_units=config.wintotal_max_total_units,
+        exclude=config.bet_exclusions,
     )
     plays = [b for b in card if b.is_play]
 
@@ -1082,6 +1101,9 @@ def build_parser() -> argparse.ArgumentParser:
     wt.add_argument("--sims", type=int, default=20000)
     wt.add_argument("--lines", help="path to a win totals file (default win-totals.yml)")
     wt.add_argument("--all", action="store_true", help="also show what was passed")
+    wt.add_argument("--scrape", action="store_true",
+                    help="pull posted totals from an odds aggregator; anything "
+                         "in win-totals.yml overrides what is scraped")
     wt.add_argument("--refresh", action="store_true")
     wt.set_defaults(func=cmd_wintotals)
 

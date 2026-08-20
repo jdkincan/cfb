@@ -125,6 +125,11 @@ wintotal_shrink: 0.35          # fraction of our disagreement treated as signal
 wintotal_min_edge_wins: 0.75   # below this, not a play. Do not lower it casually
 wintotal_max_units: 2.0        # per team
 wintotal_max_total_units: 15.0 # across the whole card, which is one correlated bet
+# Teams the model is measurably wrong about. Across 2023-25 it projected the
+# service academies 1.62 wins too low on average, against no detectable bias
+# anywhere else. Option offense breaks the efficiency metrics. Nine
+# team-seasons is enough to know it's wrong, not enough to fit a correction.
+bet_exclusions: [Army, Navy, Air Force]
 
 # --- odds feed ---------------------------------------------------------------
 # Set ODDS_API_KEY in .env to pull spreads from the-odds-api.com. That widens

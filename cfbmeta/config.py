@@ -177,6 +177,11 @@ class Config:
     wintotal_min_edge_wins: float = 0.75
     wintotal_max_units: float = 2.0
     wintotal_max_total_units: float = 15.0
+    # Teams excluded from betting because the model is measurably wrong about
+    # them. See DEFAULT_EXCLUSIONS in cfbmeta/wintotals.py for the measurement.
+    bet_exclusions: List[str] = field(
+        default_factory=lambda: ["Army", "Navy", "Air Force"]
+    )
 
     odds_api_regions: str = "us,us2"
     # Grade edge against the sharpest book that quoted the game rather than a

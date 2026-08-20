@@ -34,9 +34,10 @@ chosen on that comparison rather than by taste.
 from __future__ import annotations
 
 import logging
+import re
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from ..ratings import normalize_team
 from .cfbd import pick, pick_float
@@ -52,6 +53,9 @@ WALKON_RATING = 0.70
 # from 2019 (fifth-year senior plus a redshirt).
 RECRUIT_LOOKBACK_YEARS = 8
 BLUE_CHIP_STARS = 4
+# A 2026 roster can hold someone who transferred in any of the last four
+# cycles, so the portal has to be read back that far too.
+PORTAL_LOOKBACK_YEARS = 4
 
 
 @dataclass
@@ -61,6 +65,7 @@ class TeamRoster:
     roster_size: int = 0
     blue_chips: int = 0
     star_counts: Dict[int, int] = field(default_factory=dict)
+    portal_players: int = 0  # roster spots rated off a transfer evaluation
 
     @property
     def matched(self) -> int:
@@ -84,10 +89,85 @@ class TeamRoster:
         return self.blue_chips / self.matched
 
 
+def _name_key(first: object, last: object) -> str:
+    """Join key for a player, punctuation and case removed.
+
+    The portal feed carries no athlete id — only a name, a position and where
+    the player went — so this is the only join available. Scoped to one team's
+    roster it is safe enough; two players with the same normalized name on the
+    same roster would collide, and that is rare enough to accept.
+    """
+    return re.sub(r"[^a-z]", "", f"{first or ''}{last or ''}".lower())
+
+
+def build_portal_index(
+    client, season: int, lookback: int = PORTAL_LOOKBACK_YEARS
+) -> Dict[Tuple[str, str], float]:
+    """(player, destination team) -> rating, from the transfer portal.
+
+    Why this matters: a transfer shows up on his new team's roster carrying the
+    rating he signed out of high school, which is what a recruiting service
+    thought of him at seventeen. The portal rating is what they think of him
+    *now*, after he has played college football. For a roster built through the
+    portal those are very different numbers, and the high-school one is simply
+    the wrong one.
+
+    Later transfers overwrite earlier ones, so a player who moved twice is
+    valued at his most recent evaluation.
+    """
+    by_star: Dict[int, List[float]] = {}
+    rows: List[dict] = []
+    for year in range(season - lookback + 1, season + 1):
+        try:
+            rows.extend(client.get("portal", year=year))
+        except Exception as exc:  # noqa: BLE001
+            log.warning("no portal data for %d: %s", year, exc)
+
+    for row in rows:
+        rating = pick_float(row, "rating")
+        star = pick_float(row, "stars")
+        if rating is not None and star is not None:
+            by_star.setdefault(int(star), []).append(rating)
+    # Roughly a third of portal rows carry stars but no composite rating.
+    # Dropping them would quietly under-count exactly the rosters this exists
+    # to fix, so impute from the star-to-rating mapping in this same feed.
+    star_rating = {
+        star: sum(vals) / len(vals) for star, vals in by_star.items() if vals
+    }
+
+    index: Dict[Tuple[str, str], Tuple[str, float]] = {}
+    for row in rows:
+        team = pick(row, "destination")
+        if not team:
+            continue
+        rating = pick_float(row, "rating")
+        if rating is None:
+            star = pick_float(row, "stars")
+            rating = star_rating.get(int(star)) if star is not None else None
+        if rating is None:
+            continue
+        key = (_name_key(pick(row, "firstName", "first_name"),
+                         pick(row, "lastName", "last_name")), normalize_team(team))
+        when = str(pick(row, "transferDate", "transfer_date", default="") or "")
+        if key not in index or when >= index[key][0]:
+            index[key] = (when, rating)
+
+    log.info(
+        "portal %d-%d: %d transfers, %d rated (star imputation for %d star levels)",
+        season - lookback + 1, season, len(rows), len(index), len(star_rating),
+    )
+    return {k: v[1] for k, v in index.items()}
+
+
 def build_roster_talent(
-    client, season: int, lookback: int = RECRUIT_LOOKBACK_YEARS
+    client, season: int, lookback: int = RECRUIT_LOOKBACK_YEARS,
+    use_portal: bool = True,
 ) -> Dict[str, TeamRoster]:
-    """Join the season's roster to recruiting ratings, per team."""
+    """Join the season's roster to recruiting ratings, per team.
+
+    A player's rating is his transfer-portal evaluation when he has one for
+    this team, and his high-school recruiting rating otherwise.
+    """
     ratings: Dict[str, float] = {}
     stars: Dict[str, int] = {}
     for year in range(season - lookback + 1, season + 1):
@@ -113,20 +193,36 @@ def build_roster_talent(
         log.warning("no roster for %d: %s", season, exc)
         return {}
 
+    portal: Dict[Tuple[str, str], float] = {}
+    if use_portal:
+        try:
+            portal = build_portal_index(client, season)
+        except Exception as exc:  # noqa: BLE001 - degrade to high-school only
+            log.warning("could not load the transfer portal: %s", exc)
+
     teams: Dict[str, TeamRoster] = {}
     for player in roster_rows:
         team = pick(player, "team", "school")
         if not team:
             continue
-        entry = teams.setdefault(normalize_team(team), TeamRoster(team=team))
+        key = normalize_team(team)
+        entry = teams.setdefault(key, TeamRoster(team=team))
         entry.roster_size += 1
 
         athlete = str(pick(player, "id", "athleteId") or "")
-        rating = ratings.get(athlete)
+        star = stars.get(athlete)
+        # The portal evaluation wins when there is one: it is the same service
+        # rating the same player, only years later and with college tape.
+        moved = portal.get(
+            (_name_key(pick(player, "firstName", "first_name"),
+                       pick(player, "lastName", "last_name")), key)
+        )
+        rating = moved if moved is not None else ratings.get(athlete)
         if rating is None:
             continue
+        if moved is not None:
+            entry.portal_players += 1
         entry.ratings.append(rating)
-        star = stars.get(athlete)
         if star is not None:
             entry.star_counts[star] = entry.star_counts.get(star, 0) + 1
             if star >= BLUE_CHIP_STARS:
@@ -134,9 +230,11 @@ def build_roster_talent(
 
     matched = sum(t.matched for t in teams.values())
     total = sum(t.roster_size for t in teams.values())
+    moved_n = sum(t.portal_players for t in teams.values())
     log.info(
-        "roster talent %d: %d teams, %d/%d players matched to a recruiting rating (%.0f%%)",
-        season, len(teams), matched, total, 100.0 * matched / max(1, total),
+        "roster talent %d: %d teams, %d/%d players rated (%.0f%%), "
+        "%d of them off a portal evaluation",
+        season, len(teams), matched, total, 100.0 * matched / max(1, total), moved_n,
     )
     return teams
 

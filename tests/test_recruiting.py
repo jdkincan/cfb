@@ -183,3 +183,123 @@ class TestFBSScreen:
     def test_no_list_means_no_screen(self, book, config):
         projections = project_slate(self._games(), book, config, fbs_teams=None)
         assert len(projections) == 1
+
+
+# -- transfer portal ---------------------------------------------------------
+class TestPortalRatings:
+    """A transfer's rating should be what he is now, not what he was at 17."""
+
+    def _client(self, portal_rows, roster_rows, recruit_rows=()):
+        class Fake:
+            def get(self, endpoint, **params):
+                if endpoint == "portal":
+                    return [r for r in portal_rows
+                            if r.get("season") == params.get("year")]
+                if endpoint == "roster":
+                    return list(roster_rows)
+                if endpoint == "recruiting_players":
+                    return [r for r in recruit_rows
+                            if r.get("year") == params.get("year")]
+                return []
+        return Fake()
+
+    def test_portal_rating_replaces_the_high_school_rating(self):
+        from cfbmeta.sources.recruiting import build_roster_talent
+
+        roster = [{"id": "1", "firstName": "Sam", "lastName": "Jones", "team": "Indiana"}]
+        recruits = [{"year": 2024, "athleteId": "1", "rating": 0.82, "stars": 3}]
+        portal = [{"season": 2026, "firstName": "Sam", "lastName": "Jones",
+                   "destination": "Indiana", "rating": 0.95, "stars": 4,
+                   "transferDate": "2026-01-05T00:00:00.000Z"}]
+        teams = build_roster_talent(
+            self._client(portal, roster, recruits), 2026)
+        assert teams["indiana"].ratings == [0.95]
+        assert teams["indiana"].portal_players == 1
+
+    def test_a_player_who_never_moved_keeps_his_recruiting_rating(self):
+        from cfbmeta.sources.recruiting import build_roster_talent
+
+        roster = [{"id": "1", "firstName": "Sam", "lastName": "Jones", "team": "Indiana"}]
+        recruits = [{"year": 2024, "athleteId": "1", "rating": 0.82, "stars": 3}]
+        teams = build_roster_talent(self._client([], roster, recruits), 2026)
+        assert teams["indiana"].ratings == [0.82]
+        assert teams["indiana"].portal_players == 0
+
+    def test_a_transfer_elsewhere_does_not_rate_this_roster(self):
+        """The join is on destination, not just name."""
+        from cfbmeta.sources.recruiting import build_roster_talent
+
+        roster = [{"id": "1", "firstName": "Sam", "lastName": "Jones", "team": "Indiana"}]
+        recruits = [{"year": 2024, "athleteId": "1", "rating": 0.82, "stars": 3}]
+        portal = [{"season": 2026, "firstName": "Sam", "lastName": "Jones",
+                   "destination": "Purdue", "rating": 0.95}]
+        teams = build_roster_talent(self._client(portal, roster, recruits), 2026)
+        assert teams["indiana"].ratings == [0.82]
+
+    def test_the_most_recent_transfer_wins(self):
+        from cfbmeta.sources.recruiting import build_portal_index
+
+        portal = [
+            {"season": 2024, "firstName": "Sam", "lastName": "Jones",
+             "destination": "Indiana", "rating": 0.80,
+             "transferDate": "2024-01-05T00:00:00.000Z"},
+            {"season": 2026, "firstName": "Sam", "lastName": "Jones",
+             "destination": "Indiana", "rating": 0.93,
+             "transferDate": "2026-01-05T00:00:00.000Z"},
+        ]
+        index = build_portal_index(self._client(portal, []), 2026)
+        assert index[("samjones", "indiana")] == 0.93
+
+    def test_stars_are_imputed_when_no_rating_is_published(self):
+        """A third of portal rows carry stars but no composite rating."""
+        from cfbmeta.sources.recruiting import build_portal_index
+
+        portal = [
+            {"season": 2026, "firstName": "A", "lastName": "One",
+             "destination": "Indiana", "rating": 0.90, "stars": 4},
+            {"season": 2026, "firstName": "B", "lastName": "Two",
+             "destination": "Indiana", "rating": 0.94, "stars": 4},
+            {"season": 2026, "firstName": "C", "lastName": "Three",
+             "destination": "Indiana", "rating": None, "stars": 4},
+        ]
+        index = build_portal_index(self._client(portal, []), 2026)
+        assert index[("cthree", "indiana")] == pytest.approx(0.92)
+
+    def test_a_row_with_neither_rating_nor_stars_is_dropped(self):
+        from cfbmeta.sources.recruiting import build_portal_index
+
+        portal = [{"season": 2026, "firstName": "A", "lastName": "One",
+                   "destination": "Indiana", "rating": None, "stars": None}]
+        assert build_portal_index(self._client(portal, []), 2026) == {}
+
+    def test_names_join_through_punctuation_and_case(self):
+        from cfbmeta.sources.recruiting import _name_key
+
+        assert _name_key("Ja'Marr", "O'Neill-Smith") == _name_key("JAMARR", "ONEILLSMITH")
+
+    def test_the_portal_can_be_switched_off(self):
+        from cfbmeta.sources.recruiting import build_roster_talent
+
+        roster = [{"id": "1", "firstName": "Sam", "lastName": "Jones", "team": "Indiana"}]
+        recruits = [{"year": 2024, "athleteId": "1", "rating": 0.82, "stars": 3}]
+        portal = [{"season": 2026, "firstName": "Sam", "lastName": "Jones",
+                   "destination": "Indiana", "rating": 0.95}]
+        teams = build_roster_talent(
+            self._client(portal, roster, recruits), 2026, use_portal=False)
+        assert teams["indiana"].ratings == [0.82]
+
+    def test_a_failing_portal_feed_degrades_to_recruiting_ratings(self):
+        from cfbmeta.sources.recruiting import build_roster_talent
+
+        class Broken:
+            def get(self, endpoint, **params):
+                if endpoint == "portal":
+                    raise RuntimeError("portal is down")
+                if endpoint == "roster":
+                    return [{"id": "1", "firstName": "Sam", "lastName": "Jones",
+                             "team": "Indiana"}]
+                if endpoint == "recruiting_players":
+                    return [{"year": 2024, "athleteId": "1", "rating": 0.82}]
+                return []
+        teams = build_roster_talent(Broken(), 2026)
+        assert teams["indiana"].ratings == [0.82]

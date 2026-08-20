@@ -53,7 +53,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import yaml
 
-from .probability import expected_value, kelly_fraction
+from .probability import expected_value, implied_probability, kelly_fraction
 from .ratings import normalize_team
 
 log = logging.getLogger(__name__)
@@ -121,6 +121,7 @@ class WinTotalBet:
     price: int = -110
     book: str = ""
     model_wins: float = 0.0
+    market_wins: float = 0.0   # what the price says, not what the number says
     blended_wins: float = 0.0
     edge_wins: float = 0.0      # blended minus the posted number
     p_over: float = 0.0
@@ -181,6 +182,39 @@ def outcome_probabilities(
     return p_over, p_under, p_push
 
 
+def market_implied_wins(
+    win_counts: Dict[int, float], total: float, over_price: int, under_price: int
+) -> float:
+    """What win total the market is actually quoting, once the juice is read.
+
+    A posted number is not the market's opinion. A 7.5 with the over at -175 is
+    a book saying a team wins about 8.2 games, not 7.5 — the disagreement lives
+    in the price, and comparing a model mean to the bare number misses it
+    entirely. Worse, it misreads a *heavily juiced* line as a fair one and
+    reports enormous expected value on what is really a coin flip.
+
+    So: de-vig the two prices into a fair P(over), then find the shift of our
+    own distribution that reproduces it. That shift is the market's number.
+    """
+    p_over = implied_probability(over_price)
+    p_under = implied_probability(under_price)
+    if p_over + p_under <= 0:
+        return total
+    fair_over = p_over / (p_over + p_under)
+
+    # The distribution is monotone in the shift, so bisect.
+    low, high = -12.0, 12.0
+    for _ in range(60):
+        mid = (low + high) / 2.0
+        got, _, _ = outcome_probabilities(win_counts, total, mid)
+        if got < fair_over:
+            low = mid
+        else:
+            high = mid
+    mean = sum(w * p for w, p in win_counts.items())
+    return mean + (low + high) / 2.0
+
+
 def evaluate(
     outcome,
     line: WinTotalLine,
@@ -202,8 +236,15 @@ def evaluate(
 
     # Each side is priced against its own number, since they can differ.
     def side_for(total: float, price: int, want_over: bool):
-        raw = outcome.mean_wins - total
-        blended = total + shrink * raw
+        # Disagree with what the market is really quoting, not with the
+        # number printed next to the juice.
+        other = line.under_price if want_over else line.over_price
+        implied = market_implied_wins(
+            outcome.win_counts, total,
+            price if want_over else other, other if want_over else price,
+        )
+        raw = outcome.mean_wins - implied
+        blended = implied + shrink * raw
         shift = blended - outcome.mean_wins
         p_over, p_under, p_push = outcome_probabilities(
             outcome.win_counts, total, shift
@@ -211,8 +252,8 @@ def evaluate(
         p = p_over if want_over else p_under
         return {
             "total": total, "price": price, "p": p, "p_push": p_push,
-            "p_over": p_over, "p_under": p_under,
-            "blended": blended, "edge": blended - total,
+            "p_over": p_over, "p_under": p_under, "implied": implied,
+            "blended": blended, "edge": blended - implied,
             "ev": expected_value(p, price, p_push),
         }
 
@@ -222,6 +263,7 @@ def evaluate(
     side = "over" if chosen is over else "under"
 
     bet.total = chosen["total"]
+    bet.market_wins = chosen["implied"]
     bet.blended_wins = chosen["blended"]
     bet.edge_wins = chosen["edge"]
     bet.p_over, bet.p_under, bet.p_push = (

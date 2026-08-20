@@ -120,11 +120,39 @@ def test_the_under_is_taken_when_the_model_is_low():
 
 
 def test_a_worse_price_can_kill_an_otherwise_live_bet():
-    outcome = FakeOutcome("alpha", symmetric(centre=9))
+    outcome = FakeOutcome("alpha", symmetric(centre=10))
     fair = evaluate(outcome, WinTotalLine("Alpha", 7.5, over_price=-110), shrink=0.5)
     gouged = evaluate(outcome, WinTotalLine("Alpha", 7.5, over_price=-400), shrink=0.5)
     assert fair.is_play
     assert gouged.expected_value < fair.expected_value
+
+
+def test_juice_moves_the_market_number_the_model_argues_with():
+    """A 7.5 with the over at -175 is a market quoting roughly 8.2, not 7.5."""
+    from cfbmeta.wintotals import market_implied_wins
+
+    counts = symmetric(centre=7)
+    fair = market_implied_wins(counts, 7.5, -110, -110)
+    juiced = market_implied_wins(counts, 7.5, -175, +145)
+    assert juiced > fair + 0.3
+
+
+def test_a_fairly_priced_line_implies_roughly_its_own_number():
+    from cfbmeta.wintotals import market_implied_wins
+
+    counts = symmetric(centre=7)
+    assert market_implied_wins(counts, 7.5, -110, -110) == pytest.approx(7.5, abs=0.35)
+
+
+def test_edge_is_measured_against_the_price_not_the_posted_number():
+    """Regression: a coin-flip model opinion read as +22% EV on juice alone."""
+    outcome = FakeOutcome("alpha", symmetric(centre=7))
+    # Model agrees with the number but the book is heavily juiced to the over,
+    # so the real disagreement is with the under, not a free +145.
+    bet = evaluate(outcome, WinTotalLine("Alpha", 7.5, over_price=-175,
+                                         under_price=+145), shrink=1.0)
+    assert bet.market_wins > 7.5
+    assert bet.edge_wins < 0
 
 
 def test_the_threshold_is_enforced():

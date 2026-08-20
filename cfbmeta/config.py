@@ -169,6 +169,15 @@ class Config:
     # the-odds-api.com widens the book set well past CFBD's three retail books
     # and, more importantly, carries Pinnacle. Enabled by setting ODDS_API_KEY;
     # without it these are inert. See sources/oddsapi.py.
+    # --- season win totals ---------------------------------------------------
+    # The softest market this model can reach. Lines are entered by hand in
+    # win-totals.yml; see cfbmeta/wintotals.py for why this market and not
+    # game spreads.
+    wintotal_shrink: float = 0.35
+    wintotal_min_edge_wins: float = 0.75
+    wintotal_max_units: float = 2.0
+    wintotal_max_total_units: float = 15.0
+
     odds_api_regions: str = "us,us2"
     # Grade edge against the sharpest book that quoted the game rather than a
     # median of soft books. Turn this off only to compare the two benchmarks.

@@ -621,6 +621,101 @@ def cmd_simulate(args, config: Config) -> int:
     return 0
 
 
+def _season_simulation(client, config: Config, season: int, sims: int,
+                       rating_season: Optional[int] = None, blind: bool = False):
+    """Run the full-season simulation the win-total card is priced off."""
+    from .adjustments import build_situational_model
+    from .coaching import build_coach_model
+    from .hfa import build_hfa_model
+    from .model import detect_defense_sign, project_game
+    from .simulate import simulate
+    from .sources.cfbd import pick as _pick
+
+    rs = rating_season if rating_season is not None else season
+    book = build_rating_book(client, rs)
+    games = client.games(season, season_type=config.season_type)
+    hfa_model = build_hfa_model(
+        client, seasons=range(rs - 4, rs + 1), league_hfa=config.league_hfa,
+        shrink_games=config.hfa_shrink_games, hfa_min=config.hfa_min,
+        hfa_max=config.hfa_max,
+        altitude_bonus_per_1k_ft=config.altitude_bonus_per_1k_ft,
+        altitude_threshold_ft=config.altitude_threshold_ft)
+    coach_model = build_coach_model(client, rs, cap=config.coach_adj_cap)
+    situational = build_situational_model(
+        client, season, rest_day_value=config.rest_day_value,
+        bye_week_bonus=config.bye_week_bonus,
+        short_week_penalty=config.short_week_penalty,
+        travel_penalty_per_1k_mi=config.travel_penalty_per_1k_mi,
+        rest_cap=config.rest_adj_cap, travel_cap=config.travel_adj_cap)
+    fbs = {normalize_team(_pick(t, "school", "team"))
+           for t in client.fbs_teams(season) if _pick(t, "school", "team")}
+    sign = detect_defense_sign(book)
+
+    def margin(game):
+        proj = project_game(game, book, config, hfa_model, coach_model,
+                            situational, None, sign)
+        return proj.projected_margin if (proj and proj.components) else None
+
+    feed = games
+    if blind:
+        drop = ("homePoints", "awayPoints", "home_points", "away_points")
+        feed = [{k: v for k, v in g.items() if k not in drop} for g in games]
+    sim = simulate(feed, margin, season=season, sims=sims,
+                   sigma_game=config.sigma_margin, sigma_team=config.sigma_team,
+                   eligible=fbs, seed=17)
+    return sim, games, fbs
+
+
+def cmd_wintotals(args, config: Config) -> int:
+    """Price posted season win totals against the simulation."""
+    from .wintotals import build_card, load_lines
+
+    season = args.season or config.resolved_season()
+    lines = load_lines(args.lines)
+    if not lines:
+        print("No posted totals found. Add them to win-totals.yml:\n\n"
+              "  totals:\n    Arkansas: 4.5\n    Georgia:\n      total: 10.5\n"
+              "      over: -140\n      under: 115\n")
+        return 1
+
+    client = make_client(config, refresh=args.refresh)
+    sim, _, _ = _season_simulation(client, config, season, args.sims)
+    card = build_card(
+        sim, lines, shrink=config.wintotal_shrink,
+        min_edge_wins=config.wintotal_min_edge_wins,
+        kelly_multiplier=config.kelly_fraction,
+        bankroll_units=config.bankroll_units,
+        max_units=config.wintotal_max_units,
+        max_total_units=config.wintotal_max_total_units,
+    )
+    plays = [b for b in card if b.is_play]
+
+    print(f"\nWIN TOTALS — {season}  ({len(lines)} posted, {sim.sims:,} simulated seasons)")
+    print("UNVALIDATED: no history of posted totals exists to test this against.")
+    print(f"shrink {config.wintotal_shrink:.2f}, threshold "
+          f"{config.wintotal_min_edge_wins:.2f} wins\n")
+    if not plays:
+        print("No plays clear the threshold.")
+    else:
+        print(f"{'team':<20}{'side':>6}{'line':>7}{'price':>7}{'model':>7}"
+              f"{'edge':>7}{'win%':>7}{'EV':>7}{'units':>7}")
+        for b in plays:
+            print(f"{b.display:<20}{b.side:>6}{b.total:>7.1f}{b.price:>7}"
+                  f"{b.model_wins:>7.1f}{b.edge_wins:>+7.2f}"
+                  f"{100*b.win_probability:>6.1f}%{100*b.expected_value:>+6.1f}%"
+                  f"{b.units:>7.2f}")
+        print(f"\n{len(plays)} plays, {sum(b.units for b in plays):.2f} units at risk")
+
+    if args.all:
+        print("\nPASSED:")
+        for b in card:
+            if b.is_play:
+                continue
+            note = b.notes[0] if b.notes else ""
+            print(f"  {b.display:<20}{b.total:>6.1f}  model {b.model_wins:>5.1f}  {note}")
+    return 0
+
+
 def cmd_doctor(args, config: Config) -> int:
     """Verify credentials and probe every endpoint the forecast depends on.
 
@@ -980,6 +1075,15 @@ def build_parser() -> argparse.ArgumentParser:
                      help="grade open bets from final scores and record CLV")
     led.add_argument("--season", type=int)
     led.set_defaults(func=cmd_ledger)
+
+    wt = sub.add_parser(
+        "wintotals", help="price posted season win totals against the simulation")
+    wt.add_argument("--season", type=int)
+    wt.add_argument("--sims", type=int, default=20000)
+    wt.add_argument("--lines", help="path to a win totals file (default win-totals.yml)")
+    wt.add_argument("--all", action="store_true", help="also show what was passed")
+    wt.add_argument("--refresh", action="store_true")
+    wt.set_defaults(func=cmd_wintotals)
 
     tr = sub.add_parser(
         "trend", help="weekly efficiency ratings over time (the SP+ analog)")

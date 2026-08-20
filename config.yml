@@ -117,6 +117,15 @@ max_weekly_units: 10.0        # total units at risk in one week, after correlati
 within_group_correlation: 0.4 # assumed correlation between same-day, same-conf bets
 use_best_line: true           # size against the best number available, not the median
 
+# --- season win totals -------------------------------------------------------
+# Posted totals live in win-totals.yml (entered by hand -- they are not in CFBD
+# and move rarely). This is the softest market the model can reach; game
+# spreads have no measurable edge, see docs/technical-notes.html.
+wintotal_shrink: 0.35          # fraction of our disagreement treated as signal
+wintotal_min_edge_wins: 0.75   # below this, not a play. Do not lower it casually
+wintotal_max_units: 2.0        # per team
+wintotal_max_total_units: 15.0 # across the whole card, which is one correlated bet
+
 # --- odds feed ---------------------------------------------------------------
 # Set ODDS_API_KEY in .env to pull spreads from the-odds-api.com. That widens
 # line shopping past CFBD's DraftKings/ESPN Bet/Bovada and, more importantly,

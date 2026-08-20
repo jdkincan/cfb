@@ -1,0 +1,18 @@
+# Posted season win totals, entered by hand.
+#
+# These are not in CFBD and the odds feed only carries them on paid plans, but
+# they are readable off any book in a few minutes and they move rarely. Enter
+# what you can actually bet -- the price you got, not a consensus.
+#
+# Two forms:
+#   Arkansas: 4.5                 # assumes -110 both ways
+#   Georgia:
+#     total: 10.5
+#     over: -140
+#     under: 115
+#
+# Run: python -m cfbmeta wintotals
+
+book: ""      # default book for entries that don't name one
+
+totals: {}

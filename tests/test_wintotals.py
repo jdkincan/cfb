@@ -259,3 +259,48 @@ def test_line_key_is_normalized():
 
 def test_bet_defaults_to_no_play():
     assert not WinTotalBet(team="x").is_play
+
+
+class TestPricedOutReporting:
+    """When the quoted price is a guess, "pass" is not a useful answer."""
+
+    def test_price_needed_turns_a_losing_bet_into_a_target(self):
+        outcome = FakeOutcome("alpha", symmetric(centre=8, spread=4))
+        bet = evaluate(outcome, WinTotalLine("Alpha", 7.5, over_price=-400), shrink=1.0)
+        need = bet.price_needed()
+        assert need is not None
+        # Whatever it needs must be better than what it was quoted.
+        assert need > -400
+
+    def test_price_needed_matches_break_even(self):
+        from cfbmeta.probability import expected_value
+
+        outcome = FakeOutcome("alpha", symmetric(centre=8, spread=4))
+        bet = evaluate(outcome, WinTotalLine("Alpha", 7.5, over_price=-300), shrink=1.0)
+        need = bet.price_needed()
+        assert expected_value(bet.win_probability, need, bet.p_push) == pytest.approx(0.0, abs=0.02)
+
+    def test_a_priced_out_bet_says_what_it_needs(self):
+        # Threshold relaxed so the price is what decides it: with de-vigging,
+        # heavy juice usually moves the market number and kills the edge first.
+        outcome = FakeOutcome("alpha", symmetric(centre=8, spread=4))
+        bet = evaluate(outcome, WinTotalLine("Alpha", 7.5, over_price=-900),
+                       shrink=1.0, min_edge_wins=0.0)
+        assert not bet.is_play
+        assert "Needs better than" in bet.notes[0]
+
+    def test_an_estimated_price_is_flagged_in_the_reason(self):
+        outcome = FakeOutcome("alpha", symmetric(centre=7, spread=4))
+        bet = evaluate(outcome, WinTotalLine("Alpha", 8.5, under_price=-900,
+                                             under_price_estimated=True),
+                       shrink=1.0, min_edge_wins=0.0)
+        assert not bet.is_play
+        assert "estimate" in bet.notes[0]
+
+    def test_the_threshold_reason_is_not_masked_by_the_estimate_caveat(self):
+        """Regression: notes[0] was the caveat, hiding why the bet was passed."""
+        outcome = FakeOutcome("alpha", symmetric(centre=7))
+        bet = evaluate(outcome, WinTotalLine("Alpha", 7.5, under_price=-110,
+                                             under_price_estimated=True),
+                       shrink=0.35, min_edge_wins=5.0)
+        assert "threshold" in bet.notes[0]

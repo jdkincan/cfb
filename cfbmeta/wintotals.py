@@ -130,7 +130,28 @@ class WinTotalBet:
     expected_value: float = 0.0
     kelly: float = 0.0
     units: float = 0.0
+    price_estimated: bool = False
     notes: List[str] = field(default_factory=list)
+
+    def price_needed(self, target_ev: float = 0.0) -> Optional[int]:
+        """The American price at which this bet would clear ``target_ev``.
+
+        Worth knowing whenever the quoted price is a guess: the scrape publishes
+        only over prices, so an under is priced off an assumed hold. If the edge
+        is real but the assumed price kills it, the useful output is not "pass"
+        but "pass unless you can get better than this".
+        """
+        p, push = self.win_probability, self.p_push
+        live = 1.0 - push
+        if p <= 0 or live <= 0:
+            return None
+        p_lose = live - p
+        # target = p*payout - p_lose  ->  payout = (target + p_lose) / p
+        payout = (target_ev + p_lose) / p
+        if payout <= 0:
+            return None
+        return (int(round(100 * payout)) if payout >= 1.0
+                else int(round(-100 / payout)))
 
     @property
     def is_play(self) -> bool:
@@ -274,18 +295,19 @@ def evaluate(
     p = chosen["p"]
     if side == "under":
         bet.book = line.under_book or line.book
-        if line.under_price_estimated:
-            bet.notes.append(
-                "Under price is ESTIMATED from the over and an assumed hold — "
-                "check the real number before betting."
-            )
+        bet.price_estimated = line.under_price_estimated
     if abs(bet.edge_wins) < min_edge_wins:
         bet.notes.append(
             f"Edge {abs(bet.edge_wins):.2f} wins is under the {min_edge_wins:.2f} threshold."
         )
         return bet
     if ev <= 0:
-        bet.notes.append("Priced out: the number is fair or worse at this juice.")
+        need = bet.price_needed()
+        hint = f" Needs better than {need:+d}." if need is not None else ""
+        estimated = " (that price is an estimate)" if bet.price_estimated else ""
+        bet.notes.append(
+            f"Priced out at {bet.price:+d}{estimated}.{hint}"
+        )
         return bet
     # Direction has to agree with the edge, or we are betting the vig line
     # rather than the disagreement.

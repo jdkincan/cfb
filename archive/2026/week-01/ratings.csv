@@ -1,574 +1,574 @@
 team,team_key,conference,source,rating
 Ohio State,ohio state,Big Ten,fpi,28.676
 Ohio State,ohio state,Big Ten,sp_plus,32.7
-Ohio State,ohio state,Big Ten,talent,27.7345
-Ohio State,ohio state,Big Ten,meta:blue_chip_ratio,0.7045
+Ohio State,ohio state,Big Ten,talent,29.8042
+Ohio State,ohio state,Big Ten,meta:blue_chip_ratio,0.6813
 Ohio State,ohio state,Big Ten,meta:returning_ppa,355.9
 Ohio State,ohio state,Big Ten,meta:sp_defense,8.4
 Ohio State,ohio state,Big Ten,meta:sp_offense,41.0
 Ohio State,ohio state,Big Ten,meta:sp_special,0.1
-Ohio State,ohio state,Big Ten,meta:talent_raw,38.3908
+Ohio State,ohio state,Big Ten,meta:talent_raw,38.2289
 Oregon,oregon,Big Ten,fpi,25.276
 Oregon,oregon,Big Ten,sp_plus,29.2
-Oregon,oregon,Big Ten,talent,21.433
-Oregon,oregon,Big Ten,meta:blue_chip_ratio,0.6316
+Oregon,oregon,Big Ten,talent,22.07
+Oregon,oregon,Big Ten,meta:blue_chip_ratio,0.6
 Oregon,oregon,Big Ten,meta:returning_ppa,373.3
 Oregon,oregon,Big Ten,meta:sp_defense,12.2
 Oregon,oregon,Big Ten,meta:sp_offense,41.1
 Oregon,oregon,Big Ten,meta:sp_special,0.3
-Oregon,oregon,Big Ten,meta:talent_raw,37.6289
+Oregon,oregon,Big Ten,meta:talent_raw,37.3619
 Notre Dame,notre dame,FBS Independents,fpi,25.856
 Notre Dame,notre dame,FBS Independents,sp_plus,26.5
-Notre Dame,notre dame,FBS Independents,talent,26.2673
+Notre Dame,notre dame,FBS Independents,talent,28.4661
 Notre Dame,notre dame,FBS Independents,meta:blue_chip_ratio,0.701
 Notre Dame,notre dame,FBS Independents,meta:returning_ppa,175.6
 Notre Dame,notre dame,FBS Independents,meta:sp_defense,14.3
 Notre Dame,notre dame,FBS Independents,meta:sp_offense,40.6
 Notre Dame,notre dame,FBS Independents,meta:sp_special,0.3
-Notre Dame,notre dame,FBS Independents,meta:talent_raw,38.2134
+Notre Dame,notre dame,FBS Independents,meta:talent_raw,38.0789
 Georgia,georgia,SEC,fpi,24.837
 Georgia,georgia,SEC,sp_plus,26.4
-Georgia,georgia,SEC,talent,31.214
-Georgia,georgia,SEC,meta:blue_chip_ratio,0.7843
+Georgia,georgia,SEC,talent,34.1994
+Georgia,georgia,SEC,meta:blue_chip_ratio,0.7619
 Georgia,georgia,SEC,meta:returning_ppa,248.1
 Georgia,georgia,SEC,meta:sp_defense,12.9
 Georgia,georgia,SEC,meta:sp_offense,38.7
 Georgia,georgia,SEC,meta:sp_special,0.6
-Georgia,georgia,SEC,meta:talent_raw,38.8115
+Georgia,georgia,SEC,meta:talent_raw,38.7216
 Indiana,indiana,Big Ten,fpi,23.14
 Indiana,indiana,Big Ten,sp_plus,25.8
-Indiana,indiana,Big Ten,talent,7.0658
-Indiana,indiana,Big Ten,meta:blue_chip_ratio,0.2297
+Indiana,indiana,Big Ten,talent,7.5249
+Indiana,indiana,Big Ten,meta:blue_chip_ratio,0.2152
 Indiana,indiana,Big Ten,meta:returning_ppa,97.9
 Indiana,indiana,Big Ten,meta:sp_defense,12.5
 Indiana,indiana,Big Ten,meta:sp_offense,37.8
 Indiana,indiana,Big Ten,meta:sp_special,0.5
-Indiana,indiana,Big Ten,meta:talent_raw,35.8918
+Indiana,indiana,Big Ten,meta:talent_raw,35.7314
 Texas,texas,SEC,fpi,26.914
 Texas,texas,SEC,sp_plus,22.8
-Texas,texas,SEC,talent,29.526
-Texas,texas,SEC,meta:blue_chip_ratio,0.6292
+Texas,texas,SEC,talent,32.9443
+Texas,texas,SEC,meta:blue_chip_ratio,0.5957
 Texas,texas,SEC,meta:returning_ppa,187.5
 Texas,texas,SEC,meta:sp_defense,14.9
 Texas,texas,SEC,meta:sp_offense,37.3
 Texas,texas,SEC,meta:sp_special,0.4
-Texas,texas,SEC,meta:talent_raw,38.6074
+Texas,texas,SEC,meta:talent_raw,38.5809
 Miami,miami,ACC,fpi,21.834
 Miami,miami,ACC,sp_plus,22.0
-Miami,miami,ACC,talent,20.9516
-Miami,miami,ACC,meta:blue_chip_ratio,0.5814
+Miami,miami,ACC,talent,25.1824
+Miami,miami,ACC,meta:blue_chip_ratio,0.5618
 Miami,miami,ACC,meta:returning_ppa,167.9
 Miami,miami,ACC,meta:sp_defense,13.3
 Miami,miami,ACC,meta:sp_offense,35.0
 Miami,miami,ACC,meta:sp_special,0.3
-Miami,miami,ACC,meta:talent_raw,37.5707
+Miami,miami,ACC,meta:talent_raw,37.7108
 Texas Tech,texas tech,Big 12,fpi,20.016
 Texas Tech,texas tech,Big 12,sp_plus,21.8
-Texas Tech,texas tech,Big 12,talent,8.8912
-Texas Tech,texas tech,Big 12,meta:blue_chip_ratio,0.3026
+Texas Tech,texas tech,Big 12,talent,10.7364
+Texas Tech,texas tech,Big 12,meta:blue_chip_ratio,0.2584
 Texas Tech,texas tech,Big 12,meta:returning_ppa,231.6
 Texas Tech,texas tech,Big 12,meta:sp_defense,15.0
 Texas Tech,texas tech,Big 12,meta:sp_offense,36.6
 Texas Tech,texas tech,Big 12,meta:sp_special,0.2
-Texas Tech,texas tech,Big 12,meta:talent_raw,36.1125
+Texas Tech,texas tech,Big 12,meta:talent_raw,36.0914
 Texas A&M,texas a and m,SEC,fpi,20.002
 Texas A&M,texas a and m,SEC,sp_plus,20.9
-Texas A&M,texas a and m,SEC,talent,24.8894
-Texas A&M,texas a and m,SEC,meta:blue_chip_ratio,0.7582
+Texas A&M,texas a and m,SEC,talent,27.4242
+Texas A&M,texas a and m,SEC,meta:blue_chip_ratio,0.734
 Texas A&M,texas a and m,SEC,meta:returning_ppa,266.6
 Texas A&M,texas a and m,SEC,meta:sp_defense,16.4
 Texas A&M,texas a and m,SEC,meta:sp_offense,37.6
 Texas A&M,texas a and m,SEC,meta:sp_special,-0.3
-Texas A&M,texas a and m,SEC,meta:talent_raw,38.0468
+Texas A&M,texas a and m,SEC,meta:talent_raw,37.9621
 LSU,lsu,SEC,fpi,20.034
 LSU,lsu,SEC,sp_plus,20.4
-LSU,lsu,SEC,talent,24.5221
-LSU,lsu,SEC,meta:blue_chip_ratio,0.6962
+LSU,lsu,SEC,talent,26.4215
+LSU,lsu,SEC,meta:blue_chip_ratio,0.625
 LSU,lsu,SEC,meta:returning_ppa,42.9
 LSU,lsu,SEC,meta:sp_defense,12.4
 LSU,lsu,SEC,meta:sp_offense,32.6
 LSU,lsu,SEC,meta:sp_special,0.2
-LSU,lsu,SEC,meta:talent_raw,38.0024
+LSU,lsu,SEC,meta:talent_raw,37.8497
 Oklahoma,oklahoma,SEC,fpi,17.782
 Oklahoma,oklahoma,SEC,sp_plus,18.8
-Oklahoma,oklahoma,SEC,talent,17.3092
-Oklahoma,oklahoma,SEC,meta:blue_chip_ratio,0.55
+Oklahoma,oklahoma,SEC,talent,20.3207
+Oklahoma,oklahoma,SEC,meta:blue_chip_ratio,0.5
 Oklahoma,oklahoma,SEC,meta:returning_ppa,181.3
 Oklahoma,oklahoma,SEC,meta:sp_defense,13.7
 Oklahoma,oklahoma,SEC,meta:sp_offense,32.1
 Oklahoma,oklahoma,SEC,meta:sp_special,0.4
-Oklahoma,oklahoma,SEC,meta:talent_raw,37.1303
+Oklahoma,oklahoma,SEC,meta:talent_raw,37.1658
 USC,usc,Big Ten,fpi,16.982
 USC,usc,Big Ten,sp_plus,17.7
-USC,usc,Big Ten,talent,21.4148
-USC,usc,Big Ten,meta:blue_chip_ratio,0.5926
+USC,usc,Big Ten,talent,23.517
+USC,usc,Big Ten,meta:blue_chip_ratio,0.5783
 USC,usc,Big Ten,meta:returning_ppa,305.5
 USC,usc,Big Ten,meta:sp_defense,19.9
 USC,usc,Big Ten,meta:sp_offense,38.0
 USC,usc,Big Ten,meta:sp_special,-0.3
-USC,usc,Big Ten,meta:talent_raw,37.6267
+USC,usc,Big Ten,meta:talent_raw,37.5241
 Alabama,alabama,SEC,fpi,20.126
 Alabama,alabama,SEC,sp_plus,17.6
-Alabama,alabama,SEC,talent,29.0694
-Alabama,alabama,SEC,meta:blue_chip_ratio,0.6543
+Alabama,alabama,SEC,talent,31.3314
+Alabama,alabama,SEC,meta:blue_chip_ratio,0.631
 Alabama,alabama,SEC,meta:returning_ppa,120.2
 Alabama,alabama,SEC,meta:sp_defense,13.0
 Alabama,alabama,SEC,meta:sp_offense,31.0
 Alabama,alabama,SEC,meta:sp_special,-0.4
-Alabama,alabama,SEC,meta:talent_raw,38.5522
+Alabama,alabama,SEC,meta:talent_raw,38.4001
 Tennessee,tennessee,SEC,fpi,15.058
 Tennessee,tennessee,SEC,sp_plus,17.3
-Tennessee,tennessee,SEC,talent,20.0725
-Tennessee,tennessee,SEC,meta:blue_chip_ratio,0.4831
+Tennessee,tennessee,SEC,talent,22.8889
+Tennessee,tennessee,SEC,meta:blue_chip_ratio,0.4624
 Tennessee,tennessee,SEC,meta:returning_ppa,186.2
 Tennessee,tennessee,SEC,meta:sp_defense,22.4
 Tennessee,tennessee,SEC,meta:sp_offense,39.3
 Tennessee,tennessee,SEC,meta:sp_special,0.4
-Tennessee,tennessee,SEC,meta:talent_raw,37.4644
+Tennessee,tennessee,SEC,meta:talent_raw,37.4537
 Michigan,michigan,Big Ten,fpi,15.875
 Michigan,michigan,Big Ten,sp_plus,17.0
-Michigan,michigan,Big Ten,talent,19.8996
-Michigan,michigan,Big Ten,meta:blue_chip_ratio,0.5349
+Michigan,michigan,Big Ten,talent,23.0968
+Michigan,michigan,Big Ten,meta:blue_chip_ratio,0.5
 Michigan,michigan,Big Ten,meta:returning_ppa,212.5
 Michigan,michigan,Big Ten,meta:sp_defense,15.8
 Michigan,michigan,Big Ten,meta:sp_offense,33.2
 Michigan,michigan,Big Ten,meta:sp_special,-0.5
-Michigan,michigan,Big Ten,meta:talent_raw,37.4435
+Michigan,michigan,Big Ten,meta:talent_raw,37.477
 Ole Miss,ole miss,SEC,fpi,16.029
 Ole Miss,ole miss,SEC,sp_plus,16.5
-Ole Miss,ole miss,SEC,talent,19.8806
-Ole Miss,ole miss,SEC,meta:blue_chip_ratio,0.5823
+Ole Miss,ole miss,SEC,talent,17.5
+Ole Miss,ole miss,SEC,meta:blue_chip_ratio,0.5287
 Ole Miss,ole miss,SEC,meta:returning_ppa,279.4
 Ole Miss,ole miss,SEC,meta:sp_defense,19.4
 Ole Miss,ole miss,SEC,meta:sp_offense,35.2
 Ole Miss,ole miss,SEC,meta:sp_special,0.7
-Ole Miss,ole miss,SEC,meta:talent_raw,37.4412
+Ole Miss,ole miss,SEC,meta:talent_raw,36.8496
 Penn State,penn state,Big Ten,fpi,13.716
 Penn State,penn state,Big Ten,sp_plus,16.2
-Penn State,penn state,Big Ten,talent,10.1442
-Penn State,penn state,Big Ten,meta:blue_chip_ratio,0.3718
+Penn State,penn state,Big Ten,talent,13.574
+Penn State,penn state,Big Ten,meta:blue_chip_ratio,0.3372
 Penn State,penn state,Big Ten,meta:returning_ppa,21.5
 Penn State,penn state,Big Ten,meta:sp_defense,18.3
 Penn State,penn state,Big Ten,meta:sp_offense,33.9
 Penn State,penn state,Big Ten,meta:sp_special,0.6
-Penn State,penn state,Big Ten,meta:talent_raw,36.264
+Penn State,penn state,Big Ten,meta:talent_raw,36.4095
 Washington,washington,Big Ten,fpi,9.893
 Washington,washington,Big Ten,sp_plus,15.8
-Washington,washington,Big Ten,talent,9.7571
-Washington,washington,Big Ten,meta:blue_chip_ratio,0.2941
+Washington,washington,Big Ten,talent,11.4607
+Washington,washington,Big Ten,meta:blue_chip_ratio,0.2717
 Washington,washington,Big Ten,meta:returning_ppa,228.1
 Washington,washington,Big Ten,meta:sp_defense,17.0
 Washington,washington,Big Ten,meta:sp_offense,33.0
 Washington,washington,Big Ten,meta:sp_special,-0.3
-Washington,washington,Big Ten,meta:talent_raw,36.2172
+Washington,washington,Big Ten,meta:talent_raw,36.1726
 Missouri,missouri,SEC,fpi,12.18
 Missouri,missouri,SEC,sp_plus,15.4
-Missouri,missouri,SEC,talent,12.8049
-Missouri,missouri,SEC,meta:blue_chip_ratio,0.3765
+Missouri,missouri,SEC,talent,11.6391
+Missouri,missouri,SEC,meta:blue_chip_ratio,0.3478
 Missouri,missouri,SEC,meta:returning_ppa,132.8
 Missouri,missouri,SEC,meta:sp_defense,16.4
 Missouri,missouri,SEC,meta:sp_offense,32.3
 Missouri,missouri,SEC,meta:sp_special,-0.5
-Missouri,missouri,SEC,meta:talent_raw,36.5857
+Missouri,missouri,SEC,meta:talent_raw,36.1926
 Florida,florida,SEC,fpi,13.575
 Florida,florida,SEC,sp_plus,15.2
-Florida,florida,SEC,talent,17.8625
-Florida,florida,SEC,meta:blue_chip_ratio,0.614
+Florida,florida,SEC,talent,19.2556
+Florida,florida,SEC,meta:blue_chip_ratio,0.5556
 Florida,florida,SEC,meta:returning_ppa,143.0
 Florida,florida,SEC,meta:sp_defense,15.8
 Florida,florida,SEC,meta:sp_offense,30.4
 Florida,florida,SEC,meta:sp_special,0.5
-Florida,florida,SEC,meta:talent_raw,37.1972
+Florida,florida,SEC,meta:talent_raw,37.0464
 BYU,byu,Big 12,fpi,13.125
 BYU,byu,Big 12,sp_plus,14.9
-BYU,byu,Big 12,talent,-9.6354
-BYU,byu,Big 12,meta:blue_chip_ratio,0.1944
+BYU,byu,Big 12,talent,-3.9497
+BYU,byu,Big 12,meta:blue_chip_ratio,0.1556
 BYU,byu,Big 12,meta:returning_ppa,284.3
 BYU,byu,Big 12,meta:sp_defense,18.3
 BYU,byu,Big 12,meta:sp_offense,32.9
 BYU,byu,Big 12,meta:sp_special,0.3
-BYU,byu,Big 12,meta:talent_raw,33.8725
+BYU,byu,Big 12,meta:talent_raw,34.4451
 Iowa,iowa,Big Ten,fpi,10.569
 Iowa,iowa,Big Ten,sp_plus,14.6
-Iowa,iowa,Big Ten,talent,5.7565
-Iowa,iowa,Big Ten,meta:blue_chip_ratio,0.2048
+Iowa,iowa,Big Ten,talent,7.3991
+Iowa,iowa,Big Ten,meta:blue_chip_ratio,0.1868
 Iowa,iowa,Big Ten,meta:returning_ppa,80.4
 Iowa,iowa,Big Ten,meta:sp_defense,16.8
 Iowa,iowa,Big Ten,meta:sp_offense,30.8
 Iowa,iowa,Big Ten,meta:sp_special,0.6
-Iowa,iowa,Big Ten,meta:talent_raw,35.7335
+Iowa,iowa,Big Ten,meta:talent_raw,35.7173
 Clemson,clemson,ACC,fpi,13.421
 Clemson,clemson,ACC,sp_plus,13.1
-Clemson,clemson,ACC,talent,18.3976
-Clemson,clemson,ACC,meta:blue_chip_ratio,0.519
+Clemson,clemson,ACC,talent,19.1628
+Clemson,clemson,ACC,meta:blue_chip_ratio,0.4881
 Clemson,clemson,ACC,meta:returning_ppa,124.3
 Clemson,clemson,ACC,meta:sp_defense,17.1
 Clemson,clemson,ACC,meta:sp_offense,29.8
 Clemson,clemson,ACC,meta:sp_special,0.3
-Clemson,clemson,ACC,meta:talent_raw,37.2619
+Clemson,clemson,ACC,meta:talent_raw,37.036
 South Carolina,south carolina,SEC,fpi,11.692
 South Carolina,south carolina,SEC,sp_plus,12.6
-South Carolina,south carolina,SEC,talent,18.5821
-South Carolina,south carolina,SEC,meta:blue_chip_ratio,0.5395
+South Carolina,south carolina,SEC,talent,17.8541
+South Carolina,south carolina,SEC,meta:blue_chip_ratio,0.4659
 South Carolina,south carolina,SEC,meta:returning_ppa,148.3
 South Carolina,south carolina,SEC,meta:sp_defense,18.1
 South Carolina,south carolina,SEC,meta:sp_offense,30.2
 South Carolina,south carolina,SEC,meta:sp_special,0.5
-South Carolina,south carolina,SEC,meta:talent_raw,37.2842
+South Carolina,south carolina,SEC,meta:talent_raw,36.8893
 SMU,smu,ACC,fpi,11.117
 SMU,smu,ACC,sp_plus,12.1
-SMU,smu,ACC,talent,8.1518
-SMU,smu,ACC,meta:blue_chip_ratio,0.3099
+SMU,smu,ACC,talent,6.8666
+SMU,smu,ACC,meta:blue_chip_ratio,0.2857
 SMU,smu,ACC,meta:returning_ppa,219.8
 SMU,smu,ACC,meta:sp_defense,20.1
 SMU,smu,ACC,meta:sp_offense,32.5
 SMU,smu,ACC,meta:sp_special,-0.4
-SMU,smu,ACC,meta:talent_raw,36.0231
+SMU,smu,ACC,meta:talent_raw,35.6576
 Auburn,auburn,SEC,fpi,12.007
 Auburn,auburn,SEC,sp_plus,11.5
-Auburn,auburn,SEC,talent,15.1803
-Auburn,auburn,SEC,meta:blue_chip_ratio,0.3721
+Auburn,auburn,SEC,talent,15.417
+Auburn,auburn,SEC,meta:blue_chip_ratio,0.3516
 Auburn,auburn,SEC,meta:returning_ppa,35.8
 Auburn,auburn,SEC,meta:sp_defense,17.3
 Auburn,auburn,SEC,meta:sp_offense,28.5
 Auburn,auburn,SEC,meta:sp_special,0.3
-Auburn,auburn,SEC,meta:talent_raw,36.8729
+Auburn,auburn,SEC,meta:talent_raw,36.6161
 Louisville,louisville,ACC,fpi,9.454
 Louisville,louisville,ACC,sp_plus,11.1
-Louisville,louisville,ACC,talent,6.4041
-Louisville,louisville,ACC,meta:blue_chip_ratio,0.2571
+Louisville,louisville,ACC,talent,5.2484
+Louisville,louisville,ACC,meta:blue_chip_ratio,0.2222
 Louisville,louisville,ACC,meta:returning_ppa,92.3
 Louisville,louisville,ACC,meta:sp_defense,19.8
 Louisville,louisville,ACC,meta:sp_offense,30.7
 Louisville,louisville,ACC,meta:sp_special,0.2
-Louisville,louisville,ACC,meta:talent_raw,35.8118
+Louisville,louisville,ACC,meta:talent_raw,35.4762
 Illinois,illinois,Big Ten,fpi,6.315
 Illinois,illinois,Big Ten,sp_plus,10.4
-Illinois,illinois,Big Ten,talent,2.722
-Illinois,illinois,Big Ten,meta:blue_chip_ratio,0.1071
+Illinois,illinois,Big Ten,talent,3.9504
+Illinois,illinois,Big Ten,meta:blue_chip_ratio,0.0947
 Illinois,illinois,Big Ten,meta:returning_ppa,83.5
 Illinois,illinois,Big Ten,meta:sp_defense,22.1
 Illinois,illinois,Big Ten,meta:sp_offense,32.0
 Illinois,illinois,Big Ten,meta:sp_special,0.4
-Illinois,illinois,Big Ten,meta:talent_raw,35.3666
+Illinois,illinois,Big Ten,meta:talent_raw,35.3307
 Vanderbilt,vanderbilt,SEC,fpi,8.986
 Vanderbilt,vanderbilt,SEC,sp_plus,9.8
-Vanderbilt,vanderbilt,SEC,talent,6.1039
-Vanderbilt,vanderbilt,SEC,meta:blue_chip_ratio,0.2133
+Vanderbilt,vanderbilt,SEC,talent,4.309
+Vanderbilt,vanderbilt,SEC,meta:blue_chip_ratio,0.1928
 Vanderbilt,vanderbilt,SEC,meta:returning_ppa,203.3
 Vanderbilt,vanderbilt,SEC,meta:sp_defense,24.2
 Vanderbilt,vanderbilt,SEC,meta:sp_offense,33.3
 Vanderbilt,vanderbilt,SEC,meta:sp_special,0.6
-Vanderbilt,vanderbilt,SEC,meta:talent_raw,35.7755
+Vanderbilt,vanderbilt,SEC,meta:talent_raw,35.3709
 Utah,utah,Big 12,fpi,8.451
 Utah,utah,Big 12,sp_plus,9.8
-Utah,utah,Big 12,talent,2.6037
-Utah,utah,Big 12,meta:blue_chip_ratio,0.1406
+Utah,utah,Big 12,talent,3.9299
+Utah,utah,Big 12,meta:blue_chip_ratio,0.125
 Utah,utah,Big 12,meta:returning_ppa,278.5
 Utah,utah,Big 12,meta:sp_defense,22.1
 Utah,utah,Big 12,meta:sp_offense,31.9
 Utah,utah,Big 12,meta:sp_special,0.0
-Utah,utah,Big 12,meta:talent_raw,35.3523
+Utah,utah,Big 12,meta:talent_raw,35.3284
 Arizona,arizona,Big 12,fpi,7.155
 Arizona,arizona,Big 12,sp_plus,9.5
-Arizona,arizona,Big 12,talent,3.827
-Arizona,arizona,Big 12,meta:blue_chip_ratio,0.1733
+Arizona,arizona,Big 12,talent,2.6775
+Arizona,arizona,Big 12,meta:blue_chip_ratio,0.1585
 Arizona,arizona,Big 12,meta:returning_ppa,202.4
 Arizona,arizona,Big 12,meta:sp_defense,21.2
 Arizona,arizona,Big 12,meta:sp_offense,31.1
 Arizona,arizona,Big 12,meta:sp_special,-0.5
-Arizona,arizona,Big 12,meta:talent_raw,35.5002
+Arizona,arizona,Big 12,meta:talent_raw,35.188
 TCU,tcu,Big 12,fpi,6.366
 TCU,tcu,Big 12,sp_plus,9.4
-TCU,tcu,Big 12,talent,5.9989
-TCU,tcu,Big 12,meta:blue_chip_ratio,0.2222
+TCU,tcu,Big 12,talent,6.2957
+TCU,tcu,Big 12,meta:blue_chip_ratio,0.2143
 TCU,tcu,Big 12,meta:returning_ppa,94.3
 TCU,tcu,Big 12,meta:sp_defense,21.8
 TCU,tcu,Big 12,meta:sp_offense,31.4
 TCU,tcu,Big 12,meta:sp_special,-0.2
-TCU,tcu,Big 12,meta:talent_raw,35.7628
+TCU,tcu,Big 12,meta:talent_raw,35.5936
 Nebraska,nebraska,Big Ten,fpi,8.842
 Nebraska,nebraska,Big Ten,sp_plus,9.3
-Nebraska,nebraska,Big Ten,talent,11.2889
-Nebraska,nebraska,Big Ten,meta:blue_chip_ratio,0.3111
+Nebraska,nebraska,Big Ten,talent,11.9246
+Nebraska,nebraska,Big Ten,meta:blue_chip_ratio,0.3011
 Nebraska,nebraska,Big Ten,meta:returning_ppa,146.2
 Nebraska,nebraska,Big Ten,meta:sp_defense,20.7
 Nebraska,nebraska,Big Ten,meta:sp_offense,30.0
 Nebraska,nebraska,Big Ten,meta:sp_special,0.1
-Nebraska,nebraska,Big Ten,meta:talent_raw,36.4024
+Nebraska,nebraska,Big Ten,meta:talent_raw,36.2246
 Kansas State,kansas state,Big 12,fpi,5.057
 Kansas State,kansas state,Big 12,sp_plus,9.2
-Kansas State,kansas state,Big 12,talent,4.8509
-Kansas State,kansas state,Big 12,meta:blue_chip_ratio,0.1549
+Kansas State,kansas state,Big 12,talent,3.9531
+Kansas State,kansas state,Big 12,meta:blue_chip_ratio,0.1358
 Kansas State,kansas state,Big 12,meta:returning_ppa,167.8
 Kansas State,kansas state,Big 12,meta:sp_defense,23.6
 Kansas State,kansas state,Big 12,meta:sp_offense,32.5
 Kansas State,kansas state,Big 12,meta:sp_special,0.3
-Kansas State,kansas state,Big 12,meta:talent_raw,35.624
+Kansas State,kansas state,Big 12,meta:talent_raw,35.331
 Florida State,florida state,ACC,fpi,9.319
 Florida State,florida state,ACC,sp_plus,9.1
-Florida State,florida state,ACC,talent,12.2011
-Florida State,florida state,ACC,meta:blue_chip_ratio,0.3625
+Florida State,florida state,ACC,talent,15.2493
+Florida State,florida state,ACC,meta:blue_chip_ratio,0.3372
 Florida State,florida state,ACC,meta:returning_ppa,162.9
 Florida State,florida state,ACC,meta:sp_defense,20.4
 Florida State,florida state,ACC,meta:sp_offense,29.8
 Florida State,florida state,ACC,meta:sp_special,-0.3
-Florida State,florida state,ACC,meta:talent_raw,36.5127
+Florida State,florida state,ACC,meta:talent_raw,36.5973
 Virginia Tech,virginia tech,ACC,fpi,7.384
 Virginia Tech,virginia tech,ACC,sp_plus,8.6
-Virginia Tech,virginia tech,ACC,talent,9.3419
-Virginia Tech,virginia tech,ACC,meta:blue_chip_ratio,0.2872
+Virginia Tech,virginia tech,ACC,talent,7.4339
+Virginia Tech,virginia tech,ACC,meta:blue_chip_ratio,0.2673
 Virginia Tech,virginia tech,ACC,meta:returning_ppa,94.3
 Virginia Tech,virginia tech,ACC,meta:sp_defense,21.9
 Virginia Tech,virginia tech,ACC,meta:sp_offense,30.7
 Virginia Tech,virginia tech,ACC,meta:sp_special,-0.2
-Virginia Tech,virginia tech,ACC,meta:talent_raw,36.167
+Virginia Tech,virginia tech,ACC,meta:talent_raw,35.7212
 Virginia,virginia,ACC,fpi,7.895
 Virginia,virginia,ACC,sp_plus,8.1
-Virginia,virginia,ACC,talent,3.277
-Virginia,virginia,ACC,meta:blue_chip_ratio,0.1279
+Virginia,virginia,ACC,talent,0.8336
+Virginia,virginia,ACC,meta:blue_chip_ratio,0.1122
 Virginia,virginia,ACC,meta:returning_ppa,34.9
 Virginia,virginia,ACC,meta:sp_defense,18.9
 Virginia,virginia,ACC,meta:sp_offense,26.9
 Virginia,virginia,ACC,meta:sp_special,0.2
-Virginia,virginia,ACC,meta:talent_raw,35.4337
+Virginia,virginia,ACC,meta:talent_raw,34.9813
 Houston,houston,Big 12,fpi,7.12
 Houston,houston,Big 12,sp_plus,7.4
-Houston,houston,Big 12,talent,3.5623
-Houston,houston,Big 12,meta:blue_chip_ratio,0.1184
+Houston,houston,Big 12,talent,3.665
+Houston,houston,Big 12,meta:blue_chip_ratio,0.1071
 Houston,houston,Big 12,meta:returning_ppa,242.7
 Houston,houston,Big 12,meta:sp_defense,23.1
 Houston,houston,Big 12,meta:sp_offense,30.9
 Houston,houston,Big 12,meta:sp_special,-0.4
-Houston,houston,Big 12,meta:talent_raw,35.4682
+Houston,houston,Big 12,meta:talent_raw,35.2987
 Oklahoma State,oklahoma state,Big 12,fpi,3.345
 Oklahoma State,oklahoma state,Big 12,sp_plus,6.9
-Oklahoma State,oklahoma state,Big 12,talent,0.6717
-Oklahoma State,oklahoma state,Big 12,meta:blue_chip_ratio,0.0746
+Oklahoma State,oklahoma state,Big 12,talent,1.8737
+Oklahoma State,oklahoma state,Big 12,meta:blue_chip_ratio,0.0581
 Oklahoma State,oklahoma state,Big 12,meta:returning_ppa,0.0
 Oklahoma State,oklahoma state,Big 12,meta:sp_defense,23.4
 Oklahoma State,oklahoma state,Big 12,meta:sp_offense,29.9
 Oklahoma State,oklahoma state,Big 12,meta:sp_special,0.5
-Oklahoma State,oklahoma state,Big 12,meta:talent_raw,35.1187
+Oklahoma State,oklahoma state,Big 12,meta:talent_raw,35.0979
 Minnesota,minnesota,Big Ten,fpi,0.612
 Minnesota,minnesota,Big Ten,sp_plus,6.2
-Minnesota,minnesota,Big Ten,talent,5.7094
-Minnesota,minnesota,Big Ten,meta:blue_chip_ratio,0.1717
+Minnesota,minnesota,Big Ten,talent,6.1654
+Minnesota,minnesota,Big Ten,meta:blue_chip_ratio,0.1589
 Minnesota,minnesota,Big Ten,meta:returning_ppa,113.5
 Minnesota,minnesota,Big Ten,meta:sp_defense,19.0
 Minnesota,minnesota,Big Ten,meta:sp_offense,25.7
 Minnesota,minnesota,Big Ten,meta:sp_special,-0.5
-Minnesota,minnesota,Big Ten,meta:talent_raw,35.7278
+Minnesota,minnesota,Big Ten,meta:talent_raw,35.579
 Pittsburgh,pittsburgh,ACC,fpi,6.616
 Pittsburgh,pittsburgh,ACC,sp_plus,6.2
-Pittsburgh,pittsburgh,ACC,talent,1.598
-Pittsburgh,pittsburgh,ACC,meta:blue_chip_ratio,0.1389
+Pittsburgh,pittsburgh,ACC,talent,1.7667
+Pittsburgh,pittsburgh,ACC,meta:blue_chip_ratio,0.119
 Pittsburgh,pittsburgh,ACC,meta:returning_ppa,149.9
 Pittsburgh,pittsburgh,ACC,meta:sp_defense,23.9
 Pittsburgh,pittsburgh,ACC,meta:sp_offense,30.0
 Pittsburgh,pittsburgh,ACC,meta:sp_special,0.1
-Pittsburgh,pittsburgh,ACC,meta:talent_raw,35.2307
+Pittsburgh,pittsburgh,ACC,meta:talent_raw,35.0859
 Georgia Tech,georgia tech,ACC,fpi,4.186
 Georgia Tech,georgia tech,ACC,sp_plus,5.9
-Georgia Tech,georgia tech,ACC,talent,7.5687
-Georgia Tech,georgia tech,ACC,meta:blue_chip_ratio,0.1558
+Georgia Tech,georgia tech,ACC,talent,6.6052
+Georgia Tech,georgia tech,ACC,meta:blue_chip_ratio,0.1348
 Georgia Tech,georgia tech,ACC,meta:returning_ppa,47.7
 Georgia Tech,georgia tech,ACC,meta:sp_defense,23.4
 Georgia Tech,georgia tech,ACC,meta:sp_offense,28.7
 Georgia Tech,georgia tech,ACC,meta:sp_special,0.6
-Georgia Tech,georgia tech,ACC,meta:talent_raw,35.9526
+Georgia Tech,georgia tech,ACC,meta:talent_raw,35.6283
 NC State,nc state,ACC,fpi,3.719
 NC State,nc state,ACC,sp_plus,5.7
-NC State,nc state,ACC,talent,8.3064
-NC State,nc state,ACC,meta:blue_chip_ratio,0.2716
+NC State,nc state,ACC,talent,4.822
+NC State,nc state,ACC,meta:blue_chip_ratio,0.2529
 NC State,nc state,ACC,meta:returning_ppa,233.7
 NC State,nc state,ACC,meta:sp_defense,24.9
 NC State,nc state,ACC,meta:sp_offense,31.0
 NC State,nc state,ACC,meta:sp_special,-0.4
-NC State,nc state,ACC,meta:talent_raw,36.0418
+NC State,nc state,ACC,meta:talent_raw,35.4284
 Arkansas,arkansas,SEC,fpi,4.396
 Arkansas,arkansas,SEC,sp_plus,5.6
-Arkansas,arkansas,SEC,talent,7.4181
-Arkansas,arkansas,SEC,meta:blue_chip_ratio,0.2676
+Arkansas,arkansas,SEC,talent,4.6248
+Arkansas,arkansas,SEC,meta:blue_chip_ratio,0.2262
 Arkansas,arkansas,SEC,meta:returning_ppa,65.7
 Arkansas,arkansas,SEC,meta:sp_defense,29.0
 Arkansas,arkansas,SEC,meta:sp_offense,34.4
 Arkansas,arkansas,SEC,meta:sp_special,0.3
-Arkansas,arkansas,SEC,meta:talent_raw,35.9344
+Arkansas,arkansas,SEC,meta:talent_raw,35.4063
 Duke,duke,ACC,fpi,3.547
 Duke,duke,ACC,sp_plus,5.6
-Duke,duke,ACC,talent,1.1754
-Duke,duke,ACC,meta:blue_chip_ratio,0.0933
+Duke,duke,ACC,talent,2.4268
+Duke,duke,ACC,meta:blue_chip_ratio,0.0814
 Duke,duke,ACC,meta:returning_ppa,75.6
 Duke,duke,ACC,meta:sp_defense,27.6
 Duke,duke,ACC,meta:sp_offense,32.8
 Duke,duke,ACC,meta:sp_special,0.4
-Duke,duke,ACC,meta:talent_raw,35.1796
+Duke,duke,ACC,meta:talent_raw,35.1599
 UCLA,ucla,Big Ten,fpi,0.472
 UCLA,ucla,Big Ten,sp_plus,5.4
-UCLA,ucla,Big Ten,talent,9.0235
-UCLA,ucla,Big Ten,meta:blue_chip_ratio,0.2262
+UCLA,ucla,Big Ten,talent,4.3412
+UCLA,ucla,Big Ten,meta:blue_chip_ratio,0.1881
 UCLA,ucla,Big Ten,meta:returning_ppa,108.3
 UCLA,ucla,Big Ten,meta:sp_defense,23.7
 UCLA,ucla,Big Ten,meta:sp_offense,29.1
 UCLA,ucla,Big Ten,meta:sp_special,0.0
-UCLA,ucla,Big Ten,meta:talent_raw,36.1285
+UCLA,ucla,Big Ten,meta:talent_raw,35.3745
 Maryland,maryland,Big Ten,fpi,1.024
 Maryland,maryland,Big Ten,sp_plus,5.2
-Maryland,maryland,Big Ten,talent,4.4903
-Maryland,maryland,Big Ten,meta:blue_chip_ratio,0.169
+Maryland,maryland,Big Ten,talent,5.7792
+Maryland,maryland,Big Ten,meta:blue_chip_ratio,0.1481
 Maryland,maryland,Big Ten,meta:returning_ppa,112.3
 Maryland,maryland,Big Ten,meta:sp_defense,22.0
 Maryland,maryland,Big Ten,meta:sp_offense,26.8
 Maryland,maryland,Big Ten,meta:sp_special,0.3
-Maryland,maryland,Big Ten,meta:talent_raw,35.5804
+Maryland,maryland,Big Ten,meta:talent_raw,35.5357
 Kentucky,kentucky,SEC,fpi,5.366
 Kentucky,kentucky,SEC,sp_plus,5.2
-Kentucky,kentucky,SEC,talent,11.9869
-Kentucky,kentucky,SEC,meta:blue_chip_ratio,0.3333
+Kentucky,kentucky,SEC,talent,8.9692
+Kentucky,kentucky,SEC,meta:blue_chip_ratio,0.3
 Kentucky,kentucky,SEC,meta:returning_ppa,43.8
 Kentucky,kentucky,SEC,meta:sp_defense,21.1
 Kentucky,kentucky,SEC,meta:sp_offense,26.3
 Kentucky,kentucky,SEC,meta:sp_special,0.0
-Kentucky,kentucky,SEC,meta:talent_raw,36.4868
+Kentucky,kentucky,SEC,meta:talent_raw,35.8933
 Northwestern,northwestern,Big Ten,fpi,1.414
 Northwestern,northwestern,Big Ten,sp_plus,5.1
-Northwestern,northwestern,Big Ten,talent,0.1415
-Northwestern,northwestern,Big Ten,meta:blue_chip_ratio,0.0811
+Northwestern,northwestern,Big Ten,talent,-1.087
+Northwestern,northwestern,Big Ten,meta:blue_chip_ratio,0.0741
 Northwestern,northwestern,Big Ten,meta:returning_ppa,198.2
 Northwestern,northwestern,Big Ten,meta:sp_defense,20.7
 Northwestern,northwestern,Big Ten,meta:sp_offense,25.3
 Northwestern,northwestern,Big Ten,meta:sp_special,0.5
-Northwestern,northwestern,Big Ten,meta:talent_raw,35.0546
+Northwestern,northwestern,Big Ten,meta:talent_raw,34.766
 Boise State,boise state,Pac-12,fpi,4.045
 Boise State,boise state,Pac-12,sp_plus,5.1
-Boise State,boise state,Pac-12,talent,-1.8749
-Boise State,boise state,Pac-12,meta:blue_chip_ratio,0.038
+Boise State,boise state,Pac-12,talent,-1.9104
+Boise State,boise state,Pac-12,meta:blue_chip_ratio,0.0353
 Boise State,boise state,Pac-12,meta:returning_ppa,234.2
 Boise State,boise state,Pac-12,meta:sp_defense,23.7
 Boise State,boise state,Pac-12,meta:sp_offense,29.0
 Boise State,boise state,Pac-12,meta:sp_special,-0.3
-Boise State,boise state,Pac-12,meta:talent_raw,34.8108
+Boise State,boise state,Pac-12,meta:talent_raw,34.6737
 Arizona State,arizona state,Big 12,fpi,4.76
 Arizona State,arizona state,Big 12,sp_plus,4.9
-Arizona State,arizona state,Big 12,talent,4.0064
-Arizona State,arizona state,Big 12,meta:blue_chip_ratio,0.15
+Arizona State,arizona state,Big 12,talent,4.5722
+Arizona State,arizona state,Big 12,meta:blue_chip_ratio,0.1395
 Arizona State,arizona state,Big 12,meta:returning_ppa,37.6
 Arizona State,arizona state,Big 12,meta:sp_defense,22.0
 Arizona State,arizona state,Big 12,meta:sp_offense,27.4
 Arizona State,arizona state,Big 12,meta:sp_special,-0.6
-Arizona State,arizona state,Big 12,meta:talent_raw,35.5219
+Arizona State,arizona state,Big 12,meta:talent_raw,35.4004
 Mississippi State,mississippi state,SEC,fpi,4.082
 Mississippi State,mississippi state,SEC,sp_plus,4.8
-Mississippi State,mississippi state,SEC,talent,12.0729
-Mississippi State,mississippi state,SEC,meta:blue_chip_ratio,0.3896
+Mississippi State,mississippi state,SEC,talent,7.9808
+Mississippi State,mississippi state,SEC,meta:blue_chip_ratio,0.3488
 Mississippi State,mississippi state,SEC,meta:returning_ppa,109.5
 Mississippi State,mississippi state,SEC,meta:sp_defense,26.5
 Mississippi State,mississippi state,SEC,meta:sp_offense,30.8
 Mississippi State,mississippi state,SEC,meta:sp_special,0.5
-Mississippi State,mississippi state,SEC,meta:talent_raw,36.4972
+Mississippi State,mississippi state,SEC,meta:talent_raw,35.7825
 Baylor,baylor,Big 12,fpi,6.518
 Baylor,baylor,Big 12,sp_plus,3.8
-Baylor,baylor,Big 12,talent,3.7228
-Baylor,baylor,Big 12,meta:blue_chip_ratio,0.2281
+Baylor,baylor,Big 12,talent,1.3081
+Baylor,baylor,Big 12,meta:blue_chip_ratio,0.1806
 Baylor,baylor,Big 12,meta:returning_ppa,212.6
 Baylor,baylor,Big 12,meta:sp_defense,28.8
 Baylor,baylor,Big 12,meta:sp_offense,31.9
 Baylor,baylor,Big 12,meta:sp_special,0.6
-Baylor,baylor,Big 12,meta:talent_raw,35.4876
+Baylor,baylor,Big 12,meta:talent_raw,35.0345
 Wisconsin,wisconsin,Big Ten,fpi,4.818
 Wisconsin,wisconsin,Big Ten,sp_plus,3.8
-Wisconsin,wisconsin,Big Ten,talent,9.6786
-Wisconsin,wisconsin,Big Ten,meta:blue_chip_ratio,0.2927
+Wisconsin,wisconsin,Big Ten,talent,7.2511
+Wisconsin,wisconsin,Big Ten,meta:blue_chip_ratio,0.2609
 Wisconsin,wisconsin,Big Ten,meta:returning_ppa,29.8
 Wisconsin,wisconsin,Big Ten,meta:sp_defense,17.5
 Wisconsin,wisconsin,Big Ten,meta:sp_offense,21.6
 Wisconsin,wisconsin,Big Ten,meta:sp_special,-0.3
-Wisconsin,wisconsin,Big Ten,meta:talent_raw,36.2077
+Wisconsin,wisconsin,Big Ten,meta:talent_raw,35.7007
 UNLV,unlv,Mountain West,fpi,1.791
 UNLV,unlv,Mountain West,sp_plus,3.6
-UNLV,unlv,Mountain West,talent,1.9272
-UNLV,unlv,Mountain West,meta:blue_chip_ratio,0.137
+UNLV,unlv,Mountain West,talent,-2.1462
+UNLV,unlv,Mountain West,meta:blue_chip_ratio,0.1299
 UNLV,unlv,Mountain West,meta:returning_ppa,66.1
 UNLV,unlv,Mountain West,meta:sp_defense,28.0
 UNLV,unlv,Mountain West,meta:sp_offense,31.4
 UNLV,unlv,Mountain West,meta:sp_special,0.1
-UNLV,unlv,Mountain West,meta:talent_raw,35.2705
+UNLV,unlv,Mountain West,meta:talent_raw,34.6473
 North Carolina,north carolina,ACC,fpi,4.91
 North Carolina,north carolina,ACC,sp_plus,3.5
-North Carolina,north carolina,ACC,talent,8.7299
-North Carolina,north carolina,ACC,meta:blue_chip_ratio,0.2857
+North Carolina,north carolina,ACC,talent,7.5205
+North Carolina,north carolina,ACC,meta:blue_chip_ratio,0.2553
 North Carolina,north carolina,ACC,meta:returning_ppa,46.9
 North Carolina,north carolina,ACC,meta:sp_defense,21.2
 North Carolina,north carolina,ACC,meta:sp_offense,24.3
 North Carolina,north carolina,ACC,meta:sp_special,0.4
-North Carolina,north carolina,ACC,meta:talent_raw,36.093
+North Carolina,north carolina,ACC,meta:talent_raw,35.7309
 Wake Forest,wake forest,ACC,fpi,3.379
 Wake Forest,wake forest,ACC,sp_plus,3.4
-Wake Forest,wake forest,ACC,talent,1.1084
-Wake Forest,wake forest,ACC,meta:blue_chip_ratio,0.1081
+Wake Forest,wake forest,ACC,talent,-0.0621
+Wake Forest,wake forest,ACC,meta:blue_chip_ratio,0.092
 Wake Forest,wake forest,ACC,meta:returning_ppa,44.1
 Wake Forest,wake forest,ACC,meta:sp_defense,20.7
 Wake Forest,wake forest,ACC,meta:sp_offense,24.2
 Wake Forest,wake forest,ACC,meta:sp_special,0.0
-Wake Forest,wake forest,ACC,meta:talent_raw,35.1715
+Wake Forest,wake forest,ACC,meta:talent_raw,34.8809
 Kansas,kansas,Big 12,fpi,2.759
 Kansas,kansas,Big 12,sp_plus,3.3
-Kansas,kansas,Big 12,talent,2.9519
-Kansas,kansas,Big 12,meta:blue_chip_ratio,0.1067
+Kansas,kansas,Big 12,talent,0.7087
+Kansas,kansas,Big 12,meta:blue_chip_ratio,0.093
 Kansas,kansas,Big 12,meta:returning_ppa,59.5
 Kansas,kansas,Big 12,meta:sp_defense,26.1
 Kansas,kansas,Big 12,meta:sp_offense,28.8
 Kansas,kansas,Big 12,meta:sp_special,0.6
-Kansas,kansas,Big 12,meta:talent_raw,35.3944
+Kansas,kansas,Big 12,meta:talent_raw,34.9673
 Cincinnati,cincinnati,Big 12,fpi,4.406
 Cincinnati,cincinnati,Big 12,sp_plus,3.0
-Cincinnati,cincinnati,Big 12,talent,-1.645
-Cincinnati,cincinnati,Big 12,meta:blue_chip_ratio,0.04
+Cincinnati,cincinnati,Big 12,talent,0.3072
+Cincinnati,cincinnati,Big 12,meta:blue_chip_ratio,0.033
 Cincinnati,cincinnati,Big 12,meta:returning_ppa,34.8
 Cincinnati,cincinnati,Big 12,meta:sp_defense,26.1
 Cincinnati,cincinnati,Big 12,meta:sp_offense,28.9
 Cincinnati,cincinnati,Big 12,meta:sp_special,0.3
-Cincinnati,cincinnati,Big 12,meta:talent_raw,34.8386
+Cincinnati,cincinnati,Big 12,meta:talent_raw,34.9223
 California,california,ACC,fpi,0.884
 California,california,ACC,sp_plus,3.0
-California,california,ACC,talent,6.9996
-California,california,ACC,meta:blue_chip_ratio,0.2632
+California,california,ACC,talent,4.9379
+California,california,ACC,meta:blue_chip_ratio,0.2381
 California,california,ACC,meta:returning_ppa,188.8
 California,california,ACC,meta:sp_defense,25.5
 California,california,ACC,meta:sp_offense,28.8
 California,california,ACC,meta:sp_special,-0.3
-California,california,ACC,meta:talent_raw,35.8838
+California,california,ACC,meta:talent_raw,35.4414
 Rutgers,rutgers,Big Ten,fpi,-0.153
 Rutgers,rutgers,Big Ten,sp_plus,2.7
-Rutgers,rutgers,Big Ten,talent,4.0602
-Rutgers,rutgers,Big Ten,meta:blue_chip_ratio,0.1556
+Rutgers,rutgers,Big Ten,talent,4.8398
+Rutgers,rutgers,Big Ten,meta:blue_chip_ratio,0.14
 Rutgers,rutgers,Big Ten,meta:returning_ppa,165.0
 Rutgers,rutgers,Big Ten,meta:sp_defense,28.2
 Rutgers,rutgers,Big Ten,meta:sp_offense,30.8
 Rutgers,rutgers,Big Ten,meta:sp_special,0.1
-Rutgers,rutgers,Big Ten,meta:talent_raw,35.5284
+Rutgers,rutgers,Big Ten,meta:talent_raw,35.4304
 Michigan State,michigan state,Big Ten,fpi,0.281
 Michigan State,michigan state,Big Ten,sp_plus,2.2
-Michigan State,michigan state,Big Ten,talent,2.2084
-Michigan State,michigan state,Big Ten,meta:blue_chip_ratio,0.1571
+Michigan State,michigan state,Big Ten,talent,3.8773
+Michigan State,michigan state,Big Ten,meta:blue_chip_ratio,0.1222
 Michigan State,michigan state,Big Ten,meta:returning_ppa,52.9
 Michigan State,michigan state,Big Ten,meta:sp_defense,25.1
 Michigan State,michigan state,Big Ten,meta:sp_offense,27.7
 Michigan State,michigan state,Big Ten,meta:sp_special,-0.4
-Michigan State,michigan state,Big Ten,meta:talent_raw,35.3045
+Michigan State,michigan state,Big Ten,meta:talent_raw,35.3225
 UCF,ucf,Big 12,fpi,2.116
 UCF,ucf,Big 12,sp_plus,1.7
-UCF,ucf,Big 12,talent,1.6617
-UCF,ucf,Big 12,meta:blue_chip_ratio,0.1667
+UCF,ucf,Big 12,talent,0.6257
+UCF,ucf,Big 12,meta:blue_chip_ratio,0.1216
 UCF,ucf,Big 12,meta:returning_ppa,62.3
 UCF,ucf,Big 12,meta:sp_defense,22.3
 UCF,ucf,Big 12,meta:sp_offense,24.2
 UCF,ucf,Big 12,meta:sp_special,-0.1
-UCF,ucf,Big 12,meta:talent_raw,35.2384
+UCF,ucf,Big 12,meta:talent_raw,34.958
 Navy,navy,American Athletic,fpi,-0.712
 Navy,navy,American Athletic,sp_plus,1.2
-Navy,navy,American Athletic,talent,-43.6788
+Navy,navy,American Athletic,talent,-45.7759
 Navy,navy,American Athletic,meta:returning_ppa,46.7
 Navy,navy,American Athletic,meta:sp_defense,26.8
 Navy,navy,American Athletic,meta:sp_offense,27.8
@@ -576,150 +576,150 @@ Navy,navy,American Athletic,meta:sp_special,0.2
 Navy,navy,American Athletic,meta:talent_raw,29.7564
 San Diego State,san diego state,Pac-12,fpi,1.426
 San Diego State,san diego state,Pac-12,sp_plus,0.7
-San Diego State,san diego state,Pac-12,talent,-7.3188
-San Diego State,san diego state,Pac-12,meta:blue_chip_ratio,0.0213
+San Diego State,san diego state,Pac-12,talent,-6.9105
+San Diego State,san diego state,Pac-12,meta:blue_chip_ratio,0.0164
 San Diego State,san diego state,Pac-12,meta:returning_ppa,182.6
 San Diego State,san diego state,Pac-12,meta:sp_defense,24.0
 San Diego State,san diego state,Pac-12,meta:sp_offense,24.1
 San Diego State,san diego state,Pac-12,meta:sp_special,0.6
-San Diego State,san diego state,Pac-12,meta:talent_raw,34.1526
+San Diego State,san diego state,Pac-12,meta:talent_raw,34.1132
 Colorado,colorado,Big 12,fpi,4.546
 Colorado,colorado,Big 12,sp_plus,0.7
-Colorado,colorado,Big 12,talent,6.1229
-Colorado,colorado,Big 12,meta:blue_chip_ratio,0.375
+Colorado,colorado,Big 12,talent,3.6222
+Colorado,colorado,Big 12,meta:blue_chip_ratio,0.25
 Colorado,colorado,Big 12,meta:returning_ppa,26.4
 Colorado,colorado,Big 12,meta:sp_defense,25.0
 Colorado,colorado,Big 12,meta:sp_offense,26.1
 Colorado,colorado,Big 12,meta:sp_special,-0.5
-Colorado,colorado,Big 12,meta:talent_raw,35.7778
+Colorado,colorado,Big 12,meta:talent_raw,35.2939
 Memphis,memphis,American Athletic,fpi,-1.917
 Memphis,memphis,American Athletic,sp_plus,0.3
-Memphis,memphis,American Athletic,talent,0.2011
-Memphis,memphis,American Athletic,meta:blue_chip_ratio,0.1111
+Memphis,memphis,American Athletic,talent,-3.7704
+Memphis,memphis,American Athletic,meta:blue_chip_ratio,0.0824
 Memphis,memphis,American Athletic,meta:returning_ppa,20.7
 Memphis,memphis,American Athletic,meta:sp_defense,29.2
 Memphis,memphis,American Athletic,meta:sp_offense,29.0
 Memphis,memphis,American Athletic,meta:sp_special,0.5
-Memphis,memphis,American Athletic,meta:talent_raw,35.0618
+Memphis,memphis,American Athletic,meta:talent_raw,34.4652
 New Mexico,new mexico,Mountain West,fpi,-3.531
 New Mexico,new mexico,Mountain West,sp_plus,0.0
-New Mexico,new mexico,Mountain West,talent,-6.8597
-New Mexico,new mexico,Mountain West,meta:blue_chip_ratio,0.0357
+New Mexico,new mexico,Mountain West,talent,-7.4714
+New Mexico,new mexico,Mountain West,meta:blue_chip_ratio,0.0299
 New Mexico,new mexico,Mountain West,meta:returning_ppa,174.1
 New Mexico,new mexico,Mountain West,meta:sp_defense,26.1
 New Mexico,new mexico,Mountain West,meta:sp_offense,25.6
 New Mexico,new mexico,Mountain West,meta:sp_special,0.6
-New Mexico,new mexico,Mountain West,meta:talent_raw,34.2081
+New Mexico,new mexico,Mountain West,meta:talent_raw,34.0503
 Iowa State,iowa state,Big 12,fpi,-0.943
 Iowa State,iowa state,Big 12,sp_plus,-0.4
-Iowa State,iowa state,Big 12,talent,1.2357
-Iowa State,iowa state,Big 12,meta:blue_chip_ratio,0.0667
+Iowa State,iowa state,Big 12,talent,-1.5411
+Iowa State,iowa state,Big 12,meta:blue_chip_ratio,0.0549
 Iowa State,iowa state,Big 12,meta:returning_ppa,4.7
 Iowa State,iowa state,Big 12,meta:sp_defense,23.2
 Iowa State,iowa state,Big 12,meta:sp_offense,22.4
 Iowa State,iowa state,Big 12,meta:sp_special,0.5
-Iowa State,iowa state,Big 12,meta:talent_raw,35.1869
+Iowa State,iowa state,Big 12,meta:talent_raw,34.7151
 James Madison,james madison,Sun Belt,fpi,-2.026
 James Madison,james madison,Sun Belt,sp_plus,-0.9
-James Madison,james madison,Sun Belt,talent,-4.8847
-James Madison,james madison,Sun Belt,meta:blue_chip_ratio,0.0526
+James Madison,james madison,Sun Belt,talent,-5.1285
+James Madison,james madison,Sun Belt,meta:blue_chip_ratio,0.038
 James Madison,james madison,Sun Belt,meta:returning_ppa,31.0
 James Madison,james madison,Sun Belt,meta:sp_defense,27.2
 James Madison,james madison,Sun Belt,meta:sp_offense,26.7
 James Madison,james madison,Sun Belt,meta:sp_special,-0.4
-James Madison,james madison,Sun Belt,meta:talent_raw,34.4469
+James Madison,james madison,Sun Belt,meta:talent_raw,34.313
 UTSA,utsa,American Athletic,fpi,-5.31
 UTSA,utsa,American Athletic,sp_plus,-1.1
-UTSA,utsa,American Athletic,talent,-2.1131
-UTSA,utsa,American Athletic,meta:blue_chip_ratio,0.18
+UTSA,utsa,American Athletic,talent,-4.4749
+UTSA,utsa,American Athletic,meta:blue_chip_ratio,0.1579
 UTSA,utsa,American Athletic,meta:returning_ppa,234.1
 UTSA,utsa,American Athletic,meta:sp_defense,31.1
 UTSA,utsa,American Athletic,meta:sp_offense,29.9
 UTSA,utsa,American Athletic,meta:sp_special,0.1
-UTSA,utsa,American Athletic,meta:talent_raw,34.782
+UTSA,utsa,American Athletic,meta:talent_raw,34.3862
 West Virginia,west virginia,Big 12,fpi,0.197
 West Virginia,west virginia,Big 12,sp_plus,-1.3
-West Virginia,west virginia,Big 12,talent,3.9039
-West Virginia,west virginia,Big 12,meta:blue_chip_ratio,0.1818
+West Virginia,west virginia,Big 12,talent,1.7399
+West Virginia,west virginia,Big 12,meta:blue_chip_ratio,0.1573
 West Virginia,west virginia,Big 12,meta:returning_ppa,21.1
 West Virginia,west virginia,Big 12,meta:sp_defense,26.6
 West Virginia,west virginia,Big 12,meta:sp_offense,25.3
 West Virginia,west virginia,Big 12,meta:sp_special,0.1
-West Virginia,west virginia,Big 12,meta:talent_raw,35.5095
+West Virginia,west virginia,Big 12,meta:talent_raw,35.0829
 Fresno State,fresno state,Pac-12,fpi,-2.498
 Fresno State,fresno state,Pac-12,sp_plus,-1.4
-Fresno State,fresno state,Pac-12,talent,-4.6423
-Fresno State,fresno state,Pac-12,meta:blue_chip_ratio,0.013
+Fresno State,fresno state,Pac-12,talent,-6.4957
+Fresno State,fresno state,Pac-12,meta:blue_chip_ratio,0.012
 Fresno State,fresno state,Pac-12,meta:returning_ppa,104.6
 Fresno State,fresno state,Pac-12,meta:sp_defense,22.4
 Fresno State,fresno state,Pac-12,meta:sp_offense,21.0
 Fresno State,fresno state,Pac-12,meta:sp_special,0.0
-Fresno State,fresno state,Pac-12,meta:talent_raw,34.4762
+Fresno State,fresno state,Pac-12,meta:talent_raw,34.1597
 South Florida,south florida,American Athletic,fpi,-0.949
 South Florida,south florida,American Athletic,sp_plus,-1.7
-South Florida,south florida,American Athletic,talent,3.6326
-South Florida,south florida,American Athletic,meta:blue_chip_ratio,0.1379
+South Florida,south florida,American Athletic,talent,-2.1101
+South Florida,south florida,American Athletic,meta:blue_chip_ratio,0.1263
 South Florida,south florida,American Athletic,meta:returning_ppa,55.0
 South Florida,south florida,American Athletic,meta:sp_defense,29.6
 South Florida,south florida,American Athletic,meta:sp_offense,28.1
 South Florida,south florida,American Athletic,meta:sp_special,-0.3
-South Florida,south florida,American Athletic,meta:talent_raw,35.4767
+South Florida,south florida,American Athletic,meta:talent_raw,34.6513
 North Dakota State,north dakota state,Mountain West,fpi,-8.324
 North Dakota State,north dakota state,Mountain West,sp_plus,-1.8
-North Dakota State,north dakota state,Mountain West,talent,-12.0414
+North Dakota State,north dakota state,Mountain West,talent,-11.7897
 North Dakota State,north dakota state,Mountain West,meta:blue_chip_ratio,0.0
 North Dakota State,north dakota state,Mountain West,meta:sp_defense,25.9
 North Dakota State,north dakota state,Mountain West,meta:sp_offense,24.1
 North Dakota State,north dakota state,Mountain West,meta:sp_special,0.0
-North Dakota State,north dakota state,Mountain West,meta:talent_raw,33.5816
+North Dakota State,north dakota state,Mountain West,meta:talent_raw,33.5662
 Syracuse,syracuse,ACC,fpi,-0.808
 Syracuse,syracuse,ACC,sp_plus,-1.9
-Syracuse,syracuse,ACC,talent,7.3909
-Syracuse,syracuse,ACC,meta:blue_chip_ratio,0.2169
+Syracuse,syracuse,ACC,talent,3.6694
+Syracuse,syracuse,ACC,meta:blue_chip_ratio,0.1935
 Syracuse,syracuse,ACC,meta:returning_ppa,80.1
 Syracuse,syracuse,ACC,meta:sp_defense,25.6
 Syracuse,syracuse,ACC,meta:sp_offense,23.3
 Syracuse,syracuse,ACC,meta:sp_special,0.4
-Syracuse,syracuse,ACC,meta:talent_raw,35.9311
+Syracuse,syracuse,ACC,meta:talent_raw,35.2992
 Texas State,texas state,Pac-12,fpi,-4.26
 Texas State,texas state,Pac-12,sp_plus,-2.1
-Texas State,texas state,Pac-12,talent,-3.0767
-Texas State,texas state,Pac-12,meta:blue_chip_ratio,0.0429
+Texas State,texas state,Pac-12,talent,-4.2848
+Texas State,texas state,Pac-12,meta:blue_chip_ratio,0.0366
 Texas State,texas state,Pac-12,meta:returning_ppa,306.4
 Texas State,texas state,Pac-12,meta:sp_defense,35.4
 Texas State,texas state,Pac-12,meta:sp_offense,33.2
 Texas State,texas state,Pac-12,meta:sp_special,0.1
-Texas State,texas state,Pac-12,meta:talent_raw,34.6655
+Texas State,texas state,Pac-12,meta:talent_raw,34.4075
 Purdue,purdue,Big Ten,fpi,-0.929
 Purdue,purdue,Big Ten,sp_plus,-2.2
-Purdue,purdue,Big Ten,talent,2.8237
-Purdue,purdue,Big Ten,meta:blue_chip_ratio,0.125
+Purdue,purdue,Big Ten,talent,0.8023
+Purdue,purdue,Big Ten,meta:blue_chip_ratio,0.1075
 Purdue,purdue,Big Ten,meta:returning_ppa,111.7
 Purdue,purdue,Big Ten,meta:sp_defense,27.0
 Purdue,purdue,Big Ten,meta:sp_offense,24.2
 Purdue,purdue,Big Ten,meta:sp_special,0.6
-Purdue,purdue,Big Ten,meta:talent_raw,35.3789
+Purdue,purdue,Big Ten,meta:talent_raw,34.9778
 Stanford,stanford,ACC,fpi,-3.344
 Stanford,stanford,ACC,sp_plus,-2.3
-Stanford,stanford,ACC,talent,3.9196
-Stanford,stanford,ACC,meta:blue_chip_ratio,0.1222
+Stanford,stanford,ACC,talent,5.1012
+Stanford,stanford,ACC,meta:blue_chip_ratio,0.1134
 Stanford,stanford,ACC,meta:returning_ppa,47.9
 Stanford,stanford,ACC,meta:sp_defense,24.2
 Stanford,stanford,ACC,meta:sp_offense,22.5
 Stanford,stanford,ACC,meta:sp_special,-0.6
-Stanford,stanford,ACC,meta:talent_raw,35.5114
+Stanford,stanford,ACC,meta:talent_raw,35.4597
 East Carolina,east carolina,American Athletic,fpi,-0.564
 East Carolina,east carolina,American Athletic,sp_plus,-2.3
-East Carolina,east carolina,American Athletic,talent,-3.1337
-East Carolina,east carolina,American Athletic,meta:blue_chip_ratio,0.0492
+East Carolina,east carolina,American Athletic,talent,-4.2775
+East Carolina,east carolina,American Athletic,meta:blue_chip_ratio,0.0448
 East Carolina,east carolina,American Athletic,meta:returning_ppa,50.6
 East Carolina,east carolina,American Athletic,meta:sp_defense,26.3
 East Carolina,east carolina,American Athletic,meta:sp_offense,24.1
 East Carolina,east carolina,American Athletic,meta:sp_special,-0.2
-East Carolina,east carolina,American Athletic,meta:talent_raw,34.6586
+East Carolina,east carolina,American Athletic,meta:talent_raw,34.4083
 Army,army,American Athletic,fpi,-5.63
 Army,army,American Athletic,sp_plus,-2.4
-Army,army,American Athletic,talent,-43.7524
+Army,army,American Athletic,talent,-45.8553
 Army,army,American Athletic,meta:returning_ppa,168.5
 Army,army,American Athletic,meta:sp_defense,27.2
 Army,army,American Athletic,meta:sp_offense,24.8
@@ -727,25 +727,25 @@ Army,army,American Athletic,meta:sp_special,0.1
 Army,army,American Athletic,meta:talent_raw,29.7475
 Boston College,boston college,ACC,fpi,-2.668
 Boston College,boston college,ACC,sp_plus,-2.5
-Boston College,boston college,ACC,talent,0.1283
-Boston College,boston college,ACC,meta:blue_chip_ratio,0.0759
+Boston College,boston college,ACC,talent,-1.1317
+Boston College,boston college,ACC,meta:blue_chip_ratio,0.0632
 Boston College,boston college,ACC,meta:returning_ppa,45.8
 Boston College,boston college,ACC,meta:sp_defense,27.7
 Boston College,boston college,ACC,meta:sp_offense,24.7
 Boston College,boston college,ACC,meta:sp_special,0.5
-Boston College,boston college,ACC,meta:talent_raw,35.053
+Boston College,boston college,ACC,meta:talent_raw,34.761
 Hawai'i,hawaii,Mountain West,fpi,-2.371
 Hawai'i,hawaii,Mountain West,sp_plus,-2.6
-Hawai'i,hawaii,Mountain West,talent,-8.8985
-Hawai'i,hawaii,Mountain West,meta:blue_chip_ratio,0.0364
+Hawai'i,hawaii,Mountain West,talent,-9.1985
+Hawai'i,hawaii,Mountain West,meta:blue_chip_ratio,0.0323
 Hawai'i,hawaii,Mountain West,meta:returning_ppa,234.7
 Hawai'i,hawaii,Mountain West,meta:sp_defense,29.1
 Hawai'i,hawaii,Mountain West,meta:sp_offense,25.9
 Hawai'i,hawaii,Mountain West,meta:sp_special,0.6
-Hawai'i,hawaii,Mountain West,meta:talent_raw,33.9616
+Hawai'i,hawaii,Mountain West,meta:talent_raw,33.8567
 Air Force,air force,Mountain West,fpi,-6.842
 Air Force,air force,Mountain West,sp_plus,-3.2
-Air Force,air force,Mountain West,talent,-52.4591
+Air Force,air force,Mountain West,talent,-55.246
 Air Force,air force,Mountain West,meta:returning_ppa,185.9
 Air Force,air force,Mountain West,meta:sp_defense,28.1
 Air Force,air force,Mountain West,meta:sp_offense,24.8
@@ -753,486 +753,486 @@ Air Force,air force,Mountain West,meta:sp_special,0.1
 Air Force,air force,Mountain West,meta:talent_raw,28.6948
 Miami (OH),miami oh,Mid-American,fpi,-6.994
 Miami (OH),miami oh,Mid-American,sp_plus,-4.0
-Miami (OH),miami oh,Mid-American,talent,-3.501
-Miami (OH),miami oh,Mid-American,meta:blue_chip_ratio,0.0581
+Miami (OH),miami oh,Mid-American,talent,-4.9241
+Miami (OH),miami oh,Mid-American,meta:blue_chip_ratio,0.0549
 Miami (OH),miami oh,Mid-American,meta:returning_ppa,31.9
 Miami (OH),miami oh,Mid-American,meta:sp_defense,23.8
 Miami (OH),miami oh,Mid-American,meta:sp_offense,19.2
 Miami (OH),miami oh,Mid-American,meta:sp_special,0.5
-Miami (OH),miami oh,Mid-American,meta:talent_raw,34.6142
+Miami (OH),miami oh,Mid-American,meta:talent_raw,34.3359
 Washington State,washington state,Pac-12,fpi,-4.054
 Washington State,washington state,Pac-12,sp_plus,-4.3
-Washington State,washington state,Pac-12,talent,-3.367
-Washington State,washington state,Pac-12,meta:blue_chip_ratio,0.1509
+Washington State,washington state,Pac-12,talent,-6.3056
+Washington State,washington state,Pac-12,meta:blue_chip_ratio,0.1143
 Washington State,washington state,Pac-12,meta:returning_ppa,228.3
 Washington State,washington state,Pac-12,meta:sp_defense,24.6
 Washington State,washington state,Pac-12,meta:sp_offense,20.4
 Washington State,washington state,Pac-12,meta:sp_special,-0.1
-Washington State,washington state,Pac-12,meta:talent_raw,34.6304
+Washington State,washington state,Pac-12,meta:talent_raw,34.181
 Tulane,tulane,American Athletic,fpi,2.251
 Tulane,tulane,American Athletic,sp_plus,-4.3
-Tulane,tulane,American Athletic,talent,0.7279
-Tulane,tulane,American Athletic,meta:blue_chip_ratio,0.0769
+Tulane,tulane,American Athletic,talent,-0.7092
+Tulane,tulane,American Athletic,meta:blue_chip_ratio,0.0732
 Tulane,tulane,American Athletic,meta:returning_ppa,72.5
 Tulane,tulane,American Athletic,meta:sp_defense,27.7
 Tulane,tulane,American Athletic,meta:sp_offense,22.8
 Tulane,tulane,American Athletic,meta:sp_special,0.6
-Tulane,tulane,American Athletic,meta:talent_raw,35.1255
+Tulane,tulane,American Athletic,meta:talent_raw,34.8084
 Liberty,liberty,Conference USA,fpi,-7.748
 Liberty,liberty,Conference USA,sp_plus,-5.3
-Liberty,liberty,Conference USA,talent,-0.7633
-Liberty,liberty,Conference USA,meta:blue_chip_ratio,0.0615
+Liberty,liberty,Conference USA,talent,-5.4054
+Liberty,liberty,Conference USA,meta:blue_chip_ratio,0.0533
 Liberty,liberty,Conference USA,meta:returning_ppa,86.9
 Liberty,liberty,Conference USA,meta:sp_defense,31.1
 Liberty,liberty,Conference USA,meta:sp_offense,26.0
 Liberty,liberty,Conference USA,meta:sp_special,-0.2
-Liberty,liberty,Conference USA,meta:talent_raw,34.9452
+Liberty,liberty,Conference USA,meta:talent_raw,34.2819
 Oregon State,oregon state,Pac-12,fpi,-8.101
 Oregon State,oregon state,Pac-12,sp_plus,-5.6
-Oregon State,oregon state,Pac-12,talent,-3.7458
-Oregon State,oregon state,Pac-12,meta:blue_chip_ratio,0.1042
+Oregon State,oregon state,Pac-12,talent,-3.2932
+Oregon State,oregon state,Pac-12,meta:blue_chip_ratio,0.0794
 Oregon State,oregon state,Pac-12,meta:returning_ppa,97.3
 Oregon State,oregon state,Pac-12,meta:sp_defense,26.1
 Oregon State,oregon state,Pac-12,meta:sp_offense,21.2
 Oregon State,oregon state,Pac-12,meta:sp_special,-0.7
-Oregon State,oregon state,Pac-12,meta:talent_raw,34.5846
+Oregon State,oregon state,Pac-12,meta:talent_raw,34.5187
 Western Michigan,western michigan,Mid-American,fpi,-4.037
 Western Michigan,western michigan,Mid-American,sp_plus,-6.0
-Western Michigan,western michigan,Mid-American,talent,-11.3169
-Western Michigan,western michigan,Mid-American,meta:blue_chip_ratio,0.0698
+Western Michigan,western michigan,Mid-American,talent,-11.8195
+Western Michigan,western michigan,Mid-American,meta:blue_chip_ratio,0.0638
 Western Michigan,western michigan,Mid-American,meta:returning_ppa,155.5
 Western Michigan,western michigan,Mid-American,meta:sp_defense,25.2
 Western Michigan,western michigan,Mid-American,meta:sp_offense,19.6
 Western Michigan,western michigan,Mid-American,meta:sp_special,-0.4
-Western Michigan,western michigan,Mid-American,meta:talent_raw,33.6692
+Western Michigan,western michigan,Mid-American,meta:talent_raw,33.5629
 Florida Atlantic,florida atlantic,American Athletic,fpi,-11.256
 Florida Atlantic,florida atlantic,American Athletic,sp_plus,-6.1
-Florida Atlantic,florida atlantic,American Athletic,talent,-4.2652
-Florida Atlantic,florida atlantic,American Athletic,meta:blue_chip_ratio,0.0492
+Florida Atlantic,florida atlantic,American Athletic,talent,-6.0846
+Florida Atlantic,florida atlantic,American Athletic,meta:blue_chip_ratio,0.0441
 Florida Atlantic,florida atlantic,American Athletic,meta:returning_ppa,266.8
 Florida Atlantic,florida atlantic,American Athletic,meta:sp_defense,34.3
 Florida Atlantic,florida atlantic,American Athletic,meta:sp_offense,27.7
 Florida Atlantic,florida atlantic,American Athletic,meta:sp_special,0.5
-Florida Atlantic,florida atlantic,American Athletic,meta:talent_raw,34.5218
+Florida Atlantic,florida atlantic,American Athletic,meta:talent_raw,34.2058
 Tulsa,tulsa,American Athletic,fpi,-8.963
 Tulsa,tulsa,American Athletic,sp_plus,-6.1
-Tulsa,tulsa,American Athletic,talent,-2.697
-Tulsa,tulsa,American Athletic,meta:blue_chip_ratio,0.0938
+Tulsa,tulsa,American Athletic,talent,-5.2487
+Tulsa,tulsa,American Athletic,meta:blue_chip_ratio,0.0811
 Tulsa,tulsa,American Athletic,meta:returning_ppa,89.6
 Tulsa,tulsa,American Athletic,meta:sp_defense,30.9
 Tulsa,tulsa,American Athletic,meta:sp_offense,24.2
 Tulsa,tulsa,American Athletic,meta:sp_special,0.5
-Tulsa,tulsa,American Athletic,meta:talent_raw,34.7114
+Tulsa,tulsa,American Athletic,meta:talent_raw,34.2995
 Old Dominion,old dominion,Sun Belt,fpi,-4.435
 Old Dominion,old dominion,Sun Belt,sp_plus,-6.9
-Old Dominion,old dominion,Sun Belt,talent,-24.6568
-Old Dominion,old dominion,Sun Belt,meta:blue_chip_ratio,0.0333
+Old Dominion,old dominion,Sun Belt,talent,-16.7454
+Old Dominion,old dominion,Sun Belt,meta:blue_chip_ratio,0.0263
 Old Dominion,old dominion,Sun Belt,meta:returning_ppa,32.8
 Old Dominion,old dominion,Sun Belt,meta:sp_defense,25.8
 Old Dominion,old dominion,Sun Belt,meta:sp_offense,19.6
 Old Dominion,old dominion,Sun Belt,meta:sp_special,-0.7
-Old Dominion,old dominion,Sun Belt,meta:talent_raw,32.0563
+Old Dominion,old dominion,Sun Belt,meta:talent_raw,33.0107
 Western Kentucky,western kentucky,Conference USA,fpi,-4.859
 Western Kentucky,western kentucky,Conference USA,sp_plus,-7.3
-Western Kentucky,western kentucky,Conference USA,talent,-8.3915
-Western Kentucky,western kentucky,Conference USA,meta:blue_chip_ratio,0.0244
+Western Kentucky,western kentucky,Conference USA,talent,-8.4298
+Western Kentucky,western kentucky,Conference USA,meta:blue_chip_ratio,0.0185
 Western Kentucky,western kentucky,Conference USA,meta:returning_ppa,312.2
 Western Kentucky,western kentucky,Conference USA,meta:sp_defense,32.0
 Western Kentucky,western kentucky,Conference USA,meta:sp_offense,24.2
 Western Kentucky,western kentucky,Conference USA,meta:sp_special,0.5
-Western Kentucky,western kentucky,Conference USA,meta:talent_raw,34.0229
+Western Kentucky,western kentucky,Conference USA,meta:talent_raw,33.9429
 Jacksonville State,jacksonville state,Conference USA,fpi,-8.463
 Jacksonville State,jacksonville state,Conference USA,sp_plus,-7.8
-Jacksonville State,jacksonville state,Conference USA,talent,-3.4141
-Jacksonville State,jacksonville state,Conference USA,meta:blue_chip_ratio,0.0968
+Jacksonville State,jacksonville state,Conference USA,talent,-6.4068
+Jacksonville State,jacksonville state,Conference USA,meta:blue_chip_ratio,0.08
 Jacksonville State,jacksonville state,Conference USA,meta:returning_ppa,133.7
 Jacksonville State,jacksonville state,Conference USA,meta:sp_defense,32.0
 Jacksonville State,jacksonville state,Conference USA,meta:sp_offense,24.8
 Jacksonville State,jacksonville state,Conference USA,meta:sp_special,-0.5
-Jacksonville State,jacksonville state,Conference USA,meta:talent_raw,34.6247
+Jacksonville State,jacksonville state,Conference USA,meta:talent_raw,34.1697
 Utah State,utah state,Pac-12,fpi,-6.707
 Utah State,utah state,Pac-12,sp_plus,-7.9
-Utah State,utah state,Pac-12,talent,-17.8615
-Utah State,utah state,Pac-12,meta:blue_chip_ratio,0.0556
+Utah State,utah state,Pac-12,talent,-14.6264
+Utah State,utah state,Pac-12,meta:blue_chip_ratio,0.0435
 Utah State,utah state,Pac-12,meta:returning_ppa,215.0
 Utah State,utah state,Pac-12,meta:sp_defense,30.8
 Utah State,utah state,Pac-12,meta:sp_offense,23.4
 Utah State,utah state,Pac-12,meta:sp_special,-0.5
-Utah State,utah state,Pac-12,meta:talent_raw,32.8779
+Utah State,utah state,Pac-12,meta:talent_raw,33.2482
 Troy,troy,Sun Belt,fpi,-7.359
 Troy,troy,Sun Belt,sp_plus,-8.0
-Troy,troy,Sun Belt,talent,-4.266
-Troy,troy,Sun Belt,meta:blue_chip_ratio,0.0926
+Troy,troy,Sun Belt,talent,-5.6954
+Troy,troy,Sun Belt,meta:blue_chip_ratio,0.0847
 Troy,troy,Sun Belt,meta:returning_ppa,75.1
 Troy,troy,Sun Belt,meta:sp_defense,30.7
 Troy,troy,Sun Belt,meta:sp_offense,22.5
 Troy,troy,Sun Belt,meta:sp_special,0.2
-Troy,troy,Sun Belt,meta:talent_raw,34.5217
+Troy,troy,Sun Belt,meta:talent_raw,34.2494
 Marshall,marshall,Sun Belt,fpi,-8.786
 Marshall,marshall,Sun Belt,sp_plus,-8.2
-Marshall,marshall,Sun Belt,talent,-9.7967
-Marshall,marshall,Sun Belt,meta:blue_chip_ratio,0.0714
+Marshall,marshall,Sun Belt,talent,-9.9392
+Marshall,marshall,Sun Belt,meta:blue_chip_ratio,0.0536
 Marshall,marshall,Sun Belt,meta:returning_ppa,284.6
 Marshall,marshall,Sun Belt,meta:sp_defense,36.0
 Marshall,marshall,Sun Belt,meta:sp_offense,27.6
 Marshall,marshall,Sun Belt,meta:sp_special,0.3
-Marshall,marshall,Sun Belt,meta:talent_raw,33.853
+Marshall,marshall,Sun Belt,meta:talent_raw,33.7737
 Louisiana Tech,louisiana tech,Sun Belt,fpi,-9.556
 Louisiana Tech,louisiana tech,Sun Belt,sp_plus,-9.1
-Louisiana Tech,louisiana tech,Sun Belt,talent,-7.4742
-Louisiana Tech,louisiana tech,Sun Belt,meta:blue_chip_ratio,0.0196
+Louisiana Tech,louisiana tech,Sun Belt,talent,-7.4792
+Louisiana Tech,louisiana tech,Sun Belt,meta:blue_chip_ratio,0.0172
 Louisiana Tech,louisiana tech,Sun Belt,meta:returning_ppa,138.6
 Louisiana Tech,louisiana tech,Sun Belt,meta:sp_defense,31.0
 Louisiana Tech,louisiana tech,Sun Belt,meta:sp_offense,21.9
 Louisiana Tech,louisiana tech,Sun Belt,meta:sp_special,0.0
-Louisiana Tech,louisiana tech,Sun Belt,meta:talent_raw,34.1338
+Louisiana Tech,louisiana tech,Sun Belt,meta:talent_raw,34.0494
 Temple,temple,American Athletic,fpi,-8.6
 Temple,temple,American Athletic,sp_plus,-9.1
-Temple,temple,American Athletic,talent,-2.2504
-Temple,temple,American Athletic,meta:blue_chip_ratio,0.0606
+Temple,temple,American Athletic,talent,-5.1635
+Temple,temple,American Athletic,meta:blue_chip_ratio,0.0541
 Temple,temple,American Athletic,meta:returning_ppa,96.1
 Temple,temple,American Athletic,meta:sp_defense,34.4
 Temple,temple,American Athletic,meta:sp_offense,25.0
 Temple,temple,American Athletic,meta:sp_special,0.3
-Temple,temple,American Athletic,meta:talent_raw,34.7654
+Temple,temple,American Athletic,meta:talent_raw,34.309
 Toledo,toledo,Mid-American,fpi,-2.972
 Toledo,toledo,Mid-American,sp_plus,-9.1
-Toledo,toledo,Mid-American,talent,-10.589
-Toledo,toledo,Mid-American,meta:blue_chip_ratio,0.025
+Toledo,toledo,Mid-American,talent,-8.0323
+Toledo,toledo,Mid-American,meta:blue_chip_ratio,0.0164
 Toledo,toledo,Mid-American,meta:returning_ppa,224.9
 Toledo,toledo,Mid-American,meta:sp_defense,26.6
 Toledo,toledo,Mid-American,meta:sp_offense,17.9
 Toledo,toledo,Mid-American,meta:sp_special,-0.4
-Toledo,toledo,Mid-American,meta:talent_raw,33.7572
+Toledo,toledo,Mid-American,meta:talent_raw,33.9874
 Louisiana,louisiana,Sun Belt,fpi,-8.278
 Louisiana,louisiana,Sun Belt,sp_plus,-10.6
-Louisiana,louisiana,Sun Belt,talent,-9.2847
-Louisiana,louisiana,Sun Belt,meta:blue_chip_ratio,0.0455
+Louisiana,louisiana,Sun Belt,talent,-9.5934
+Louisiana,louisiana,Sun Belt,meta:blue_chip_ratio,0.0408
 Louisiana,louisiana,Sun Belt,meta:returning_ppa,189.3
 Louisiana,louisiana,Sun Belt,meta:sp_defense,34.6
 Louisiana,louisiana,Sun Belt,meta:sp_offense,24.4
 Louisiana,louisiana,Sun Belt,meta:sp_special,-0.5
-Louisiana,louisiana,Sun Belt,meta:talent_raw,33.9149
+Louisiana,louisiana,Sun Belt,meta:talent_raw,33.8124
 Georgia Southern,georgia southern,Sun Belt,fpi,-8.701
 Georgia Southern,georgia southern,Sun Belt,sp_plus,-10.8
-Georgia Southern,georgia southern,Sun Belt,talent,-2.0337
-Georgia Southern,georgia southern,Sun Belt,meta:blue_chip_ratio,0.1169
+Georgia Southern,georgia southern,Sun Belt,talent,-5.3974
+Georgia Southern,georgia southern,Sun Belt,meta:blue_chip_ratio,0.1047
 Georgia Southern,georgia southern,Sun Belt,meta:returning_ppa,19.4
 Georgia Southern,georgia southern,Sun Belt,meta:sp_defense,33.5
 Georgia Southern,georgia southern,Sun Belt,meta:sp_offense,22.7
 Georgia Southern,georgia southern,Sun Belt,meta:sp_special,0.0
-Georgia Southern,georgia southern,Sun Belt,meta:talent_raw,34.7916
+Georgia Southern,georgia southern,Sun Belt,meta:talent_raw,34.2828
 Wyoming,wyoming,Mountain West,fpi,-13.069
 Wyoming,wyoming,Mountain West,sp_plus,-10.8
-Wyoming,wyoming,Mountain West,talent,-9.9712
-Wyoming,wyoming,Mountain West,meta:blue_chip_ratio,0.0145
+Wyoming,wyoming,Mountain West,talent,-8.7009
+Wyoming,wyoming,Mountain West,meta:blue_chip_ratio,0.0127
 Wyoming,wyoming,Mountain West,meta:returning_ppa,36.8
 Wyoming,wyoming,Mountain West,meta:sp_defense,25.6
 Wyoming,wyoming,Mountain West,meta:sp_offense,15.5
 Wyoming,wyoming,Mountain West,meta:sp_special,-0.6
-Wyoming,wyoming,Mountain West,meta:talent_raw,33.8319
+Wyoming,wyoming,Mountain West,meta:talent_raw,33.9125
 North Texas,north texas,American Athletic,fpi,-6.401
 North Texas,north texas,American Athletic,sp_plus,-11.6
-North Texas,north texas,American Athletic,talent,-2.8401
-North Texas,north texas,American Athletic,meta:blue_chip_ratio,0.1538
+North Texas,north texas,American Athletic,talent,-6.4829
+North Texas,north texas,American Athletic,meta:blue_chip_ratio,0.1111
 North Texas,north texas,American Athletic,meta:returning_ppa,13.8
 North Texas,north texas,American Athletic,meta:sp_defense,35.0
 North Texas,north texas,American Athletic,meta:sp_offense,23.7
 North Texas,north texas,American Athletic,meta:sp_special,-0.2
-North Texas,north texas,American Athletic,meta:talent_raw,34.6941
+North Texas,north texas,American Athletic,meta:talent_raw,34.1611
 Arkansas State,arkansas state,Sun Belt,fpi,-9.153
 Arkansas State,arkansas state,Sun Belt,sp_plus,-11.6
-Arkansas State,arkansas state,Sun Belt,talent,-4.9153
-Arkansas State,arkansas state,Sun Belt,meta:blue_chip_ratio,0.0429
+Arkansas State,arkansas state,Sun Belt,talent,-6.6691
+Arkansas State,arkansas state,Sun Belt,meta:blue_chip_ratio,0.037
 Arkansas State,arkansas state,Sun Belt,meta:returning_ppa,73.9
 Arkansas State,arkansas state,Sun Belt,meta:sp_defense,33.8
 Arkansas State,arkansas state,Sun Belt,meta:sp_offense,22.1
 Arkansas State,arkansas state,Sun Belt,meta:sp_special,0.1
-Arkansas State,arkansas state,Sun Belt,meta:talent_raw,34.4432
+Arkansas State,arkansas state,Sun Belt,meta:talent_raw,34.1403
 Colorado State,colorado state,Pac-12,fpi,-12.364
 Colorado State,colorado state,Pac-12,sp_plus,-11.6
-Colorado State,colorado state,Pac-12,talent,-7.5743
-Colorado State,colorado state,Pac-12,meta:blue_chip_ratio,0.0952
+Colorado State,colorado state,Pac-12,talent,-8.1399
+Colorado State,colorado state,Pac-12,meta:blue_chip_ratio,0.0755
 Colorado State,colorado state,Pac-12,meta:returning_ppa,79.6
 Colorado State,colorado state,Pac-12,meta:sp_defense,28.3
 Colorado State,colorado state,Pac-12,meta:sp_offense,16.8
 Colorado State,colorado state,Pac-12,meta:sp_special,-0.1
-Colorado State,colorado state,Pac-12,meta:talent_raw,34.1217
+Colorado State,colorado state,Pac-12,meta:talent_raw,33.9754
 Nevada,nevada,Mountain West,fpi,-11.931
 Nevada,nevada,Mountain West,sp_plus,-11.7
-Nevada,nevada,Mountain West,talent,-8.6065
-Nevada,nevada,Mountain West,meta:blue_chip_ratio,0.0357
+Nevada,nevada,Mountain West,talent,-7.9077
+Nevada,nevada,Mountain West,meta:blue_chip_ratio,0.0312
 Nevada,nevada,Mountain West,meta:returning_ppa,32.3
 Nevada,nevada,Mountain West,meta:sp_defense,29.7
 Nevada,nevada,Mountain West,meta:sp_offense,17.6
 Nevada,nevada,Mountain West,meta:sp_special,0.4
-Nevada,nevada,Mountain West,meta:talent_raw,33.9969
+Nevada,nevada,Mountain West,meta:talent_raw,34.0014
 Ohio,ohio,Mid-American,fpi,-7.957
 Ohio,ohio,Mid-American,sp_plus,-11.8
-Ohio,ohio,Mid-American,talent,-20.0252
+Ohio,ohio,Mid-American,talent,-13.3901
 Ohio,ohio,Mid-American,meta:blue_chip_ratio,0.0
 Ohio,ohio,Mid-American,meta:returning_ppa,205.6
 Ohio,ohio,Mid-American,meta:sp_defense,25.3
 Ohio,ohio,Mid-American,meta:sp_offense,14.1
 Ohio,ohio,Mid-American,meta:sp_special,-0.6
-Ohio,ohio,Mid-American,meta:talent_raw,32.6163
+Ohio,ohio,Mid-American,meta:talent_raw,33.3868
 UConn,uconn,FBS Independents,fpi,-11.163
 UConn,uconn,FBS Independents,sp_plus,-11.9
-UConn,uconn,FBS Independents,talent,-0.894
-UConn,uconn,FBS Independents,meta:blue_chip_ratio,0.1061
+UConn,uconn,FBS Independents,talent,-5.9517
+UConn,uconn,FBS Independents,meta:blue_chip_ratio,0.0946
 UConn,uconn,FBS Independents,meta:returning_ppa,11.4
 UConn,uconn,FBS Independents,meta:sp_defense,32.4
 UConn,uconn,FBS Independents,meta:sp_offense,19.9
 UConn,uconn,FBS Independents,meta:sp_special,0.6
-UConn,uconn,FBS Independents,meta:talent_raw,34.9294
+UConn,uconn,FBS Independents,meta:talent_raw,34.2207
 App State,app state,Sun Belt,fpi,-9.767
 App State,app state,Sun Belt,sp_plus,-12.7
-App State,app state,Sun Belt,talent,-7.1112
-App State,app state,Sun Belt,meta:blue_chip_ratio,0.04
+App State,app state,Sun Belt,talent,-8.4956
+App State,app state,Sun Belt,meta:blue_chip_ratio,0.1
 App State,app state,Sun Belt,meta:returning_ppa,107.7
 App State,app state,Sun Belt,meta:sp_defense,33.9
 App State,app state,Sun Belt,meta:sp_offense,20.8
 App State,app state,Sun Belt,meta:sp_special,0.3
-App State,app state,Sun Belt,meta:talent_raw,34.1777
+App State,app state,Sun Belt,meta:talent_raw,33.9355
 Buffalo,buffalo,Mid-American,fpi,-10.782
 Buffalo,buffalo,Mid-American,sp_plus,-12.7
-Buffalo,buffalo,Mid-American,talent,-7.8473
+Buffalo,buffalo,Mid-American,talent,-7.9538
 Buffalo,buffalo,Mid-American,meta:blue_chip_ratio,0.0
 Buffalo,buffalo,Mid-American,meta:returning_ppa,-1.6
 Buffalo,buffalo,Mid-American,meta:sp_defense,28.5
 Buffalo,buffalo,Mid-American,meta:sp_offense,15.3
 Buffalo,buffalo,Mid-American,meta:sp_special,0.6
-Buffalo,buffalo,Mid-American,meta:talent_raw,34.0887
+Buffalo,buffalo,Mid-American,meta:talent_raw,33.9962
 Kennesaw State,kennesaw state,Conference USA,fpi,-9.012
 Kennesaw State,kennesaw state,Conference USA,sp_plus,-12.9
-Kennesaw State,kennesaw state,Conference USA,talent,-14.3721
-Kennesaw State,kennesaw state,Conference USA,meta:blue_chip_ratio,0.1111
+Kennesaw State,kennesaw state,Conference USA,talent,-9.0973
+Kennesaw State,kennesaw state,Conference USA,meta:blue_chip_ratio,0.0741
 Kennesaw State,kennesaw state,Conference USA,meta:returning_ppa,23.1
 Kennesaw State,kennesaw state,Conference USA,meta:sp_defense,31.8
 Kennesaw State,kennesaw state,Conference USA,meta:sp_offense,19.5
 Kennesaw State,kennesaw state,Conference USA,meta:sp_special,-0.5
-Kennesaw State,kennesaw state,Conference USA,meta:talent_raw,33.2998
+Kennesaw State,kennesaw state,Conference USA,meta:talent_raw,33.8681
 Delaware,delaware,Conference USA,fpi,-6.555
 Delaware,delaware,Conference USA,sp_plus,-12.9
-Delaware,delaware,Conference USA,talent,-28.286
-Delaware,delaware,Conference USA,meta:blue_chip_ratio,0.04
+Delaware,delaware,Conference USA,talent,-24.7936
+Delaware,delaware,Conference USA,meta:blue_chip_ratio,0.0
 Delaware,delaware,Conference USA,meta:returning_ppa,299.8
 Delaware,delaware,Conference USA,meta:sp_defense,35.4
 Delaware,delaware,Conference USA,meta:sp_offense,22.8
 Delaware,delaware,Conference USA,meta:sp_special,-0.3
-Delaware,delaware,Conference USA,meta:talent_raw,31.6175
+Delaware,delaware,Conference USA,meta:talent_raw,32.1085
 Florida International,florida international,Conference USA,fpi,-12.58
 Florida International,florida international,Conference USA,sp_plus,-14.5
-Florida International,florida international,Conference USA,talent,-4.1022
-Florida International,florida international,Conference USA,meta:blue_chip_ratio,0.0923
+Florida International,florida international,Conference USA,talent,-7.5945
+Florida International,florida international,Conference USA,meta:blue_chip_ratio,0.0896
 Florida International,florida international,Conference USA,meta:returning_ppa,75.2
 Florida International,florida international,Conference USA,meta:sp_defense,35.3
 Florida International,florida international,Conference USA,meta:sp_offense,21.1
 Florida International,florida international,Conference USA,meta:sp_special,-0.3
-Florida International,florida international,Conference USA,meta:talent_raw,34.5415
+Florida International,florida international,Conference USA,meta:talent_raw,34.0365
 South Alabama,south alabama,Sun Belt,fpi,-10.531
 South Alabama,south alabama,Sun Belt,sp_plus,-14.6
-South Alabama,south alabama,Sun Belt,talent,-17.0584
+South Alabama,south alabama,Sun Belt,talent,-12.4836
 South Alabama,south alabama,Sun Belt,meta:blue_chip_ratio,0.0
 South Alabama,south alabama,Sun Belt,meta:returning_ppa,180.8
 South Alabama,south alabama,Sun Belt,meta:sp_defense,35.9
 South Alabama,south alabama,Sun Belt,meta:sp_offense,22.0
 South Alabama,south alabama,Sun Belt,meta:sp_special,-0.7
-South Alabama,south alabama,Sun Belt,meta:talent_raw,32.975
+South Alabama,south alabama,Sun Belt,meta:talent_raw,33.4885
 Coastal Carolina,coastal carolina,Sun Belt,fpi,-12.093
 Coastal Carolina,coastal carolina,Sun Belt,sp_plus,-14.7
-Coastal Carolina,coastal carolina,Sun Belt,talent,-4.2859
-Coastal Carolina,coastal carolina,Sun Belt,meta:blue_chip_ratio,0.125
+Coastal Carolina,coastal carolina,Sun Belt,talent,-6.8354
+Coastal Carolina,coastal carolina,Sun Belt,meta:blue_chip_ratio,0.0909
 Coastal Carolina,coastal carolina,Sun Belt,meta:returning_ppa,28.4
 Coastal Carolina,coastal carolina,Sun Belt,meta:sp_defense,34.8
 Coastal Carolina,coastal carolina,Sun Belt,meta:sp_offense,20.6
 Coastal Carolina,coastal carolina,Sun Belt,meta:sp_special,-0.5
-Coastal Carolina,coastal carolina,Sun Belt,meta:talent_raw,34.5193
+Coastal Carolina,coastal carolina,Sun Belt,meta:talent_raw,34.1216
 Bowling Green,bowling green,Mid-American,fpi,-13.682
 Bowling Green,bowling green,Mid-American,sp_plus,-15.0
-Bowling Green,bowling green,Mid-American,talent,-7.5884
-Bowling Green,bowling green,Mid-American,meta:blue_chip_ratio,0.0161
+Bowling Green,bowling green,Mid-American,talent,-7.7132
+Bowling Green,bowling green,Mid-American,meta:blue_chip_ratio,0.0133
 Bowling Green,bowling green,Mid-American,meta:returning_ppa,-7.1
 Bowling Green,bowling green,Mid-American,meta:sp_defense,29.2
 Bowling Green,bowling green,Mid-American,meta:sp_offense,13.9
 Bowling Green,bowling green,Mid-American,meta:sp_special,0.3
-Bowling Green,bowling green,Mid-American,meta:talent_raw,34.12
+Bowling Green,bowling green,Mid-American,meta:talent_raw,34.0232
 Central Michigan,central michigan,Mid-American,fpi,-12.806
 Central Michigan,central michigan,Mid-American,sp_plus,-15.1
-Central Michigan,central michigan,Mid-American,talent,-10.6097
+Central Michigan,central michigan,Mid-American,talent,-9.9597
 Central Michigan,central michigan,Mid-American,meta:blue_chip_ratio,0.0
 Central Michigan,central michigan,Mid-American,meta:returning_ppa,134.9
 Central Michigan,central michigan,Mid-American,meta:sp_defense,30.4
 Central Michigan,central michigan,Mid-American,meta:sp_offense,15.5
 Central Michigan,central michigan,Mid-American,meta:sp_special,-0.2
-Central Michigan,central michigan,Mid-American,meta:talent_raw,33.7547
+Central Michigan,central michigan,Mid-American,meta:talent_raw,33.7714
 Rice,rice,American Athletic,fpi,-13.439
 Rice,rice,American Athletic,sp_plus,-15.3
-Rice,rice,American Athletic,talent,-6.4569
-Rice,rice,American Athletic,meta:blue_chip_ratio,0.0137
+Rice,rice,American Athletic,talent,-6.8177
+Rice,rice,American Athletic,meta:blue_chip_ratio,0.0123
 Rice,rice,American Athletic,meta:returning_ppa,32.7
 Rice,rice,American Athletic,meta:sp_defense,32.5
 Rice,rice,American Athletic,meta:sp_offense,16.7
 Rice,rice,American Athletic,meta:sp_special,0.5
-Rice,rice,American Athletic,meta:talent_raw,34.2568
+Rice,rice,American Athletic,meta:talent_raw,34.1236
 San José State,san jose state,Mountain West,fpi,-14.286
 San José State,san jose state,Mountain West,sp_plus,-15.7
-San José State,san jose state,Mountain West,talent,-7.5189
-San José State,san jose state,Mountain West,meta:blue_chip_ratio,0.0545
+San José State,san jose state,Mountain West,talent,-7.8706
+San José State,san jose state,Mountain West,meta:blue_chip_ratio,0.0476
 San José State,san jose state,Mountain West,meta:returning_ppa,11.2
 San José State,san jose state,Mountain West,meta:sp_defense,33.5
 San José State,san jose state,Mountain West,meta:sp_offense,18.3
 San José State,san jose state,Mountain West,meta:sp_special,-0.5
-San José State,san jose state,Mountain West,meta:talent_raw,34.1284
+San José State,san jose state,Mountain West,meta:talent_raw,34.0056
 Eastern Michigan,eastern michigan,Mid-American,fpi,-16.316
 Eastern Michigan,eastern michigan,Mid-American,sp_plus,-16.1
-Eastern Michigan,eastern michigan,Mid-American,talent,-7.1128
+Eastern Michigan,eastern michigan,Mid-American,talent,-7.2933
 Eastern Michigan,eastern michigan,Mid-American,meta:blue_chip_ratio,0.0
 Eastern Michigan,eastern michigan,Mid-American,meta:returning_ppa,228.5
 Eastern Michigan,eastern michigan,Mid-American,meta:sp_defense,33.4
 Eastern Michigan,eastern michigan,Mid-American,meta:sp_offense,17.2
 Eastern Michigan,eastern michigan,Mid-American,meta:sp_special,0.0
-Eastern Michigan,eastern michigan,Mid-American,meta:talent_raw,34.1775
+Eastern Michigan,eastern michigan,Mid-American,meta:talent_raw,34.0703
 Northern Illinois,northern illinois,Mountain West,fpi,-14.51
 Northern Illinois,northern illinois,Mountain West,sp_plus,-17.2
-Northern Illinois,northern illinois,Mountain West,talent,-10.5659
+Northern Illinois,northern illinois,Mountain West,talent,-9.4698
 Northern Illinois,northern illinois,Mountain West,meta:blue_chip_ratio,0.0
 Northern Illinois,northern illinois,Mountain West,meta:returning_ppa,35.8
 Northern Illinois,northern illinois,Mountain West,meta:sp_defense,32.1
 Northern Illinois,northern illinois,Mountain West,meta:sp_offense,15.2
 Northern Illinois,northern illinois,Mountain West,meta:sp_special,-0.2
-Northern Illinois,northern illinois,Mountain West,meta:talent_raw,33.76
+Northern Illinois,northern illinois,Mountain West,meta:talent_raw,33.8263
 UAB,uab,American Athletic,fpi,-15.451
 UAB,uab,American Athletic,sp_plus,-17.5
-UAB,uab,American Athletic,talent,-3.2131
-UAB,uab,American Athletic,meta:blue_chip_ratio,0.102
+UAB,uab,American Athletic,talent,-6.1226
+UAB,uab,American Athletic,meta:blue_chip_ratio,0.0794
 UAB,uab,American Athletic,meta:returning_ppa,245.1
 UAB,uab,American Athletic,meta:sp_defense,37.6
 UAB,uab,American Athletic,meta:sp_offense,20.6
 UAB,uab,American Athletic,meta:sp_special,-0.5
-UAB,uab,American Athletic,meta:talent_raw,34.649
+UAB,uab,American Athletic,meta:talent_raw,34.2015
 New Mexico State,new mexico state,Conference USA,fpi,-15.705
 New Mexico State,new mexico state,Conference USA,sp_plus,-18.5
-New Mexico State,new mexico state,Conference USA,talent,-23.5461
-New Mexico State,new mexico state,Conference USA,meta:blue_chip_ratio,0.0625
+New Mexico State,new mexico state,Conference USA,talent,-11.1833
+New Mexico State,new mexico state,Conference USA,meta:blue_chip_ratio,0.0408
 New Mexico State,new mexico state,Conference USA,meta:returning_ppa,34.2
 New Mexico State,new mexico state,Conference USA,meta:sp_defense,34.4
 New Mexico State,new mexico state,Conference USA,meta:sp_offense,15.9
 New Mexico State,new mexico state,Conference USA,meta:sp_special,-0.1
-New Mexico State,new mexico state,Conference USA,meta:talent_raw,32.1906
+New Mexico State,new mexico state,Conference USA,meta:talent_raw,33.6342
 Missouri State,missouri state,Conference USA,fpi,-10.255
 Missouri State,missouri state,Conference USA,sp_plus,-19.1
-Missouri State,missouri state,Conference USA,talent,-10.5377
-Missouri State,missouri state,Conference USA,meta:blue_chip_ratio,0.0769
+Missouri State,missouri state,Conference USA,talent,-9.7061
+Missouri State,missouri state,Conference USA,meta:blue_chip_ratio,0.0612
 Missouri State,missouri state,Conference USA,meta:returning_ppa,98.9
 Missouri State,missouri state,Conference USA,meta:sp_defense,35.1
 Missouri State,missouri state,Conference USA,meta:sp_offense,16.4
 Missouri State,missouri state,Conference USA,meta:sp_special,-0.5
-Missouri State,missouri state,Conference USA,meta:talent_raw,33.7634
+Missouri State,missouri state,Conference USA,meta:talent_raw,33.7998
 UTEP,utep,Mountain West,fpi,-16.605
 UTEP,utep,Mountain West,sp_plus,-19.3
-UTEP,utep,Mountain West,talent,-5.7911
-UTEP,utep,Mountain West,meta:blue_chip_ratio,0.0441
+UTEP,utep,Mountain West,talent,-5.5782
+UTEP,utep,Mountain West,meta:blue_chip_ratio,0.0361
 UTEP,utep,Mountain West,meta:returning_ppa,-0.9
 UTEP,utep,Mountain West,meta:sp_defense,34.1
 UTEP,utep,Mountain West,meta:sp_offense,15.2
 UTEP,utep,Mountain West,meta:sp_special,-0.5
-UTEP,utep,Mountain West,meta:talent_raw,34.3373
+UTEP,utep,Mountain West,meta:talent_raw,34.2625
 Southern Miss,southern miss,Sun Belt,fpi,-5.053
 Southern Miss,southern miss,Sun Belt,sp_plus,-20.7
-Southern Miss,southern miss,Sun Belt,talent,-14.5797
-Southern Miss,southern miss,Sun Belt,meta:blue_chip_ratio,0.2121
+Southern Miss,southern miss,Sun Belt,talent,-8.1505
+Southern Miss,southern miss,Sun Belt,meta:blue_chip_ratio,0.1373
 Southern Miss,southern miss,Sun Belt,meta:returning_ppa,289.4
 Southern Miss,southern miss,Sun Belt,meta:sp_defense,38.0
 Southern Miss,southern miss,Sun Belt,meta:sp_offense,17.8
 Southern Miss,southern miss,Sun Belt,meta:sp_special,-0.4
-Southern Miss,southern miss,Sun Belt,meta:talent_raw,33.2747
+Southern Miss,southern miss,Sun Belt,meta:talent_raw,33.9742
 Kent State,kent state,Mid-American,fpi,-17.891
 Kent State,kent state,Mid-American,sp_plus,-22.4
-Kent State,kent state,Mid-American,talent,-10.7668
-Kent State,kent state,Mid-American,meta:blue_chip_ratio,0.0159
+Kent State,kent state,Mid-American,talent,-10.5631
+Kent State,kent state,Mid-American,meta:blue_chip_ratio,0.0141
 Kent State,kent state,Mid-American,meta:returning_ppa,108.3
 Kent State,kent state,Mid-American,meta:sp_defense,36.6
 Kent State,kent state,Mid-American,meta:sp_offense,14.7
 Kent State,kent state,Mid-American,meta:sp_special,-0.5
-Kent State,kent state,Mid-American,meta:talent_raw,33.7357
+Kent State,kent state,Mid-American,meta:talent_raw,33.7037
 Akron,akron,Mid-American,fpi,-16.854
 Akron,akron,Mid-American,sp_plus,-22.9
-Akron,akron,Mid-American,talent,-12.8569
-Akron,akron,Mid-American,meta:blue_chip_ratio,0.0976
+Akron,akron,Mid-American,talent,-10.9979
+Akron,akron,Mid-American,meta:blue_chip_ratio,0.0784
 Akron,akron,Mid-American,meta:returning_ppa,158.8
 Akron,akron,Mid-American,meta:sp_defense,33.6
 Akron,akron,Mid-American,meta:sp_offense,11.3
 Akron,akron,Mid-American,meta:sp_special,-0.6
-Akron,akron,Mid-American,meta:talent_raw,33.483
+Akron,akron,Mid-American,meta:talent_raw,33.655
 Sacramento State,sacramento state,Mid-American,fpi,-10.422
 Sacramento State,sacramento state,Mid-American,sp_plus,-23.4
-Sacramento State,sacramento state,Mid-American,talent,-8.9531
-Sacramento State,sacramento state,Mid-American,meta:blue_chip_ratio,0.0682
+Sacramento State,sacramento state,Mid-American,talent,-10.7644
+Sacramento State,sacramento state,Mid-American,meta:blue_chip_ratio,0.04
 Sacramento State,sacramento state,Mid-American,meta:sp_defense,38.2
 Sacramento State,sacramento state,Mid-American,meta:sp_offense,14.7
 Sacramento State,sacramento state,Mid-American,meta:sp_special,0.0
-Sacramento State,sacramento state,Mid-American,meta:talent_raw,33.955
+Sacramento State,sacramento state,Mid-American,meta:talent_raw,33.6812
 Charlotte,charlotte,American Athletic,fpi,-14.583
 Charlotte,charlotte,American Athletic,sp_plus,-24.1
-Charlotte,charlotte,American Athletic,talent,-7.7861
-Charlotte,charlotte,American Athletic,meta:blue_chip_ratio,0.0196
+Charlotte,charlotte,American Athletic,talent,-7.6479
+Charlotte,charlotte,American Athletic,meta:blue_chip_ratio,0.0164
 Charlotte,charlotte,American Athletic,meta:returning_ppa,53.6
 Charlotte,charlotte,American Athletic,meta:sp_defense,38.1
 Charlotte,charlotte,American Athletic,meta:sp_offense,14.5
 Charlotte,charlotte,American Athletic,meta:sp_special,-0.5
-Charlotte,charlotte,American Athletic,meta:talent_raw,34.0961
+Charlotte,charlotte,American Athletic,meta:talent_raw,34.0305
 Ball State,ball state,Mid-American,fpi,-17.282
 Ball State,ball state,Mid-American,sp_plus,-25.1
-Ball State,ball state,Mid-American,talent,-8.1243
-Ball State,ball state,Mid-American,meta:blue_chip_ratio,0.0312
+Ball State,ball state,Mid-American,talent,-9.2926
+Ball State,ball state,Mid-American,meta:blue_chip_ratio,0.026
 Ball State,ball state,Mid-American,meta:returning_ppa,5.6
 Ball State,ball state,Mid-American,meta:sp_defense,36.7
 Ball State,ball state,Mid-American,meta:sp_offense,12.2
 Ball State,ball state,Mid-American,meta:sp_special,-0.7
-Ball State,ball state,Mid-American,meta:talent_raw,34.0552
+Ball State,ball state,Mid-American,meta:talent_raw,33.8462
 Sam Houston,sam houston,Conference USA,fpi,-18.422
 Sam Houston,sam houston,Conference USA,sp_plus,-26.0
-Sam Houston,sam houston,Conference USA,talent,-7.2261
-Sam Houston,sam houston,Conference USA,meta:blue_chip_ratio,0.0192
+Sam Houston,sam houston,Conference USA,talent,-8.9742
+Sam Houston,sam houston,Conference USA,meta:blue_chip_ratio,0.0169
 Sam Houston,sam houston,Conference USA,meta:returning_ppa,38.1
 Sam Houston,sam houston,Conference USA,meta:sp_defense,39.8
 Sam Houston,sam houston,Conference USA,meta:sp_offense,14.2
 Sam Houston,sam houston,Conference USA,meta:sp_special,-0.4
-Sam Houston,sam houston,Conference USA,meta:talent_raw,34.1638
+Sam Houston,sam houston,Conference USA,meta:talent_raw,33.8819
 Middle Tennessee,middle tennessee,Conference USA,fpi,-16.066
 Middle Tennessee,middle tennessee,Conference USA,sp_plus,-26.5
-Middle Tennessee,middle tennessee,Conference USA,talent,-4.9343
-Middle Tennessee,middle tennessee,Conference USA,meta:blue_chip_ratio,0.0714
+Middle Tennessee,middle tennessee,Conference USA,talent,-6.503
+Middle Tennessee,middle tennessee,Conference USA,meta:blue_chip_ratio,0.0645
 Middle Tennessee,middle tennessee,Conference USA,meta:returning_ppa,70.8
 Middle Tennessee,middle tennessee,Conference USA,meta:sp_defense,40.5
 Middle Tennessee,middle tennessee,Conference USA,meta:sp_offense,13.8
 Middle Tennessee,middle tennessee,Conference USA,meta:sp_special,0.2
-Middle Tennessee,middle tennessee,Conference USA,meta:talent_raw,34.4409
+Middle Tennessee,middle tennessee,Conference USA,meta:talent_raw,34.1589
 UL Monroe,ul monroe,Sun Belt,fpi,-19.255
 UL Monroe,ul monroe,Sun Belt,sp_plus,-28.9
-UL Monroe,ul monroe,Sun Belt,talent,-30.2561
-UL Monroe,ul monroe,Sun Belt,meta:blue_chip_ratio,0.0435
+UL Monroe,ul monroe,Sun Belt,talent,-12.608
+UL Monroe,ul monroe,Sun Belt,meta:blue_chip_ratio,0.025
 UL Monroe,ul monroe,Sun Belt,meta:returning_ppa,63.5
 UL Monroe,ul monroe,Sun Belt,meta:sp_defense,40.1
 UL Monroe,ul monroe,Sun Belt,meta:sp_offense,11.9
 UL Monroe,ul monroe,Sun Belt,meta:sp_special,-0.7
-UL Monroe,ul monroe,Sun Belt,meta:talent_raw,31.3793
+UL Monroe,ul monroe,Sun Belt,meta:talent_raw,33.4745
 Georgia State,georgia state,Sun Belt,fpi,-15.225
 Georgia State,georgia state,Sun Belt,sp_plus,-29.3
-Georgia State,georgia state,Sun Belt,talent,-5.4529
-Georgia State,georgia state,Sun Belt,meta:blue_chip_ratio,0.12
+Georgia State,georgia state,Sun Belt,talent,-5.1656
+Georgia State,georgia state,Sun Belt,meta:blue_chip_ratio,0.0857
 Georgia State,georgia state,Sun Belt,meta:returning_ppa,131.7
 Georgia State,georgia state,Sun Belt,meta:sp_defense,43.4
 Georgia State,georgia state,Sun Belt,meta:sp_offense,14.8
 Georgia State,georgia state,Sun Belt,meta:sp_special,-0.7
-Georgia State,georgia state,Sun Belt,meta:talent_raw,34.3782
+Georgia State,georgia state,Sun Belt,meta:talent_raw,34.3088
 Massachusetts,massachusetts,Mid-American,fpi,-18.834
 Massachusetts,massachusetts,Mid-American,sp_plus,-32.9
-Massachusetts,massachusetts,Mid-American,talent,-8.8083
-Massachusetts,massachusetts,Mid-American,meta:blue_chip_ratio,0.0435
+Massachusetts,massachusetts,Mid-American,talent,-8.9717
+Massachusetts,massachusetts,Mid-American,meta:blue_chip_ratio,0.0339
 Massachusetts,massachusetts,Mid-American,meta:returning_ppa,-3.4
 Massachusetts,massachusetts,Mid-American,meta:sp_defense,41.2
 Massachusetts,massachusetts,Mid-American,meta:sp_offense,8.8
 Massachusetts,massachusetts,Mid-American,meta:sp_special,-0.5
-Massachusetts,massachusetts,Mid-American,meta:talent_raw,33.9725
+Massachusetts,massachusetts,Mid-American,meta:talent_raw,33.8821

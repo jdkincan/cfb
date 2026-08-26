@@ -1,9 +1,9 @@
 {
-  "captured_at": "2026-08-19T19:37:21.699382+00:00",
+  "captured_at": "2026-08-26T15:01:11.805159+00:00",
   "config": {
-    "edge_shrink": 0.35,
+    "edge_shrink": 0.096,
     "league_hfa": 2.7,
-    "min_edge_points": 1.5,
+    "min_edge_points": 9.0,
     "sigma_margin": 19.32,
     "weights": {
       "efficiency": 0.18,
@@ -16,7 +16,7 @@
     }
   },
   "counts": {
-    "lines": 51,
+    "lines": 99,
     "projections": 8,
     "ratings": 1237
   },
@@ -25,6 +25,7 @@
     "efficiency": {
       "dispersion": 0.0,
       "fingerprint": "",
+      "in_season": false,
       "origin": "CFBD",
       "reason": "no data returned",
       "season": 2026,
@@ -37,6 +38,7 @@
     "elo": {
       "dispersion": 0.0,
       "fingerprint": "",
+      "in_season": false,
       "origin": "CFBD",
       "reason": "no data returned",
       "season": 2026,
@@ -49,30 +51,33 @@
     "fpi": {
       "dispersion": 11.37,
       "fingerprint": "018c9297df1b8f0f",
+      "in_season": false,
       "origin": "CFBD",
       "reason": "",
       "season": 2026,
       "source": "fpi",
       "teams": 138,
-      "unchanged_days": 2.1,
+      "unchanged_days": 9.0,
       "unchanged_since": "",
       "usable": true
     },
     "sp_plus": {
       "dispersion": 13.6,
       "fingerprint": "dfe0996cb74486d4",
+      "in_season": false,
       "origin": "CFBD",
       "reason": "",
       "season": 2026,
       "source": "sp_plus",
       "teams": 138,
-      "unchanged_days": 2.1,
+      "unchanged_days": 9.0,
       "unchanged_since": "",
       "usable": true
     },
     "srs": {
       "dispersion": 0.0,
       "fingerprint": "",
+      "in_season": false,
       "origin": "CFBD",
       "reason": "no data returned",
       "season": 2026,
@@ -84,13 +89,14 @@
     },
     "talent": {
       "dispersion": 13.6,
-      "fingerprint": "afe181c49c099a0d",
+      "fingerprint": "1cf0720b16909dfc",
+      "in_season": false,
       "origin": "roster x recruiting",
       "reason": "",
       "season": 2026,
       "source": "talent",
       "teams": 138,
-      "unchanged_days": 2.1,
+      "unchanged_days": 0.0,
       "unchanged_since": "",
       "usable": true
     }

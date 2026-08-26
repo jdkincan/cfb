@@ -92,6 +92,9 @@ class SourceStatus:
     fingerprint: str = ""
     unchanged_since: str = ""
     unchanged_days: float = 0.0
+    # Before anyone has played, a rating standing still is the correct
+    # behaviour, not a failure. Set once the season has completed games.
+    in_season: bool = False
 
     @property
     def stale(self) -> bool:
@@ -101,8 +104,13 @@ class SourceStatus:
         third failure: a source serving genuine, well-dispersed, *old* numbers.
         In season every rating should move weekly, so standing still is a
         signal, not a comfort.
+
+        Out of season it is the opposite: SP+ publishes its final preseason
+        numbers and then does not touch them until games are played, so flagging
+        that as stale trains the reader to ignore the one warning that matters
+        in October.
         """
-        return self.usable and self.unchanged_days > 7.0
+        return self.usable and self.in_season and self.unchanged_days > 7.0
 
     def describe(self) -> str:
         label = SOURCE_DISPLAY.get(self.source, self.source)
@@ -472,7 +480,7 @@ def _try_recruiting_talent(book: "RatingBook", client, season: int) -> None:
         status.origin = "roster x recruiting"
 
 
-def _record_freshness(book: "RatingBook") -> None:
+def _record_freshness(book: "RatingBook", in_season: bool = False) -> None:
     """Note whether each source's values have moved since the last run."""
     import logging
 
@@ -497,6 +505,7 @@ def _record_freshness(book: "RatingBook") -> None:
         days = record(f"{book.season}:{source}", digest, state)
         status.fingerprint = digest
         status.unchanged_days = round(days, 1)
+        status.in_season = in_season
         if status.stale:
             log.warning(
                 "%s has served identical values for %.0f days — check upstream",
@@ -607,7 +616,17 @@ def build_rating_book(
     ):
         _try_recruiting_talent(book, client, season)
 
-    _record_freshness(book)
+    # A source only counts as stale once there are results it should have
+    # responded to.
+    played = False
+    try:
+        played = any(
+            pick_float(g, "homePoints", "home_points") is not None
+            for g in client.games(season)
+        )
+    except Exception as exc:  # noqa: BLE001
+        log.debug("could not check for completed games: %s", exc)
+    _record_freshness(book, in_season=played)
     for line in book.provenance_lines():
         log.info("  %s", line)
     if not book.usable_sources():

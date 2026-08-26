@@ -73,8 +73,10 @@ class TestStaleFlag:
         assert status.stale is False
         assert "STALE" not in status.describe()
 
-    def test_week_old_values_are_flagged(self):
-        status = SourceStatus("sp_plus", 2026, teams=136, usable=True, unchanged_days=14.0)
+    def test_week_old_values_are_flagged_in_season(self):
+        """Staleness only means something once there are results to react to."""
+        status = SourceStatus("sp_plus", 2026, teams=136, usable=True,
+                              unchanged_days=14.0, in_season=True)
         assert status.stale is True
         assert "STALE" in status.describe()
 
@@ -107,3 +109,39 @@ class TestStatePersistence:
         path = tmp_path / "state.json"
         path.write_text("{not json")
         assert load_state(path) == {}
+
+
+class TestStaleIsSeasonAware:
+    """Out of season, a rating standing still is correct, not broken."""
+
+    def _status(self, days, in_season):
+        from cfbmeta.ratings import SourceStatus
+
+        s = SourceStatus("sp_plus", 2026, teams=138, usable=True, dispersion=13.6)
+        s.unchanged_days = days
+        s.in_season = in_season
+        return s
+
+    def test_preseason_stillness_is_not_flagged(self):
+        """SP+ publishes final preseason numbers and then stops until kickoff."""
+        assert not self._status(30.0, in_season=False).stale
+        assert "STALE" not in self._status(30.0, in_season=False).describe()
+
+    def test_in_season_stillness_is_flagged(self):
+        assert self._status(9.0, in_season=True).stale
+        assert "STALE" in self._status(9.0, in_season=True).describe()
+
+    def test_a_fresh_source_is_never_stale(self):
+        assert not self._status(2.0, in_season=True).stale
+
+    def test_age_is_still_reported_when_not_flagged(self):
+        """Suppressing the alarm must not suppress the fact."""
+        assert "unchanged 30d" in self._status(30.0, in_season=False).describe()
+
+    def test_an_unusable_source_is_not_also_called_stale(self):
+        from cfbmeta.ratings import SourceStatus
+
+        s = SourceStatus("elo", 2026, teams=0, usable=False, reason="no data returned")
+        s.unchanged_days = 40.0
+        s.in_season = True
+        assert not s.stale

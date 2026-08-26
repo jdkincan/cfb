@@ -107,10 +107,10 @@ vig_price: -110
 # we'd be claiming the closing line is wrong by the full amount every time we
 # differ from it, which is not a defensible starting position for a model built
 # from public ratings. Fit it with `backtest --fit`.
-edge_shrink: 0.35
+edge_shrink: 0.096
 kelly_fraction: 0.25       # quarter Kelly
 bankroll_units: 100.0      # 1 unit = 1% of bankroll
-min_edge_points: 1.5       # below this, not a play
+min_edge_points: 9.0       # below this, not a play
 strong_edge_points: 3.0    # highlighted in the email
 max_units_per_play: 3.0
 max_weekly_units: 10.0        # total units at risk in one week, after correlation

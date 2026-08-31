@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-08-26T15:01:11.805159+00:00",
+  "captured_at": "2026-08-31T16:07:56.266036+00:00",
   "config": {
     "edge_shrink": 0.096,
     "league_hfa": 2.7,
@@ -16,9 +16,9 @@
     }
   },
   "counts": {
-    "lines": 99,
-    "projections": 8,
-    "ratings": 1237
+    "lines": 144,
+    "projections": 43,
+    "ratings": 1134
   },
   "season": 2026,
   "sources": {
@@ -36,41 +36,41 @@
       "usable": false
     },
     "elo": {
-      "dispersion": 0.0,
-      "fingerprint": "",
-      "in_season": false,
+      "dispersion": 13.6,
+      "fingerprint": "c5e3a247d08bd93f",
+      "in_season": true,
       "origin": "CFBD",
-      "reason": "no data returned",
+      "reason": "",
       "season": 2026,
       "source": "elo",
-      "teams": 0,
+      "teams": 16,
       "unchanged_days": 0.0,
       "unchanged_since": "",
-      "usable": false
+      "usable": true
     },
     "fpi": {
-      "dispersion": 11.37,
-      "fingerprint": "018c9297df1b8f0f",
-      "in_season": false,
+      "dispersion": 11.41,
+      "fingerprint": "92ae3d8e3fe37ec6",
+      "in_season": true,
       "origin": "CFBD",
       "reason": "",
       "season": 2026,
       "source": "fpi",
       "teams": 138,
-      "unchanged_days": 9.0,
+      "unchanged_days": 0.0,
       "unchanged_since": "",
       "usable": true
     },
     "sp_plus": {
       "dispersion": 13.6,
       "fingerprint": "dfe0996cb74486d4",
-      "in_season": false,
+      "in_season": true,
       "origin": "CFBD",
       "reason": "",
       "season": 2026,
       "source": "sp_plus",
       "teams": 138,
-      "unchanged_days": 9.0,
+      "unchanged_days": 14.0,
       "unchanged_since": "",
       "usable": true
     },
@@ -89,9 +89,9 @@
     },
     "talent": {
       "dispersion": 13.6,
-      "fingerprint": "1cf0720b16909dfc",
-      "in_season": false,
-      "origin": "roster x recruiting",
+      "fingerprint": "9b01bf114755fed7",
+      "in_season": true,
+      "origin": "CFBD",
       "reason": "",
       "season": 2026,
       "source": "talent",
@@ -102,6 +102,7 @@
     }
   },
   "usable_sources": [
+    "elo",
     "fpi",
     "sp_plus",
     "talent"

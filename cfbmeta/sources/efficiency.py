@@ -93,6 +93,11 @@ DEFAULT_RIDGE = 2.0
 # identified, and the ratings are mostly ridge prior.
 MIN_OBSERVATIONS = 60
 
+# Share of the reference population that must have played before the rating is
+# published at all. Below this the opponent adjustment has nothing to work with
+# and the ratings cannot be centred on a meaningful average.
+CENTRE_COVERAGE = 0.5
+
 
 @dataclass
 class EfficiencyRatings:
@@ -155,6 +160,26 @@ def game_efficiency(side: Any) -> Optional[float]:
     )
 
 
+def completed_ids(games: Iterable[dict]) -> set:
+    """Game ids that already have a final score.
+
+    The live path wants "every game that has been played", which is not the
+    same question as "every game before week W". A CFBD week can span two
+    playing weekends — week 1 of 2026 covers both Aug 29 and Sep 5 — so a week
+    cutoff throws away results that are already on the books. Asking the
+    scoreboard instead cannot leak, because a game with a final score is in the
+    past by definition.
+    """
+    out = set()
+    for game in games or []:
+        gid = pick(game, "id", "gameId", "game_id")
+        home = pick_float(game, "homePoints", "home_points")
+        away = pick_float(game, "awayPoints", "away_points")
+        if gid is not None and home is not None and away is not None:
+            out.add(gid)
+    return out
+
+
 def home_map(games: Iterable[dict]) -> Dict[Any, Tuple[str, str, bool]]:
     """Game id -> (home key, away key, neutral).
 
@@ -179,6 +204,7 @@ def _observations(
     homes: Dict[Any, Tuple[str, str, bool]],
     before_week: Optional[int],
     season: Optional[int],
+    played: Optional[set] = None,
 ) -> List[Tuple[str, str, float, float]]:
     """(team, opponent, efficiency, home indicator) for eligible team-games.
 
@@ -193,6 +219,8 @@ def _observations(
         if week is None:
             continue
         if before_week is not None and int(week) >= int(before_week):
+            continue
+        if played is not None and pick(row, "gameId", "game_id", "id") not in played:
             continue
         if season is not None:
             row_season = pick_float(row, "season", "year", default=season)
@@ -231,12 +259,19 @@ def fit_efficiency(
     ridge: float = DEFAULT_RIDGE,
     homes: Optional[Dict[Any, Tuple[str, str, bool]]] = None,
     center_on: Optional[set] = None,
+    played_only: bool = False,
 ) -> Optional[EfficiencyRatings]:
     """Solve for offensive and defensive efficiency from completed games.
 
     ``before_week`` is strict: week 8 fits on weeks 1-7 only. That strictness
     is the entire reason this is usable for backtesting — including the target
     week would leak the result being predicted into the rating predicting it.
+
+    ``played_only`` is the live alternative: fit on every game that has a final
+    score, whatever week it is labelled. Use it when projecting the future,
+    where nothing can leak, and where a week cutoff would discard results that
+    have already happened — 126 completed games of the 2026 season are all
+    stamped week 1, alongside the games still to be played in it.
 
     ``center_on`` names the population that defines an average team — pass the
     FBS list. It matters more than it looks: FCS opponents appear in the fit
@@ -248,7 +283,8 @@ def fit_efficiency(
 
     games = list(games or [])
     homes = homes if homes is not None else home_map(games)
-    obs = _observations(rows, homes, before_week, season)
+    played = completed_ids(games) if played_only else None
+    obs = _observations(rows, homes, before_week, season, played)
     if len(obs) < MIN_OBSERVATIONS:
         log.debug(
             "efficiency fit skipped before week %s: %d observations (need %d)",
@@ -286,16 +322,19 @@ def fit_efficiency(
         # deliberately small population gets it; a caller who passes 136 FBS
         # names and matches four has a name-normalisation bug, and centring on
         # those four would corrupt every rating in the book.
-        if matched >= 3 and matched >= 0.25 * len(center_on):
-            offense = offense - offense[mask].mean()
-            defense = defense - defense[mask].mean()
-        else:
-            log.warning(
-                "efficiency centring: only %d of %d reference teams matched; "
-                "centring on all %d instead", matched, len(center_on), len(teams),
+        if matched < 3 or matched < CENTRE_COVERAGE * len(center_on):
+            # Refuse rather than fall back. Centring on whoever happens to be
+            # in the fit — a mix of FBS and FCS in the opening weeks — produces
+            # a number that is not on the same scale as SP+ and would quietly
+            # corrupt the blend it joins. Early in a season this source simply
+            # is not ready, and saying so is the correct output.
+            log.info(
+                "efficiency not ready: only %d of %d reference teams have played "
+                "(need %.0f%%)", matched, len(center_on), 100 * CENTRE_COVERAGE,
             )
-            offense = offense - offense.mean()
-            defense = defense - defense.mean()
+            return None
+        offense = offense - offense[mask].mean()
+        defense = defense - defense[mask].mean()
     else:
         offense = offense - offense.mean()
         defense = defense - defense.mean()

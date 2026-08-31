@@ -162,9 +162,27 @@ def test_centring_on_a_subset_shifts_the_zero(league):
     assert ratings.quality["echo"] < 0
 
 
-def test_centring_falls_back_when_the_pool_is_too_small(league):
+def test_a_reference_pool_that_has_not_played_yields_no_rating(league):
+    """Refusing beats falling back: a mis-centred rating corrupts the blend.
+
+    Early in a season only a handful of the reference teams have played. A
+    rating centred on whoever happens to be in the fit is not on the same
+    scale as SP+, and publishing it would silently shift every projection.
+    """
     games, stats = league
-    ratings = fit_efficiency(stats, games, season=2025, center_on={"nobody"})
+    assert fit_efficiency(stats, games, season=2025, center_on={"nobody"}) is None
+
+
+def test_partial_coverage_below_the_floor_also_refuses(league):
+    games, stats = league
+    # Two of nine reference teams present is under the coverage floor.
+    pool = set(TEAMS) | {f"ghost{i}" for i in range(30)}
+    assert fit_efficiency(stats, games, season=2025, center_on=pool) is None
+
+
+def test_full_coverage_still_centres_normally(league):
+    games, stats = league
+    ratings = fit_efficiency(stats, games, season=2025, center_on=set(TEAMS))
     assert sum(ratings.quality.values()) == pytest.approx(0.0, abs=1e-9)
 
 

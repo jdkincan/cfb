@@ -540,16 +540,21 @@ def _load_efficiency(book: "RatingBook", client, season: int, week: int) -> None
             }
         except Exception as exc:  # noqa: BLE001
             log.debug("no FBS list for efficiency centring: %s", exc)
+        # Live projection: fit on everything already played rather than on a
+        # week cutoff. A CFBD week can hold two playing weekends, so week 1 of
+        # 2026 contains both the games that are final and the ones being
+        # projected — a week cutoff would throw away the whole season to date.
         ratings = fit_efficiency(
-            rows, games, before_week=week, season=season, center_on=fbs
+            rows, games, season=season, center_on=fbs, played_only=True
         )
         if ratings is None:
             log.info("efficiency: too few completed games before week %d", week)
             return
         n = book.load_efficiency(ratings)
         log.info(
-            "loaded efficiency for %d teams (week %d, %d team-games, "
-            "%.0f pts/unit)", n, week, ratings.observations, ratings.points_per_unit,
+            "loaded efficiency for %d teams (week %d, fit on %d completed "
+            "team-games, %.0f pts/unit)",
+            n, week, ratings.observations, ratings.points_per_unit,
         )
     except Exception as exc:  # noqa: BLE001 - degrade, don't die
         log.warning("could not build in-season efficiency ratings: %s", exc)

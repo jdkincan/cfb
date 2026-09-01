@@ -232,3 +232,59 @@ class TestSpotlight:
         from cfbmeta.spotlight import TeamDetail
 
         assert TeamDetail(team="X", momentum=[(1, 10.0)]).momentum_delta is None
+
+
+class TestSnapshotsAreNotClobbered:
+    """The first capture of a week is the only one that can be graded."""
+
+    def _snap(self, tmp_path, markets, when):
+        import datetime as dt
+        from cfbmeta.archive import snapshot
+
+        return snapshot(2026, 1, markets=markets, root=tmp_path,
+                        now=dt.datetime(2026, 9, when, 12, 0, tzinfo=dt.timezone.utc))
+
+    def test_a_rerun_does_not_overwrite_the_decision_snapshot(self, tmp_path):
+        import csv as _csv
+
+        d = self._snap(tmp_path, {1: {"spread": -7.0, "provider": "DK"}}, 3)
+        first = (d / "lines.csv").read_text()
+        self._snap(tmp_path, {1: {"spread": -10.5, "provider": "DK"}}, 4)
+        assert (d / "lines.csv").read_text() == first
+        rows = list(_csv.DictReader((d / "lines.csv").open()))
+        assert rows[0]["spread"] == "-7.0"
+
+    def test_the_later_capture_is_still_kept_beside_it(self, tmp_path):
+        d = self._snap(tmp_path, {1: {"spread": -7.0}}, 3)
+        self._snap(tmp_path, {1: {"spread": -10.5}}, 4)
+        later = list(d.glob("lines-2026*.csv"))
+        assert len(later) == 1
+        assert "-10.5" in later[0].read_text()
+
+    def test_every_capture_lands_in_the_movement_history(self, tmp_path):
+        import csv as _csv
+
+        d = self._snap(tmp_path, {1: {"spread": -7.0}}, 3)
+        self._snap(tmp_path, {1: {"spread": -8.5}}, 4)
+        self._snap(tmp_path, {1: {"spread": -10.5}}, 5)
+        rows = list(_csv.DictReader((d / "lines-history.csv").open()))
+        assert [r["spread"] for r in rows] == ["-7.0", "-8.5", "-10.5"]
+        # Each row is stamped, so movement can be ordered.
+        assert len({r["captured_at"] for r in rows}) == 3
+
+    def test_meta_keeps_the_first_capture_and_lists_the_rest(self, tmp_path):
+        import json as _json
+
+        d = self._snap(tmp_path, {1: {"spread": -7.0}}, 3)
+        self._snap(tmp_path, {1: {"spread": -10.5}}, 4)
+        meta = _json.loads((d / "meta.json").read_text())
+        assert meta["captured_at"].startswith("2026-09-03")
+        assert len(meta["captures"]) == 2
+        assert meta["captures"][0].startswith("2026-09-03")
+        assert meta["captures"][-1].startswith("2026-09-04")
+
+    def test_a_first_capture_writes_the_plain_names(self, tmp_path):
+        d = self._snap(tmp_path, {1: {"spread": -7.0}}, 3)
+        assert (d / "lines.csv").exists()
+        assert (d / "lines-history.csv").exists()
+        assert not list(d.glob("lines-2026*.csv"))

@@ -144,6 +144,40 @@ def market_rows(markets: Dict[Any, Dict[str, Any]]) -> List[Dict[str, Any]]:
     return rows
 
 
+def _keep_first(path: Path, rows: List[dict], columns: List[str],
+                stamp: str) -> int:
+    """Write ``path`` once; later captures go to a timestamped sibling.
+
+    The first capture of a week is the decision snapshot — the numbers that
+    existed when the forecast was made — and it is the only one that can ever
+    be graded honestly. Overwriting it with a later re-run silently replaces
+    "what we knew on Thursday" with "what we knew after the lines moved",
+    which is the one thing this whole directory exists to prevent.
+    """
+    if not path.exists():
+        return _write_csv(path, rows, columns)
+    later = path.with_name(f"{path.stem}-{stamp}{path.suffix}")
+    return _write_csv(later, rows, columns)
+
+
+def _append_history(path: Path, rows: List[dict], columns: List[str],
+                    stamp: str) -> int:
+    """Append this capture to a running history, one row per game per capture.
+
+    Line movement between the forecast and kickoff is the raw material for
+    closing-line value, and it only exists if every capture is kept.
+    """
+    header = ["captured_at"] + columns
+    exists = path.exists()
+    with path.open("a", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=header, extrasaction="ignore")
+        if not exists:
+            writer.writeheader()
+        for row in rows:
+            writer.writerow({"captured_at": stamp, **row})
+    return len(rows)
+
+
 def snapshot(
     season: int,
     week: int,
@@ -159,12 +193,14 @@ def snapshot(
     directory = week_dir(season, week, root)
     directory.mkdir(parents=True, exist_ok=True)
 
+    stamp = now.strftime("%Y%m%dT%H%M%SZ")
     counts = {}
     if book is not None:
-        counts["ratings"] = _write_csv(
+        counts["ratings"] = _keep_first(
             directory / "ratings.csv",
             ratings_rows(book),
             ["team", "team_key", "conference", "source", "rating"],
+            stamp,
         )
 
     projections = list(projections or [])
@@ -175,18 +211,36 @@ def snapshot(
             for key in row:
                 if key not in columns:
                     columns.append(key)
-        counts["projections"] = _write_csv(directory / "projections.csv", rows, columns)
+        counts["projections"] = _keep_first(
+            directory / "projections.csv", rows, columns, stamp)
 
     if markets:
-        counts["lines"] = _write_csv(
-            directory / "lines.csv",
-            market_rows(markets),
-            ["game_id", "spread", "total", "provider", "book_count",
-             "spread_min", "spread_max"],
-        )
+        line_columns = ["game_id", "spread", "total", "provider", "book_count",
+                        "spread_min", "spread_max"]
+        line_rows = market_rows(markets)
+        counts["lines"] = _keep_first(
+            directory / "lines.csv", line_rows, line_columns, stamp)
+        # Every capture, always — this is the movement series.
+        counts["line_history"] = _append_history(
+            directory / "lines-history.csv", line_rows, line_columns, stamp)
+
+    previous = {}
+    meta_path = directory / "meta.json"
+    if meta_path.exists():
+        try:
+            previous = json.loads(meta_path.read_text())
+        except (json.JSONDecodeError, OSError):
+            previous = {}
+    captures = list(previous.get("captures") or [])
+    if previous.get("captured_at") and not captures:
+        captures.append(previous["captured_at"])
+    captures.append(now.isoformat())
 
     meta = {
-        "captured_at": now.isoformat(),
+        # The first capture is the one a grade is scored against; the rest are
+        # kept so line movement can be reconstructed.
+        "captured_at": previous.get("captured_at") or now.isoformat(),
+        "captures": captures,
         "season": season,
         "week": week,
         "counts": counts,
@@ -203,7 +257,7 @@ def snapshot(
             "league_hfa": config.league_hfa,
             "min_edge_points": config.min_edge_points,
         }
-    (directory / "meta.json").write_text(json.dumps(meta, indent=2, sort_keys=True))
+    meta_path.write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n")
 
     log.info("archived %s: %s", directory, counts)
     return directory

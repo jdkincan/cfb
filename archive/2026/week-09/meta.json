@@ -1,0 +1,119 @@
+{
+  "captured_at": "2026-10-28T20:19:16.551685+00:00",
+  "captures": [
+    "2026-10-28T20:19:16.551685+00:00",
+    "2026-10-28T20:19:44.935945+00:00",
+    "2026-10-28T20:23:27.021260+00:00"
+  ],
+  "config": {
+    "edge_shrink": 0.052,
+    "league_hfa": 2.7,
+    "min_edge_points": 17.5,
+    "sigma_margin": 19.32,
+    "weights": {
+      "efficiency": 0.18,
+      "elo": 0.0018,
+      "fpi": 0.2395,
+      "market": 0.0,
+      "sp_plus": 0.4398,
+      "srs": 0.0,
+      "talent": 0.3189
+    }
+  },
+  "counts": {
+    "line_history": 56,
+    "lines": 56,
+    "projections": 54,
+    "ratings": 2374
+  },
+  "season": 2026,
+  "sources": {
+    "efficiency": {
+      "dispersion": 15.8,
+      "fingerprint": "30585adbcb05c1d2",
+      "in_season": true,
+      "origin": "CFBD",
+      "reason": "",
+      "season": 2026,
+      "source": "efficiency",
+      "teams": 316,
+      "unchanged_days": 0.0,
+      "unchanged_since": "",
+      "usable": true
+    },
+    "elo": {
+      "dispersion": 12.42,
+      "fingerprint": "f81f8176190e4059",
+      "in_season": true,
+      "origin": "CFBD",
+      "reason": "",
+      "season": 2026,
+      "source": "elo",
+      "teams": 138,
+      "unchanged_days": 0.0,
+      "unchanged_since": "",
+      "usable": true
+    },
+    "fpi": {
+      "dispersion": 12.81,
+      "fingerprint": "1bc818daec1b438a",
+      "in_season": true,
+      "origin": "CFBD",
+      "reason": "",
+      "season": 2026,
+      "source": "fpi",
+      "teams": 138,
+      "unchanged_days": 0.0,
+      "unchanged_since": "",
+      "usable": true
+    },
+    "sp_plus": {
+      "dispersion": 12.42,
+      "fingerprint": "169c8b440fcc0076",
+      "in_season": true,
+      "origin": "CFBD",
+      "reason": "",
+      "season": 2026,
+      "source": "sp_plus",
+      "teams": 138,
+      "unchanged_days": 0.0,
+      "unchanged_since": "",
+      "usable": true
+    },
+    "srs": {
+      "dispersion": 20.81,
+      "fingerprint": "db3705d4353f6652",
+      "in_season": true,
+      "origin": "CFBD",
+      "reason": "",
+      "season": 2026,
+      "source": "srs",
+      "teams": 266,
+      "unchanged_days": 0.0,
+      "unchanged_since": "",
+      "usable": true
+    },
+    "talent": {
+      "dispersion": 12.42,
+      "fingerprint": "e4b87dca0333205d",
+      "in_season": true,
+      "origin": "CFBD",
+      "reason": "",
+      "season": 2026,
+      "source": "talent",
+      "teams": 138,
+      "unchanged_days": 0.0,
+      "unchanged_since": "",
+      "usable": true
+    }
+  },
+  "usable_sources": [
+    "efficiency",
+    "elo",
+    "fpi",
+    "sp_plus",
+    "srs",
+    "talent"
+  ],
+  "week": 9
+}

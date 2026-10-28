@@ -271,3 +271,73 @@ class TestMarketConsolidation:
         markets = build_market_map(client.lines(SEASON, week=6))
         assert any(isinstance(k, int) for k in markets)
         assert any(isinstance(k, tuple) for k in markets)
+
+
+class TestExcludedTeamsAreNotBet:
+    """The exclusion list has to cover spreads, not just win totals."""
+
+    def _game(self, home, away):
+        import datetime as dt
+        return {
+            "id": 99, "week": 9, "homeTeam": home, "awayTeam": away,
+            "startDate": dt.datetime(2026, 10, 31, 19, tzinfo=dt.timezone.utc).isoformat(),
+        }
+
+    def _book(self, home, away, home_rating, away_rating):
+        from cfbmeta.ratings import RatingBook
+        book = RatingBook(2026)
+        book.add(home, "sp_plus", home_rating)
+        book.add(away, "sp_plus", away_rating)
+        return book
+
+    def test_a_game_with_an_excluded_team_is_passed(self):
+        from cfbmeta.config import Config
+        from cfbmeta.model import project_game
+
+        config = Config(season=2026)
+        config.min_edge_points = 1.0
+        config.edge_shrink = 1.0
+        book = self._book("Notre Dame", "Navy", 30.0, -5.0)
+        proj = project_game(self._game("Notre Dame", "Navy"), book, config,
+                            market={"spread": -30.5})
+        assert proj.spread_bet is not None
+        assert not proj.spread_bet.is_play
+        assert any("measured bias" in n for n in proj.notes)
+
+    def test_the_exclusion_applies_from_either_side(self):
+        from cfbmeta.config import Config
+        from cfbmeta.model import project_game
+
+        config = Config(season=2026)
+        config.min_edge_points = 1.0
+        config.edge_shrink = 1.0
+        book = self._book("Memphis", "Army", 10.0, -10.0)
+        proj = project_game(self._game("Memphis", "Army"), book, config,
+                            market={"spread": -6.0})
+        assert not proj.spread_bet.is_play
+
+    def test_an_unexcluded_matchup_is_still_evaluated(self):
+        from cfbmeta.config import Config
+        from cfbmeta.model import project_game
+
+        config = Config(season=2026)
+        config.min_edge_points = 1.0
+        config.edge_shrink = 1.0
+        book = self._book("Oregon", "Northwestern", 28.0, 2.0)
+        proj = project_game(self._game("Oregon", "Northwestern"), book, config,
+                            market={"spread": -3.5})
+        assert proj.spread_bet is not None
+        assert proj.spread_bet.is_play
+
+    def test_clearing_the_list_re_enables_the_bet(self):
+        from cfbmeta.config import Config
+        from cfbmeta.model import project_game
+
+        config = Config(season=2026)
+        config.min_edge_points = 1.0
+        config.edge_shrink = 1.0
+        config.bet_exclusions = []
+        book = self._book("Notre Dame", "Navy", 30.0, -5.0)
+        proj = project_game(self._game("Notre Dame", "Navy"), book, config,
+                            market={"spread": -30.5})
+        assert proj.spread_bet.is_play

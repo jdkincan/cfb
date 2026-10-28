@@ -410,6 +410,23 @@ def project_game(
         proj.best_line = chosen["spread"]
         proj.best_book = chosen.get("provider", "")
 
+    # Teams the model is measurably wrong about are passed, not bet. The
+    # exclusion list was only ever applied to win totals, which left the
+    # spread card free to stake the same bias: in week 9 of 2026 its single
+    # best bet was Notre Dame -30.5 against Navy, a 10.7-point disagreement
+    # pointed straight at the academy effect that list exists to avoid.
+    #
+    # Marked as a no-play rather than returning early, so the projection keeps
+    # its shape — every game still carries a bet object, it just says "none".
+    excluded = {normalize_team(t) for t in (config.bet_exclusions or ())}
+    if normalize_team(home_team) in excluded or normalize_team(away_team) in excluded:
+        proj.notes.append(
+            "No bet: the model has a measured bias on one of these teams."
+        )
+        proj.spread_bet = BetEvaluation("none", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        proj.total_bet = BetEvaluation("none", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        return proj
+
     proj.spread_bet = evaluate_spread_bet(
         proj.projected_margin,
         proj.best_line if proj.best_line is not None else proj.market_spread,

@@ -31,8 +31,11 @@ concurrency:
   group: weekly-forecast
   cancel-in-progress: false
 
+# The run has to commit its archive back, or the snapshot it just took dies
+# with the container — which is exactly what happened for the whole of the
+# 2026 regular season, leaving one hand-made week 1 capture and nothing else.
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   forecast:
@@ -87,6 +90,25 @@ jobs:
           [ -n "${{ inputs.season }}" ] && args+=(--season "${{ inputs.season }}")
 
           python -m cfbmeta "${args[@]}"
+
+      - name: Commit the weekly snapshot
+        if: always()
+        run: |
+          set -euo pipefail
+          # The point-in-time archive is the only record of what the model
+          # knew before kickoff, and it cannot be reconstructed from the API
+          # afterwards: CFBD serves today's ratings, not Thursday's.
+          if [ -z "$(git status --porcelain archive)" ]; then
+            echo "No archive changes to commit."
+            exit 0
+          fi
+          git config user.name "cfbmeta[bot]"
+          git config user.email "noreply@anthropic.com"
+          git add archive
+          git commit -m "Archive $(date -u +%Y-%m-%d) weekly snapshot"
+          # A concurrent push should not fail the forecast; retry once onto
+          # whatever landed in the meantime.
+          git push || { git pull --rebase --autostash && git push; }
 
       - name: Upload the rendered readout
         if: always() && hashFiles('forecast.html') != ''

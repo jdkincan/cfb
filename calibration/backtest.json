@@ -1,27 +1,28 @@
 {
   "ats": [
-    855,
-    840,
-    37
+    1010,
+    1015,
+    41
   ],
-  "ats_pct": 0.504424778761062,
+  "ats_pct": 0.49876543209876545,
   "basis": "reconstructed",
   "beats_market": false,
-  "bias": -1.093,
-  "edge_shrink": 0.096,
-  "games": 2210,
-  "mae": 12.781,
-  "market_mae": 12.029,
-  "rmse": 16.053,
-  "run_at": "2026-08-18T19:06:58.407448+00:00",
+  "bias": -1.201,
+  "edge_shrink": 0.052,
+  "games": 2643,
+  "mae": 12.817,
+  "market_mae": 11.911,
+  "rmse": 16.092,
+  "run_at": "2026-10-28T20:21:32.524866+00:00",
   "seasons": [
     2023,
     2024,
-    2025
+    2025,
+    2026
   ],
-  "sigma": 16.02,
+  "sigma": 16.05,
   "weights": {
-    "efficiency": 0.3947,
-    "inseason": 0.6053
+    "efficiency": 0.3809,
+    "inseason": 0.6191
   }
 }

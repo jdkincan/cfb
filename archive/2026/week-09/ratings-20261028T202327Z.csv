@@ -1,0 +1,2375 @@
+team,team_key,conference,source,rating
+Ohio State,ohio state,Big Ten,efficiency,26.5866
+Ohio State,ohio state,Big Ten,elo,27.9998
+Ohio State,ohio state,Big Ten,fpi,28.181
+Ohio State,ohio state,Big Ten,sp_plus,28.6
+Ohio State,ohio state,Big Ten,srs,21.8
+Ohio State,ohio state,Big Ten,talent,26.7081
+Ohio State,ohio state,Big Ten,meta:elo_raw,2069.0
+Ohio State,ohio state,Big Ten,meta:fpi_defense,86.793
+Ohio State,ohio state,Big Ten,meta:fpi_offense,82.902
+Ohio State,ohio state,Big Ten,meta:fpi_special,53.518
+Ohio State,ohio state,Big Ten,meta:returning_ppa,355.9
+Ohio State,ohio state,Big Ten,meta:sp_defense,10.7
+Ohio State,ohio state,Big Ten,meta:sp_offense,39.2
+Ohio State,ohio state,Big Ten,meta:sp_special,0.1
+Ohio State,ohio state,Big Ten,meta:talent_raw,964.27
+Georgia,georgia,SEC,efficiency,19.8749
+Georgia,georgia,SEC,elo,25.7411
+Georgia,georgia,SEC,fpi,26.494
+Georgia,georgia,SEC,sp_plus,27.1
+Georgia,georgia,SEC,srs,20.8
+Georgia,georgia,SEC,talent,30.3086
+Georgia,georgia,SEC,meta:elo_raw,2023.0
+Georgia,georgia,SEC,meta:fpi_defense,77.667
+Georgia,georgia,SEC,meta:fpi_offense,90.426
+Georgia,georgia,SEC,meta:fpi_special,60.55
+Georgia,georgia,SEC,meta:returning_ppa,248.1
+Georgia,georgia,SEC,meta:sp_defense,12.9
+Georgia,georgia,SEC,meta:sp_offense,39.6
+Georgia,georgia,SEC,meta:sp_special,0.4
+Georgia,georgia,SEC,meta:talent_raw,1003.67
+LSU,lsu,SEC,efficiency,28.3924
+LSU,lsu,SEC,elo,21.813
+LSU,lsu,SEC,fpi,24.042
+LSU,lsu,SEC,sp_plus,25.2
+LSU,lsu,SEC,srs,25.2
+LSU,lsu,SEC,talent,23.7373
+LSU,lsu,SEC,meta:elo_raw,1943.0
+LSU,lsu,SEC,meta:fpi_defense,90.998
+LSU,lsu,SEC,meta:fpi_offense,75.474
+LSU,lsu,SEC,meta:fpi_special,48.563
+LSU,lsu,SEC,meta:returning_ppa,42.9
+LSU,lsu,SEC,meta:sp_defense,13.3
+LSU,lsu,SEC,meta:sp_offense,38.8
+LSU,lsu,SEC,meta:sp_special,-0.3
+LSU,lsu,SEC,meta:talent_raw,931.76
+Notre Dame,notre dame,FBS Independents,efficiency,26.5332
+Notre Dame,notre dame,FBS Independents,elo,28.6381
+Notre Dame,notre dame,FBS Independents,fpi,27.73
+Notre Dame,notre dame,FBS Independents,sp_plus,25.2
+Notre Dame,notre dame,FBS Independents,srs,22.9
+Notre Dame,notre dame,FBS Independents,talent,25.681
+Notre Dame,notre dame,FBS Independents,meta:elo_raw,2082.0
+Notre Dame,notre dame,FBS Independents,meta:fpi_defense,89.797
+Notre Dame,notre dame,FBS Independents,meta:fpi_offense,84.739
+Notre Dame,notre dame,FBS Independents,meta:fpi_special,59.674
+Notre Dame,notre dame,FBS Independents,meta:returning_ppa,175.6
+Notre Dame,notre dame,FBS Independents,meta:sp_defense,14.7
+Notre Dame,notre dame,FBS Independents,meta:sp_offense,39.5
+Notre Dame,notre dame,FBS Independents,meta:sp_special,0.4
+Notre Dame,notre dame,FBS Independents,meta:talent_raw,953.03
+Miami,miami,ACC,efficiency,23.6312
+Miami,miami,ACC,elo,25.4956
+Miami,miami,ACC,fpi,27.539
+Miami,miami,ACC,sp_plus,24.7
+Miami,miami,ACC,srs,22.0
+Miami,miami,ACC,talent,19.5502
+Miami,miami,ACC,meta:elo_raw,2018.0
+Miami,miami,ACC,meta:fpi_defense,79.932
+Miami,miami,ACC,meta:fpi_offense,88.95
+Miami,miami,ACC,meta:fpi_special,57.566
+Miami,miami,ACC,meta:returning_ppa,167.9
+Miami,miami,ACC,meta:sp_defense,16.6
+Miami,miami,ACC,meta:sp_offense,40.9
+Miami,miami,ACC,meta:sp_special,0.4
+Miami,miami,ACC,meta:talent_raw,885.94
+Indiana,indiana,Big Ten,efficiency,26.5724
+Indiana,indiana,Big Ten,elo,28.3435
+Indiana,indiana,Big Ten,fpi,24.073
+Indiana,indiana,Big Ten,sp_plus,24.2
+Indiana,indiana,Big Ten,srs,19.7
+Indiana,indiana,Big Ten,talent,5.7808
+Indiana,indiana,Big Ten,meta:elo_raw,2076.0
+Indiana,indiana,Big Ten,meta:fpi_defense,87.511
+Indiana,indiana,Big Ten,meta:fpi_offense,80.04
+Indiana,indiana,Big Ten,meta:fpi_special,43.039
+Indiana,indiana,Big Ten,meta:returning_ppa,97.9
+Indiana,indiana,Big Ten,meta:sp_defense,10.9
+Indiana,indiana,Big Ten,meta:sp_offense,35.1
+Indiana,indiana,Big Ten,meta:sp_special,0.0
+Indiana,indiana,Big Ten,meta:talent_raw,735.26
+Alabama,alabama,SEC,efficiency,22.509
+Alabama,alabama,SEC,elo,21.6166
+Alabama,alabama,SEC,fpi,24.492
+Alabama,alabama,SEC,sp_plus,20.9
+Alabama,alabama,SEC,srs,23.6
+Alabama,alabama,SEC,talent,27.5543
+Alabama,alabama,SEC,meta:elo_raw,1939.0
+Alabama,alabama,SEC,meta:fpi_defense,85.713
+Alabama,alabama,SEC,meta:fpi_offense,80.988
+Alabama,alabama,SEC,meta:fpi_special,56.926
+Alabama,alabama,SEC,meta:returning_ppa,120.2
+Alabama,alabama,SEC,meta:sp_defense,16.6
+Alabama,alabama,SEC,meta:sp_offense,37.2
+Alabama,alabama,SEC,meta:sp_special,0.3
+Alabama,alabama,SEC,meta:talent_raw,973.53
+Texas,texas,SEC,efficiency,11.3021
+Texas,texas,SEC,elo,19.7998
+Texas,texas,SEC,fpi,23.954
+Texas,texas,SEC,sp_plus,20.4
+Texas,texas,SEC,srs,19.4
+Texas,texas,SEC,talent,28.618
+Texas,texas,SEC,meta:elo_raw,1902.0
+Texas,texas,SEC,meta:fpi_defense,90.74
+Texas,texas,SEC,meta:fpi_offense,62.207
+Texas,texas,SEC,meta:fpi_special,47.871
+Texas,texas,SEC,meta:returning_ppa,187.5
+Texas,texas,SEC,meta:sp_defense,14.5
+Texas,texas,SEC,meta:sp_offense,34.6
+Texas,texas,SEC,meta:sp_special,0.3
+Texas,texas,SEC,meta:talent_raw,985.17
+Texas Tech,texas tech,Big 12,efficiency,12.4488
+Texas Tech,texas tech,Big 12,elo,16.0189
+Texas Tech,texas tech,Big 12,fpi,16.732
+Texas Tech,texas tech,Big 12,sp_plus,18.4
+Texas Tech,texas tech,Big 12,srs,13.1
+Texas Tech,texas tech,Big 12,talent,8.7626
+Texas Tech,texas tech,Big 12,meta:elo_raw,1825.0
+Texas Tech,texas tech,Big 12,meta:fpi_defense,77.407
+Texas Tech,texas tech,Big 12,meta:fpi_offense,53.694
+Texas Tech,texas tech,Big 12,meta:fpi_special,63.504
+Texas Tech,texas tech,Big 12,meta:returning_ppa,231.6
+Texas Tech,texas tech,Big 12,meta:sp_defense,18.2
+Texas Tech,texas tech,Big 12,meta:sp_offense,36.2
+Texas Tech,texas tech,Big 12,meta:sp_special,0.4
+Texas Tech,texas tech,Big 12,meta:talent_raw,767.89
+Utah,utah,Big 12,efficiency,18.4199
+Utah,utah,Big 12,elo,19.5052
+Utah,utah,Big 12,fpi,16.997
+Utah,utah,Big 12,sp_plus,18.0
+Utah,utah,Big 12,srs,18.6
+Utah,utah,Big 12,talent,2.1676
+Utah,utah,Big 12,meta:elo_raw,1896.0
+Utah,utah,Big 12,meta:fpi_defense,73.975
+Utah,utah,Big 12,meta:fpi_offense,79.717
+Utah,utah,Big 12,meta:fpi_special,52.263
+Utah,utah,Big 12,meta:returning_ppa,278.5
+Utah,utah,Big 12,meta:sp_defense,17.7
+Utah,utah,Big 12,meta:sp_offense,35.7
+Utah,utah,Big 12,meta:sp_special,0.1
+Utah,utah,Big 12,meta:talent_raw,695.72
+Tennessee,tennessee,SEC,efficiency,13.4724
+Tennessee,tennessee,SEC,elo,16.2154
+Tennessee,tennessee,SEC,fpi,16.818
+Tennessee,tennessee,SEC,sp_plus,17.9
+Tennessee,tennessee,SEC,srs,16.2
+Tennessee,tennessee,SEC,talent,19.5465
+Tennessee,tennessee,SEC,meta:elo_raw,1829.0
+Tennessee,tennessee,SEC,meta:fpi_defense,87.946
+Tennessee,tennessee,SEC,meta:fpi_offense,59.269
+Tennessee,tennessee,SEC,meta:fpi_special,51.23
+Tennessee,tennessee,SEC,meta:returning_ppa,186.2
+Tennessee,tennessee,SEC,meta:sp_defense,16.9
+Tennessee,tennessee,SEC,meta:sp_offense,34.4
+Tennessee,tennessee,SEC,meta:sp_special,0.5
+Tennessee,tennessee,SEC,meta:talent_raw,885.9
+Oregon,oregon,Big Ten,efficiency,14.1541
+Oregon,oregon,Big Ten,elo,14.1531
+Oregon,oregon,Big Ten,fpi,16.971
+Oregon,oregon,Big Ten,sp_plus,17.0
+Oregon,oregon,Big Ten,srs,14.0
+Oregon,oregon,Big Ten,talent,28.5412
+Oregon,oregon,Big Ten,meta:elo_raw,1787.0
+Oregon,oregon,Big Ten,meta:fpi_defense,86.44
+Oregon,oregon,Big Ten,meta:fpi_offense,46.994
+Oregon,oregon,Big Ten,meta:fpi_special,67.921
+Oregon,oregon,Big Ten,meta:returning_ppa,373.3
+Oregon,oregon,Big Ten,meta:sp_defense,16.5
+Oregon,oregon,Big Ten,meta:sp_offense,33.2
+Oregon,oregon,Big Ten,meta:sp_special,0.2
+Oregon,oregon,Big Ten,meta:talent_raw,984.33
+BYU,byu,Big 12,efficiency,18.4972
+BYU,byu,Big 12,elo,10.274
+BYU,byu,Big 12,fpi,16.291
+BYU,byu,Big 12,sp_plus,16.7
+BYU,byu,Big 12,srs,16.6
+BYU,byu,Big 12,talent,1.5918
+BYU,byu,Big 12,meta:elo_raw,1708.0
+BYU,byu,Big 12,meta:fpi_defense,74.249
+BYU,byu,Big 12,meta:fpi_offense,79.611
+BYU,byu,Big 12,meta:fpi_special,53.049
+BYU,byu,Big 12,meta:returning_ppa,284.3
+BYU,byu,Big 12,meta:sp_defense,17.6
+BYU,byu,Big 12,meta:sp_offense,33.9
+BYU,byu,Big 12,meta:sp_special,0.4
+BYU,byu,Big 12,meta:talent_raw,689.42
+Arizona,arizona,Big 12,efficiency,15.2174
+Arizona,arizona,Big 12,elo,15.3315
+Arizona,arizona,Big 12,fpi,13.348
+Arizona,arizona,Big 12,sp_plus,16.0
+Arizona,arizona,Big 12,srs,15.3
+Arizona,arizona,Big 12,talent,2.5212
+Arizona,arizona,Big 12,meta:elo_raw,1811.0
+Arizona,arizona,Big 12,meta:fpi_defense,74.827
+Arizona,arizona,Big 12,meta:fpi_offense,67.163
+Arizona,arizona,Big 12,meta:fpi_special,58.088
+Arizona,arizona,Big 12,meta:returning_ppa,202.4
+Arizona,arizona,Big 12,meta:sp_defense,19.0
+Arizona,arizona,Big 12,meta:sp_offense,35.4
+Arizona,arizona,Big 12,meta:sp_special,-0.4
+Arizona,arizona,Big 12,meta:talent_raw,699.59
+Nebraska,nebraska,Big Ten,efficiency,15.4064
+Nebraska,nebraska,Big Ten,elo,13.171
+Nebraska,nebraska,Big Ten,fpi,16.733
+Nebraska,nebraska,Big Ten,sp_plus,15.4
+Nebraska,nebraska,Big Ten,srs,16.1
+Nebraska,nebraska,Big Ten,talent,10.55
+Nebraska,nebraska,Big Ten,meta:elo_raw,1767.0
+Nebraska,nebraska,Big Ten,meta:fpi_defense,81.733
+Nebraska,nebraska,Big Ten,meta:fpi_offense,70.075
+Nebraska,nebraska,Big Ten,meta:fpi_special,45.347
+Nebraska,nebraska,Big Ten,meta:returning_ppa,146.2
+Nebraska,nebraska,Big Ten,meta:sp_defense,16.7
+Nebraska,nebraska,Big Ten,meta:sp_offense,32.2
+Nebraska,nebraska,Big Ten,meta:sp_special,-0.1
+Nebraska,nebraska,Big Ten,meta:talent_raw,787.45
+Ole Miss,ole miss,SEC,efficiency,12.7153
+Ole Miss,ole miss,SEC,elo,20.8309
+Ole Miss,ole miss,SEC,fpi,18.85
+Ole Miss,ole miss,SEC,sp_plus,14.7
+Ole Miss,ole miss,SEC,srs,17.4
+Ole Miss,ole miss,SEC,talent,19.5301
+Ole Miss,ole miss,SEC,meta:elo_raw,1923.0
+Ole Miss,ole miss,SEC,meta:fpi_defense,72.719
+Ole Miss,ole miss,SEC,meta:fpi_offense,80.346
+Ole Miss,ole miss,SEC,meta:fpi_special,55.605
+Ole Miss,ole miss,SEC,meta:returning_ppa,279.4
+Ole Miss,ole miss,SEC,meta:sp_defense,23.2
+Ole Miss,ole miss,SEC,meta:sp_offense,37.2
+Ole Miss,ole miss,SEC,meta:sp_special,0.7
+Ole Miss,ole miss,SEC,meta:talent_raw,885.72
+UCLA,ucla,Big Ten,efficiency,19.7953
+UCLA,ucla,Big Ten,elo,10.3231
+UCLA,ucla,Big Ten,fpi,11.66
+UCLA,ucla,Big Ten,sp_plus,14.4
+UCLA,ucla,Big Ten,srs,17.1
+UCLA,ucla,Big Ten,talent,9.362
+UCLA,ucla,Big Ten,meta:elo_raw,1709.0
+UCLA,ucla,Big Ten,meta:fpi_defense,85.441
+UCLA,ucla,Big Ten,meta:fpi_offense,60.735
+UCLA,ucla,Big Ten,meta:fpi_special,49.501
+UCLA,ucla,Big Ten,meta:returning_ppa,108.3
+UCLA,ucla,Big Ten,meta:sp_defense,17.1
+UCLA,ucla,Big Ten,meta:sp_offense,31.5
+UCLA,ucla,Big Ten,meta:sp_special,-0.1
+UCLA,ucla,Big Ten,meta:talent_raw,774.45
+Missouri,missouri,SEC,efficiency,7.9591
+Missouri,missouri,SEC,elo,12.189
+Missouri,missouri,SEC,fpi,12.232
+Missouri,missouri,SEC,sp_plus,14.2
+Missouri,missouri,SEC,srs,11.2
+Missouri,missouri,SEC,talent,12.4608
+Missouri,missouri,SEC,meta:elo_raw,1747.0
+Missouri,missouri,SEC,meta:fpi_defense,80.139
+Missouri,missouri,SEC,meta:fpi_offense,55.609
+Missouri,missouri,SEC,meta:fpi_special,50.173
+Missouri,missouri,SEC,meta:returning_ppa,132.8
+Missouri,missouri,SEC,meta:sp_defense,16.5
+Missouri,missouri,SEC,meta:sp_offense,30.9
+Missouri,missouri,SEC,meta:sp_special,-0.2
+Missouri,missouri,SEC,meta:talent_raw,808.36
+USC,usc,Big Ten,efficiency,10.5434
+USC,usc,Big Ten,elo,12.4345
+USC,usc,Big Ten,fpi,12.656
+USC,usc,Big Ten,sp_plus,14.2
+USC,usc,Big Ten,srs,7.1
+USC,usc,Big Ten,talent,20.7436
+USC,usc,Big Ten,meta:elo_raw,1752.0
+USC,usc,Big Ten,meta:fpi_defense,45.126
+USC,usc,Big Ten,meta:fpi_offense,80.167
+USC,usc,Big Ten,meta:fpi_special,55.03
+USC,usc,Big Ten,meta:returning_ppa,305.5
+USC,usc,Big Ten,meta:sp_defense,22.4
+USC,usc,Big Ten,meta:sp_offense,36.6
+USC,usc,Big Ten,meta:sp_special,-0.1
+USC,usc,Big Ten,meta:talent_raw,899.0
+Northwestern,northwestern,Big Ten,efficiency,16.8097
+Northwestern,northwestern,Big Ten,elo,12.6309
+Northwestern,northwestern,Big Ten,fpi,13.811
+Northwestern,northwestern,Big Ten,sp_plus,13.7
+Northwestern,northwestern,Big Ten,srs,15.5
+Northwestern,northwestern,Big Ten,talent,1.4913
+Northwestern,northwestern,Big Ten,meta:elo_raw,1756.0
+Northwestern,northwestern,Big Ten,meta:fpi_defense,68.795
+Northwestern,northwestern,Big Ten,meta:fpi_offense,77.225
+Northwestern,northwestern,Big Ten,meta:fpi_special,54.931
+Northwestern,northwestern,Big Ten,meta:returning_ppa,198.2
+Northwestern,northwestern,Big Ten,meta:sp_defense,19.1
+Northwestern,northwestern,Big Ten,meta:sp_offense,32.8
+Northwestern,northwestern,Big Ten,meta:sp_special,0.0
+Northwestern,northwestern,Big Ten,meta:talent_raw,688.32
+SMU,smu,ACC,efficiency,8.1388
+SMU,smu,ACC,elo,12.7782
+SMU,smu,ACC,fpi,12.278
+SMU,smu,ACC,sp_plus,13.4
+SMU,smu,ACC,srs,7.9
+SMU,smu,ACC,talent,8.4528
+SMU,smu,ACC,meta:elo_raw,1759.0
+SMU,smu,ACC,meta:fpi_defense,68.198
+SMU,smu,ACC,meta:fpi_offense,70.898
+SMU,smu,ACC,meta:fpi_special,41.074
+SMU,smu,ACC,meta:returning_ppa,219.8
+SMU,smu,ACC,meta:sp_defense,20.4
+SMU,smu,ACC,meta:sp_offense,34.1
+SMU,smu,ACC,meta:sp_special,-0.4
+SMU,smu,ACC,meta:talent_raw,764.5
+Houston,houston,Big 12,efficiency,18.8104
+Houston,houston,Big 12,elo,5.7076
+Houston,houston,Big 12,fpi,14.397
+Houston,houston,Big 12,sp_plus,13.3
+Houston,houston,Big 12,srs,16.2
+Houston,houston,Big 12,talent,2.1867
+Houston,houston,Big 12,meta:elo_raw,1615.0
+Houston,houston,Big 12,meta:fpi_defense,59.837
+Houston,houston,Big 12,meta:fpi_offense,79.958
+Houston,houston,Big 12,meta:fpi_special,63.265
+Houston,houston,Big 12,meta:returning_ppa,242.7
+Houston,houston,Big 12,meta:sp_defense,23.0
+Houston,houston,Big 12,meta:sp_offense,36.1
+Houston,houston,Big 12,meta:sp_special,0.2
+Houston,houston,Big 12,meta:talent_raw,695.93
+Oklahoma State,oklahoma state,Big 12,efficiency,12.6011
+Oklahoma State,oklahoma state,Big 12,elo,-1.7559
+Oklahoma State,oklahoma state,Big 12,fpi,11.187
+Oklahoma State,oklahoma state,Big 12,sp_plus,12.4
+Oklahoma State,oklahoma state,Big 12,srs,15.4
+Oklahoma State,oklahoma state,Big 12,talent,0.063
+Oklahoma State,oklahoma state,Big 12,meta:elo_raw,1463.0
+Oklahoma State,oklahoma state,Big 12,meta:fpi_defense,64.567
+Oklahoma State,oklahoma state,Big 12,meta:fpi_offense,74.829
+Oklahoma State,oklahoma state,Big 12,meta:fpi_special,60.897
+Oklahoma State,oklahoma state,Big 12,meta:returning_ppa,0.0
+Oklahoma State,oklahoma state,Big 12,meta:sp_defense,24.1
+Oklahoma State,oklahoma state,Big 12,meta:sp_offense,36.1
+Oklahoma State,oklahoma state,Big 12,meta:sp_special,0.4
+Oklahoma State,oklahoma state,Big 12,meta:talent_raw,672.69
+Iowa,iowa,Big Ten,efficiency,10.1068
+Iowa,iowa,Big Ten,elo,17.0501
+Iowa,iowa,Big Ten,fpi,11.099
+Iowa,iowa,Big Ten,sp_plus,12.4
+Iowa,iowa,Big Ten,srs,9.9
+Iowa,iowa,Big Ten,talent,4.6358
+Iowa,iowa,Big Ten,meta:elo_raw,1846.0
+Iowa,iowa,Big Ten,meta:fpi_defense,81.642
+Iowa,iowa,Big Ten,meta:fpi_offense,53.842
+Iowa,iowa,Big Ten,meta:fpi_special,57.281
+Iowa,iowa,Big Ten,meta:returning_ppa,80.4
+Iowa,iowa,Big Ten,meta:sp_defense,15.3
+Iowa,iowa,Big Ten,meta:sp_offense,27.3
+Iowa,iowa,Big Ten,meta:sp_special,0.4
+Iowa,iowa,Big Ten,meta:talent_raw,722.73
+Louisville,louisville,ACC,efficiency,15.5978
+Louisville,louisville,ACC,elo,10.5195
+Louisville,louisville,ACC,fpi,13.648
+Louisville,louisville,ACC,sp_plus,12.2
+Louisville,louisville,ACC,srs,11.9
+Louisville,louisville,ACC,talent,6.2112
+Louisville,louisville,ACC,meta:elo_raw,1713.0
+Louisville,louisville,ACC,meta:fpi_defense,62.263
+Louisville,louisville,ACC,meta:fpi_offense,80.943
+Louisville,louisville,ACC,meta:fpi_special,58.044
+Louisville,louisville,ACC,meta:returning_ppa,92.3
+Louisville,louisville,ACC,meta:sp_defense,25.4
+Louisville,louisville,ACC,meta:sp_offense,37.7
+Louisville,louisville,ACC,meta:sp_special,-0.1
+Louisville,louisville,ACC,meta:talent_raw,739.97
+Wake Forest,wake forest,ACC,efficiency,16.6019
+Wake Forest,wake forest,ACC,elo,13.1219
+Wake Forest,wake forest,ACC,fpi,15.081
+Wake Forest,wake forest,ACC,sp_plus,12.2
+Wake Forest,wake forest,ACC,srs,13.4
+Wake Forest,wake forest,ACC,talent,0.8105
+Wake Forest,wake forest,ACC,meta:elo_raw,1766.0
+Wake Forest,wake forest,ACC,meta:fpi_defense,72.711
+Wake Forest,wake forest,ACC,meta:fpi_offense,77.432
+Wake Forest,wake forest,ACC,meta:fpi_special,57.158
+Wake Forest,wake forest,ACC,meta:returning_ppa,44.1
+Wake Forest,wake forest,ACC,meta:sp_defense,21.3
+Wake Forest,wake forest,ACC,meta:sp_offense,33.1
+Wake Forest,wake forest,ACC,meta:sp_special,0.3
+Wake Forest,wake forest,ACC,meta:talent_raw,680.87
+Michigan,michigan,Big Ten,efficiency,4.4487
+Michigan,michigan,Big Ten,elo,11.5507
+Michigan,michigan,Big Ten,fpi,11.117
+Michigan,michigan,Big Ten,sp_plus,11.5
+Michigan,michigan,Big Ten,srs,5.3
+Michigan,michigan,Big Ten,talent,19.923
+Michigan,michigan,Big Ten,meta:elo_raw,1734.0
+Michigan,michigan,Big Ten,meta:fpi_defense,79.713
+Michigan,michigan,Big Ten,meta:fpi_offense,51.107
+Michigan,michigan,Big Ten,meta:fpi_special,31.381
+Michigan,michigan,Big Ten,meta:returning_ppa,212.5
+Michigan,michigan,Big Ten,meta:sp_defense,12.7
+Michigan,michigan,Big Ten,meta:sp_offense,24.4
+Michigan,michigan,Big Ten,meta:sp_special,-0.2
+Michigan,michigan,Big Ten,meta:talent_raw,890.02
+South Carolina,south carolina,SEC,efficiency,4.5009
+South Carolina,south carolina,SEC,elo,9.9794
+South Carolina,south carolina,SEC,fpi,12.365
+South Carolina,south carolina,SEC,sp_plus,11.0
+South Carolina,south carolina,SEC,srs,9.6
+South Carolina,south carolina,SEC,talent,17.442
+South Carolina,south carolina,SEC,meta:elo_raw,1702.0
+South Carolina,south carolina,SEC,meta:fpi_defense,61.134
+South Carolina,south carolina,SEC,meta:fpi_offense,65.327
+South Carolina,south carolina,SEC,meta:fpi_special,65.255
+South Carolina,south carolina,SEC,meta:returning_ppa,148.3
+South Carolina,south carolina,SEC,meta:sp_defense,23.1
+South Carolina,south carolina,SEC,meta:sp_offense,33.6
+South Carolina,south carolina,SEC,meta:sp_special,0.5
+South Carolina,south carolina,SEC,meta:talent_raw,862.87
+James Madison,james madison,Sun Belt,efficiency,11.2996
+James Madison,james madison,Sun Belt,elo,15.6261
+James Madison,james madison,Sun Belt,fpi,5.262
+James Madison,james madison,Sun Belt,sp_plus,10.9
+James Madison,james madison,Sun Belt,srs,7.0
+James Madison,james madison,Sun Belt,talent,-7.6478
+James Madison,james madison,Sun Belt,meta:elo_raw,1817.0
+James Madison,james madison,Sun Belt,meta:fpi_defense,55.98
+James Madison,james madison,Sun Belt,meta:fpi_offense,60.949
+James Madison,james madison,Sun Belt,meta:fpi_special,75.194
+James Madison,james madison,Sun Belt,meta:returning_ppa,31.0
+James Madison,james madison,Sun Belt,meta:sp_defense,21.7
+James Madison,james madison,Sun Belt,meta:sp_offense,32.5
+James Madison,james madison,Sun Belt,meta:sp_special,0.1
+James Madison,james madison,Sun Belt,meta:talent_raw,588.31
+Boise State,boise state,Pac-12,efficiency,16.2938
+Boise State,boise state,Pac-12,elo,10.765
+Boise State,boise state,Pac-12,fpi,11.335
+Boise State,boise state,Pac-12,sp_plus,10.9
+Boise State,boise state,Pac-12,srs,11.8
+Boise State,boise state,Pac-12,talent,-2.8173
+Boise State,boise state,Pac-12,meta:elo_raw,1718.0
+Boise State,boise state,Pac-12,meta:fpi_defense,48.064
+Boise State,boise state,Pac-12,meta:fpi_offense,80.902
+Boise State,boise state,Pac-12,meta:fpi_special,56.467
+Boise State,boise state,Pac-12,meta:returning_ppa,234.2
+Boise State,boise state,Pac-12,meta:sp_defense,23.6
+Boise State,boise state,Pac-12,meta:sp_offense,34.2
+Boise State,boise state,Pac-12,meta:sp_special,0.3
+Boise State,boise state,Pac-12,meta:talent_raw,641.17
+Kentucky,kentucky,SEC,efficiency,12.7956
+Kentucky,kentucky,SEC,elo,6.6405
+Kentucky,kentucky,SEC,fpi,13.075
+Kentucky,kentucky,SEC,sp_plus,10.6
+Kentucky,kentucky,SEC,srs,14.9
+Kentucky,kentucky,SEC,talent,10.4769
+Kentucky,kentucky,SEC,meta:elo_raw,1634.0
+Kentucky,kentucky,SEC,meta:fpi_defense,74.032
+Kentucky,kentucky,SEC,meta:fpi_offense,74.094
+Kentucky,kentucky,SEC,meta:fpi_special,50.677
+Kentucky,kentucky,SEC,meta:returning_ppa,43.8
+Kentucky,kentucky,SEC,meta:sp_defense,22.3
+Kentucky,kentucky,SEC,meta:sp_offense,33.3
+Kentucky,kentucky,SEC,meta:sp_special,-0.3
+Kentucky,kentucky,SEC,meta:talent_raw,786.65
+Florida,florida,SEC,efficiency,10.3426
+Florida,florida,SEC,elo,7.0824
+Florida,florida,SEC,fpi,14.457
+Florida,florida,SEC,sp_plus,10.6
+Florida,florida,SEC,srs,13.7
+Florida,florida,SEC,talent,20.019
+Florida,florida,SEC,meta:elo_raw,1643.0
+Florida,florida,SEC,meta:fpi_defense,57.946
+Florida,florida,SEC,meta:fpi_offense,79.257
+Florida,florida,SEC,meta:fpi_special,69.714
+Florida,florida,SEC,meta:returning_ppa,143.0
+Florida,florida,SEC,meta:sp_defense,23.5
+Florida,florida,SEC,meta:sp_offense,33.5
+Florida,florida,SEC,meta:sp_special,0.6
+Florida,florida,SEC,meta:talent_raw,891.07
+Oklahoma,oklahoma,SEC,efficiency,8.6871
+Oklahoma,oklahoma,SEC,elo,10.8141
+Oklahoma,oklahoma,SEC,fpi,14.147
+Oklahoma,oklahoma,SEC,sp_plus,10.3
+Oklahoma,oklahoma,SEC,srs,8.8
+Oklahoma,oklahoma,SEC,talent,16.3701
+Oklahoma,oklahoma,SEC,meta:elo_raw,1719.0
+Oklahoma,oklahoma,SEC,meta:fpi_defense,88.836
+Oklahoma,oklahoma,SEC,meta:fpi_offense,45.52
+Oklahoma,oklahoma,SEC,meta:fpi_special,51.552
+Oklahoma,oklahoma,SEC,meta:returning_ppa,181.3
+Oklahoma,oklahoma,SEC,meta:sp_defense,14.2
+Oklahoma,oklahoma,SEC,meta:sp_offense,24.3
+Oklahoma,oklahoma,SEC,meta:sp_special,0.2
+Oklahoma,oklahoma,SEC,meta:talent_raw,851.14
+Texas A&M,texas a and m,SEC,efficiency,4.6714
+Texas A&M,texas a and m,SEC,elo,11.2561
+Texas A&M,texas a and m,SEC,fpi,13.401
+Texas A&M,texas a and m,SEC,sp_plus,9.7
+Texas A&M,texas a and m,SEC,srs,8.9
+Texas A&M,texas a and m,SEC,talent,23.8506
+Texas A&M,texas a and m,SEC,meta:elo_raw,1728.0
+Texas A&M,texas a and m,SEC,meta:fpi_defense,76.49
+Texas A&M,texas a and m,SEC,meta:fpi_offense,44.111
+Texas A&M,texas a and m,SEC,meta:fpi_special,74.076
+Texas A&M,texas a and m,SEC,meta:returning_ppa,266.6
+Texas A&M,texas a and m,SEC,meta:sp_defense,20.8
+Texas A&M,texas a and m,SEC,meta:sp_offense,30.1
+Texas A&M,texas a and m,SEC,meta:sp_special,0.4
+Texas A&M,texas a and m,SEC,meta:talent_raw,933.0
+Washington,washington,Big Ten,efficiency,1.3014
+Washington,washington,Big Ten,elo,10.0776
+Washington,washington,Big Ten,fpi,4.475
+Washington,washington,Big Ten,sp_plus,9.5
+Washington,washington,Big Ten,srs,0.7
+Washington,washington,Big Ten,talent,9.6526
+Washington,washington,Big Ten,meta:elo_raw,1704.0
+Washington,washington,Big Ten,meta:fpi_defense,58.415
+Washington,washington,Big Ten,meta:fpi_offense,47.419
+Washington,washington,Big Ten,meta:fpi_special,50.025
+Washington,washington,Big Ten,meta:returning_ppa,228.1
+Washington,washington,Big Ten,meta:sp_defense,20.2
+Washington,washington,Big Ten,meta:sp_offense,29.7
+Washington,washington,Big Ten,meta:sp_special,0.0
+Washington,washington,Big Ten,meta:talent_raw,777.63
+Penn State,penn state,Big Ten,efficiency,1.4752
+Penn State,penn state,Big Ten,elo,14.7914
+Penn State,penn state,Big Ten,fpi,11.923
+Penn State,penn state,Big Ten,sp_plus,9.3
+Penn State,penn state,Big Ten,srs,5.6
+Penn State,penn state,Big Ten,talent,9.3246
+Penn State,penn state,Big Ten,meta:elo_raw,1800.0
+Penn State,penn state,Big Ten,meta:fpi_defense,72.016
+Penn State,penn state,Big Ten,meta:fpi_offense,58.649
+Penn State,penn state,Big Ten,meta:fpi_special,54.535
+Penn State,penn state,Big Ten,meta:returning_ppa,21.5
+Penn State,penn state,Big Ten,meta:sp_defense,19.8
+Penn State,penn state,Big Ten,meta:sp_offense,28.9
+Penn State,penn state,Big Ten,meta:sp_special,0.2
+Penn State,penn state,Big Ten,meta:talent_raw,774.04
+New Mexico,new mexico,Mountain West,efficiency,5.6331
+New Mexico,new mexico,Mountain West,elo,8.8992
+New Mexico,new mexico,Mountain West,fpi,7.921
+New Mexico,new mexico,Mountain West,sp_plus,9.3
+New Mexico,new mexico,Mountain West,srs,8.1
+New Mexico,new mexico,Mountain West,talent,-9.4864
+New Mexico,new mexico,Mountain West,meta:elo_raw,1680.0
+New Mexico,new mexico,Mountain West,meta:fpi_defense,82.323
+New Mexico,new mexico,Mountain West,meta:fpi_offense,50.631
+New Mexico,new mexico,Mountain West,meta:fpi_special,66.101
+New Mexico,new mexico,Mountain West,meta:returning_ppa,174.1
+New Mexico,new mexico,Mountain West,meta:sp_defense,17.6
+New Mexico,new mexico,Mountain West,meta:sp_offense,26.8
+New Mexico,new mexico,Mountain West,meta:sp_special,0.0
+New Mexico,new mexico,Mountain West,meta:talent_raw,568.19
+Virginia Tech,virginia tech,ACC,efficiency,1.5847
+Virginia Tech,virginia tech,ACC,elo,0.8465
+Virginia Tech,virginia tech,ACC,fpi,6.571
+Virginia Tech,virginia tech,ACC,sp_plus,9.0
+Virginia Tech,virginia tech,ACC,srs,2.0
+Virginia Tech,virginia tech,ACC,talent,8.875
+Virginia Tech,virginia tech,ACC,meta:elo_raw,1516.0
+Virginia Tech,virginia tech,ACC,meta:fpi_defense,60.188
+Virginia Tech,virginia tech,ACC,meta:fpi_offense,59.418
+Virginia Tech,virginia tech,ACC,meta:fpi_special,66.108
+Virginia Tech,virginia tech,ACC,meta:returning_ppa,94.3
+Virginia Tech,virginia tech,ACC,meta:sp_defense,22.4
+Virginia Tech,virginia tech,ACC,meta:sp_offense,31.4
+Virginia Tech,virginia tech,ACC,meta:sp_special,-0.1
+Virginia Tech,virginia tech,ACC,meta:talent_raw,769.12
+Kansas State,kansas state,Big 12,efficiency,3.4665
+Kansas State,kansas state,Big 12,elo,5.0201
+Kansas State,kansas state,Big 12,fpi,5.689
+Kansas State,kansas state,Big 12,sp_plus,8.8
+Kansas State,kansas state,Big 12,srs,3.7
+Kansas State,kansas state,Big 12,talent,4.2648
+Kansas State,kansas state,Big 12,meta:elo_raw,1601.0
+Kansas State,kansas state,Big 12,meta:fpi_defense,57.496
+Kansas State,kansas state,Big 12,meta:fpi_offense,61.124
+Kansas State,kansas state,Big 12,meta:fpi_special,56.21
+Kansas State,kansas state,Big 12,meta:returning_ppa,167.8
+Kansas State,kansas state,Big 12,meta:sp_defense,23.0
+Kansas State,kansas state,Big 12,meta:sp_offense,31.4
+Kansas State,kansas state,Big 12,meta:sp_special,0.4
+Kansas State,kansas state,Big 12,meta:talent_raw,718.67
+Wisconsin,wisconsin,Big Ten,efficiency,13.1537
+Wisconsin,wisconsin,Big Ten,elo,10.274
+Wisconsin,wisconsin,Big Ten,fpi,10.661
+Wisconsin,wisconsin,Big Ten,sp_plus,8.7
+Wisconsin,wisconsin,Big Ten,srs,11.1
+Wisconsin,wisconsin,Big Ten,talent,8.7434
+Wisconsin,wisconsin,Big Ten,meta:elo_raw,1708.0
+Wisconsin,wisconsin,Big Ten,meta:fpi_defense,80.018
+Wisconsin,wisconsin,Big Ten,meta:fpi_offense,54.223
+Wisconsin,wisconsin,Big Ten,meta:fpi_special,53.122
+Wisconsin,wisconsin,Big Ten,meta:returning_ppa,29.8
+Wisconsin,wisconsin,Big Ten,meta:sp_defense,15.1
+Wisconsin,wisconsin,Big Ten,meta:sp_offense,23.6
+Wisconsin,wisconsin,Big Ten,meta:sp_special,0.2
+Wisconsin,wisconsin,Big Ten,meta:talent_raw,767.68
+TCU,tcu,Big 12,efficiency,12.339
+TCU,tcu,Big 12,elo,5.0201
+TCU,tcu,Big 12,fpi,7.279
+TCU,tcu,Big 12,sp_plus,8.6
+TCU,tcu,Big 12,srs,7.8
+TCU,tcu,Big 12,talent,5.3723
+TCU,tcu,Big 12,meta:elo_raw,1601.0
+TCU,tcu,Big 12,meta:fpi_defense,78.214
+TCU,tcu,Big 12,meta:fpi_offense,38.39
+TCU,tcu,Big 12,meta:fpi_special,62.922
+TCU,tcu,Big 12,meta:returning_ppa,94.3
+TCU,tcu,Big 12,meta:sp_defense,16.5
+TCU,tcu,Big 12,meta:sp_offense,25.3
+TCU,tcu,Big 12,meta:sp_special,-0.1
+TCU,tcu,Big 12,meta:talent_raw,730.79
+North Dakota State,north dakota state,Mountain West,efficiency,5.5831
+North Dakota State,north dakota state,Mountain West,elo,6.4932
+North Dakota State,north dakota state,Mountain West,fpi,-0.157
+North Dakota State,north dakota state,Mountain West,sp_plus,8.6
+North Dakota State,north dakota state,Mountain West,srs,2.5
+North Dakota State,north dakota state,Mountain West,talent,-14.293
+North Dakota State,north dakota state,Mountain West,meta:elo_raw,1631.0
+North Dakota State,north dakota state,Mountain West,meta:fpi_defense,79.964
+North Dakota State,north dakota state,Mountain West,meta:fpi_offense,30.096
+North Dakota State,north dakota state,Mountain West,meta:fpi_special,68.726
+North Dakota State,north dakota state,Mountain West,meta:sp_defense,16.8
+North Dakota State,north dakota state,Mountain West,meta:sp_offense,25.4
+North Dakota State,north dakota state,Mountain West,meta:sp_special,0.0
+North Dakota State,north dakota state,Mountain West,meta:talent_raw,515.59
+Baylor,baylor,Big 12,efficiency,8.8863
+Baylor,baylor,Big 12,elo,5.6585
+Baylor,baylor,Big 12,fpi,9.073
+Baylor,baylor,Big 12,sp_plus,8.5
+Baylor,baylor,Big 12,srs,6.9
+Baylor,baylor,Big 12,talent,4.686
+Baylor,baylor,Big 12,meta:elo_raw,1614.0
+Baylor,baylor,Big 12,meta:fpi_defense,74.423
+Baylor,baylor,Big 12,meta:fpi_offense,47.873
+Baylor,baylor,Big 12,meta:fpi_special,69.884
+Baylor,baylor,Big 12,meta:returning_ppa,212.6
+Baylor,baylor,Big 12,meta:sp_defense,20.0
+Baylor,baylor,Big 12,meta:sp_offense,28.0
+Baylor,baylor,Big 12,meta:sp_special,0.4
+Baylor,baylor,Big 12,meta:talent_raw,723.28
+Pittsburgh,pittsburgh,ACC,efficiency,9.3798
+Pittsburgh,pittsburgh,ACC,elo,4.3818
+Pittsburgh,pittsburgh,ACC,fpi,8.574
+Pittsburgh,pittsburgh,ACC,sp_plus,7.9
+Pittsburgh,pittsburgh,ACC,srs,5.7
+Pittsburgh,pittsburgh,ACC,talent,0.276
+Pittsburgh,pittsburgh,ACC,meta:elo_raw,1588.0
+Pittsburgh,pittsburgh,ACC,meta:fpi_defense,64.587
+Pittsburgh,pittsburgh,ACC,meta:fpi_offense,58.045
+Pittsburgh,pittsburgh,ACC,meta:fpi_special,63.353
+Pittsburgh,pittsburgh,ACC,meta:returning_ppa,149.9
+Pittsburgh,pittsburgh,ACC,meta:sp_defense,22.4
+Pittsburgh,pittsburgh,ACC,meta:sp_offense,30.0
+Pittsburgh,pittsburgh,ACC,meta:sp_special,0.3
+Pittsburgh,pittsburgh,ACC,meta:talent_raw,675.02
+Liberty,liberty,Conference USA,efficiency,11.6449
+Liberty,liberty,Conference USA,elo,13.3183
+Liberty,liberty,Conference USA,fpi,2.511
+Liberty,liberty,Conference USA,sp_plus,7.5
+Liberty,liberty,Conference USA,srs,4.8
+Liberty,liberty,Conference USA,talent,-3.5319
+Liberty,liberty,Conference USA,meta:elo_raw,1770.0
+Liberty,liberty,Conference USA,meta:fpi_defense,66.886
+Liberty,liberty,Conference USA,meta:fpi_offense,46.092
+Liberty,liberty,Conference USA,meta:fpi_special,57.582
+Liberty,liberty,Conference USA,meta:returning_ppa,86.9
+Liberty,liberty,Conference USA,meta:sp_defense,21.0
+Liberty,liberty,Conference USA,meta:sp_offense,28.5
+Liberty,liberty,Conference USA,meta:sp_special,0.0
+Liberty,liberty,Conference USA,meta:talent_raw,633.35
+Memphis,memphis,American Athletic,efficiency,5.1545
+Memphis,memphis,American Athletic,elo,6.0513
+Memphis,memphis,American Athletic,fpi,1.929
+Memphis,memphis,American Athletic,sp_plus,7.0
+Memphis,memphis,American Athletic,srs,-1.2
+Memphis,memphis,American Athletic,talent,-0.1545
+Memphis,memphis,American Athletic,meta:elo_raw,1622.0
+Memphis,memphis,American Athletic,meta:fpi_defense,45.036
+Memphis,memphis,American Athletic,meta:fpi_offense,68.273
+Memphis,memphis,American Athletic,meta:fpi_special,41.928
+Memphis,memphis,American Athletic,meta:returning_ppa,20.7
+Memphis,memphis,American Athletic,meta:sp_defense,26.6
+Memphis,memphis,American Athletic,meta:sp_offense,33.8
+Memphis,memphis,American Athletic,meta:sp_special,-0.1
+Memphis,memphis,American Athletic,meta:talent_raw,670.31
+Duke,duke,ACC,efficiency,3.0969
+Duke,duke,ACC,elo,6.5914
+Duke,duke,ACC,fpi,7.603
+Duke,duke,ACC,sp_plus,6.8
+Duke,duke,ACC,srs,5.9
+Duke,duke,ACC,talent,-0.3226
+Duke,duke,ACC,meta:elo_raw,1633.0
+Duke,duke,ACC,meta:fpi_defense,69.691
+Duke,duke,ACC,meta:fpi_offense,57.027
+Duke,duke,ACC,meta:fpi_special,52.613
+Duke,duke,ACC,meta:returning_ppa,75.6
+Duke,duke,ACC,meta:sp_defense,22.9
+Duke,duke,ACC,meta:sp_offense,29.7
+Duke,duke,ACC,meta:sp_special,0.0
+Duke,duke,ACC,meta:talent_raw,668.47
+Illinois,illinois,Big Ten,efficiency,-4.3894
+Illinois,illinois,Big Ten,elo,3.989
+Illinois,illinois,Big Ten,fpi,6.359
+Illinois,illinois,Big Ten,sp_plus,6.8
+Illinois,illinois,Big Ten,srs,5.7
+Illinois,illinois,Big Ten,talent,2.9251
+Illinois,illinois,Big Ten,meta:elo_raw,1580.0
+Illinois,illinois,Big Ten,meta:fpi_defense,40.014
+Illinois,illinois,Big Ten,meta:fpi_offense,76.311
+Illinois,illinois,Big Ten,meta:fpi_special,53.252
+Illinois,illinois,Big Ten,meta:returning_ppa,83.5
+Illinois,illinois,Big Ten,meta:sp_defense,25.5
+Illinois,illinois,Big Ten,meta:sp_offense,31.7
+Illinois,illinois,Big Ten,meta:sp_special,0.5
+Illinois,illinois,Big Ten,meta:talent_raw,704.01
+Cincinnati,cincinnati,Big 12,efficiency,4.087
+Cincinnati,cincinnati,Big 12,elo,1.6321
+Cincinnati,cincinnati,Big 12,fpi,6.484
+Cincinnati,cincinnati,Big 12,sp_plus,6.7
+Cincinnati,cincinnati,Big 12,srs,7.1
+Cincinnati,cincinnati,Big 12,talent,-3.4469
+Cincinnati,cincinnati,Big 12,meta:elo_raw,1532.0
+Cincinnati,cincinnati,Big 12,meta:fpi_defense,49.39
+Cincinnati,cincinnati,Big 12,meta:fpi_offense,69.888
+Cincinnati,cincinnati,Big 12,meta:fpi_special,61.888
+Cincinnati,cincinnati,Big 12,meta:returning_ppa,34.8
+Cincinnati,cincinnati,Big 12,meta:sp_defense,27.4
+Cincinnati,cincinnati,Big 12,meta:sp_offense,33.8
+Cincinnati,cincinnati,Big 12,meta:sp_special,0.3
+Cincinnati,cincinnati,Big 12,meta:talent_raw,634.28
+Oregon State,oregon state,Pac-12,efficiency,13.0914
+Oregon State,oregon state,Pac-12,elo,5.5111
+Oregon State,oregon state,Pac-12,fpi,6.109
+Oregon State,oregon state,Pac-12,sp_plus,6.6
+Oregon State,oregon state,Pac-12,srs,10.8
+Oregon State,oregon state,Pac-12,talent,-3.309
+Oregon State,oregon state,Pac-12,meta:elo_raw,1611.0
+Oregon State,oregon state,Pac-12,meta:fpi_defense,58.466
+Oregon State,oregon state,Pac-12,meta:fpi_offense,82.031
+Oregon State,oregon state,Pac-12,meta:fpi_special,46.815
+Oregon State,oregon state,Pac-12,meta:returning_ppa,97.3
+Oregon State,oregon state,Pac-12,meta:sp_defense,24.7
+Oregon State,oregon state,Pac-12,meta:sp_offense,31.6
+Oregon State,oregon state,Pac-12,meta:sp_special,-0.3
+Oregon State,oregon state,Pac-12,meta:talent_raw,635.79
+Auburn,auburn,SEC,efficiency,3.8974
+Auburn,auburn,SEC,elo,8.3591
+Auburn,auburn,SEC,fpi,12.077
+Auburn,auburn,SEC,sp_plus,6.5
+Auburn,auburn,SEC,srs,9.0
+Auburn,auburn,SEC,talent,14.2729
+Auburn,auburn,SEC,meta:elo_raw,1669.0
+Auburn,auburn,SEC,meta:fpi_defense,69.875
+Auburn,auburn,SEC,meta:fpi_offense,62.156
+Auburn,auburn,SEC,meta:fpi_special,53.277
+Auburn,auburn,SEC,meta:returning_ppa,35.8
+Auburn,auburn,SEC,meta:sp_defense,20.4
+Auburn,auburn,SEC,meta:sp_offense,26.5
+Auburn,auburn,SEC,meta:sp_special,0.4
+Auburn,auburn,SEC,meta:talent_raw,828.19
+Mississippi State,mississippi state,SEC,efficiency,4.2049
+Mississippi State,mississippi state,SEC,elo,2.7614
+Mississippi State,mississippi state,SEC,fpi,8.494
+Mississippi State,mississippi state,SEC,sp_plus,6.0
+Mississippi State,mississippi state,SEC,srs,8.5
+Mississippi State,mississippi state,SEC,talent,12.1108
+Mississippi State,mississippi state,SEC,meta:elo_raw,1555.0
+Mississippi State,mississippi state,SEC,meta:fpi_defense,58.488
+Mississippi State,mississippi state,SEC,meta:fpi_offense,71.73
+Mississippi State,mississippi state,SEC,meta:fpi_special,55.054
+Mississippi State,mississippi state,SEC,meta:returning_ppa,109.5
+Mississippi State,mississippi state,SEC,meta:sp_defense,26.3
+Mississippi State,mississippi state,SEC,meta:sp_offense,31.9
+Mississippi State,mississippi state,SEC,meta:sp_special,0.4
+Mississippi State,mississippi state,SEC,meta:talent_raw,804.53
+Florida State,florida state,ACC,efficiency,4.7123
+Florida State,florida state,ACC,elo,5.4129
+Florida State,florida state,ACC,fpi,10.068
+Florida State,florida state,ACC,sp_plus,5.8
+Florida State,florida state,ACC,srs,6.7
+Florida State,florida state,ACC,talent,11.7151
+Florida State,florida state,ACC,meta:elo_raw,1609.0
+Florida State,florida state,ACC,meta:fpi_defense,46.545
+Florida State,florida state,ACC,meta:fpi_offense,79.16
+Florida State,florida state,ACC,meta:fpi_special,58.567
+Florida State,florida state,ACC,meta:returning_ppa,162.9
+Florida State,florida state,ACC,meta:sp_defense,27.1
+Florida State,florida state,ACC,meta:sp_offense,32.7
+Florida State,florida state,ACC,meta:sp_special,0.2
+Florida State,florida state,ACC,meta:talent_raw,800.2
+Virginia,virginia,ACC,efficiency,3.4747
+Virginia,virginia,ACC,elo,4.0381
+Virginia,virginia,ACC,fpi,6.001
+Virginia,virginia,ACC,sp_plus,5.8
+Virginia,virginia,ACC,srs,3.3
+Virginia,virginia,ACC,talent,2.5751
+Virginia,virginia,ACC,meta:elo_raw,1581.0
+Virginia,virginia,ACC,meta:fpi_defense,69.386
+Virginia,virginia,ACC,meta:fpi_offense,46.827
+Virginia,virginia,ACC,meta:fpi_special,55.858
+Virginia,virginia,ACC,meta:returning_ppa,34.9
+Virginia,virginia,ACC,meta:sp_defense,21.5
+Virginia,virginia,ACC,meta:sp_offense,27.0
+Virginia,virginia,ACC,meta:sp_special,0.3
+Virginia,virginia,ACC,meta:talent_raw,700.18
+Clemson,clemson,ACC,efficiency,-3.4188
+Clemson,clemson,ACC,elo,1.6321
+Clemson,clemson,ACC,fpi,5.753
+Clemson,clemson,ACC,sp_plus,4.7
+Clemson,clemson,ACC,srs,3.1
+Clemson,clemson,ACC,talent,17.4402
+Clemson,clemson,ACC,meta:elo_raw,1532.0
+Clemson,clemson,ACC,meta:fpi_defense,75.132
+Clemson,clemson,ACC,meta:fpi_offense,26.863
+Clemson,clemson,ACC,meta:fpi_special,74.177
+Clemson,clemson,ACC,meta:returning_ppa,124.3
+Clemson,clemson,ACC,meta:sp_defense,19.0
+Clemson,clemson,ACC,meta:sp_offense,23.3
+Clemson,clemson,ACC,meta:sp_special,0.5
+Clemson,clemson,ACC,meta:talent_raw,862.85
+UCF,ucf,Big 12,efficiency,10.9729
+UCF,ucf,Big 12,elo,-1.0685
+UCF,ucf,Big 12,fpi,6.587
+UCF,ucf,Big 12,sp_plus,4.5
+UCF,ucf,Big 12,srs,10.9
+UCF,ucf,Big 12,talent,0.0128
+UCF,ucf,Big 12,meta:elo_raw,1477.0
+UCF,ucf,Big 12,meta:fpi_defense,70.696
+UCF,ucf,Big 12,meta:fpi_offense,57.944
+UCF,ucf,Big 12,meta:fpi_special,56.208
+UCF,ucf,Big 12,meta:returning_ppa,62.3
+UCF,ucf,Big 12,meta:sp_defense,22.8
+UCF,ucf,Big 12,meta:sp_offense,27.2
+UCF,ucf,Big 12,meta:sp_special,0.1
+UCF,ucf,Big 12,meta:talent_raw,672.14
+Minnesota,minnesota,Big Ten,efficiency,-3.9718
+Minnesota,minnesota,Big Ten,elo,-3.1799
+Minnesota,minnesota,Big Ten,fpi,0.672
+Minnesota,minnesota,Big Ten,sp_plus,3.9
+Minnesota,minnesota,Big Ten,srs,0.8
+Minnesota,minnesota,Big Ten,talent,5.1895
+Minnesota,minnesota,Big Ten,meta:elo_raw,1434.0
+Minnesota,minnesota,Big Ten,meta:fpi_defense,69.19
+Minnesota,minnesota,Big Ten,meta:fpi_offense,30.617
+Minnesota,minnesota,Big Ten,meta:fpi_special,78.124
+Minnesota,minnesota,Big Ten,meta:returning_ppa,113.5
+Minnesota,minnesota,Big Ten,meta:sp_defense,19.8
+Minnesota,minnesota,Big Ten,meta:sp_offense,23.6
+Minnesota,minnesota,Big Ten,meta:sp_special,0.1
+Minnesota,minnesota,Big Ten,meta:talent_raw,728.79
+North Carolina,north carolina,ACC,efficiency,7.5515
+North Carolina,north carolina,ACC,elo,-1.8541
+North Carolina,north carolina,ACC,fpi,7.372
+North Carolina,north carolina,ACC,sp_plus,3.7
+North Carolina,north carolina,ACC,srs,7.0
+North Carolina,north carolina,ACC,talent,8.7626
+North Carolina,north carolina,ACC,meta:elo_raw,1461.0
+North Carolina,north carolina,ACC,meta:fpi_defense,64.857
+North Carolina,north carolina,ACC,meta:fpi_offense,60.308
+North Carolina,north carolina,ACC,meta:fpi_special,61.074
+North Carolina,north carolina,ACC,meta:returning_ppa,46.9
+North Carolina,north carolina,ACC,meta:sp_defense,22.5
+North Carolina,north carolina,ACC,meta:sp_offense,26.3
+North Carolina,north carolina,ACC,meta:sp_special,-0.2
+North Carolina,north carolina,ACC,meta:talent_raw,767.89
+UTSA,utsa,American Athletic,efficiency,3.2396
+UTSA,utsa,American Athletic,elo,4.3818
+UTSA,utsa,American Athletic,fpi,0.54
+UTSA,utsa,American Athletic,sp_plus,3.5
+UTSA,utsa,American Athletic,srs,2.6
+UTSA,utsa,American Athletic,talent,-1.4786
+UTSA,utsa,American Athletic,meta:elo_raw,1588.0
+UTSA,utsa,American Athletic,meta:fpi_defense,51.794
+UTSA,utsa,American Athletic,meta:fpi_offense,54.322
+UTSA,utsa,American Athletic,meta:fpi_special,61.155
+UTSA,utsa,American Athletic,meta:returning_ppa,234.1
+UTSA,utsa,American Athletic,meta:sp_defense,28.0
+UTSA,utsa,American Athletic,meta:sp_offense,31.5
+UTSA,utsa,American Athletic,meta:sp_special,0.1
+UTSA,utsa,American Athletic,meta:talent_raw,655.82
+Kansas,kansas,Big 12,efficiency,9.0672
+Kansas,kansas,Big 12,elo,4.7255
+Kansas,kansas,Big 12,fpi,4.336
+Kansas,kansas,Big 12,sp_plus,2.8
+Kansas,kansas,Big 12,srs,0.8
+Kansas,kansas,Big 12,talent,1.1432
+Kansas,kansas,Big 12,meta:elo_raw,1595.0
+Kansas,kansas,Big 12,meta:fpi_defense,65.838
+Kansas,kansas,Big 12,meta:fpi_offense,50.343
+Kansas,kansas,Big 12,meta:fpi_special,54.85
+Kansas,kansas,Big 12,meta:returning_ppa,59.5
+Kansas,kansas,Big 12,meta:sp_defense,25.0
+Kansas,kansas,Big 12,meta:sp_offense,27.5
+Kansas,kansas,Big 12,meta:sp_special,0.3
+Kansas,kansas,Big 12,meta:talent_raw,684.51
+Fresno State,fresno state,Pac-12,efficiency,-3.7935
+Fresno State,fresno state,Pac-12,elo,6.3459
+Fresno State,fresno state,Pac-12,fpi,-1.035
+Fresno State,fresno state,Pac-12,sp_plus,2.6
+Fresno State,fresno state,Pac-12,srs,-1.3
+Fresno State,fresno state,Pac-12,talent,-5.6885
+Fresno State,fresno state,Pac-12,meta:elo_raw,1628.0
+Fresno State,fresno state,Pac-12,meta:fpi_defense,53.262
+Fresno State,fresno state,Pac-12,meta:fpi_offense,45.264
+Fresno State,fresno state,Pac-12,meta:fpi_special,58.512
+Fresno State,fresno state,Pac-12,meta:returning_ppa,104.6
+Fresno State,fresno state,Pac-12,meta:sp_defense,23.4
+Fresno State,fresno state,Pac-12,meta:sp_offense,25.7
+Fresno State,fresno state,Pac-12,meta:sp_special,0.3
+Fresno State,fresno state,Pac-12,meta:talent_raw,609.75
+Arizona State,arizona state,Big 12,efficiency,-2.3807
+Arizona State,arizona state,Big 12,elo,-1.3631
+Arizona State,arizona state,Big 12,fpi,0.642
+Arizona State,arizona state,Big 12,sp_plus,2.3
+Arizona State,arizona state,Big 12,srs,-1.6
+Arizona State,arizona state,Big 12,talent,4.5691
+Arizona State,arizona state,Big 12,meta:elo_raw,1471.0
+Arizona State,arizona state,Big 12,meta:fpi_defense,61.412
+Arizona State,arizona state,Big 12,meta:fpi_offense,48.908
+Arizona State,arizona state,Big 12,meta:fpi_special,43.346
+Arizona State,arizona state,Big 12,meta:returning_ppa,37.6
+Arizona State,arizona state,Big 12,meta:sp_defense,24.3
+Arizona State,arizona state,Big 12,meta:sp_offense,26.9
+Arizona State,arizona state,Big 12,meta:sp_special,-0.3
+Arizona State,arizona state,Big 12,meta:talent_raw,722.0
+South Florida,south florida,American Athletic,efficiency,-1.4921
+South Florida,south florida,American Athletic,elo,5.6094
+South Florida,south florida,American Athletic,fpi,-2.082
+South Florida,south florida,American Athletic,sp_plus,2.2
+South Florida,south florida,American Athletic,srs,-1.3
+South Florida,south florida,American Athletic,talent,2.9068
+South Florida,south florida,American Athletic,meta:elo_raw,1613.0
+South Florida,south florida,American Athletic,meta:fpi_defense,54.532
+South Florida,south florida,American Athletic,meta:fpi_offense,40.407
+South Florida,south florida,American Athletic,meta:fpi_special,59.421
+South Florida,south florida,American Athletic,meta:returning_ppa,55.0
+South Florida,south florida,American Athletic,meta:sp_defense,24.5
+South Florida,south florida,American Athletic,meta:sp_offense,26.5
+South Florida,south florida,American Athletic,meta:sp_special,0.1
+South Florida,south florida,American Athletic,meta:talent_raw,703.81
+Toledo,toledo,Mid-American,efficiency,5.8867
+Toledo,toledo,Mid-American,elo,2.7123
+Toledo,toledo,Mid-American,fpi,-2.513
+Toledo,toledo,Mid-American,sp_plus,2.0
+Toledo,toledo,Mid-American,srs,0.1
+Toledo,toledo,Mid-American,talent,-10.5765
+Toledo,toledo,Mid-American,meta:elo_raw,1554.0
+Toledo,toledo,Mid-American,meta:fpi_defense,54.058
+Toledo,toledo,Mid-American,meta:fpi_offense,48.901
+Toledo,toledo,Mid-American,meta:fpi_special,34.169
+Toledo,toledo,Mid-American,meta:returning_ppa,224.9
+Toledo,toledo,Mid-American,meta:sp_defense,25.8
+Toledo,toledo,Mid-American,meta:sp_offense,28.2
+Toledo,toledo,Mid-American,meta:sp_special,-0.3
+Toledo,toledo,Mid-American,meta:talent_raw,556.26
+Texas State,texas state,Pac-12,efficiency,5.7217
+Texas State,texas state,Pac-12,elo,3.2525
+Texas State,texas state,Pac-12,fpi,-0.265
+Texas State,texas state,Pac-12,sp_plus,1.5
+Texas State,texas state,Pac-12,srs,5.7
+Texas State,texas state,Pac-12,talent,-4.3123
+Texas State,texas state,Pac-12,meta:elo_raw,1565.0
+Texas State,texas state,Pac-12,meta:fpi_defense,50.716
+Texas State,texas state,Pac-12,meta:fpi_offense,66.719
+Texas State,texas state,Pac-12,meta:fpi_special,34.161
+Texas State,texas state,Pac-12,meta:returning_ppa,306.4
+Texas State,texas state,Pac-12,meta:sp_defense,31.6
+Texas State,texas state,Pac-12,meta:sp_offense,33.5
+Texas State,texas state,Pac-12,meta:sp_special,-0.4
+Texas State,texas state,Pac-12,meta:talent_raw,624.81
+Army,army,American Athletic,efficiency,1.0888
+Army,army,American Athletic,elo,3.5471
+Army,army,American Athletic,fpi,-0.27
+Army,army,American Athletic,sp_plus,1.0
+Army,army,American Athletic,srs,4.0
+Army,army,American Athletic,talent,-33.644
+Army,army,American Athletic,meta:elo_raw,1571.0
+Army,army,American Athletic,meta:fpi_defense,26.663
+Army,army,American Athletic,meta:fpi_offense,72.854
+Army,army,American Athletic,meta:fpi_special,74.176
+Army,army,American Athletic,meta:returning_ppa,168.5
+Army,army,American Athletic,meta:sp_defense,29.5
+Army,army,American Athletic,meta:sp_offense,30.2
+Army,army,American Athletic,meta:sp_special,0.3
+Army,army,American Athletic,meta:talent_raw,303.83
+UConn,uconn,FBS Independents,efficiency,1.0294
+UConn,uconn,FBS Independents,elo,-0.2829
+UConn,uconn,FBS Independents,fpi,-4.794
+UConn,uconn,FBS Independents,sp_plus,0.7
+UConn,uconn,FBS Independents,srs,-2.1
+UConn,uconn,FBS Independents,talent,-1.7765
+UConn,uconn,FBS Independents,meta:elo_raw,1493.0
+UConn,uconn,FBS Independents,meta:fpi_defense,43.004
+UConn,uconn,FBS Independents,meta:fpi_offense,53.181
+UConn,uconn,FBS Independents,meta:fpi_special,65.382
+UConn,uconn,FBS Independents,meta:returning_ppa,11.4
+UConn,uconn,FBS Independents,meta:sp_defense,28.6
+UConn,uconn,FBS Independents,meta:sp_offense,29.2
+UConn,uconn,FBS Independents,meta:sp_special,0.1
+UConn,uconn,FBS Independents,meta:talent_raw,652.56
+Louisiana,louisiana,Sun Belt,efficiency,7.7156
+Louisiana,louisiana,Sun Belt,elo,-0.2338
+Louisiana,louisiana,Sun Belt,fpi,-3.38
+Louisiana,louisiana,Sun Belt,sp_plus,0.4
+Louisiana,louisiana,Sun Belt,srs,-2.0
+Louisiana,louisiana,Sun Belt,talent,-7.4074
+Louisiana,louisiana,Sun Belt,meta:elo_raw,1494.0
+Louisiana,louisiana,Sun Belt,meta:fpi_defense,64.135
+Louisiana,louisiana,Sun Belt,meta:fpi_offense,40.985
+Louisiana,louisiana,Sun Belt,meta:fpi_special,47.478
+Louisiana,louisiana,Sun Belt,meta:returning_ppa,189.3
+Louisiana,louisiana,Sun Belt,meta:sp_defense,26.7
+Louisiana,louisiana,Sun Belt,meta:sp_offense,27.2
+Louisiana,louisiana,Sun Belt,meta:sp_special,-0.2
+Louisiana,louisiana,Sun Belt,meta:talent_raw,590.94
+Purdue,purdue,Big Ten,efficiency,-5.4722
+Purdue,purdue,Big Ten,elo,-3.72
+Purdue,purdue,Big Ten,fpi,2.229
+Purdue,purdue,Big Ten,sp_plus,0.2
+Purdue,purdue,Big Ten,srs,4.7
+Purdue,purdue,Big Ten,talent,2.4061
+Purdue,purdue,Big Ten,meta:elo_raw,1423.0
+Purdue,purdue,Big Ten,meta:fpi_defense,36.048
+Purdue,purdue,Big Ten,meta:fpi_offense,66.853
+Purdue,purdue,Big Ten,meta:fpi_special,60.232
+Purdue,purdue,Big Ten,meta:returning_ppa,111.7
+Purdue,purdue,Big Ten,meta:sp_defense,30.4
+Purdue,purdue,Big Ten,meta:sp_offense,30.0
+Purdue,purdue,Big Ten,meta:sp_special,0.5
+Purdue,purdue,Big Ten,meta:talent_raw,698.33
+West Virginia,west virginia,Big 12,efficiency,-8.1695
+West Virginia,west virginia,Big 12,elo,-6.4206
+West Virginia,west virginia,Big 12,fpi,1.892
+West Virginia,west virginia,Big 12,sp_plus,0.0
+West Virginia,west virginia,Big 12,srs,3.6
+West Virginia,west virginia,Big 12,talent,3.2532
+West Virginia,west virginia,Big 12,meta:elo_raw,1368.0
+West Virginia,west virginia,Big 12,meta:fpi_defense,33.296
+West Virginia,west virginia,Big 12,meta:fpi_offense,72.242
+West Virginia,west virginia,Big 12,meta:fpi_special,55.869
+West Virginia,west virginia,Big 12,meta:returning_ppa,21.1
+West Virginia,west virginia,Big 12,meta:sp_defense,33.2
+West Virginia,west virginia,Big 12,meta:sp_offense,32.9
+West Virginia,west virginia,Big 12,meta:sp_special,0.2
+West Virginia,west virginia,Big 12,meta:talent_raw,707.6
+Arkansas,arkansas,SEC,efficiency,-4.0562
+Arkansas,arkansas,SEC,elo,0.7974
+Arkansas,arkansas,SEC,fpi,1.977
+Arkansas,arkansas,SEC,sp_plus,-0.4
+Arkansas,arkansas,SEC,srs,-0.5
+Arkansas,arkansas,SEC,talent,6.7147
+Arkansas,arkansas,SEC,meta:elo_raw,1515.0
+Arkansas,arkansas,SEC,meta:fpi_defense,59.91
+Arkansas,arkansas,SEC,meta:fpi_offense,43.421
+Arkansas,arkansas,SEC,meta:fpi_special,44.421
+Arkansas,arkansas,SEC,meta:returning_ppa,65.7
+Arkansas,arkansas,SEC,meta:sp_defense,28.3
+Arkansas,arkansas,SEC,meta:sp_offense,27.7
+Arkansas,arkansas,SEC,meta:sp_special,0.2
+Arkansas,arkansas,SEC,meta:talent_raw,745.48
+North Texas,north texas,American Athletic,efficiency,15.0676
+North Texas,north texas,American Athletic,elo,8.6537
+North Texas,north texas,American Athletic,fpi,2.719
+North Texas,north texas,American Athletic,sp_plus,-0.6
+North Texas,north texas,American Athletic,srs,5.6
+North Texas,north texas,American Athletic,talent,-6.3894
+North Texas,north texas,American Athletic,meta:elo_raw,1675.0
+North Texas,north texas,American Athletic,meta:fpi_defense,47.764
+North Texas,north texas,American Athletic,meta:fpi_offense,78.573
+North Texas,north texas,American Athletic,meta:fpi_special,38.518
+North Texas,north texas,American Athletic,meta:returning_ppa,13.8
+North Texas,north texas,American Athletic,meta:sp_defense,33.7
+North Texas,north texas,American Athletic,meta:sp_offense,33.5
+North Texas,north texas,American Athletic,meta:sp_special,-0.4
+North Texas,north texas,American Athletic,meta:talent_raw,602.08
+Air Force,air force,Mountain West,efficiency,3.8699
+Air Force,air force,Mountain West,elo,-2.8362
+Air Force,air force,Mountain West,fpi,-4.764
+Air Force,air force,Mountain West,sp_plus,-0.8
+Air Force,air force,Mountain West,srs,-5.7
+Air Force,air force,Mountain West,talent,-36.5207
+Air Force,air force,Mountain West,meta:elo_raw,1441.0
+Air Force,air force,Mountain West,meta:fpi_defense,33.383
+Air Force,air force,Mountain West,meta:fpi_offense,56.254
+Air Force,air force,Mountain West,meta:fpi_special,49.602
+Air Force,air force,Mountain West,meta:returning_ppa,185.9
+Air Force,air force,Mountain West,meta:sp_defense,27.6
+Air Force,air force,Mountain West,meta:sp_offense,26.6
+Air Force,air force,Mountain West,meta:sp_special,0.2
+Air Force,air force,Mountain West,meta:talent_raw,272.35
+NC State,nc state,ACC,efficiency,-3.8096
+NC State,nc state,ACC,elo,-1.6577
+NC State,nc state,ACC,fpi,-0.009
+NC State,nc state,ACC,sp_plus,-0.9
+NC State,nc state,ACC,srs,-2.1
+NC State,nc state,ACC,talent,7.7802
+NC State,nc state,ACC,meta:elo_raw,1465.0
+NC State,nc state,ACC,meta:fpi_defense,42.069
+NC State,nc state,ACC,meta:fpi_offense,62.266
+NC State,nc state,ACC,meta:fpi_special,59.31
+NC State,nc state,ACC,meta:returning_ppa,233.7
+NC State,nc state,ACC,meta:sp_defense,31.0
+NC State,nc state,ACC,meta:sp_offense,30.0
+NC State,nc state,ACC,meta:sp_special,0.1
+NC State,nc state,ACC,meta:talent_raw,757.14
+Georgia Tech,georgia tech,ACC,efficiency,-9.3276
+Georgia Tech,georgia tech,ACC,elo,-4.2601
+Georgia Tech,georgia tech,ACC,fpi,-2.539
+Georgia Tech,georgia tech,ACC,sp_plus,-1.1
+Georgia Tech,georgia tech,ACC,srs,-7.5
+Georgia Tech,georgia tech,ACC,talent,7.2785
+Georgia Tech,georgia tech,ACC,meta:elo_raw,1412.0
+Georgia Tech,georgia tech,ACC,meta:fpi_defense,34.671
+Georgia Tech,georgia tech,ACC,meta:fpi_offense,54.331
+Georgia Tech,georgia tech,ACC,meta:fpi_special,60.342
+Georgia Tech,georgia tech,ACC,meta:returning_ppa,47.7
+Georgia Tech,georgia tech,ACC,meta:sp_defense,29.4
+Georgia Tech,georgia tech,ACC,meta:sp_offense,28.3
+Georgia Tech,georgia tech,ACC,meta:sp_special,0.0
+Georgia Tech,georgia tech,ACC,meta:talent_raw,751.65
+Iowa State,iowa state,Big 12,efficiency,-4.7862
+Iowa State,iowa state,Big 12,elo,2.565
+Iowa State,iowa state,Big 12,fpi,1.515
+Iowa State,iowa state,Big 12,sp_plus,-1.2
+Iowa State,iowa state,Big 12,srs,3.1
+Iowa State,iowa state,Big 12,talent,-0.2239
+Iowa State,iowa state,Big 12,meta:elo_raw,1551.0
+Iowa State,iowa state,Big 12,meta:fpi_defense,58.774
+Iowa State,iowa state,Big 12,meta:fpi_offense,51.037
+Iowa State,iowa state,Big 12,meta:fpi_special,54.443
+Iowa State,iowa state,Big 12,meta:returning_ppa,4.7
+Iowa State,iowa state,Big 12,meta:sp_defense,25.2
+Iowa State,iowa state,Big 12,meta:sp_offense,23.6
+Iowa State,iowa state,Big 12,meta:sp_special,0.4
+Iowa State,iowa state,Big 12,meta:talent_raw,669.55
+Vanderbilt,vanderbilt,SEC,efficiency,-6.4068
+Vanderbilt,vanderbilt,SEC,elo,2.1231
+Vanderbilt,vanderbilt,SEC,fpi,0.259
+Vanderbilt,vanderbilt,SEC,sp_plus,-1.4
+Vanderbilt,vanderbilt,SEC,srs,-3.3
+Vanderbilt,vanderbilt,SEC,talent,5.0616
+Vanderbilt,vanderbilt,SEC,meta:elo_raw,1542.0
+Vanderbilt,vanderbilt,SEC,meta:fpi_defense,51.215
+Vanderbilt,vanderbilt,SEC,meta:fpi_offense,43.063
+Vanderbilt,vanderbilt,SEC,meta:fpi_special,47.152
+Vanderbilt,vanderbilt,SEC,meta:returning_ppa,203.3
+Vanderbilt,vanderbilt,SEC,meta:sp_defense,28.7
+Vanderbilt,vanderbilt,SEC,meta:sp_offense,26.9
+Vanderbilt,vanderbilt,SEC,meta:sp_special,0.4
+Vanderbilt,vanderbilt,SEC,meta:talent_raw,727.39
+Boston College,boston college,ACC,efficiency,-3.0206
+Boston College,boston college,ACC,elo,-1.5104
+Boston College,boston college,ACC,fpi,0.185
+Boston College,boston college,ACC,sp_plus,-1.5
+Boston College,boston college,ACC,srs,-4.7
+Boston College,boston college,ACC,talent,-1.0966
+Boston College,boston college,ACC,meta:elo_raw,1468.0
+Boston College,boston college,ACC,meta:fpi_defense,64.205
+Boston College,boston college,ACC,meta:fpi_offense,40.17
+Boston College,boston college,ACC,meta:fpi_special,33.581
+Boston College,boston college,ACC,meta:returning_ppa,45.8
+Boston College,boston college,ACC,meta:sp_defense,25.1
+Boston College,boston college,ACC,meta:sp_offense,23.9
+Boston College,boston college,ACC,meta:sp_special,-0.2
+Boston College,boston college,ACC,meta:talent_raw,660.0
+Ohio,ohio,Mid-American,efficiency,0.0972
+Ohio,ohio,Mid-American,elo,-3.5236
+Ohio,ohio,Mid-American,fpi,-7.922
+Ohio,ohio,Mid-American,sp_plus,-1.5
+Ohio,ohio,Mid-American,srs,-7.3
+Ohio,ohio,Mid-American,talent,-13.6305
+Ohio,ohio,Mid-American,meta:elo_raw,1427.0
+Ohio,ohio,Mid-American,meta:fpi_defense,38.381
+Ohio,ohio,Mid-American,meta:fpi_offense,42.426
+Ohio,ohio,Mid-American,meta:fpi_special,75.933
+Ohio,ohio,Mid-American,meta:returning_ppa,205.6
+Ohio,ohio,Mid-American,meta:sp_defense,25.5
+Ohio,ohio,Mid-American,meta:sp_offense,23.9
+Ohio,ohio,Mid-American,meta:sp_special,0.1
+Ohio,ohio,Mid-American,meta:talent_raw,522.84
+Navy,navy,American Athletic,efficiency,0.574
+Navy,navy,American Athletic,elo,-0.5775
+Navy,navy,American Athletic,fpi,-6.282
+Navy,navy,American Athletic,sp_plus,-1.6
+Navy,navy,American Athletic,srs,-7.0
+Navy,navy,American Athletic,talent,-43.527
+Navy,navy,American Athletic,meta:elo_raw,1487.0
+Navy,navy,American Athletic,meta:fpi_defense,32.106
+Navy,navy,American Athletic,meta:fpi_offense,48.804
+Navy,navy,American Athletic,meta:fpi_special,47.739
+Navy,navy,American Athletic,meta:returning_ppa,46.7
+Navy,navy,American Athletic,meta:sp_defense,30.4
+Navy,navy,American Athletic,meta:sp_offense,29.0
+Navy,navy,American Athletic,meta:sp_special,-0.3
+Navy,navy,American Athletic,meta:talent_raw,195.68
+Maryland,maryland,Big Ten,efficiency,-5.2166
+Maryland,maryland,Big Ten,elo,-10.0541
+Maryland,maryland,Big Ten,fpi,-3.889
+Maryland,maryland,Big Ten,sp_plus,-2.1
+Maryland,maryland,Big Ten,srs,-3.3
+Maryland,maryland,Big Ten,talent,4.3534
+Maryland,maryland,Big Ten,meta:elo_raw,1294.0
+Maryland,maryland,Big Ten,meta:fpi_defense,57.125
+Maryland,maryland,Big Ten,meta:fpi_offense,38.066
+Maryland,maryland,Big Ten,meta:fpi_special,38.812
+Maryland,maryland,Big Ten,meta:returning_ppa,112.3
+Maryland,maryland,Big Ten,meta:sp_defense,28.7
+Maryland,maryland,Big Ten,meta:sp_offense,26.6
+Maryland,maryland,Big Ten,meta:sp_special,-0.1
+Maryland,maryland,Big Ten,meta:talent_raw,719.64
+Tulsa,tulsa,American Athletic,efficiency,1.9574
+Tulsa,tulsa,American Athletic,elo,-9.8086
+Tulsa,tulsa,American Athletic,fpi,-3.707
+Tulsa,tulsa,American Athletic,sp_plus,-2.2
+Tulsa,tulsa,American Athletic,srs,-0.7
+Tulsa,tulsa,American Athletic,talent,-4.4923
+Tulsa,tulsa,American Athletic,meta:elo_raw,1299.0
+Tulsa,tulsa,American Athletic,meta:fpi_defense,55.596
+Tulsa,tulsa,American Athletic,meta:fpi_offense,50.872
+Tulsa,tulsa,American Athletic,meta:fpi_special,38.406
+Tulsa,tulsa,American Athletic,meta:returning_ppa,89.6
+Tulsa,tulsa,American Athletic,meta:sp_defense,28.9
+Tulsa,tulsa,American Athletic,meta:sp_offense,26.8
+Tulsa,tulsa,American Athletic,meta:sp_special,-0.2
+Tulsa,tulsa,American Athletic,meta:talent_raw,622.84
+UNLV,unlv,Mountain West,efficiency,-4.3632
+UNLV,unlv,Mountain West,elo,-0.4793
+UNLV,unlv,Mountain West,fpi,-2.465
+UNLV,unlv,Mountain West,sp_plus,-2.2
+UNLV,unlv,Mountain West,srs,-4.6
+UNLV,unlv,Mountain West,talent,2.1959
+UNLV,unlv,Mountain West,meta:elo_raw,1489.0
+UNLV,unlv,Mountain West,meta:fpi_defense,60.774
+UNLV,unlv,Mountain West,meta:fpi_offense,34.421
+UNLV,unlv,Mountain West,meta:fpi_special,40.665
+UNLV,unlv,Mountain West,meta:returning_ppa,66.1
+UNLV,unlv,Mountain West,meta:sp_defense,27.6
+UNLV,unlv,Mountain West,meta:sp_offense,25.3
+UNLV,unlv,Mountain West,meta:sp_special,0.1
+UNLV,unlv,Mountain West,meta:talent_raw,696.03
+Louisiana Tech,louisiana tech,Sun Belt,efficiency,6.1768
+Louisiana Tech,louisiana tech,Sun Belt,elo,-2.3942
+Louisiana Tech,louisiana tech,Sun Belt,fpi,-2.336
+Louisiana Tech,louisiana tech,Sun Belt,sp_plus,-2.6
+Louisiana Tech,louisiana tech,Sun Belt,srs,0.4
+Louisiana Tech,louisiana tech,Sun Belt,talent,-11.7864
+Louisiana Tech,louisiana tech,Sun Belt,meta:elo_raw,1450.0
+Louisiana Tech,louisiana tech,Sun Belt,meta:fpi_defense,68.313
+Louisiana Tech,louisiana tech,Sun Belt,meta:fpi_offense,53.749
+Louisiana Tech,louisiana tech,Sun Belt,meta:fpi_special,44.641
+Louisiana Tech,louisiana tech,Sun Belt,meta:returning_ppa,138.6
+Louisiana Tech,louisiana tech,Sun Belt,meta:sp_defense,26.8
+Louisiana Tech,louisiana tech,Sun Belt,meta:sp_offense,24.6
+Louisiana Tech,louisiana tech,Sun Belt,meta:sp_special,-0.3
+Louisiana Tech,louisiana tech,Sun Belt,meta:talent_raw,543.02
+Jacksonville State,jacksonville state,Conference USA,efficiency,0.605
+Jacksonville State,jacksonville state,Conference USA,elo,-3.3763
+Jacksonville State,jacksonville state,Conference USA,fpi,-8.819
+Jacksonville State,jacksonville state,Conference USA,sp_plus,-2.6
+Jacksonville State,jacksonville state,Conference USA,srs,-7.6
+Jacksonville State,jacksonville state,Conference USA,talent,-6.3209
+Jacksonville State,jacksonville state,Conference USA,meta:elo_raw,1430.0
+Jacksonville State,jacksonville state,Conference USA,meta:fpi_defense,31.506
+Jacksonville State,jacksonville state,Conference USA,meta:fpi_offense,52.58
+Jacksonville State,jacksonville state,Conference USA,meta:fpi_special,50.707
+Jacksonville State,jacksonville state,Conference USA,meta:returning_ppa,133.7
+Jacksonville State,jacksonville state,Conference USA,meta:sp_defense,28.1
+Jacksonville State,jacksonville state,Conference USA,meta:sp_offense,25.5
+Jacksonville State,jacksonville state,Conference USA,meta:sp_special,-0.1
+Jacksonville State,jacksonville state,Conference USA,meta:talent_raw,602.83
+Western Michigan,western michigan,Mid-American,efficiency,-2.3493
+Western Michigan,western michigan,Mid-American,elo,-0.9212
+Western Michigan,western michigan,Mid-American,fpi,-3.101
+Western Michigan,western michigan,Mid-American,sp_plus,-2.7
+Western Michigan,western michigan,Mid-American,srs,-1.3
+Western Michigan,western michigan,Mid-American,talent,-9.1199
+Western Michigan,western michigan,Mid-American,meta:elo_raw,1480.0
+Western Michigan,western michigan,Mid-American,meta:fpi_defense,47.452
+Western Michigan,western michigan,Mid-American,meta:fpi_offense,48.005
+Western Michigan,western michigan,Mid-American,meta:fpi_special,67.129
+Western Michigan,western michigan,Mid-American,meta:returning_ppa,155.5
+Western Michigan,western michigan,Mid-American,meta:sp_defense,25.8
+Western Michigan,western michigan,Mid-American,meta:sp_offense,22.8
+Western Michigan,western michigan,Mid-American,meta:sp_special,0.3
+Western Michigan,western michigan,Mid-American,meta:talent_raw,572.2
+Syracuse,syracuse,ACC,efficiency,0.2067
+Syracuse,syracuse,ACC,elo,-8.3847
+Syracuse,syracuse,ACC,fpi,1.559
+Syracuse,syracuse,ACC,sp_plus,-2.8
+Syracuse,syracuse,ACC,srs,1.3
+Syracuse,syracuse,ACC,talent,6.7266
+Syracuse,syracuse,ACC,meta:elo_raw,1328.0
+Syracuse,syracuse,ACC,meta:fpi_defense,55.834
+Syracuse,syracuse,ACC,meta:fpi_offense,57.768
+Syracuse,syracuse,ACC,meta:fpi_special,40.292
+Syracuse,syracuse,ACC,meta:returning_ppa,80.1
+Syracuse,syracuse,ACC,meta:sp_defense,28.3
+Syracuse,syracuse,ACC,meta:sp_offense,25.7
+Syracuse,syracuse,ACC,meta:sp_special,-0.2
+Syracuse,syracuse,ACC,meta:talent_raw,745.61
+Michigan State,michigan state,Big Ten,efficiency,-7.8451
+Michigan State,michigan state,Big Ten,elo,-2.6889
+Michigan State,michigan state,Big Ten,fpi,1.219
+Michigan State,michigan state,Big Ten,sp_plus,-3.0
+Michigan State,michigan state,Big Ten,srs,2.8
+Michigan State,michigan state,Big Ten,talent,1.1898
+Michigan State,michigan state,Big Ten,meta:elo_raw,1444.0
+Michigan State,michigan state,Big Ten,meta:fpi_defense,59.865
+Michigan State,michigan state,Big Ten,meta:fpi_offense,39.861
+Michigan State,michigan state,Big Ten,meta:fpi_special,64.943
+Michigan State,michigan state,Big Ten,meta:returning_ppa,52.9
+Michigan State,michigan state,Big Ten,meta:sp_defense,26.3
+Michigan State,michigan state,Big Ten,meta:sp_offense,23.1
+Michigan State,michigan state,Big Ten,meta:sp_special,0.2
+Michigan State,michigan state,Big Ten,meta:talent_raw,685.02
+Nevada,nevada,Mountain West,efficiency,-5.9393
+Nevada,nevada,Mountain West,elo,-2.4925
+Nevada,nevada,Mountain West,fpi,-7.484
+Nevada,nevada,Mountain West,sp_plus,-3.1
+Nevada,nevada,Mountain West,srs,-7.5
+Nevada,nevada,Mountain West,talent,-11.1495
+Nevada,nevada,Mountain West,meta:elo_raw,1448.0
+Nevada,nevada,Mountain West,meta:fpi_defense,52.53
+Nevada,nevada,Mountain West,meta:fpi_offense,29.345
+Nevada,nevada,Mountain West,meta:fpi_special,61.76
+Nevada,nevada,Mountain West,meta:returning_ppa,32.3
+Nevada,nevada,Mountain West,meta:sp_defense,24.6
+Nevada,nevada,Mountain West,meta:sp_offense,20.9
+Nevada,nevada,Mountain West,meta:sp_special,0.5
+Nevada,nevada,Mountain West,meta:talent_raw,549.99
+Florida Atlantic,florida atlantic,American Athletic,efficiency,-12.8921
+Florida Atlantic,florida atlantic,American Athletic,elo,-12.7547
+Florida Atlantic,florida atlantic,American Athletic,fpi,-10.915
+Florida Atlantic,florida atlantic,American Athletic,sp_plus,-3.4
+Florida Atlantic,florida atlantic,American Athletic,srs,-7.8
+Florida Atlantic,florida atlantic,American Athletic,talent,-7.1863
+Florida Atlantic,florida atlantic,American Athletic,meta:elo_raw,1239.0
+Florida Atlantic,florida atlantic,American Athletic,meta:fpi_defense,20.703
+Florida Atlantic,florida atlantic,American Athletic,meta:fpi_offense,51.627
+Florida Atlantic,florida atlantic,American Athletic,meta:fpi_special,63.994
+Florida Atlantic,florida atlantic,American Athletic,meta:returning_ppa,266.8
+Florida Atlantic,florida atlantic,American Athletic,meta:sp_defense,33.9
+Florida Atlantic,florida atlantic,American Athletic,meta:sp_offense,30.1
+Florida Atlantic,florida atlantic,American Athletic,meta:sp_special,0.3
+Florida Atlantic,florida atlantic,American Athletic,meta:talent_raw,593.36
+East Carolina,east carolina,American Athletic,efficiency,-3.9518
+East Carolina,east carolina,American Athletic,elo,-3.229
+East Carolina,east carolina,American Athletic,fpi,-4.222
+East Carolina,east carolina,American Athletic,sp_plus,-4.0
+East Carolina,east carolina,American Athletic,srs,-9.7
+East Carolina,east carolina,American Athletic,talent,-4.4055
+East Carolina,east carolina,American Athletic,meta:elo_raw,1433.0
+East Carolina,east carolina,American Athletic,meta:fpi_defense,66.494
+East Carolina,east carolina,American Athletic,meta:fpi_offense,28.568
+East Carolina,east carolina,American Athletic,meta:fpi_special,47.211
+East Carolina,east carolina,American Athletic,meta:returning_ppa,50.6
+East Carolina,east carolina,American Athletic,meta:sp_defense,26.4
+East Carolina,east carolina,American Athletic,meta:sp_offense,22.2
+East Carolina,east carolina,American Athletic,meta:sp_special,0.2
+East Carolina,east carolina,American Athletic,meta:talent_raw,623.79
+Miami (OH),miami oh,Mid-American,efficiency,-4.9133
+Miami (OH),miami oh,Mid-American,elo,-11.8218
+Miami (OH),miami oh,Mid-American,fpi,-9.641
+Miami (OH),miami oh,Mid-American,sp_plus,-4.2
+Miami (OH),miami oh,Mid-American,srs,-8.1
+Miami (OH),miami oh,Mid-American,talent,-4.6267
+Miami (OH),miami oh,Mid-American,meta:elo_raw,1258.0
+Miami (OH),miami oh,Mid-American,meta:fpi_defense,37.524
+Miami (OH),miami oh,Mid-American,meta:fpi_offense,41.988
+Miami (OH),miami oh,Mid-American,meta:fpi_special,64.495
+Miami (OH),miami oh,Mid-American,meta:returning_ppa,31.9
+Miami (OH),miami oh,Mid-American,meta:sp_defense,27.3
+Miami (OH),miami oh,Mid-American,meta:sp_offense,23.0
+Miami (OH),miami oh,Mid-American,meta:sp_special,0.0
+Miami (OH),miami oh,Mid-American,meta:talent_raw,621.37
+Colorado,colorado,Big 12,efficiency,2.5013
+Colorado,colorado,Big 12,elo,-11.4781
+Colorado,colorado,Big 12,fpi,-1.944
+Colorado,colorado,Big 12,sp_plus,-4.3
+Colorado,colorado,Big 12,srs,-3.4
+Colorado,colorado,Big 12,talent,5.4482
+Colorado,colorado,Big 12,meta:elo_raw,1265.0
+Colorado,colorado,Big 12,meta:fpi_defense,66.006
+Colorado,colorado,Big 12,meta:fpi_offense,39.756
+Colorado,colorado,Big 12,meta:fpi_special,28.626
+Colorado,colorado,Big 12,meta:returning_ppa,26.4
+Colorado,colorado,Big 12,meta:sp_defense,26.5
+Colorado,colorado,Big 12,meta:sp_offense,22.7
+Colorado,colorado,Big 12,meta:sp_special,-0.6
+Colorado,colorado,Big 12,meta:talent_raw,731.62
+Georgia Southern,georgia southern,Sun Belt,efficiency,5.9187
+Georgia Southern,georgia southern,Sun Belt,elo,-6.126
+Georgia Southern,georgia southern,Sun Belt,fpi,-4.945
+Georgia Southern,georgia southern,Sun Belt,sp_plus,-4.8
+Georgia Southern,georgia southern,Sun Belt,srs,-3.7
+Georgia Southern,georgia southern,Sun Belt,talent,-3.4552
+Georgia Southern,georgia southern,Sun Belt,meta:elo_raw,1374.0
+Georgia Southern,georgia southern,Sun Belt,meta:fpi_defense,49.294
+Georgia Southern,georgia southern,Sun Belt,meta:fpi_offense,57.854
+Georgia Southern,georgia southern,Sun Belt,meta:fpi_special,23.523
+Georgia Southern,georgia southern,Sun Belt,meta:returning_ppa,19.4
+Georgia Southern,georgia southern,Sun Belt,meta:sp_defense,28.8
+Georgia Southern,georgia southern,Sun Belt,meta:sp_offense,24.4
+Georgia Southern,georgia southern,Sun Belt,meta:sp_special,-0.4
+Georgia Southern,georgia southern,Sun Belt,meta:talent_raw,634.19
+App State,app state,Sun Belt,efficiency,-7.2781
+App State,app state,Sun Belt,elo,-9.2685
+App State,app state,Sun Belt,fpi,-7.493
+App State,app state,Sun Belt,sp_plus,-4.9
+App State,app state,Sun Belt,srs,-7.4
+App State,app state,Sun Belt,talent,-4.6047
+App State,app state,Sun Belt,meta:elo_raw,1310.0
+App State,app state,Sun Belt,meta:fpi_defense,46.094
+App State,app state,Sun Belt,meta:fpi_offense,43.385
+App State,app state,Sun Belt,meta:fpi_special,50.93
+App State,app state,Sun Belt,meta:returning_ppa,107.7
+App State,app state,Sun Belt,meta:sp_defense,29.5
+App State,app state,Sun Belt,meta:sp_offense,24.2
+App State,app state,Sun Belt,meta:sp_special,0.4
+App State,app state,Sun Belt,meta:talent_raw,621.61
+Rutgers,rutgers,Big Ten,efficiency,-9.1617
+Rutgers,rutgers,Big Ten,elo,-7.108
+Rutgers,rutgers,Big Ten,fpi,-4.43
+Rutgers,rutgers,Big Ten,sp_plus,-4.9
+Rutgers,rutgers,Big Ten,srs,-6.4
+Rutgers,rutgers,Big Ten,talent,3.3848
+Rutgers,rutgers,Big Ten,meta:elo_raw,1354.0
+Rutgers,rutgers,Big Ten,meta:fpi_defense,33.59
+Rutgers,rutgers,Big Ten,meta:fpi_offense,51.516
+Rutgers,rutgers,Big Ten,meta:fpi_special,56.872
+Rutgers,rutgers,Big Ten,meta:returning_ppa,165.0
+Rutgers,rutgers,Big Ten,meta:sp_defense,34.0
+Rutgers,rutgers,Big Ten,meta:sp_offense,28.7
+Rutgers,rutgers,Big Ten,meta:sp_special,0.3
+Rutgers,rutgers,Big Ten,meta:talent_raw,709.04
+Arkansas State,arkansas state,Sun Belt,efficiency,-2.6524
+Arkansas State,arkansas state,Sun Belt,elo,-8.2374
+Arkansas State,arkansas state,Sun Belt,fpi,-8.693
+Arkansas State,arkansas state,Sun Belt,sp_plus,-7.0
+Arkansas State,arkansas state,Sun Belt,srs,-8.2
+Arkansas State,arkansas state,Sun Belt,talent,-6.0111
+Arkansas State,arkansas state,Sun Belt,meta:elo_raw,1331.0
+Arkansas State,arkansas state,Sun Belt,meta:fpi_defense,34.945
+Arkansas State,arkansas state,Sun Belt,meta:fpi_offense,47.854
+Arkansas State,arkansas state,Sun Belt,meta:fpi_special,51.994
+Arkansas State,arkansas state,Sun Belt,meta:returning_ppa,73.9
+Arkansas State,arkansas state,Sun Belt,meta:sp_defense,32.2
+Arkansas State,arkansas state,Sun Belt,meta:sp_offense,25.4
+Arkansas State,arkansas state,Sun Belt,meta:sp_special,-0.2
+Arkansas State,arkansas state,Sun Belt,meta:talent_raw,606.22
+Wyoming,wyoming,Mountain West,efficiency,-11.0301
+Wyoming,wyoming,Mountain West,elo,-6.6661
+Wyoming,wyoming,Mountain West,fpi,-13.157
+Wyoming,wyoming,Mountain West,sp_plus,-7.3
+Wyoming,wyoming,Mountain West,srs,-13.3
+Wyoming,wyoming,Mountain West,talent,-13.1325
+Wyoming,wyoming,Mountain West,meta:elo_raw,1363.0
+Wyoming,wyoming,Mountain West,meta:fpi_defense,38.614
+Wyoming,wyoming,Mountain West,meta:fpi_offense,29.135
+Wyoming,wyoming,Mountain West,meta:fpi_special,50.506
+Wyoming,wyoming,Mountain West,meta:returning_ppa,36.8
+Wyoming,wyoming,Mountain West,meta:sp_defense,25.0
+Wyoming,wyoming,Mountain West,meta:sp_offense,17.5
+Wyoming,wyoming,Mountain West,meta:sp_special,0.2
+Wyoming,wyoming,Mountain West,meta:talent_raw,528.29
+Temple,temple,American Athletic,efficiency,-10.7909
+Temple,temple,American Athletic,elo,-9.8577
+Temple,temple,American Athletic,fpi,-9.139
+Temple,temple,American Athletic,sp_plus,-7.7
+Temple,temple,American Athletic,srs,-9.8
+Temple,temple,American Athletic,talent,-3.7403
+Temple,temple,American Athletic,meta:elo_raw,1298.0
+Temple,temple,American Athletic,meta:fpi_defense,29.916
+Temple,temple,American Athletic,meta:fpi_offense,52.943
+Temple,temple,American Athletic,meta:fpi_special,39.929
+Temple,temple,American Athletic,meta:returning_ppa,96.1
+Temple,temple,American Athletic,meta:sp_defense,33.3
+Temple,temple,American Athletic,meta:sp_offense,25.5
+Temple,temple,American Athletic,meta:sp_special,0.1
+Temple,temple,American Athletic,meta:talent_raw,631.07
+Florida International,florida international,Conference USA,efficiency,-10.2314
+Florida International,florida international,Conference USA,elo,-4.8002
+Florida International,florida international,Conference USA,fpi,-10.964
+Florida International,florida international,Conference USA,sp_plus,-7.9
+Florida International,florida international,Conference USA,srs,-10.1
+Florida International,florida international,Conference USA,talent,-5.8887
+Florida International,florida international,Conference USA,meta:elo_raw,1401.0
+Florida International,florida international,Conference USA,meta:fpi_defense,64.563
+Florida International,florida international,Conference USA,meta:fpi_offense,20.747
+Florida International,florida international,Conference USA,meta:fpi_special,38.677
+Florida International,florida international,Conference USA,meta:returning_ppa,75.2
+Florida International,florida international,Conference USA,meta:sp_defense,25.4
+Florida International,florida international,Conference USA,meta:sp_offense,17.9
+Florida International,florida international,Conference USA,meta:sp_special,-0.4
+Florida International,florida international,Conference USA,meta:talent_raw,607.56
+California,california,ACC,efficiency,-17.8015
+California,california,ACC,elo,-12.902
+California,california,ACC,fpi,-6.029
+California,california,ACC,sp_plus,-8.2
+California,california,ACC,srs,-8.4
+California,california,ACC,talent,7.3032
+California,california,ACC,meta:elo_raw,1236.0
+California,california,ACC,meta:fpi_defense,37.394
+California,california,ACC,meta:fpi_offense,45.315
+California,california,ACC,meta:fpi_special,56.951
+California,california,ACC,meta:returning_ppa,188.8
+California,california,ACC,meta:sp_defense,30.5
+California,california,ACC,meta:sp_offense,22.8
+California,california,ACC,meta:sp_special,-0.5
+California,california,ACC,meta:talent_raw,751.92
+Tulane,tulane,American Athletic,efficiency,-11.1904
+Tulane,tulane,American Athletic,elo,-0.2829
+Tulane,tulane,American Athletic,fpi,-4.049
+Tulane,tulane,American Athletic,sp_plus,-8.2
+Tulane,tulane,American Athletic,srs,-5.9
+Tulane,tulane,American Athletic,talent,-0.6296
+Tulane,tulane,American Athletic,meta:elo_raw,1493.0
+Tulane,tulane,American Athletic,meta:fpi_defense,59.209
+Tulane,tulane,American Athletic,meta:fpi_offense,23.957
+Tulane,tulane,American Athletic,meta:fpi_special,56.51
+Tulane,tulane,American Athletic,meta:returning_ppa,72.5
+Tulane,tulane,American Athletic,meta:sp_defense,28.1
+Tulane,tulane,American Athletic,meta:sp_offense,19.4
+Tulane,tulane,American Athletic,meta:sp_special,0.6
+Tulane,tulane,American Athletic,meta:talent_raw,665.11
+Colorado State,colorado state,Pac-12,efficiency,-11.0912
+Colorado State,colorado state,Pac-12,elo,-16.0937
+Colorado State,colorado state,Pac-12,fpi,-10.921
+Colorado State,colorado state,Pac-12,sp_plus,-8.4
+Colorado State,colorado state,Pac-12,srs,-6.0
+Colorado State,colorado state,Pac-12,talent,-2.8959
+Colorado State,colorado state,Pac-12,meta:elo_raw,1171.0
+Colorado State,colorado state,Pac-12,meta:fpi_defense,13.079
+Colorado State,colorado state,Pac-12,meta:fpi_offense,70.665
+Colorado State,colorado state,Pac-12,meta:fpi_special,44.693
+Colorado State,colorado state,Pac-12,meta:returning_ppa,79.6
+Colorado State,colorado state,Pac-12,meta:sp_defense,37.0
+Colorado State,colorado state,Pac-12,meta:sp_offense,28.6
+Colorado State,colorado state,Pac-12,meta:sp_special,0.0
+Colorado State,colorado state,Pac-12,meta:talent_raw,640.31
+San Diego State,san diego state,Pac-12,efficiency,-17.6968
+San Diego State,san diego state,Pac-12,elo,-12.4601
+San Diego State,san diego state,Pac-12,fpi,-9.721
+San Diego State,san diego state,Pac-12,sp_plus,-8.6
+San Diego State,san diego state,Pac-12,srs,-7.1
+San Diego State,san diego state,Pac-12,talent,-5.737
+San Diego State,san diego state,Pac-12,meta:elo_raw,1245.0
+San Diego State,san diego state,Pac-12,meta:fpi_defense,45.202
+San Diego State,san diego state,Pac-12,meta:fpi_offense,26.04
+San Diego State,san diego state,Pac-12,meta:fpi_special,66.653
+San Diego State,san diego state,Pac-12,meta:returning_ppa,182.6
+San Diego State,san diego state,Pac-12,meta:sp_defense,31.6
+San Diego State,san diego state,Pac-12,meta:sp_offense,22.4
+San Diego State,san diego state,Pac-12,meta:sp_special,0.5
+San Diego State,san diego state,Pac-12,meta:talent_raw,609.22
+Georgia State,georgia state,Sun Belt,efficiency,7.607
+Georgia State,georgia state,Sun Belt,elo,-6.5188
+Georgia State,georgia state,Sun Belt,fpi,-7.493
+Georgia State,georgia state,Sun Belt,sp_plus,-9.2
+Georgia State,georgia state,Sun Belt,srs,-2.7
+Georgia State,georgia state,Sun Belt,talent,-8.971
+Georgia State,georgia state,Sun Belt,meta:elo_raw,1366.0
+Georgia State,georgia state,Sun Belt,meta:fpi_defense,36.892
+Georgia State,georgia state,Sun Belt,meta:fpi_offense,58.129
+Georgia State,georgia state,Sun Belt,meta:fpi_special,63.388
+Georgia State,georgia state,Sun Belt,meta:returning_ppa,131.7
+Georgia State,georgia state,Sun Belt,meta:sp_defense,35.3
+Georgia State,georgia state,Sun Belt,meta:sp_offense,26.3
+Georgia State,georgia state,Sun Belt,meta:sp_special,-0.2
+Georgia State,georgia state,Sun Belt,meta:talent_raw,573.83
+Utah State,utah state,Pac-12,efficiency,-6.5396
+Utah State,utah state,Pac-12,elo,-6.617
+Utah State,utah state,Pac-12,fpi,-7.087
+Utah State,utah state,Pac-12,sp_plus,-9.2
+Utah State,utah state,Pac-12,srs,-8.5
+Utah State,utah state,Pac-12,talent,-11.6987
+Utah State,utah state,Pac-12,meta:elo_raw,1364.0
+Utah State,utah state,Pac-12,meta:fpi_defense,63.62
+Utah State,utah state,Pac-12,meta:fpi_offense,21.86
+Utah State,utah state,Pac-12,meta:fpi_special,38.247
+Utah State,utah state,Pac-12,meta:returning_ppa,215.0
+Utah State,utah state,Pac-12,meta:sp_defense,25.9
+Utah State,utah state,Pac-12,meta:sp_offense,17.2
+Utah State,utah state,Pac-12,meta:sp_special,-0.5
+Utah State,utah state,Pac-12,meta:talent_raw,543.98
+Hawai'i,hawaii,Mountain West,efficiency,-18.1842
+Hawai'i,hawaii,Mountain West,elo,-3.9655
+Hawai'i,hawaii,Mountain West,fpi,-9.348
+Hawai'i,hawaii,Mountain West,sp_plus,-9.6
+Hawai'i,hawaii,Mountain West,srs,-13.6
+Hawai'i,hawaii,Mountain West,talent,-10.5254
+Hawai'i,hawaii,Mountain West,meta:elo_raw,1418.0
+Hawai'i,hawaii,Mountain West,meta:fpi_defense,34.12
+Hawai'i,hawaii,Mountain West,meta:fpi_offense,36.393
+Hawai'i,hawaii,Mountain West,meta:fpi_special,56.307
+Hawai'i,hawaii,Mountain West,meta:returning_ppa,234.7
+Hawai'i,hawaii,Mountain West,meta:sp_defense,28.8
+Hawai'i,hawaii,Mountain West,meta:sp_offense,19.1
+Hawai'i,hawaii,Mountain West,meta:sp_special,0.0
+Hawai'i,hawaii,Mountain West,meta:talent_raw,556.82
+Troy,troy,Sun Belt,efficiency,-11.7686
+Troy,troy,Sun Belt,elo,-9.0721
+Troy,troy,Sun Belt,fpi,-11.168
+Troy,troy,Sun Belt,sp_plus,-9.9
+Troy,troy,Sun Belt,srs,-14.9
+Troy,troy,Sun Belt,talent,-6.9277
+Troy,troy,Sun Belt,meta:elo_raw,1314.0
+Troy,troy,Sun Belt,meta:fpi_defense,35.802
+Troy,troy,Sun Belt,meta:fpi_offense,35.893
+Troy,troy,Sun Belt,meta:fpi_special,45.38
+Troy,troy,Sun Belt,meta:returning_ppa,75.1
+Troy,troy,Sun Belt,meta:sp_defense,28.8
+Troy,troy,Sun Belt,meta:sp_offense,19.1
+Troy,troy,Sun Belt,meta:sp_special,-0.2
+Troy,troy,Sun Belt,meta:talent_raw,596.19
+Coastal Carolina,coastal carolina,Sun Belt,efficiency,-12.275
+Coastal Carolina,coastal carolina,Sun Belt,elo,-10.8889
+Coastal Carolina,coastal carolina,Sun Belt,fpi,-12.159
+Coastal Carolina,coastal carolina,Sun Belt,sp_plus,-10.3
+Coastal Carolina,coastal carolina,Sun Belt,srs,-10.4
+Coastal Carolina,coastal carolina,Sun Belt,talent,-8.9591
+Coastal Carolina,coastal carolina,Sun Belt,meta:elo_raw,1277.0
+Coastal Carolina,coastal carolina,Sun Belt,meta:fpi_defense,36.486
+Coastal Carolina,coastal carolina,Sun Belt,meta:fpi_offense,31.906
+Coastal Carolina,coastal carolina,Sun Belt,meta:fpi_special,68.185
+Coastal Carolina,coastal carolina,Sun Belt,meta:returning_ppa,28.4
+Coastal Carolina,coastal carolina,Sun Belt,meta:sp_defense,33.7
+Coastal Carolina,coastal carolina,Sun Belt,meta:sp_offense,23.3
+Coastal Carolina,coastal carolina,Sun Belt,meta:sp_special,0.1
+Coastal Carolina,coastal carolina,Sun Belt,meta:talent_raw,573.96
+UAB,uab,American Athletic,efficiency,-9.2915
+UAB,uab,American Athletic,elo,-5.0457
+UAB,uab,American Athletic,fpi,-13.672
+UAB,uab,American Athletic,sp_plus,-10.4
+UAB,uab,American Athletic,srs,-11.6
+UAB,uab,American Athletic,talent,-6.0148
+UAB,uab,American Athletic,meta:elo_raw,1396.0
+UAB,uab,American Athletic,meta:fpi_defense,43.552
+UAB,uab,American Athletic,meta:fpi_offense,24.43
+UAB,uab,American Athletic,meta:fpi_special,57.756
+UAB,uab,American Athletic,meta:returning_ppa,245.1
+UAB,uab,American Athletic,meta:sp_defense,30.5
+UAB,uab,American Athletic,meta:sp_offense,20.0
+UAB,uab,American Athletic,meta:sp_special,0.1
+UAB,uab,American Athletic,meta:talent_raw,606.18
+Marshall,marshall,Sun Belt,efficiency,-18.15
+Marshall,marshall,Sun Belt,elo,-7.0589
+Marshall,marshall,Sun Belt,fpi,-14.957
+Marshall,marshall,Sun Belt,sp_plus,-10.7
+Marshall,marshall,Sun Belt,srs,-16.3
+Marshall,marshall,Sun Belt,talent,-7.0629
+Marshall,marshall,Sun Belt,meta:elo_raw,1355.0
+Marshall,marshall,Sun Belt,meta:fpi_defense,29.257
+Marshall,marshall,Sun Belt,meta:fpi_offense,25.308
+Marshall,marshall,Sun Belt,meta:fpi_special,51.621
+Marshall,marshall,Sun Belt,meta:returning_ppa,284.6
+Marshall,marshall,Sun Belt,meta:sp_defense,34.4
+Marshall,marshall,Sun Belt,meta:sp_offense,23.7
+Marshall,marshall,Sun Belt,meta:sp_special,-0.1
+Marshall,marshall,Sun Belt,meta:talent_raw,594.71
+Stanford,stanford,ACC,efficiency,-20.0486
+Stanford,stanford,ACC,elo,-16.7811
+Stanford,stanford,ACC,fpi,-9.982
+Stanford,stanford,ACC,sp_plus,-10.8
+Stanford,stanford,ACC,srs,-8.8
+Stanford,stanford,ACC,talent,3.0896
+Stanford,stanford,ACC,meta:elo_raw,1157.0
+Stanford,stanford,ACC,meta:fpi_defense,33.403
+Stanford,stanford,ACC,meta:fpi_offense,38.84
+Stanford,stanford,ACC,meta:fpi_special,48.999
+Stanford,stanford,ACC,meta:returning_ppa,47.9
+Stanford,stanford,ACC,meta:sp_defense,32.3
+Stanford,stanford,ACC,meta:sp_offense,22.0
+Stanford,stanford,ACC,meta:sp_special,-0.5
+Stanford,stanford,ACC,meta:talent_raw,705.81
+Massachusetts,massachusetts,Mid-American,efficiency,-3.9001
+Massachusetts,massachusetts,Mid-American,elo,-18.4997
+Massachusetts,massachusetts,Mid-American,fpi,-15.027
+Massachusetts,massachusetts,Mid-American,sp_plus,-11.1
+Massachusetts,massachusetts,Mid-American,srs,-14.0
+Massachusetts,massachusetts,Mid-American,talent,-13.3472
+Massachusetts,massachusetts,Mid-American,meta:elo_raw,1122.0
+Massachusetts,massachusetts,Mid-American,meta:fpi_defense,46.811
+Massachusetts,massachusetts,Mid-American,meta:fpi_offense,24.686
+Massachusetts,massachusetts,Mid-American,meta:fpi_special,56.446
+Massachusetts,massachusetts,Mid-American,meta:returning_ppa,-3.4
+Massachusetts,massachusetts,Mid-American,meta:sp_defense,29.6
+Massachusetts,massachusetts,Mid-American,meta:sp_offense,18.5
+Massachusetts,massachusetts,Mid-American,meta:sp_special,-0.1
+Massachusetts,massachusetts,Mid-American,meta:talent_raw,525.94
+San José State,san jose state,Mountain West,efficiency,-10.6412
+San José State,san jose state,Mountain West,elo,-7.2062
+San José State,san jose state,Mountain West,fpi,-13.25
+San José State,san jose state,Mountain West,sp_plus,-11.3
+San José State,san jose state,Mountain West,srs,-13.7
+San José State,san jose state,Mountain West,talent,-9.3895
+San José State,san jose state,Mountain West,meta:elo_raw,1352.0
+San José State,san jose state,Mountain West,meta:fpi_defense,50.537
+San José State,san jose state,Mountain West,meta:fpi_offense,20.655
+San José State,san jose state,Mountain West,meta:fpi_special,46.46
+San José State,san jose state,Mountain West,meta:returning_ppa,11.2
+San José State,san jose state,Mountain West,meta:sp_defense,27.0
+San José State,san jose state,Mountain West,meta:sp_offense,15.9
+San José State,san jose state,Mountain West,meta:sp_special,-0.2
+San José State,san jose state,Mountain West,meta:talent_raw,569.25
+South Alabama,south alabama,Sun Belt,efficiency,-14.1425
+South Alabama,south alabama,Sun Belt,elo,-7.108
+South Alabama,south alabama,Sun Belt,fpi,-8.782
+South Alabama,south alabama,Sun Belt,sp_plus,-11.5
+South Alabama,south alabama,Sun Belt,srs,-7.5
+South Alabama,south alabama,Sun Belt,talent,-9.0121
+South Alabama,south alabama,Sun Belt,meta:elo_raw,1354.0
+South Alabama,south alabama,Sun Belt,meta:fpi_defense,25.496
+South Alabama,south alabama,Sun Belt,meta:fpi_offense,53.632
+South Alabama,south alabama,Sun Belt,meta:fpi_special,59.831
+South Alabama,south alabama,Sun Belt,meta:returning_ppa,180.8
+South Alabama,south alabama,Sun Belt,meta:sp_defense,37.5
+South Alabama,south alabama,Sun Belt,meta:sp_offense,26.5
+South Alabama,south alabama,Sun Belt,meta:sp_special,-0.5
+South Alabama,south alabama,Sun Belt,meta:talent_raw,573.38
+Western Kentucky,western kentucky,Conference USA,efficiency,-13.1501
+Western Kentucky,western kentucky,Conference USA,elo,-12.8038
+Western Kentucky,western kentucky,Conference USA,fpi,-12.258
+Western Kentucky,western kentucky,Conference USA,sp_plus,-11.5
+Western Kentucky,western kentucky,Conference USA,srs,-11.5
+Western Kentucky,western kentucky,Conference USA,talent,-5.5268
+Western Kentucky,western kentucky,Conference USA,meta:elo_raw,1238.0
+Western Kentucky,western kentucky,Conference USA,meta:fpi_defense,40.501
+Western Kentucky,western kentucky,Conference USA,meta:fpi_offense,29.351
+Western Kentucky,western kentucky,Conference USA,meta:fpi_special,47.289
+Western Kentucky,western kentucky,Conference USA,meta:returning_ppa,312.2
+Western Kentucky,western kentucky,Conference USA,meta:sp_defense,30.7
+Western Kentucky,western kentucky,Conference USA,meta:sp_offense,18.8
+Western Kentucky,western kentucky,Conference USA,meta:sp_special,0.4
+Western Kentucky,western kentucky,Conference USA,meta:talent_raw,611.52
+Delaware,delaware,Conference USA,efficiency,-9.5911
+Delaware,delaware,Conference USA,elo,-4.7511
+Delaware,delaware,Conference USA,fpi,-10.792
+Delaware,delaware,Conference USA,sp_plus,-11.7
+Delaware,delaware,Conference USA,srs,-10.5
+Delaware,delaware,Conference USA,talent,-17.2273
+Delaware,delaware,Conference USA,meta:elo_raw,1402.0
+Delaware,delaware,Conference USA,meta:fpi_defense,36.267
+Delaware,delaware,Conference USA,meta:fpi_offense,35.454
+Delaware,delaware,Conference USA,meta:fpi_special,59.066
+Delaware,delaware,Conference USA,meta:returning_ppa,299.8
+Delaware,delaware,Conference USA,meta:sp_defense,34.4
+Delaware,delaware,Conference USA,meta:sp_offense,23.1
+Delaware,delaware,Conference USA,meta:sp_special,-0.3
+Delaware,delaware,Conference USA,meta:talent_raw,483.48
+Buffalo,buffalo,Mid-American,efficiency,-14.7193
+Buffalo,buffalo,Mid-American,elo,-6.6661
+Buffalo,buffalo,Mid-American,fpi,-12.929
+Buffalo,buffalo,Mid-American,sp_plus,-12.0
+Buffalo,buffalo,Mid-American,srs,-14.0
+Buffalo,buffalo,Mid-American,talent,-11.2116
+Buffalo,buffalo,Mid-American,meta:elo_raw,1363.0
+Buffalo,buffalo,Mid-American,meta:fpi_defense,34.586
+Buffalo,buffalo,Mid-American,meta:fpi_offense,22.697
+Buffalo,buffalo,Mid-American,meta:fpi_special,62.433
+Buffalo,buffalo,Mid-American,meta:returning_ppa,-1.6
+Buffalo,buffalo,Mid-American,meta:sp_defense,28.5
+Buffalo,buffalo,Mid-American,meta:sp_offense,16.1
+Buffalo,buffalo,Mid-American,meta:sp_special,0.3
+Buffalo,buffalo,Mid-American,meta:talent_raw,549.31
+New Mexico State,new mexico state,Conference USA,efficiency,-8.9599
+New Mexico State,new mexico state,Conference USA,elo,-12.2637
+New Mexico State,new mexico state,Conference USA,fpi,-12.764
+New Mexico State,new mexico state,Conference USA,sp_plus,-13.4
+New Mexico State,new mexico state,Conference USA,srs,-11.8
+New Mexico State,new mexico state,Conference USA,talent,-19.3382
+New Mexico State,new mexico state,Conference USA,meta:elo_raw,1249.0
+New Mexico State,new mexico state,Conference USA,meta:fpi_defense,59.941
+New Mexico State,new mexico state,Conference USA,meta:fpi_offense,23.796
+New Mexico State,new mexico state,Conference USA,meta:fpi_special,31.456
+New Mexico State,new mexico state,Conference USA,meta:returning_ppa,34.2
+New Mexico State,new mexico state,Conference USA,meta:sp_defense,30.2
+New Mexico State,new mexico state,Conference USA,meta:sp_offense,17.3
+New Mexico State,new mexico state,Conference USA,meta:sp_special,-0.4
+New Mexico State,new mexico state,Conference USA,meta:talent_raw,460.38
+Kennesaw State,kennesaw state,Conference USA,efficiency,-8.5688
+Kennesaw State,kennesaw state,Conference USA,elo,-11.5272
+Kennesaw State,kennesaw state,Conference USA,fpi,-14.165
+Kennesaw State,kennesaw state,Conference USA,sp_plus,-13.8
+Kennesaw State,kennesaw state,Conference USA,srs,-12.9
+Kennesaw State,kennesaw state,Conference USA,talent,-15.4563
+Kennesaw State,kennesaw state,Conference USA,meta:elo_raw,1264.0
+Kennesaw State,kennesaw state,Conference USA,meta:fpi_defense,38.369
+Kennesaw State,kennesaw state,Conference USA,meta:fpi_offense,29.927
+Kennesaw State,kennesaw state,Conference USA,meta:fpi_special,45.832
+Kennesaw State,kennesaw state,Conference USA,meta:returning_ppa,23.1
+Kennesaw State,kennesaw state,Conference USA,meta:sp_defense,30.7
+Kennesaw State,kennesaw state,Conference USA,meta:sp_offense,17.4
+Kennesaw State,kennesaw state,Conference USA,meta:sp_special,-0.5
+Kennesaw State,kennesaw state,Conference USA,meta:talent_raw,502.86
+Washington State,washington state,Pac-12,efficiency,-11.9818
+Washington State,washington state,Pac-12,elo,-3.9164
+Washington State,washington state,Pac-12,fpi,-9.082
+Washington State,washington state,Pac-12,sp_plus,-14.1
+Washington State,washington state,Pac-12,srs,-9.2
+Washington State,washington state,Pac-12,talent,-3.8116
+Washington State,washington state,Pac-12,meta:elo_raw,1419.0
+Washington State,washington state,Pac-12,meta:fpi_defense,55.179
+Washington State,washington state,Pac-12,meta:fpi_offense,27.07
+Washington State,washington state,Pac-12,meta:fpi_special,48.664
+Washington State,washington state,Pac-12,meta:returning_ppa,228.3
+Washington State,washington state,Pac-12,meta:sp_defense,29.5
+Washington State,washington state,Pac-12,meta:sp_offense,15.8
+Washington State,washington state,Pac-12,meta:sp_special,-0.4
+Washington State,washington state,Pac-12,meta:talent_raw,630.29
+Rice,rice,American Athletic,efficiency,-11.0093
+Rice,rice,American Athletic,elo,-18.1559
+Rice,rice,American Athletic,fpi,-14.58
+Rice,rice,American Athletic,sp_plus,-14.2
+Rice,rice,American Athletic,srs,-11.5
+Rice,rice,American Athletic,talent,-7.5034
+Rice,rice,American Athletic,meta:elo_raw,1129.0
+Rice,rice,American Athletic,meta:fpi_defense,35.743
+Rice,rice,American Athletic,meta:fpi_offense,34.169
+Rice,rice,American Athletic,meta:fpi_special,36.728
+Rice,rice,American Athletic,meta:returning_ppa,32.7
+Rice,rice,American Athletic,meta:sp_defense,33.2
+Rice,rice,American Athletic,meta:sp_offense,19.3
+Rice,rice,American Athletic,meta:sp_special,-0.3
+Rice,rice,American Athletic,meta:talent_raw,589.89
+Eastern Michigan,eastern michigan,Mid-American,efficiency,-16.8682
+Eastern Michigan,eastern michigan,Mid-American,elo,-13.7368
+Eastern Michigan,eastern michigan,Mid-American,fpi,-16.308
+Eastern Michigan,eastern michigan,Mid-American,sp_plus,-14.6
+Eastern Michigan,eastern michigan,Mid-American,srs,-14.4
+Eastern Michigan,eastern michigan,Mid-American,talent,-8.3487
+Eastern Michigan,eastern michigan,Mid-American,meta:elo_raw,1219.0
+Eastern Michigan,eastern michigan,Mid-American,meta:fpi_defense,39.106
+Eastern Michigan,eastern michigan,Mid-American,meta:fpi_offense,24.696
+Eastern Michigan,eastern michigan,Mid-American,meta:fpi_special,43.708
+Eastern Michigan,eastern michigan,Mid-American,meta:returning_ppa,228.5
+Eastern Michigan,eastern michigan,Mid-American,meta:sp_defense,31.9
+Eastern Michigan,eastern michigan,Mid-American,meta:sp_offense,17.3
+Eastern Michigan,eastern michigan,Mid-American,meta:sp_special,0.0
+Eastern Michigan,eastern michigan,Mid-American,meta:talent_raw,580.64
+Old Dominion,old dominion,Sun Belt,efficiency,-12.4274
+Old Dominion,old dominion,Sun Belt,elo,-16.0937
+Old Dominion,old dominion,Sun Belt,fpi,-15.343
+Old Dominion,old dominion,Sun Belt,sp_plus,-14.7
+Old Dominion,old dominion,Sun Belt,srs,-17.7
+Old Dominion,old dominion,Sun Belt,talent,-11.674
+Old Dominion,old dominion,Sun Belt,meta:elo_raw,1171.0
+Old Dominion,old dominion,Sun Belt,meta:fpi_defense,60.207
+Old Dominion,old dominion,Sun Belt,meta:fpi_offense,9.915
+Old Dominion,old dominion,Sun Belt,meta:fpi_special,32.067
+Old Dominion,old dominion,Sun Belt,meta:returning_ppa,32.8
+Old Dominion,old dominion,Sun Belt,meta:sp_defense,27.5
+Old Dominion,old dominion,Sun Belt,meta:sp_offense,13.4
+Old Dominion,old dominion,Sun Belt,meta:sp_special,-0.6
+Old Dominion,old dominion,Sun Belt,meta:talent_raw,544.25
+Middle Tennessee,middle tennessee,Conference USA,efficiency,-14.8151
+Middle Tennessee,middle tennessee,Conference USA,elo,-16.0446
+Middle Tennessee,middle tennessee,Conference USA,fpi,-16.046
+Middle Tennessee,middle tennessee,Conference USA,sp_plus,-15.2
+Middle Tennessee,middle tennessee,Conference USA,srs,-13.6
+Middle Tennessee,middle tennessee,Conference USA,talent,-9.1839
+Middle Tennessee,middle tennessee,Conference USA,meta:elo_raw,1172.0
+Middle Tennessee,middle tennessee,Conference USA,meta:fpi_defense,33.2
+Middle Tennessee,middle tennessee,Conference USA,meta:fpi_offense,35.267
+Middle Tennessee,middle tennessee,Conference USA,meta:fpi_special,43.139
+Middle Tennessee,middle tennessee,Conference USA,meta:returning_ppa,70.8
+Middle Tennessee,middle tennessee,Conference USA,meta:sp_defense,33.7
+Middle Tennessee,middle tennessee,Conference USA,meta:sp_offense,18.1
+Middle Tennessee,middle tennessee,Conference USA,meta:sp_special,0.4
+Middle Tennessee,middle tennessee,Conference USA,meta:talent_raw,571.5
+Southern Miss,southern miss,Sun Belt,efficiency,-12.5601
+Southern Miss,southern miss,Sun Belt,elo,-14.817
+Southern Miss,southern miss,Sun Belt,fpi,-13.573
+Southern Miss,southern miss,Sun Belt,sp_plus,-16.0
+Southern Miss,southern miss,Sun Belt,srs,-16.1
+Southern Miss,southern miss,Sun Belt,talent,-6.3392
+Southern Miss,southern miss,Sun Belt,meta:elo_raw,1197.0
+Southern Miss,southern miss,Sun Belt,meta:fpi_defense,39.131
+Southern Miss,southern miss,Sun Belt,meta:fpi_offense,28.109
+Southern Miss,southern miss,Sun Belt,meta:fpi_special,37.317
+Southern Miss,southern miss,Sun Belt,meta:returning_ppa,289.4
+Southern Miss,southern miss,Sun Belt,meta:sp_defense,35.6
+Southern Miss,southern miss,Sun Belt,meta:sp_offense,20.2
+Southern Miss,southern miss,Sun Belt,meta:sp_special,-0.6
+Southern Miss,southern miss,Sun Belt,meta:talent_raw,602.63
+Central Michigan,central michigan,Mid-American,efficiency,-15.1057
+Central Michigan,central michigan,Mid-American,elo,-13.4913
+Central Michigan,central michigan,Mid-American,fpi,-14.326
+Central Michigan,central michigan,Mid-American,sp_plus,-16.7
+Central Michigan,central michigan,Mid-American,srs,-12.2
+Central Michigan,central michigan,Mid-American,talent,-12.0615
+Central Michigan,central michigan,Mid-American,meta:elo_raw,1224.0
+Central Michigan,central michigan,Mid-American,meta:fpi_defense,41.034
+Central Michigan,central michigan,Mid-American,meta:fpi_offense,18.352
+Central Michigan,central michigan,Mid-American,meta:fpi_special,43.237
+Central Michigan,central michigan,Mid-American,meta:returning_ppa,134.9
+Central Michigan,central michigan,Mid-American,meta:sp_defense,31.3
+Central Michigan,central michigan,Mid-American,meta:sp_offense,15.0
+Central Michigan,central michigan,Mid-American,meta:sp_special,-0.5
+Central Michigan,central michigan,Mid-American,meta:talent_raw,540.01
+Missouri State,missouri state,Conference USA,efficiency,-20.755
+Missouri State,missouri state,Conference USA,elo,-13.2458
+Missouri State,missouri state,Conference USA,fpi,-16.859
+Missouri State,missouri state,Conference USA,sp_plus,-16.9
+Missouri State,missouri state,Conference USA,srs,-17.1
+Missouri State,missouri state,Conference USA,talent,-11.1559
+Missouri State,missouri state,Conference USA,meta:elo_raw,1229.0
+Missouri State,missouri state,Conference USA,meta:fpi_defense,28.313
+Missouri State,missouri state,Conference USA,meta:fpi_offense,33.36
+Missouri State,missouri state,Conference USA,meta:fpi_special,47.839
+Missouri State,missouri state,Conference USA,meta:returning_ppa,98.9
+Missouri State,missouri state,Conference USA,meta:sp_defense,35.4
+Missouri State,missouri state,Conference USA,meta:sp_offense,19.0
+Missouri State,missouri state,Conference USA,meta:sp_special,-0.6
+Missouri State,missouri state,Conference USA,meta:talent_raw,549.92
+Sam Houston,sam houston,Conference USA,efficiency,-16.9911
+Sam Houston,sam houston,Conference USA,elo,-21.4458
+Sam Houston,sam houston,Conference USA,fpi,-17.62
+Sam Houston,sam houston,Conference USA,sp_plus,-18.0
+Sam Houston,sam houston,Conference USA,srs,-14.3
+Sam Houston,sam houston,Conference USA,talent,-10.7401
+Sam Houston,sam houston,Conference USA,meta:elo_raw,1062.0
+Sam Houston,sam houston,Conference USA,meta:fpi_defense,48.774
+Sam Houston,sam houston,Conference USA,meta:fpi_offense,20.349
+Sam Houston,sam houston,Conference USA,meta:fpi_special,48.669
+Sam Houston,sam houston,Conference USA,meta:returning_ppa,38.1
+Sam Houston,sam houston,Conference USA,meta:sp_defense,31.6
+Sam Houston,sam houston,Conference USA,meta:sp_offense,13.9
+Sam Houston,sam houston,Conference USA,meta:sp_special,-0.4
+Sam Houston,sam houston,Conference USA,meta:talent_raw,554.47
+Bowling Green,bowling green,Mid-American,efficiency,-18.4726
+Bowling Green,bowling green,Mid-American,elo,-13.1476
+Bowling Green,bowling green,Mid-American,fpi,-17.862
+Bowling Green,bowling green,Mid-American,sp_plus,-18.2
+Bowling Green,bowling green,Mid-American,srs,-15.0
+Bowling Green,bowling green,Mid-American,talent,-9.4736
+Bowling Green,bowling green,Mid-American,meta:elo_raw,1231.0
+Bowling Green,bowling green,Mid-American,meta:fpi_defense,35.849
+Bowling Green,bowling green,Mid-American,meta:fpi_offense,19.182
+Bowling Green,bowling green,Mid-American,meta:fpi_special,36.681
+Bowling Green,bowling green,Mid-American,meta:returning_ppa,-7.1
+Bowling Green,bowling green,Mid-American,meta:sp_defense,33.5
+Bowling Green,bowling green,Mid-American,meta:sp_offense,15.4
+Bowling Green,bowling green,Mid-American,meta:sp_special,-0.1
+Bowling Green,bowling green,Mid-American,meta:talent_raw,568.33
+Ball State,ball state,Mid-American,efficiency,-11.8614
+Ball State,ball state,Mid-American,elo,-19.6781
+Ball State,ball state,Mid-American,fpi,-20.077
+Ball State,ball state,Mid-American,sp_plus,-20.1
+Ball State,ball state,Mid-American,srs,-14.8
+Ball State,ball state,Mid-American,talent,-9.8802
+Ball State,ball state,Mid-American,meta:elo_raw,1098.0
+Ball State,ball state,Mid-American,meta:fpi_defense,21.173
+Ball State,ball state,Mid-American,meta:fpi_offense,36.057
+Ball State,ball state,Mid-American,meta:fpi_special,46.025
+Ball State,ball state,Mid-American,meta:returning_ppa,5.6
+Ball State,ball state,Mid-American,meta:sp_defense,37.1
+Ball State,ball state,Mid-American,meta:sp_offense,17.5
+Ball State,ball state,Mid-American,meta:sp_special,-0.4
+Ball State,ball state,Mid-American,meta:talent_raw,563.88
+Kent State,kent state,Mid-American,efficiency,-19.5627
+Kent State,kent state,Mid-American,elo,-23.2134
+Kent State,kent state,Mid-American,fpi,-20.967
+Kent State,kent state,Mid-American,sp_plus,-21.3
+Kent State,kent state,Mid-American,srs,-14.4
+Kent State,kent state,Mid-American,talent,-13.6314
+Kent State,kent state,Mid-American,meta:elo_raw,1026.0
+Kent State,kent state,Mid-American,meta:fpi_defense,41.838
+Kent State,kent state,Mid-American,meta:fpi_offense,17.583
+Kent State,kent state,Mid-American,meta:fpi_special,29.766
+Kent State,kent state,Mid-American,meta:returning_ppa,108.3
+Kent State,kent state,Mid-American,meta:sp_defense,33.7
+Kent State,kent state,Mid-American,meta:sp_offense,13.1
+Kent State,kent state,Mid-American,meta:sp_special,-0.6
+Kent State,kent state,Mid-American,meta:talent_raw,522.83
+UL Monroe,ul monroe,Sun Belt,efficiency,-23.4119
+UL Monroe,ul monroe,Sun Belt,elo,-22.7224
+UL Monroe,ul monroe,Sun Belt,fpi,-25.263
+UL Monroe,ul monroe,Sun Belt,sp_plus,-24.2
+UL Monroe,ul monroe,Sun Belt,srs,-22.6
+UL Monroe,ul monroe,Sun Belt,talent,-15.216
+UL Monroe,ul monroe,Sun Belt,meta:elo_raw,1036.0
+UL Monroe,ul monroe,Sun Belt,meta:fpi_defense,23.377
+UL Monroe,ul monroe,Sun Belt,meta:fpi_offense,18.056
+UL Monroe,ul monroe,Sun Belt,meta:fpi_special,37.437
+UL Monroe,ul monroe,Sun Belt,meta:returning_ppa,63.5
+UL Monroe,ul monroe,Sun Belt,meta:sp_defense,38.2
+UL Monroe,ul monroe,Sun Belt,meta:sp_offense,14.7
+UL Monroe,ul monroe,Sun Belt,meta:sp_special,-0.7
+UL Monroe,ul monroe,Sun Belt,meta:talent_raw,505.49
+UTEP,utep,Mountain West,efficiency,-29.7092
+UTEP,utep,Mountain West,elo,-24.8829
+UTEP,utep,Mountain West,fpi,-24.219
+UTEP,utep,Mountain West,sp_plus,-24.5
+UTEP,utep,Mountain West,srs,-21.6
+UTEP,utep,Mountain West,talent,-7.8808
+UTEP,utep,Mountain West,meta:elo_raw,992.0
+UTEP,utep,Mountain West,meta:fpi_defense,26.188
+UTEP,utep,Mountain West,meta:fpi_offense,16.34
+UTEP,utep,Mountain West,meta:fpi_special,29.878
+UTEP,utep,Mountain West,meta:returning_ppa,-0.9
+UTEP,utep,Mountain West,meta:sp_defense,36.6
+UTEP,utep,Mountain West,meta:sp_offense,12.7
+UTEP,utep,Mountain West,meta:sp_special,-0.6
+UTEP,utep,Mountain West,meta:talent_raw,585.76
+Akron,akron,Mid-American,efficiency,-16.3298
+Akron,akron,Mid-American,elo,-31.9045
+Akron,akron,Mid-American,fpi,-23.168
+Akron,akron,Mid-American,sp_plus,-25.1
+Akron,akron,Mid-American,srs,-22.0
+Akron,akron,Mid-American,talent,-11.4374
+Akron,akron,Mid-American,meta:elo_raw,849.0
+Akron,akron,Mid-American,meta:fpi_defense,18.537
+Akron,akron,Mid-American,meta:fpi_offense,27.232
+Akron,akron,Mid-American,meta:fpi_special,34.674
+Akron,akron,Mid-American,meta:returning_ppa,158.8
+Akron,akron,Mid-American,meta:sp_defense,38.4
+Akron,akron,Mid-American,meta:sp_offense,13.9
+Akron,akron,Mid-American,meta:sp_special,-0.7
+Akron,akron,Mid-American,meta:talent_raw,546.84
+Northern Illinois,northern illinois,Mountain West,efficiency,-22.705
+Northern Illinois,northern illinois,Mountain West,elo,-21.2985
+Northern Illinois,northern illinois,Mountain West,fpi,-22.802
+Northern Illinois,northern illinois,Mountain West,sp_plus,-25.4
+Northern Illinois,northern illinois,Mountain West,srs,-23.9
+Northern Illinois,northern illinois,Mountain West,talent,-12.3749
+Northern Illinois,northern illinois,Mountain West,meta:elo_raw,1065.0
+Northern Illinois,northern illinois,Mountain West,meta:fpi_defense,18.389
+Northern Illinois,northern illinois,Mountain West,meta:fpi_offense,23.729
+Northern Illinois,northern illinois,Mountain West,meta:fpi_special,26.791
+Northern Illinois,northern illinois,Mountain West,meta:returning_ppa,35.8
+Northern Illinois,northern illinois,Mountain West,meta:sp_defense,38.4
+Northern Illinois,northern illinois,Mountain West,meta:sp_offense,13.5
+Northern Illinois,northern illinois,Mountain West,meta:sp_special,-0.5
+Northern Illinois,northern illinois,Mountain West,meta:talent_raw,536.58
+Charlotte,charlotte,American Athletic,efficiency,-27.4905
+Charlotte,charlotte,American Athletic,elo,-23.2134
+Charlotte,charlotte,American Athletic,fpi,-21.963
+Charlotte,charlotte,American Athletic,sp_plus,-25.4
+Charlotte,charlotte,American Athletic,srs,-24.8
+Charlotte,charlotte,American Athletic,talent,-8.7023
+Charlotte,charlotte,American Athletic,meta:elo_raw,1026.0
+Charlotte,charlotte,American Athletic,meta:fpi_defense,26.196
+Charlotte,charlotte,American Athletic,meta:fpi_offense,17.985
+Charlotte,charlotte,American Athletic,meta:fpi_special,46.861
+Charlotte,charlotte,American Athletic,meta:returning_ppa,53.6
+Charlotte,charlotte,American Athletic,meta:sp_defense,40.7
+Charlotte,charlotte,American Athletic,meta:sp_offense,15.5
+Charlotte,charlotte,American Athletic,meta:sp_special,-0.2
+Charlotte,charlotte,American Athletic,meta:talent_raw,576.77
+Sacramento State,sacramento state,Mid-American,efficiency,-25.8815
+Sacramento State,sacramento state,Mid-American,elo,-25.1775
+Sacramento State,sacramento state,Mid-American,fpi,-33.166
+Sacramento State,sacramento state,Mid-American,sp_plus,-29.1
+Sacramento State,sacramento state,Mid-American,srs,-28.9
+Sacramento State,sacramento state,Mid-American,talent,-10.105
+Sacramento State,sacramento state,Mid-American,meta:elo_raw,986.0
+Sacramento State,sacramento state,Mid-American,meta:fpi_defense,13.801
+Sacramento State,sacramento state,Mid-American,meta:fpi_offense,7.829
+Sacramento State,sacramento state,Mid-American,meta:fpi_special,61.627
+Sacramento State,sacramento state,Mid-American,meta:sp_defense,39.2
+Sacramento State,sacramento state,Mid-American,meta:sp_offense,10.4
+Sacramento State,sacramento state,Mid-American,meta:sp_special,-0.4
+Sacramento State,sacramento state,Mid-American,meta:talent_raw,561.42
+Austin Peay,austin peay,UAC,efficiency,-0.2043
+Austin Peay,austin peay,UAC,srs,-5.9
+Tennessee Tech,tennessee tech,Southern,efficiency,5.3749
+Tennessee Tech,tennessee tech,Southern,srs,-8.4
+Stephen F. Austin,stephen f austin,Southland,efficiency,13.8352
+Stephen F. Austin,stephen f austin,Southland,srs,-10.3
+North Dakota,north dakota,MVFC,efficiency,1.8769
+North Dakota,north dakota,MVFC,srs,-11.3
+Illinois State,illinois state,MVFC,efficiency,2.1872
+Illinois State,illinois state,MVFC,srs,-11.5
+South Dakota,south dakota,MVFC,efficiency,2.4355
+South Dakota,south dakota,MVFC,srs,-11.5
+South Dakota State,south dakota state,MVFC,efficiency,12.3083
+South Dakota State,south dakota state,MVFC,srs,-12.5
+Youngstown State,youngstown state,MVFC,efficiency,8.2468
+Youngstown State,youngstown state,MVFC,srs,-13.9
+Montana State,montana state,Big Sky,efficiency,9.5168
+Montana State,montana state,Big Sky,srs,-14.0
+Gardner-Webb,gardner webb,OVC,efficiency,-5.7952
+Gardner-Webb,gardner webb,OVC,srs,-15.3
+Tarleton State,tarleton state,UAC,efficiency,2.8689
+Tarleton State,tarleton state,UAC,srs,-16.3
+Idaho State,idaho state,Big Sky,efficiency,-9.9521
+Idaho State,idaho state,Big Sky,srs,-16.6
+West Florida,west florida,UAC,efficiency,-7.9838
+West Florida,west florida,UAC,srs,-17.1
+Lehigh,lehigh,Patriot,efficiency,-3.6703
+Lehigh,lehigh,Patriot,srs,-17.3
+Southern Illinois,southern illinois,MVFC,efficiency,-16.1581
+Southern Illinois,southern illinois,MVFC,srs,-19.3
+Montana,montana,Big Sky,efficiency,-6.5658
+Montana,montana,Big Sky,srs,-19.6
+Harvard,harvard,Ivy,efficiency,3.5501
+Harvard,harvard,Ivy,srs,-19.8
+Princeton,princeton,Ivy,efficiency,-10.655
+Princeton,princeton,Ivy,srs,-19.9
+Colgate,colgate,Patriot,efficiency,-6.6776
+Colgate,colgate,Patriot,srs,-20.1
+Southeast Missouri State,southeast missouri state,OVC,efficiency,-9.5233
+Southeast Missouri State,southeast missouri state,OVC,srs,-21.3
+Campbell,campbell,Coastal Athletic,efficiency,-8.3998
+Campbell,campbell,Coastal Athletic,srs,-21.5
+Chattanooga,chattanooga,Southern,efficiency,-7.3658
+Chattanooga,chattanooga,Southern,srs,-22.4
+North Alabama,north alabama,UAC,efficiency,-6.7793
+North Alabama,north alabama,UAC,srs,-23.4
+Wofford,wofford,Southern,efficiency,-13.2128
+Wofford,wofford,Southern,srs,-24.3
+Bryant,bryant,Coastal Athletic,efficiency,-16.5624
+Bryant,bryant,Coastal Athletic,srs,-24.4
+Western Illinois,western illinois,OVC,efficiency,3.6676
+Western Illinois,western illinois,OVC,srs,-24.5
+South Carolina State,south carolina state,MEAC,efficiency,8.1595
+South Carolina State,south carolina state,MEAC,srs,-24.8
+Lamar,lamar,Southland,efficiency,-2.5154
+Lamar,lamar,Southland,srs,-24.9
+Indiana State,indiana state,MVFC,efficiency,-17.9229
+Indiana State,indiana state,MVFC,srs,-25.0
+Dartmouth,dartmouth,Ivy,efficiency,-10.1187
+Dartmouth,dartmouth,Ivy,srs,-25.1
+Northern Iowa,northern iowa,MVFC,efficiency,-13.6071
+Northern Iowa,northern iowa,MVFC,srs,-25.1
+Northern Arizona,northern arizona,Big Sky,efficiency,-16.3913
+Northern Arizona,northern arizona,Big Sky,srs,-25.6
+Stony Brook,stony brook,Coastal Athletic,efficiency,-10.9299
+Stony Brook,stony brook,Coastal Athletic,srs,-25.7
+Monmouth,monmouth,Coastal Athletic,efficiency,-1.6161
+Monmouth,monmouth,Coastal Athletic,srs,-25.8
+Cornell,cornell,Ivy,efficiency,-12.3073
+Cornell,cornell,Ivy,srs,-26.7
+East Tennessee State,east tennessee state,Southern,efficiency,-8.8427
+East Tennessee State,east tennessee state,Southern,srs,-27.6
+Northern Colorado,northern colorado,Big Sky,efficiency,-23.315
+Northern Colorado,northern colorado,Big Sky,srs,-27.7
+Southern Utah,southern utah,Big Sky,efficiency,-11.3336
+Southern Utah,southern utah,Big Sky,srs,-27.8
+UT Rio Grande Valley,ut rio grande valley,Southland,efficiency,-12.5682
+UT Rio Grande Valley,ut rio grande valley,Southland,srs,-27.8
+SE Louisiana,se louisiana,Southland,efficiency,-17.2552
+SE Louisiana,se louisiana,Southland,srs,-28.4
+Furman,furman,Southern,efficiency,-16.9159
+Furman,furman,Southern,srs,-28.6
+St. Thomas (MN),state thomas mn,Pioneer,efficiency,-3.4365
+St. Thomas (MN),state thomas mn,Pioneer,srs,-28.9
+Eastern Washington,eastern washington,Big Sky,efficiency,-22.4804
+Eastern Washington,eastern washington,Big Sky,srs,-29.5
+Alabama A&M,alabama a and m,SWAC,efficiency,9.4831
+Alabama A&M,alabama a and m,SWAC,srs,-29.8
+Samford,samford,Southern,efficiency,-23.8373
+Samford,samford,Southern,srs,-29.9
+Abilene Christian,abilene christian,UAC,efficiency,-9.783
+Abilene Christian,abilene christian,UAC,srs,-30.1
+Rhode Island,rhode island,Coastal Athletic,efficiency,-12.0831
+Rhode Island,rhode island,Coastal Athletic,srs,-30.2
+UAlbany,ualbany,Coastal Athletic,efficiency,-4.9317
+UAlbany,ualbany,Coastal Athletic,srs,-30.3
+Prairie View A&M,prairie view a and m,SWAC,efficiency,-21.7464
+Prairie View A&M,prairie view a and m,SWAC,srs,-30.5
+Pennsylvania,pennsylvania,Ivy,efficiency,-11.6218
+Pennsylvania,pennsylvania,Ivy,srs,-30.8
+Mercer,mercer,Southern,efficiency,-2.5977
+Mercer,mercer,Southern,srs,-30.9
+McNeese,mcneese,Southland,efficiency,-15.2447
+McNeese,mcneese,Southland,srs,-30.9
+Brown,brown,Ivy,efficiency,-12.1039
+Brown,brown,Ivy,srs,-31.1
+Central Arkansas,central arkansas,UAC,efficiency,-11.3632
+Central Arkansas,central arkansas,UAC,srs,-31.4
+UC Davis,uc davis,Big Sky,efficiency,-14.0212
+UC Davis,uc davis,Big Sky,srs,-32.0
+Fordham,fordham,Patriot,efficiency,-35.6079
+Fordham,fordham,Patriot,srs,-32.2
+Sacred Heart,sacred heart,Coastal Athletic,efficiency,-21.3502
+Sacred Heart,sacred heart,Coastal Athletic,srs,-32.2
+Idaho,idaho,Big Sky,efficiency,-14.0923
+Idaho,idaho,Big Sky,srs,-32.4
+Weber State,weber state,Big Sky,efficiency,-13.1062
+Weber State,weber state,Big Sky,srs,-32.5
+Cal Poly,cal poly,Big Sky,efficiency,-22.0054
+Cal Poly,cal poly,Big Sky,srs,-32.5
+UT Martin,ut martin,OVC,efficiency,-19.3864
+UT Martin,ut martin,OVC,srs,-32.9
+Central Connecticut,central connecticut,NEC,efficiency,-12.8219
+Central Connecticut,central connecticut,NEC,srs,-33.1
+Yale,yale,Ivy,efficiency,-6.9576
+Yale,yale,Ivy,srs,-33.3
+Elon,elon,Coastal Athletic,efficiency,-18.0429
+Elon,elon,Coastal Athletic,srs,-33.7
+Houston Christian,houston christian,Southland,efficiency,-17.7917
+Houston Christian,houston christian,Southland,srs,-33.9
+Stonehill,stonehill,NEC,efficiency,-15.7913
+Stonehill,stonehill,NEC,srs,-34.5
+Charleston Southern,charleston southern,OVC,efficiency,-8.8174
+Charleston Southern,charleston southern,OVC,srs,-34.8
+Incarnate Word,incarnate word,Southland,efficiency,2.8698
+Incarnate Word,incarnate word,Southland,srs,-35.1
+Richmond,richmond,Patriot,efficiency,-23.9862
+Richmond,richmond,Patriot,srs,-35.1
+Bethune-Cookman,bethune cookman,SWAC,efficiency,-12.1619
+Bethune-Cookman,bethune cookman,SWAC,srs,-35.7
+Norfolk State,norfolk state,MEAC,efficiency,-11.9402
+Norfolk State,norfolk state,MEAC,srs,-35.7
+Jackson State,jackson state,SWAC,efficiency,-4.5964
+Jackson State,jackson state,SWAC,srs,-35.8
+Robert Morris,robert morris,NEC,efficiency,-16.9358
+Robert Morris,robert morris,NEC,srs,-36.0
+Delaware State,delaware state,MEAC,efficiency,-21.4721
+Delaware State,delaware state,MEAC,srs,-36.1
+East Texas A&M,east texas a and m,Southland,efficiency,-13.5437
+East Texas A&M,east texas a and m,Southland,srs,-36.3
+Western Carolina,western carolina,Southern,efficiency,-11.4655
+Western Carolina,western carolina,Southern,srs,-36.4
+Portland State,portland state,Big Sky,efficiency,-28.1608
+Portland State,portland state,Big Sky,srs,-36.5
+Dayton,dayton,Pioneer,efficiency,-13.6465
+Dayton,dayton,Pioneer,srs,-36.6
+Morgan State,morgan state,MEAC,efficiency,-17.3076
+Morgan State,morgan state,MEAC,srs,-36.8
+Alabama State,alabama state,SWAC,efficiency,-13.802
+Alabama State,alabama state,SWAC,srs,-37.1
+Lindenwood,lindenwood,OVC,efficiency,-20.3499
+Lindenwood,lindenwood,OVC,srs,-37.2
+Villanova,villanova,Patriot,efficiency,-18.0652
+Villanova,villanova,Patriot,srs,-38.0
+Eastern Illinois,eastern illinois,OVC,efficiency,-25.4904
+Eastern Illinois,eastern illinois,OVC,srs,-38.2
+Butler,butler,Pioneer,efficiency,-6.531
+Butler,butler,Pioneer,srs,-38.6
+The Citadel,the citadel,Southern,efficiency,-21.8731
+The Citadel,the citadel,Southern,srs,-39.4
+Howard,howard,MEAC,efficiency,-19.1707
+Howard,howard,MEAC,srs,-39.7
+Columbia,columbia,Ivy,efficiency,-19.1306
+Columbia,columbia,Ivy,srs,-40.1
+William & Mary,william and mary,Patriot,efficiency,-42.248
+William & Mary,william and mary,Patriot,srs,-40.8
+Grambling,grambling,SWAC,efficiency,-19.3756
+Grambling,grambling,SWAC,srs,-41.0
+New Hampshire,new hampshire,Coastal Athletic,efficiency,-22.3937
+New Hampshire,new hampshire,Coastal Athletic,srs,-41.5
+Arkansas-Pine Bluff,arkansas pine bluff,SWAC,efficiency,-12.8281
+Arkansas-Pine Bluff,arkansas pine bluff,SWAC,srs,-41.6
+Merrimack,merrimack,FCS Independents,efficiency,-12.8039
+Merrimack,merrimack,FCS Independents,srs,-41.6
+Long Island University,long island university,NEC,efficiency,-27.7218
+Long Island University,long island university,NEC,srs,-41.6
+Utah Tech,utah tech,Big Sky,efficiency,-30.1625
+Utah Tech,utah tech,Big Sky,srs,-41.8
+Holy Cross,holy cross,Patriot,efficiency,-22.2141
+Holy Cross,holy cross,Patriot,srs,-41.9
+Eastern Kentucky,eastern kentucky,UAC,efficiency,-20.1214
+Eastern Kentucky,eastern kentucky,UAC,srs,-42.1
+Georgetown,georgetown,Patriot,efficiency,-29.8351
+Georgetown,georgetown,Patriot,srs,-42.2
+Tennessee State,tennessee state,OVC,efficiency,-20.2747
+Tennessee State,tennessee state,OVC,srs,-42.6
+Towson,towson,Coastal Athletic,efficiency,-18.5124
+Towson,towson,Coastal Athletic,srs,-42.6
+Marist,marist,Pioneer,efficiency,-18.5111
+Marist,marist,Pioneer,srs,-43.0
+North Carolina A&T,north carolina a and t,Coastal Athletic,efficiency,-23.4721
+North Carolina A&T,north carolina a and t,Coastal Athletic,srs,-43.1
+Morehead State,morehead state,Pioneer,efficiency,-41.2469
+Morehead State,morehead state,Pioneer,srs,-43.2
+North Carolina Central,north carolina central,MEAC,efficiency,-25.1865
+North Carolina Central,north carolina central,MEAC,srs,-43.4
+Duquesne,duquesne,NEC,efficiency,-21.5816
+Duquesne,duquesne,NEC,srs,-44.1
+West Georgia,west georgia,UAC,efficiency,-28.6033
+West Georgia,west georgia,UAC,srs,-44.1
+Bucknell,bucknell,Patriot,efficiency,-35.1611
+Bucknell,bucknell,Patriot,srs,-44.2
+Maine,maine,Coastal Athletic,efficiency,-32.2671
+Maine,maine,Coastal Athletic,srs,-44.4
+Murray State,murray state,MVFC,efficiency,-31.6994
+Murray State,murray state,MVFC,srs,-44.7
+New Haven,new haven,NEC,efficiency,-19.8736
+New Haven,new haven,NEC,srs,-45.3
+Florida A&M,florida a and m,SWAC,efficiency,-20.7436
+Florida A&M,florida a and m,SWAC,srs,-46.0
+Alcorn State,alcorn state,SWAC,efficiency,-10.8455
+Alcorn State,alcorn state,SWAC,srs,-46.2
+Drake,drake,Pioneer,efficiency,-27.4127
+Drake,drake,Pioneer,srs,-46.9
+Lafayette,lafayette,Patriot,efficiency,-26.5067
+Lafayette,lafayette,Patriot,srs,-47.0
+San Diego,san diego,Pioneer,efficiency,-23.8292
+San Diego,san diego,Pioneer,srs,-47.1
+Nicholls,nicholls,Southland,efficiency,-36.5813
+Nicholls,nicholls,Southland,srs,-47.2
+Valparaiso,valparaiso,Pioneer,efficiency,-21.1116
+Valparaiso,valparaiso,Pioneer,srs,-47.6
+Southern,southern,SWAC,efficiency,-24.0955
+Southern,southern,SWAC,srs,-49.1
+Texas Southern,texas southern,SWAC,efficiency,-25.6704
+Texas Southern,texas southern,SWAC,srs,-49.4
+Wagner,wagner,NEC,efficiency,-41.0082
+Wagner,wagner,NEC,srs,-50.4
+Mercyhurst,mercyhurst,NEC,efficiency,-31.183
+Mercyhurst,mercyhurst,NEC,srs,-52.1
+Hampton,hampton,Coastal Athletic,efficiency,-36.7884
+Hampton,hampton,Coastal Athletic,srs,-52.2
+Stetson,stetson,Pioneer,efficiency,-36.5937
+Stetson,stetson,Pioneer,srs,-52.9
+VMI,vmi,Southern,efficiency,-56.2793
+VMI,vmi,Southern,srs,-54.5
+Northwestern State,northwestern state,Southland,efficiency,-35.1203
+Northwestern State,northwestern state,Southland,srs,-58.2
+Davidson,davidson,Pioneer,efficiency,-45.6647
+Davidson,davidson,Pioneer,srs,-61.4
+Chicago State,chicago state,FCS Independents,efficiency,-28.9009
+Chicago State,chicago state,FCS Independents,srs,-61.7
+Presbyterian,presbyterian,Pioneer,efficiency,-24.3427
+Presbyterian,presbyterian,Pioneer,srs,-64.8
+Mississippi Valley State,mississippi valley state,SWAC,efficiency,-30.3673
+Mississippi Valley State,mississippi valley state,SWAC,srs,-70.4
+albany state,albany state,,efficiency,-14.3232
+american international,american international,,efficiency,-30.197
+anderson sc,anderson sc,,efficiency,-22.5313
+arkansas baptist,arkansas baptist,,efficiency,-51.7657
+bowie state,bowie state,,efficiency,-32.2343
+central oklahoma,central oklahoma,,efficiency,-22.5959
+central state,central state,,efficiency,-19.3687
+central washington,central washington,,efficiency,-12.9784
+clark atlanta,clark atlanta,,efficiency,-26.0099
+concord,concord,,efficiency,-9.4294
+delta state,delta state,,efficiency,-1.7412
+dickinson,dickinson,,efficiency,-24.9967
+edward waters,edward waters,,efficiency,-27.6719
+elizabeth city state,elizabeth city state,,efficiency,-20.5233
+fairmont state,fairmont state,,efficiency,-14.3312
+fort valley state,fort valley state,,efficiency,-33.4894
+franklin,franklin,,efficiency,-36.7767
+franklin pierce,franklin pierce,,efficiency,-28.3304
+glenville state,glenville state,,efficiency,-31.4107
+kentucky christian,kentucky christian,,efficiency,-46.5743
+kentucky state,kentucky state,,efficiency,-20.7446
+lane college,lane college,,efficiency,-19.3645
+lincoln pa,lincoln pa,,efficiency,-19.6406
+louisiana christian,louisiana christian,,efficiency,-22.2594
+miles,miles,,efficiency,-26.2298
+morehouse,morehouse,,efficiency,-21.1964
+northeastern state,northeastern state,,efficiency,-16.8621
+northern michigan,northern michigan,,efficiency,-19.2294
+northwestern ia,northwestern ia,,efficiency,-26.413
+ohio dominican,ohio dominican,,efficiency,-12.866
+oklahoma panhandle,oklahoma panhandle,,efficiency,-34.4207
+point university,point university,,efficiency,-37.5707
+roosevelt,roosevelt,,efficiency,-5.5136
+savannah state,savannah state,,efficiency,-37.4062
+south dakota mines,south dakota mines,,efficiency,-12.3991
+southern connecticut state,southern connecticut state,,efficiency,-28.4444
+state francis il,state francis il,,efficiency,-38.1178
+texas wesleyan,texas wesleyan,,efficiency,-31.7249
+thomas more,thomas more,,efficiency,-19.3823
+tusculum,tusculum,,efficiency,-23.7888
+tuskegee,tuskegee,,efficiency,-20.3813
+university of rio grande,university of rio grande,,efficiency,-43.046
+ut permian basin,ut permian basin,,efficiency,-26.3525
+uva wise,uva wise,,efficiency,-13.9204
+virginia lynchburg,virginia lynchburg,,efficiency,-62.2286
+virginia state,virginia state,,efficiency,-30.737
+west alabama,west alabama,,efficiency,-31.458
+west virginia state,west virginia state,,efficiency,-17.2304
+winona state,winona state,,efficiency,-10.4749
+winston salem state,winston salem state,,efficiency,-27.1034

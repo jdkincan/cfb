@@ -74,12 +74,21 @@ def resolve_week(client, config: Config, season: int, now: Optional[dt.datetime]
         calendar = []
 
     candidates = []
+    wanted = (config.season_type or "regular").lower()
     for entry in calendar:
         from .sources.cfbd import pick, pick_float
 
         week = pick_float(entry, "week")
         last = parse_start(pick(entry, "lastGameStart", "last_game_start", "endDate", "end_date"))
         if week is None or last is None:
+            continue
+        # The calendar carries postseason rows too, and they restart their
+        # numbering: there is a postseason "week 1" that runs to late January.
+        # Taking the minimum across both season types makes the bowl week beat
+        # whatever regular-season week we are actually in, which silently
+        # projected week 1 for the whole back half of a season.
+        kind = str(pick(entry, "seasonType", "season_type", default="regular") or "").lower()
+        if kind and kind != wanted:
             continue
         if last >= now:
             candidates.append(int(week))
@@ -91,7 +100,7 @@ def resolve_week(client, config: Config, season: int, now: Optional[dt.datetime]
         from .sources.cfbd import pick, pick_float
 
         upcoming = []
-        for game in client.games(season):
+        for game in client.games(season, season_type=config.season_type):
             start = parse_start(pick(game, "startDate", "start_date"))
             week = pick_float(game, "week")
             if start and week is not None and start >= now:

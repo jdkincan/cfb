@@ -271,3 +271,55 @@ class TestEmailSettings:
         assert "text/html" in types
         assert message["To"] == "you@example.com"
         assert "Week 6" in message["Subject"]
+
+
+class TestWeekResolutionIgnoresThePostseason:
+    """The calendar restarts its numbering for bowls, and min() fell for it."""
+
+    def _client(self):
+        class Fake:
+            def calendar(self, season):
+                return [
+                    {"season": season, "week": 9, "seasonType": "regular",
+                     "lastGameStart": "2026-11-02T07:59:00.000Z"},
+                    {"season": season, "week": 10, "seasonType": "regular",
+                     "lastGameStart": "2026-11-09T07:59:00.000Z"},
+                    # The bowl calendar starts again at 1 and runs to January.
+                    {"season": season, "week": 1, "seasonType": "postseason",
+                     "lastGameStart": "2027-01-28T07:59:00.000Z"},
+                ]
+            def games(self, season, **kw):
+                return []
+        return Fake()
+
+    def test_the_current_regular_season_week_wins(self):
+        import datetime as dt
+        from cfbmeta.cli import resolve_week
+        from cfbmeta.config import Config
+
+        config = Config()
+        now = dt.datetime(2026, 10, 28, 20, tzinfo=dt.timezone.utc)
+        assert resolve_week(self._client(), config, 2026, now) == 9
+
+    def test_a_postseason_run_sees_the_postseason_week(self):
+        import datetime as dt
+        from cfbmeta.cli import resolve_week
+        from cfbmeta.config import Config
+
+        config = Config()
+        config.season_type = "postseason"
+        now = dt.datetime(2026, 12, 28, tzinfo=dt.timezone.utc)
+        assert resolve_week(self._client(), config, 2026, now) == 1
+
+    def test_rows_without_a_season_type_are_still_honoured(self):
+        import datetime as dt
+        from cfbmeta.cli import resolve_week
+        from cfbmeta.config import Config
+
+        class Untyped:
+            def calendar(self, season):
+                return [{"week": 9, "lastGameStart": "2026-11-02T07:59:00.000Z"}]
+            def games(self, season, **kw):
+                return []
+        now = dt.datetime(2026, 10, 28, tzinfo=dt.timezone.utc)
+        assert resolve_week(Untyped(), Config(), 2026, now) == 9
